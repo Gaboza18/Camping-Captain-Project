@@ -22,6 +22,12 @@
 				WHERE nseq=#{nseq}
 	</update>
 	
+	<!-- 총 공지사항 목록 갯수 조회 -->
+	<select id="countNoticelist" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM notice
+			WHERE admin_name LIKE '%'||#{admin_name}||'%'
+	</select>
+	
 	<!-- 페이징 처리(1~10개씩 출력) -->
 	<select id="listWithPaging" parameterType="hashMap" resultType="notice">
 	<![CDATA[
@@ -29,9 +35,9 @@
 		SELECT nseq,title,content,admin_name,indate,count
 			FROM
 				(
-				SELECT row_number() over(ORDER BY name) rn,nseq,title,content,admin_name,indate,count
+				SELECT row_number() over(ORDER BY admin_name) rn,nseq,title,content,admin_name,indate,count
 					FROM notice
-						WHERE name LIKE '%'||#{name}||'%')
+						WHERE admin_name LIKE '%'||#{admin_name}||'%'
 				)
 				WHERE rn<=#{criteria.pageNum} * #{criteria.rowsPerPage}  
 					AND rn>=(#{criteria.pageNum}-1) * #{criteria.rowsPerPage}

@@ -15,7 +15,7 @@
 		<article>
 			<h2>공지사항</h2>
 			<h3>캠핑족장 공지사항 입니다</h3>
-		
+
 			<!-- 검색 파트 -->
 			<form action="getNoticeList.do" method="post">
 				<table border="1" style="width: 50;">
@@ -39,18 +39,31 @@
 						<th width="130">작성일</th>
 						<th width="50">조회수</th>
 					</tr>
-					<c:forEach items="${noticeList}" var="noticeVO">
-						<tr>
-							<td>${noticeVO.nseq}</td>
-							<td><a href="${path}notice_detail?nseq=${noticeVO.nseq}">${noticeVO.title}</a></td>
-							<td>${noticeVO.admin_name}</td>
-							<td><fmt:formatDate value="${noticeVO.indate}" type="date" />
-							</td>
-							<td>${noticeVO.count}</td>
-						</tr>
-					</c:forEach>
+					<c:choose>
+						<c:when test="${noticeListSize<=0}">
+							<tr>
+								<td width="100%" colspan="7" align="center" height="23">
+									등록된 공지사항이 없습니다.</td>
+							</tr>
+						</c:when>
+						<c:otherwise>
+							<c:forEach items="${noticeList}" var="noticeVO">
+								<tr>
+									<td height="23" align="center">${noticeVO.nseq}</td>
+									 <a href="notice_list${pageMaker.makeQuery(pageMaker.criteria.pageNum)}&nseq=${noticeVO.nseq}"/>    
+									<td><a href="${path}notice_detail?nseq=${noticeVO.nseq}">${noticeVO.title}</a></td>
+									<td>${noticeVO.admin_name}</td>
+									<td><fmt:formatDate value="${noticeVO.indate}" type="date" />
+									</td>
+									<td>${noticeVO.count}</td>
+								</tr>
+							</c:forEach>
+							<tr><td colspan="6" style="text-align: center;"> ${paging} </td></tr>
+						</c:otherwise>
+					</c:choose>
 				</table>
 			</form>
+			<%@ include file="page_area.jsp"%>
 		</article>
 	</div>
 </body>

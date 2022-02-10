@@ -30,7 +30,7 @@
 		</tr>
 		<tr>
 			<th>작성일</th>
-			<td>${noticeVO.indate}</td>
+			<td><fmt:formatDate value="${noticeVO.indate}"/></td>
 		</tr>
 		<tr>
 			<th>조회수</th>

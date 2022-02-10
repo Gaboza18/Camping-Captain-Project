@@ -9,6 +9,8 @@ import com.camping.biz.dao.NoticeDAO;
 import com.camping.biz.dto.NoticeVO;
 import com.camping.biz.notice.NoticeService;
 
+import utils.Criteria;
+
 @Service("noticeService")
 public class NoticeServiceImpl implements NoticeService {
 
@@ -28,5 +30,15 @@ public class NoticeServiceImpl implements NoticeService {
 	@Override
 	public int updateViewCount(int nseq) {
 		return noticeDao.updateViewCount(nseq);
+	}
+
+	@Override
+	public List<NoticeVO> getListWithPaging(Criteria criteria, String admin_name) {
+		return noticeDao.getListWithPaging(criteria,admin_name);
+	}
+
+	@Override
+	public int countNoticetList(String admin_name) {
+		return noticeDao.countNoticeList(admin_name);
 	}
 }
