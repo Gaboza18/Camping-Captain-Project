@@ -17,18 +17,22 @@
 			<h3>캠핑족장 공지사항 입니다</h3>
 
 			<!-- 검색 파트 -->
-			<form action="getNoticeList.do" method="post">
-				<table border="1" style="width: 50;">
+			<form action="getBoardList.do" method="post">
+				<table border="1" style="width:700;">
 					<tr>
-						<td align="right"><select name="searchCondition">
+						<td align="right">
+							<select name="searchCondition">
 								<c:forEach items="${conditionMap}" var="option">
 									<option value="${option.value}">${option.key}</option>
 								</c:forEach>
-						</select> <input type="text" name="searchKeyword" /> <input type="submit"
-							value="검색" /></td>
+							</select>
+							<input type="text" name="searchKeyword"/>
+							<input type="submit" value="검색"/>
+						</td>
 					</tr>
 				</table>
 			</form>
+			
 			<br>
 			<form name="formm" method="get">
 				<table id="noticeList" border="1">

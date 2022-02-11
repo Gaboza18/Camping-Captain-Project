@@ -33,12 +33,13 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public List<NoticeVO> getListWithPaging(Criteria criteria, String admin_name) {
-		return noticeDao.getListWithPaging(criteria,admin_name);
+	public List<NoticeVO> getListWithPaging(Criteria criteria, String title) {
+		return noticeDao.getListWithPaging(criteria, title);
 	}
 
 	@Override
-	public int countNoticetList(String admin_name) {
-		return noticeDao.countNoticeList(admin_name);
+	public int countNoticetList(String title) {
+		return noticeDao.countNoticeList(title);
 	}
+
 }

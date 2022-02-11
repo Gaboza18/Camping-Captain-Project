@@ -16,4 +16,6 @@ public class NoticeVO {
 	private String admin_name;
 	private Timestamp indate;
 	private int count;
+	private String searchCondition;
+	private String searchKeyword;
 }

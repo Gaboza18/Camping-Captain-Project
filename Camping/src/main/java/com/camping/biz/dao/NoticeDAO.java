@@ -31,20 +31,20 @@ public class NoticeDAO {
 	public int updateViewCount(int nseq) {
 		return mybatis.update("mappings.notice-mapping.updateViewCount", nseq);
 	}
-	
+
 	// 전체 공지사항 갯수 조회
-	public int countNoticeList(String admin_name) {
-		return mybatis.selectOne("mappings.notice-mapping.countNoticelist", admin_name);
+	public int countNoticeList(String title) {
+		return mybatis.selectOne("mappings.notice-mapping.countNoticelist", title);
 	}
-	
+
 	// 페이지별 공지사항 조회
-	public List<NoticeVO> getListWithPaging(Criteria criteria, String admin_name){
-		
+	public List<NoticeVO> getListWithPaging(Criteria criteria, String title) {
+
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("criteria", criteria);
-		map.put("admin_name", admin_name);
-		
+		map.put("title", title);
+
 		return mybatis.selectList("mappings.notice-mapping.listWithPaging", map);
 	}
-	
+
 }

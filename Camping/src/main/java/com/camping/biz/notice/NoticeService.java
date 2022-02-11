@@ -17,8 +17,8 @@ public interface NoticeService {
 	public int updateViewCount(int nseq);
 	
 	// 전체 공지사항의 갯수 조회
-	public int countNoticetList(String admin_name);
+	public int countNoticetList(String title);
 	
 	// 페이지별 공지사항 조회
-	public List<NoticeVO> getListWithPaging(Criteria criteria, String admin_name);
+	public List<NoticeVO> getListWithPaging(Criteria criteria, String title);
 }
