@@ -1,15 +1,13 @@
 package com.camping.view;
 
-import java.util.LinkedHashMap;
+
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,6 +27,7 @@ public class NoticeController {
 	/*
 	 * 공지사항 조회
 	 */
+	
 	/*
 	 * @RequestMapping(value = "/notice_list", method = RequestMethod.GET) public
 	 * String noticeList(HttpSession session, Model model) {
@@ -38,6 +37,7 @@ public class NoticeController {
 	 * 
 	 * return "notice/noticeList"; }
 	 */
+	
 	/*
 	 * 공지사항 상세보기, 조회수 증가
 	 */
@@ -78,6 +78,7 @@ public class NoticeController {
 	}
 	
 	// 검색 조건 목록 설정
+	/*
 	@ModelAttribute("conditionMap")
 	public Map<String, String> searchConditionMap() {
 		Map<String, String> conditionMap = new LinkedHashMap<>();
@@ -87,6 +88,7 @@ public class NoticeController {
 		
 		return conditionMap;
 	}
+	*/
 	
 	/*
 	// 게시글 목록 조회

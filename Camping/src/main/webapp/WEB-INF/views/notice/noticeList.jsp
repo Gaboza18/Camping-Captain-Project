@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ include file="../index.jsp"%>
 
 <!DOCTYPE html>
 <html>
@@ -17,22 +18,17 @@
 			<h3>캠핑족장 공지사항 입니다</h3>
 
 			<!-- 검색 파트 -->
-			<form action="getBoardList.do" method="post">
-				<table border="1" style="width:700;">
-					<tr>
-						<td align="right">
-							<select name="searchCondition">
-								<c:forEach items="${conditionMap}" var="option">
-									<option value="${option.value}">${option.key}</option>
-								</c:forEach>
-							</select>
-							<input type="text" name="searchKeyword"/>
-							<input type="submit" value="검색"/>
-						</td>
-					</tr>
-				</table>
-			</form>
-			
+			<form name="frm" id="notice_form" method="get">
+				<table>
+			  		<tr>
+  						<td>
+      						제목 
+     					<input type="text" name="key" id="key">
+     					<input class="btn" type="button" name="btn_search" value="검색" onClick="go_search()">
+			  			</td>
+			  		</tr>
+			  	</table>
+			  </form>
 			<br>
 			<form name="formm" method="get">
 				<table id="noticeList" border="1">
@@ -53,8 +49,9 @@
 						<c:otherwise>
 							<c:forEach items="${noticeList}" var="noticeVO">
 								<tr>
-									<td height="23" align="center">${noticeVO.nseq}</td>
-									 <a href="notice_list${pageMaker.makeQuery(pageMaker.criteria.pageNum)}&nseq=${noticeVO.nseq}"/>    
+									<td height="23" align="center">${noticeVO.nseq}
+									 <a href="notice_list${pageMaker.makeQuery(pageMaker.criteria.pageNum)}&nseq=${noticeVO.nseq}"></a>
+									 </td>    
 									<td><a href="${path}notice_detail?nseq=${noticeVO.nseq}">${noticeVO.title}</a></td>
 									<td>${noticeVO.admin_name}</td>
 									<td><fmt:formatDate value="${noticeVO.indate}" type="date" />
