@@ -14,7 +14,7 @@ public class HomeController {
 	
 	
 	
-	/**
+	/*
 	 * index.html에서 메인화면 표시를 위한 index URL 요청처리
 	 */
 	

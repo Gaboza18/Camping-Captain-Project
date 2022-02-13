@@ -5,11 +5,16 @@
 <configuration>
 
 	<!-- resultType 등록 -->
-	
+	<typeAliases>
+      <typeAlias type="com.camping.biz.dto.UsersVO" alias="users" />
+      
+</typeAliases>
 
+<mappers>
 	<!-- SQL 매핑파일 등록 -->
-	
+	 <mapper resource="mappings/users-mapping.xml" />
 
+</mappers>
 </configuration>
 
 
