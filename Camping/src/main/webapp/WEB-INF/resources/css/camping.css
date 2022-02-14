@@ -1,0 +1,359 @@
+body{
+    background-color:#B96DB5;
+    margin:0;
+    padding:0;
+    font-size:0.75em;
+}
+
+#wrap{
+    width:971px; /* 揶쏉옙 占쎌럲 占쎈읂占쎌뵠筌욑옙 占쎄쾿疫꿸퀣肉� 筌띿쉳苡� 占쎄텢占쎌뵠筌앾옙 鈺곌퀣�젟 */
+    text-align:left;
+    margin:0;
+    margin-right:auto;
+    margin-left:auto;
+    background-color:#B96DB5;
+    background-repeat:repeat-y;    
+    min-height:780px;
+}
+
+.clear{clear:both;}
+
+#logo{
+    float:left;
+    width:180px;
+    height:100px;
+    margin:40px 0 0 40px;
+}
+
+nav#catagory_menu{
+	float:right;
+    margin:20px 64px 0 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+table#cartList {
+    border-collapse:collapse;    /* border 占쎄텢占쎌뵠占쎌벥 揶쏄쑨爰� 占쎈씨占쎈퉲 */
+    border-top: 2px solid  #333;    
+    border-bottom: 1px solid  #333; 
+    width:100%;                  /* 占쎌읈筌ｏ옙 占쎈�믭옙�뵠�뇡占� 疫뀀챷�뵠 占쎄퐬占쎌젟 */
+    margin-bottom: 20px;
+}
+
+table#cartList th, td{	
+    border-bottom: 1px dotted  #333; 
+	text-align: center;
+}
+
+nav#catagory_menu ul{
+    list-style:none; 
+}
+
+nav#catagory_menu ul li{
+	display:block; 
+    height:30px;
+    float:left;
+    font-family: �뤃���뵝;
+}
+
+nav#catagory_menu a{
+    text-decoration:none;
+    display:inline-block;
+    width: 80px;
+    text-align: center;
+    color: #CCC;
+    font-weight: bold;
+}
+
+nav#catagory_menu a:hover{
+    color: #F90;
+    font-weight: bold;
+}
+
+nav#top_menu{
+    margin: 20px 0;
+    float:right;
+}
+
+nav#top_menu ul{
+    list-style:none;
+    font-family:Verdana;
+}
+nav#top_menu ul li{
+   float:left;
+   margin:0 15px;  
+   font-size: 14pt; 
+}
+
+nav#top_menu a{
+	display:block; 
+    height:20px;
+    text-decoration:none;
+    color:#fff;
+    padding: 10px;
+}
+
+nav#top_menu a:hover{
+    background-image:url(../images/purple.gif);
+    background-repeat:repeat-x;
+    background-position:bottom;
+}
+
+article h1, div h1 {
+	font-family: "Times New Roman", Times, serif;
+	font-size: 45px;
+	color: #CCC;
+	margin: 20px 0;
+	font-weight: normal;
+}
+
+article h2, div h2{
+	font-family: "Times New Roman", Times, serif;
+	font-size: 30px; 
+	color: #CCC;
+	padding-bottom: 15px;
+	border-bottom: 1px dotted #666; /* 占쎌젫筌륅옙 占쎈릭占쎈뼊 �겫占쏙옙肉� 占쎌젎占쎄퐨占쎌뱽 占쎄퐫占쎈선 占쎌젫筌뤴뫗�뵠占쎌뵬占쎈뮉 野껉퍔�뱽 占쎈ご占쎈뻻占쎈퉸 餓λ씭�빍占쎈뼄. */	
+}
+
+
+#bestProduct{
+    border:solid 1px #FFFFFF;
+    border-radius:10px;
+    width:910px;
+    min-height:260px;
+    background:#ebebeb;
+    padding:10px;
+    text-align: center;    
+}
+
+#kindProduct{
+    border:solid 1px #FFFFFF;
+    border-radius:10px;
+    width:610px;   
+    min-height:900px; 
+    background:#ebebeb;
+    padding:10px;
+    text-align: center;
+}
+
+#item{
+    width:200px;
+    float:left; margin: 0 13px;
+    text-align: center;
+}
+
+#item img{
+	width: 190px; 
+	height : 200px; 
+}
+
+#itemdetail  img{
+	width: 190px; 
+	height : 200px; 
+	margin-right: 20px;
+}
+
+a{
+    color:#F00;
+    text-decoration:none;
+}
+a:hover{
+    color:#F90;
+    text-decoration:underline;
+}
+
+#pname {
+	font-size: 20px; 
+	border-bottom: 1px dotted #666; 
+	padding: 5px 0; 
+}
+
+footer {
+	margin:10px 0 0 0;
+	height:50px;
+	background-image: url(../images/under_logo.gif);
+	background-repeat: no-repeat;
+	background-position: 40px center;	
+}
+
+footer #copy {
+	margin: 20px 0 10px 300px;
+	width:600px;	
+	float:left;	
+}
+
+#main_img{
+	text-align: center;
+} 
+#main_img img{
+    margin:9px 0 0 0; 
+}
+
+div#front{
+    margin:5px 0 5px 20px;
+}
+
+#sub_img {
+	text-align: center;
+}
+
+#sub_img img {
+	margin: 9px 0 0 0;
+}
+
+#sub_menu {
+	width: 250x;
+	float: left;
+	margin: 20px 0;
+}
+
+#sub_menu ul {
+	margin: 20px 0 0 16px;
+	list-style: none;
+}
+
+#sub_menu a {
+	text-decoration: none;
+	color: white; font-family: Arial, Helvetica, sans-serif;
+	font-weight:bold; font-size:16px;
+	display: block;
+	height: 15px;
+	width: 160px;
+	padding: 7px;
+	border-bottom: 1px dotted #999;
+	background-image: url(../images/bullet.gif);
+	background-repeat: no-repeat;
+	background-position: right center;
+}
+
+#sub_menu a:hover {
+	background-image: url(../images/bullet_orange.gif);
+	background-repeat: no-repeat; 
+	background-position: right center;
+	color: #F90;font-weight:bold; font-size:16px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+article {
+	float: right;
+	width: 680px;
+	padding-right: 10px;
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 1em;
+	line-height: 1.5em; 
+}
+
+article p {
+	padding-left: 10px;
+}
+
+article table#notice {
+	width: 670px;
+	border-collapse: collapse;
+	border-top: 1px solid #999;
+}
+
+article table#notice th {
+	height: 20px;
+	width: 70px;
+	font-size: 14px; 
+	font-weight: bold;
+	padding: 5px; 
+	color: #FFF;
+	border-bottom: 1px dotted #999;
+}
+
+article table#notice td {
+	text-align: left;
+	padding: 6px 0;
+	border-bottom: 1px dotted #999;
+}
+
+article table#notice tr:hover {
+	background-color: #DDF;
+	cursor: pointer;
+	color: red;
+}
+
+form {
+	margin: 10px 0 0 0;
+	width: 670px;
+}
+
+form fieldset {
+	padding: 10px 0 20px 5px;
+	border: none;
+}
+
+form fieldset legend {
+	font-size: 20px; /* 占쎌젫筌뤴뫗�몵嚥∽옙 占쎄텢占쎌뒠占쎈┷疫뀐옙 占쎈르�눧紐꾨퓠 占쎄쾿疫꿸퀡占쏙옙 占쎄쾿野껓옙 占쎌삜占쎈툡 餓λ씭�빍占쎈뼄. */
+	border-bottom: 1px dotted #666; /* 占쎌젫筌륅옙 占쎈릭占쎈뼊 �겫占쏙옙肉� 占쎌젎占쎄퐨占쎌뱽 占쎄퐫占쎈선 占쎌젫筌뤴뫗�뵠占쎌뵬占쎈뮉 野껉퍔�뱽 占쎈ご占쎈뻻占쎈퉸 餓λ씭�빍占쎈뼄. */
+	width: 600px; /* 占쎌읈筌ｏ옙 占쎄쾿疫꿸퀡占쏙옙 占쎌삜占쎈툡 餓λ씭�빍占쎈뼄. */
+	padding: 5px 0; /* 占쎌맄占쏙옙 占쎈툡占쎌삋嚥∽옙 占쎈연獄쏄퉮�뱽 雅뚯눊�� �넫�슣�뒭嚥≪뮆�뮉 占쎈연獄쏄퉮�뱽 占쎈씨占쎈막甕곌쑬�뵲占쎈빍占쎈뼄. 
+                                      占쎈연獄쏄퉮�뱽 占쎈툧 雅뚯눊苡� 占쎈┷筌롳옙 獄쏅쵐夷ゆ�⑨옙 占쎄섐�눧占� �겫�늿堉김린袁⑥젻 癰귣떯由곤옙肉� �넫�뿭占� 占쎈륫占쎈뮸占쎈빍占쎈뼄. */
+}
+
+form label {
+	width: 140px; /* 占쎌읈筌ｋ똻�벥 占쎄쾿疫꿸퀡占쏙옙 占쎌젟占쎌벥占쎈�占쎈빍占쎈뼄. */
+	float: left; /* 占쎌뇢筌잛럩�몵嚥∽옙 占쎌뵠占쎈짗占쎈뻻占쎄땁占쎈빍占쎈뼄. */
+	margin: 5px 0; /* 筌띾뜆彛딉옙�뱽 占쎌뵠占쎌뒠占쎈퉸占쎄퐣 占쎄맒占쎈릭嚥∽옙 揶쏄쑨爰쏙옙�뱽 餓λ씭�빍占쎈뼄. */
+}
+
+form input {
+	margin: 5px 0; /* label�⑨옙 筌띾뜆媛붷첎占쏙쭪占썸에占� 占쎈연疫꿸퀡猷� 占쎈짗占쎌뵬占쎈릭野껓옙 占쎄맒占쎈릭嚥∽옙 揶쏄쑨爰쏙옙�뱽 餓λ씭�빍占쎈뼄. */
+	border: 1px solid #999; /* input 獄쏅벡�뮞占쎌벥 占쎈�믭옙紐®뵳占� 筌뤴뫁堉뉛옙�뱽 占쎌젟占쎌벥占쎈퉸 餓λ씭�빍占쎈뼄. */
+	background-color: #FCFDEA; /* 獄쏄퀗瑗랃옙源뗰옙�뱽 占쎌뵠占쎌뒠占쎈릭占쎈연 獄쏅�源�占쎌넅筌롳옙 占쎄퉳�⑨옙 筌△뫀�롳옙�뱽 餓λ씭�빍占쎈뼄. */
+}
+
+form input.id {
+	width: 100px;
+	height: 18px;
+}
+
+form input.dup {
+	width: 90px; /* 甕곌쑵�뱣占쎌벥 揶쏉옙嚥∽옙 占쎄쾿疫꿸퀡占쏙옙 占쎌젟占쎈�占쎈빍占쎈뼄. */
+	height: 23px; /* 甕곌쑵�뱣占쎌벥 占쎄쉭嚥∽옙 占쎄쾿疫꿸퀡占쏙옙 占쎌젟占쎈�占쎈빍占쎈뼄. */
+	border-radius: 8px; /* border-radius 占쎈꽰占쎈퉸 占쎈쳛域밸챶�쑕 甕곌쑵�뱣占쎌몵嚥∽옙 筌띾슢踰딉옙�빍占쎈뼄. */
+	border: none; /* 獄쏄퀗瑗� 占쎌뵠沃섎챷占썲첎占� 占쎈선占쎈ぜ疫뀐옙 占쎈르�눧紐꾨퓠 占쎈연疫꿸퀣苑� border占쎈뮉 占쎈씨占쎈막甕곌쑬�봺野껋쥙�뮸占쎈빍占쎈뼄. */
+	margin: 0 0 0 5px; /* 筌띾뜆彛딉옙�뱽 占쎌뇢筌잛럥彛� 餓μ꼷苑� input�⑥눘�벥 揶쏄쑨爰쏙옙�뱽 甕곕슢�뵲占쎈빍占쎈뼄. */
+	font-weight: bold; /* 疫뀐옙�몭占� 占쎈あ�뙼�꼶占쏙옙 占쎈あ�뙼�씧苡� */
+	background-image: url(../images/dup.jpg);
+	/* 獄쏄퉫�젃占쎌뵬占쎌뒲占쎈굡 占쎌뵠沃섎챷占썹몴占� 占쎄텢占쎌뒠占쎈�占쎈빍占쎈뼄. */
+	background-repeat: repeat-x; /* 獄쏄퉫�젃占쎌뵬占쎌뒲占쎈굡 占쎌뵠沃섎챷占썹몴占� x�빊類ㅼ몵嚥∽옙 獄쏆꼶�궗 */
+	background-position: center center; /* 獄쏄퉫�젃占쎌뵬占쎌뒲占쎈굡 占쎌뵠沃섎챷占쏙옙�벥 占쎌맄燁살꼶占쏙옙 餓λ쵐釉곤옙�몵嚥∽옙 占쎌맄燁삼옙 */
+}
+
+form #buttons {
+	margin: 20px 0 0 0;
+}
+
+form  .submit,form  .cancel {
+	height: 30px; /* 甕곌쑵�뱣占쎌벥 占쎄쉭嚥∽옙 占쎄쾿疫꿸퀡占쏙옙 占쎌젟占쎌벥占쎈�占쎈빍占쎈뼄. */
+	width: 150px; /* 甕곌쑵�뱣占쎌벥 揶쏉옙嚥∽옙 占쎄쾿疫꿸퀡占쏙옙 占쎌젟占쎌벥占쎈�占쎈빍占쎈뼄. */
+	border: 1px solid #666; /* 甕곌쑵�뱣占쎌벥 占쎈�믭옙紐®뵳�됵옙占� 占쎌젟占쎌벥占쎈�占쎈빍占쎈뼄. */
+	border-radius: 10px; /* border-radius�몴占� 占쎈꽰占쎈퉸 甕곌쑵�뱣占쎌뱽 占쎈쳛域밸챶�쟽野껓옙 筌띾슢踰딉옙�빍占쎈뼄. */
+	box-shadow: 3px 3px 2px #ccc; /* box-shadow�몴占� 占쎌뵠占쎌뒠占쎈퉸占쎄퐣 域밸챶�뵝占쎌쁽�몴占� 筌띾슢踰딉옙�빍占쎈뼄. */
+	font-size: 14px; /* 疫뀐옙�몭占� 占쎄텢占쎌뵠筌앸뜄占쏙옙 鈺곌퀣�쟿占쎈�占쎈빍占쎈뼄. */
+	background-repeat: repeat-x;
+	background-position: center center;
+	
+	margin: 0 0 0 20px;
+}
+
+form  .submit {
+	background-image: url(../images/submit_back.jpg);
+}
+
+form  .cancel {
+	background-image: url(../images/cancel_back.jpg);	
+}
+
+#comment_item {
+	width: 650px;
+	padding: 5px;
+	margin: 10px 0;
+	border-bottom: 1px solid #ccc;
+}
+
+#write_date {
+	margin-left: 30px;
+}

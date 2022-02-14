@@ -8,10 +8,10 @@
 
   <meta charset="UTF-8">
   <title>캠핑족장</title>
-  <link rel="stylesheet" href="css/shopping.css" >  <!-- 이걸해줘야  로고 생기면서 화면 놔눠짐-->
+  <link rel="stylesheet" href="css/camping.css" >  <!-- 이걸해줘야  로고 생기면서 화면 놔눠짐-->
   <script type="text/javascript" src="js/jquery-3.6.0.min.js"></script> 
-  <script type="text/javascript" src="member/member.js"></script> <!-- 왜 memberjs로 해야 잘뜨지?? -->
-   <script type="text/javascript" src="member/findIdAndPassword.js"></script> 
+  <script type="text/javascript" src="js/users.js"></script> <!-- 왜 memberjs로 해야 잘뜨지?? -->
+
    <script type="text/javascript" src="./js/main.js?ver=123"></script> <!--  내가 인터넷 찾아보고 추가한것 -->
   <!-- 
   <script type="text/javascript" src="product/product.js"></script>

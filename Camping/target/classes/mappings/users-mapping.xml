@@ -15,8 +15,8 @@
 
 <!-- users등록  -->
 <insert id="insertUsers">
-INSERT INTO users(id,password,name,email,birthday,phone,emailchk)
-VALUES(#{id}, #{password}, #{name}, #{email},#{birthday},#{phone},#{emailchk})
+INSERT INTO users(id,password,name,email,phone)
+VALUES(#{id}, #{password}, #{name}, #{email},#{phone})
 </insert>
 
 <!-- users 전체 목록 조회 -->

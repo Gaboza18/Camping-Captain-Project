@@ -6,8 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-
-
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
@@ -66,7 +65,7 @@ public class UsersController {
 		return "Users/login";
 	}
 	
-	// 여기서부터 구현안됨
+	
 	@GetMapping(value="/contract")
 	public String contractView() {
 		
@@ -77,6 +76,7 @@ public class UsersController {
 
 	@PostMapping(value="/join_form") 
 	public String joinView() {
+		System.out.println("회원가입진입");
 		return "Users/join";
 	}
 
@@ -98,8 +98,8 @@ public class UsersController {
 	
 	@PostMapping(value="/id_check_form")
 	public String idCheckAction(UsersVO vo, Model model) {
-		int result = usersService.confirmID(vo.getId());
 		
+		int result = usersService.confirmID(vo.getId());
 		model.addAttribute("message", result);
 		model.addAttribute("id", vo.getId());
 		return "Users/idcheck";
@@ -109,25 +109,25 @@ public class UsersController {
 	/*
 	 *  사용할 id를 join(회원가입)화면에 전송
 	 */
-/*	
+
 	@GetMapping(value="/id_check_confirmed")
 	public String idCheckConfirmed(UsersVO vo, Model model) {
 	model.addAttribute("id", vo.getId()); // id 중복확인 필드
 	return "Users/join";
 	
 	}
-*/	
+
 	/*
 	 * 회원가입 처리
 	 */
-/*	
+	
 	@PostMapping(value="/join")
-	public String joinAction(UsersVO vo) {
+	public String joinAction (UsersVO vo) {
 		usersService.insertUsers(vo);
 		
 		return "Users/login";
 	}
-*/	
+
 	
 	
 }

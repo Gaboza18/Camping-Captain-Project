@@ -11,7 +11,7 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-	<logger name="com.green.biz">
+	<logger name="com.camping.biz">
 		<level value="info" />
 	</logger>
 	
