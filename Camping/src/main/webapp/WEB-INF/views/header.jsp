@@ -10,6 +10,7 @@
 <title>Camping Captain</title>
 <link rel="stylesheet" href="css/camping.css" >
 <script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="js/users.js"></script>
 </head>
 <body>
 
