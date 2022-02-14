@@ -12,7 +12,7 @@
 		<h1>고객센터</h1>
 		<a href="notice_list">공지사항</a> 
 		<a href="question_list">자주묻는질문</a> 
-		<a href="notice_list">1:1문의</a>
+		<a href="#">1:1문의</a>
 		<hr>
 	</div>
 	
