@@ -4,6 +4,31 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	<!-- resultType 등록 -->
 	<typeAliases>
       <typeAlias type="com.camping.biz.dto.UsersVO" alias="users" />
