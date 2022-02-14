@@ -13,5 +13,7 @@
 		<a href="notice_list">공지사항</a> 
 		<a href="question_list">자주묻는질문</a> 
 		<a href="notice_list">1:1문의</a>
+		<hr>
 	</div>
+	
 </html>

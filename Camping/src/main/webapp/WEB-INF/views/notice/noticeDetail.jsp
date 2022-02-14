@@ -11,6 +11,7 @@
 </head>
 <body>
 	<h2>공지사항 상세보기</h2>
+	<form name="frm" id="detail_form" method="post">
 	<table border="1">
 		<tr>
 			<th>번호</th>
@@ -38,5 +39,7 @@
 		</tr>
 
 	</table>
+		<input class="btn"  type="button" value="목록" onClick="go_list()">
+	</form>
 </body>
 </html>
