@@ -11,6 +11,7 @@ public class Criteria {
 
 	private int pageNum; // 현재 페이지 번호
 	private int rowsPerPage; // 페이지당 출력행의 갯수
+	private String keyword; // 검색 키워드
 
 	// 생성자
 	public Criteria() {
@@ -49,18 +50,24 @@ public class Criteria {
 			this.rowsPerPage = rowsPerPage;
 		}
 	}
-	
+
 	/*
-	 *  각 페이지에서 시작하는 항목번호를 반환
-	 *  ex) 1페이지 - 1,2,3,4...10
-	 *   	2페이지 - 11,12,13,14....20
+	 * 각 페이지에서 시작하는 항목번호를 반환 ex) 1페이지 - 1,2,3,4...10 2페이지 - 11,12,13,14....20
 	 */
 	public int getPageStart() {
 		return (pageNum - 1) * rowsPerPage + 1;
 	}
 
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+
 	@Override
 	public String toString() {
-		return "Criteria [pageNum=" + pageNum + ", rowsPerPage=" + rowsPerPage + "]";
+		return "Criteria [pageNum=" + pageNum + ", rowsPerPage=" + rowsPerPage + ", keyword=" + keyword + "]";
 	}
 }

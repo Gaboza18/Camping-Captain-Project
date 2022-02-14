@@ -5,11 +5,17 @@
 <configuration>
 
 	<!-- resultType 등록 -->
-	
+	<typeAliases>
+		<typeAlias type="com.camping.biz.dto.NoticeVO" alias="notice" />
+		<typeAlias type="com.camping.biz.dto.QuestionsVO" alias="question" />
+	</typeAliases>
 
 	<!-- SQL 매핑파일 등록 -->
+	<mappers>
+		<mapper resource="mappings/notice-mapping.xml" />
+		<mapper resource="mappings/question-mapping.xml" />
+	</mappers>
 	
-
 </configuration>
 
 

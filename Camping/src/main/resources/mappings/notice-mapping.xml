@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mappings.notice-mapping">
+
+	<!-- 전체 공지사항 조회 -->
+	<select id="listAllNotice" resultType="notice">
+		SELECT * FROM notice
+			ORDER BY indate DESC
+	</select>
+	
+	<!-- 공지사항 상세보기 -->
+	<select id="detailNotice" resultType="notice">
+		SELECT nseq,title,content,admin_name,indate,count
+			 FROM notice
+				WHERE nseq=#{nseq}
+	</select>
+	
+	<!-- 공지사항 조회수 증가 -->
+	<update id="updateViewCount">
+		UPDATE notice 
+			SET count=count+1 
+				WHERE nseq=#{nseq}
+	</update>
+	
+	<!-- 총 공지사항 목록 갯수 조회 -->
+	<select id="countNoticelist" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM notice
+			WHERE title LIKE '%'||#{title}||'%'
+	</select>
+	
+	<!-- 페이징 처리(1~10개씩 출력) / 게시물 검색기능-->
+	<select id="listWithPaging" parameterType="hashMap" resultType="notice">
+	<![CDATA[
+		
+		SELECT nseq,title,content,admin_name,indate,count
+			FROM
+				(
+				SELECT row_number() over(ORDER BY indate) rn,nseq,title,content,admin_name,indate,count
+					FROM notice
+						WHERE title LIKE '%'||#{title}||'%'	
+				)
+				WHERE rn<=#{criteria.pageNum} * #{criteria.rowsPerPage}  
+					AND rn>=(#{criteria.pageNum}-1) * #{criteria.rowsPerPage}
+	]]>
+		
+	</select>
+	
+	
+</mapper>
