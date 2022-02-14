@@ -1,0 +1,117 @@
+
+
+body{
+    background-color:white;
+    margin:0 auto;
+    padding:0;
+    font-size:0.75em;
+}
+
+/* 시작(header.jsp) / 종료(footer.jsp) */
+#wrap{
+    width:970px;
+    background-color:white;
+    min-height:780px;
+    margin-right:auto;
+    margin-left:auto;
+	text-align: center;
+}
+
+.clear{clear:both;}
+
+#logo{
+    float:left;
+    margin:20px 0 20px 380px;
+}
+
+/* 로그인, 회원가입 버튼 설정 */
+#users_login_join{
+	float:right;
+    margin-top:20px;
+}
+
+#users_login_join ul{
+    list-style:none; 
+}
+
+#users_login_join ul li{
+	display:block; 
+    height:30px;
+    float:left;
+}
+
+#users_login_join a{
+    text-decoration:none;
+    padding: 0 15px;
+    color: #000;
+    font-weight: bold;
+}
+
+#users_login_join a:hover{
+    color: #e6e600;
+    font-weight: bold;
+}
+
+/* 헤더 메인메뉴 설정 */
+#header_menu{
+    padding-bottom:30px;
+	margin:0 auto;
+	text-align: center;
+}
+
+#header_menu ul{
+	list-style:none; 
+}
+
+#header_menu ul li{
+	float: left;
+	position: relative;
+	font-size: 17px;
+	padding:0 45px;
+}
+
+#header_menu a{
+    text-decoration:none;
+    color:rgb(20, 92, 28);
+}
+
+#header_menu a:hover{
+    color: #e6e600;
+}
+
+/* 메인메뉴에 마우스 가져가면 보이는 드롭다운 서브메뉴 설정 */
+#header_menu ul li ul.header_submenu{
+	display: none;
+	position: absolute;
+	left: 0;
+	padding: 0;
+    line-height: 25px;
+    background-color: white;
+}
+
+#header_menu ul li:hover ul.header_submenu{
+	display:block; 
+}
+
+#header_menu ul li ul.header_submenu li{
+	font-size: 13px;
+}
+
+.header_submenu a{
+	white-space:nowrap;
+    color:rgb(20, 92, 28);
+}
+
+.header_submenu a:hover{
+    font-weight: bolder;
+}
+
+/* 캠핑족장 사이트 소개페이지 설정 */
+#intro {
+	/*background-color: rgb(17,34,50);*/
+	background-image: url(../images/intro_bg.jpg);
+	background-size: 970px 500px;
+	height: 500px;
+	color: white;
+	padding-top: 20px;
+}
