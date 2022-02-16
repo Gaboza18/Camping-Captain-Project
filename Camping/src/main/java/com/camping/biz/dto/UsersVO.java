@@ -19,6 +19,4 @@ public class UsersVO {
 	private Timestamp regdate;
 	private String status;
 	private String emailchk;
-	
-
 }
