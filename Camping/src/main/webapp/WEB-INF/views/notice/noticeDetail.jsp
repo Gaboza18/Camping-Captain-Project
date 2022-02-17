@@ -11,6 +11,7 @@
 </head>
 <body>
 	<h2>공지사항 상세보기</h2>
+	<div align="center">
 	<form name="frm" id="detail_form" method="post">
 	<table border="1">
 		<tr>
@@ -37,9 +38,10 @@
 			<th>조회수</th>
 			<td>${noticeVO.count}</td>
 		</tr>
-
-	</table>
-		<input class="btn"  type="button" value="목록" onClick="go_list()">
+	</table><br>
+		<input class="btn"  type="button" value="목록" onclick="history.go(-1);">
 	</form>
+	</div>
 </body>
 </html>
+<%@ include file="../footer.jsp" %>

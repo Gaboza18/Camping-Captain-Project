@@ -27,9 +27,10 @@
 								<td><a href="${path}question_detail?qseq=${questionsVO.qseq}">${questionsVO.question}</a>${questionVO.question}</td>
 							</tr>
 						</c:forEach>
-				</table>
+				</table><br>
 			</form>
 		</article>
 	</div>
 </body>
 </html>
+<%@ include file="../footer.jsp" %>
