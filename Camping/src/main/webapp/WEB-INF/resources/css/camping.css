@@ -115,3 +115,49 @@ body{
 	color: white;
 	padding-top: 20px;
 }
+
+/* 캠핑족장 예약을 위한 조회부분 설정
+form#camp_search {
+	text-align: center;
+	margin: 0 0 0 200px;
+}
+
+form#camp_search div{
+	display: block;
+	float: left;
+}
+
+form#camp_search input#btn{
+	float: rigth;
+	margin: 20px 0 0 0;
+}*/
+
+
+/* 캠핑장 리스트 조회 리스트 페이지 설정*/
+#campZoneList {
+    width: 500px;
+    height: 140px;
+    border: 1px solid #000;
+	border-radius: 10px;
+	margin-top: 20px ;
+	margin-bottom: 20px;
+	padding: 0;
+}
+
+#theform{
+}
+
+#campZoneList table{
+	margin: 5px 0  0 15px;
+    width: 400px;
+    height: 140px;
+	display: block;
+    float: left;
+}
+
+#campZoneList #button {
+	display:block; 	
+	float: right;
+	margin-top: 60px;
+	margin-right: 15px;
+}
