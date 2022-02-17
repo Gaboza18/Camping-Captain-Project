@@ -160,7 +160,7 @@ public class UsersController {
 	}
 
 	/*
-	 * 비밀전호 찾기 실행
+	 * 비밀번호 찾기 실행
 	 */
 	
 	@RequestMapping(value = "Users/find_pwd", method = RequestMethod.POST)

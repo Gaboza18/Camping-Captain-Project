@@ -20,11 +20,11 @@ public interface UsersService {
 	public List<UsersVO> listUsers(String name);
 
 	public UsersVO findId(UsersVO vo); // 회원 ID 찾기
- 
+
 	public int updatePwd(UsersVO vo); // 회원 Pwd 변경
-	
+
 	public void sendEmail(UsersVO vo, String div); // 회원 Pwd 찾기 이메일 발송
-	
-	public void findPwd(HttpServletResponse response, UsersVO vo) throws IOException;
+
+	public void findPwd(HttpServletResponse response, UsersVO vo) throws IOException; // 아이디/이메일 조회 하여 임시비밀번호 생성
 
 }

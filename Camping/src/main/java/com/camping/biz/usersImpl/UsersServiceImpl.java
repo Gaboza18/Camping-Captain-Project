@@ -4,10 +4,14 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.mail.Message.RecipientType;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.mail.HtmlEmail;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import com.camping.biz.dao.UsersDAO;
@@ -16,6 +20,9 @@ import com.camping.biz.users.UsersService;
 
 @Service("usersService")
 public class UsersServiceImpl implements UsersService {
+
+	@Inject
+	JavaMailSender mailSender; // 이메일 의존성 객체 생성
 
 	@Autowired
 	private UsersDAO uDao;
@@ -58,44 +65,28 @@ public class UsersServiceImpl implements UsersService {
 	@Override
 	public void sendEmail(UsersVO vo, String div) {
 
-		// 메일 서버 설정
-		String charSet = "utf-8";
-		String hostSMTP = "smtp.gmail.com"; // 네이버 이용시 smtp.naver.com
-		String hostSMTPid = "cpctad1234@gmail.com"; // 이메일 인증 보내는 주소
-		String hostSMTPpwd = "dw!220wbspdh"; // 이메일 인증 보내는 주소 비밀번호
-
-		// 보내는 사람 Email,제목,내용
-		String fromEmail = "cpctad1234@gmail.com"; // 이메일 보내는 사람
-		String fromName = "Camping_Captain_admin"; // 이메일 보내는 사람 이름
-		String subject = "";
-		String msg = "";
-
-		if (div.equals("find_pwd")) {
-			subject = "캠핑족장 임시 비밀번호 입니다.";
-			msg += "<div align='center' style='border:1px solid black; font-famliy:verdana'>";
-			msg += "<h3 style='color: blue;'>";
-			msg += vo.getId() + "님의 임시 비밀번호 입니다. 비밀번호를 변경하여 사용하세요.</h3>";
-			msg += "<p>임시 비밀번호 : ";
-			msg += vo.getPassword() + "</p></div>";
-		}
-
-		// 받는 사람 이메일 주소
-		String mail = vo.getEmail();
 		try {
-			HtmlEmail email = new HtmlEmail();
-			email.setDebug(true);
-			email.setCharset(charSet);
-			email.setSSL(true);
-			email.setHostName(hostSMTP);
-			email.setSmtpPort(465); // 네이버 이용시 587
+			MimeMessage msg = mailSender.createMimeMessage(); // 이메일 객체
+			msg.addRecipient(RecipientType.TO, new InternetAddress(vo.getEmail())); // 받는사람 설정(수신자, 회원 테이블에서 수신자 이메일)
 
-			email.setAuthentication(hostSMTPid, hostSMTPpwd);
-			email.setTLS(true);
-			email.addTo(mail, charSet);
-			email.setFrom(fromEmail, fromName, charSet);
-			email.setSubject(subject);
-			email.setHtmlMsg(msg);
-			email.send();
+			/*
+			 * 보내는 사람(이메일 주소+이름) (발신자, 보내는 사람의 이메일 주소와 이름을 담음)
+			 */
+
+			if (div.equals(div)) {
+
+				// 이메일 발신자(이메일, 발송자 이름설정)
+				msg.addFrom(new InternetAddress[] { new InternetAddress("cpctad1234@gmail.com", "캠핑족장 관리자") });
+
+				// 이메일 제목
+				msg.setSubject("회원님의 임시비밀번호 입니다.", "utf-8");
+
+				// 이메일 본문
+				msg.setText("임시 비밀번호:" + vo.getPassword() + "  * 로그인후 비밀번호 변경을 해주시길 바랍니다! *", "utf-8");
+
+			}
+			mailSender.send(msg); // 이메일 보내기
+
 		} catch (Exception e) {
 			System.out.println("메일발송 실패 : " + e);
 		}
@@ -115,7 +106,7 @@ public class UsersServiceImpl implements UsersService {
 			out.close();
 		}
 
-		// 가입된 이메일이 아니면
+		// 가입된 이메일이 아니면(사용자가 입력한 이메일과 사용자 테이블을 비교한다)
 		else if (!vo.getEmail().equals(ck.getEmail())) {
 			out.print("등록되지 않은 이메일 입니다.");
 			out.close();
