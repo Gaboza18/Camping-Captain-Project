@@ -11,7 +11,7 @@
 		<div align="center">
 			<article>
 				<h2>1:1 고객 게시판 글쓰기</h2>
-				<h3>고객님의 질문에 대해서 관리자가 1:1 답변을 드립니다.</h3>
+				<h3>고객님의 질문에 대해서 관리자가 1:1 답변을 드립니다</h3>
 				<form name="formm" method="post" action="qna_write">
 					<fieldset>
 						<legend>Board Info</legend>
