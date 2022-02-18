@@ -137,6 +137,7 @@ public class UsersController {
 	/*
 	 * 아이디 찾기 실행
 	 */
+
 	@RequestMapping(value = "/find_id", method = RequestMethod.POST)
 	public String findIdAction(UsersVO vo, Model model) {
 
@@ -150,7 +151,7 @@ public class UsersController {
 		}
 		return "Users/find_id";
 	}
-
+	
 	/*
 	 * 비밀번호 찾기 페이지 이동
 	 */
@@ -167,6 +168,4 @@ public class UsersController {
 	public void findPwdPOST(@ModelAttribute UsersVO user, HttpServletResponse response) throws IOException {
 		usersService.findPwd(response,user);
 	}
-	
-
 }

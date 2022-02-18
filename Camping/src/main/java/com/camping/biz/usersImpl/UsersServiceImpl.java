@@ -63,7 +63,7 @@ public class UsersServiceImpl implements UsersService {
 	}
 
 	@Override
-	public void sendEmail(UsersVO vo, String div) {
+	public void sendEmailPwd(UsersVO vo, String div) {
 
 		try {
 			MimeMessage msg = mailSender.createMimeMessage(); // 이메일 객체
@@ -82,7 +82,7 @@ public class UsersServiceImpl implements UsersService {
 				msg.setSubject("회원님의 임시비밀번호 입니다.", "utf-8");
 
 				// 이메일 본문
-				msg.setText("임시 비밀번호:" + vo.getPassword() + "  * 로그인후 비밀번호 변경을 해주시길 바랍니다! *", "utf-8");
+				msg.setText("임시 비밀번호: " + vo.getPassword(), "utf-8");
 
 			}
 			mailSender.send(msg); // 이메일 보내기
@@ -123,7 +123,7 @@ public class UsersServiceImpl implements UsersService {
 			uDao.updatePwd(vo);
 
 			// 비밀번호 변경 메일 발송
-			sendEmail(vo, "find_pwd");
+			sendEmailPwd(vo, "find_pwd");
 
 			out.print("이메일로 임시 비밀번호를 발송하였습니다.");
 			out.close();

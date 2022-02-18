@@ -29,7 +29,7 @@ ORDER BY name
 <!-- 회원 ID 찾기 -->
 <select id="findId" resultType="users">
 	select * FROM users
-		WHERE name=#{name} AND phone=#{phone}
+		WHERE name=#{name}
 </select>
 
 <!-- 회원 PWD 변경 -->

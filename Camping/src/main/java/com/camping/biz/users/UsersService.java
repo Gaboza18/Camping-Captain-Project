@@ -23,8 +23,8 @@ public interface UsersService {
 
 	public int updatePwd(UsersVO vo); // 회원 Pwd 변경
 
-	public void sendEmail(UsersVO vo, String div); // 회원 Pwd 찾기 이메일 발송
+	public void sendEmailPwd(UsersVO vo, String div); // 회원 Pwd 찾기 이메일 발송
 
 	public void findPwd(HttpServletResponse response, UsersVO vo) throws IOException; // 아이디/이메일 조회 하여 임시비밀번호 생성
-
+	
 }
