@@ -38,11 +38,32 @@ public class UsersServiceImpl implements UsersService {
 		uDao.insertUsers(vo);
 
 	}
+	
+	
 
 	@Override
 	public List<UsersVO> listUsers(String name) {
 
 		return uDao.listUsers(name);
+	}
+	
+	//회원 삭제
+
+	
+		
+	
+
+	@Override
+	public void deleteId(String id) throws Exception {
+		uDao.deleteId(id);
+		
+		
+	}
+
+	@Override
+	public void updateUser(UsersVO vo) {
+		uDao.updateUser(vo);
+		
 	}
 
 }

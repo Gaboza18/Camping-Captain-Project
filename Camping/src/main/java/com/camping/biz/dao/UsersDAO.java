@@ -7,9 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.camping.biz.dto.UsersVO;
+import com.camping.biz.users.UsersService;
 
 @Repository
 public class UsersDAO {
+	
+	
 
 	@Autowired
 	private SqlSessionTemplate mybatis;
@@ -72,4 +75,28 @@ public class UsersDAO {
 		return mybatis.selectList("mappings.users-mapping.listUsers", name);
 	}
 	
+	// 회원탈퇴
+	
+	
+
+	public void deleteId(String id )throws Exception{
+		
+		
+		
+		//아이디 삭제라도 되돌리고 싶을때 사릴 코드
+		mybatis.delete("mappings.users-mapping.deleteId", id);
+	}
+	
+	public void updateUser(UsersVO vo) {
+		
+		mybatis.update("mappings.users-mapping.deleteId", vo);
+	}
+	
+	
+		// <비밀번호 확인> 변수 : "passwordCheck"
+	
+	/*public String pwCheck(String password)throws Exception{
+		return mybatis.selectOne("mappings.users-mapping.passwordCheck", password);
+	}
+	*/
 }

@@ -4,7 +4,7 @@
 
 // 제목으로 조회
 function go_search(){
-	$("#notice_form").attr("action", "notice_list").submit();
+	$("#notice_form").attr("search_form", "review_list").submit();
 }
 
 // 공지사항 목록으로 이동

@@ -20,11 +20,26 @@ VALUES(#{id}, #{password}, #{name}, #{email},#{phone})
 </insert>
 
 <!-- users 전체 목록 조회 -->
-<select id="listUsers" resultType="users">
-SELECT * FROM users
-WHERE name LIKE '%'||#{name}||'%'
-ORDER BY name
-</select>
+			<select id="listUsers" resultType="users">
+			SELECT * FROM users
+			WHERE name LIKE '%'||#{name}||'%'
+			ORDER BY name
+			</select>
+
+<!-- 회원탈퇴 -->
+<delete id="deleteId">
+	DELETE FROM users WHERE id= #{id} <!-- AND password= #{password}  --> 
+
+</delete>  
+
+<update id="updateUser">
+		UPDATE users SET 
+		password = #{password},
+		name = #{name}
+		email = #{email}
+		phone = #{phone}
+		WHERE id = #{id}
+	</update>
 
 
 </mapper>

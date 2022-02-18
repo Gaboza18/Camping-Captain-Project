@@ -12,4 +12,15 @@ public interface UsersService {
 	public void insertUsers(UsersVO vo);
 	public List<UsersVO> listUsers(String name);
 	
+	//회원삭제
+	public void deleteId(String id)throws Exception;
+	
+	// 회원정보 수정
+	public void updateUser(UsersVO vo);
+		
+		
+	
+	
+	//public void deleteId(UsersVO vo) throws Exception;
+	
 }
