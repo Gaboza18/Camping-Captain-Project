@@ -9,6 +9,7 @@
 		<div id="campZoneList" align="center">	
 			<form name="formm" id="theform" method="post" action="order_insert_form">
 				<input name="camp_id" type="hidden" value="${camping.camp_id}"/>
+				<input name="camp_zone" id="campzone" type="hidden" value="${camping.camp_zone}"/>
 				<input name="indate" type="hidden" id="indate" value="${indate}"/>
 				<input name="outdate" type="hidden" id="outdate" value="${outdate}"/>
 				<table>
@@ -37,7 +38,14 @@
 			        </tr>
 				</table>
 				<div id="button">
-      				<input type="submit" value="예약하기">
+					<c:choose>
+						<c:when test="${camping.camp_zone eq order.camp_zone && indate eq order.indate}">
+		            		<input type="button" value="예약마감">
+						</c:when>
+						<c:otherwise>
+		            		<input type="submit" value="예약하기">
+						</c:otherwise>
+					</c:choose>
     			</div>
 			</form>
 		</div>

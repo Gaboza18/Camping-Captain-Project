@@ -6,4 +6,9 @@
  		  SELECT*FROM camp_list_view WHERE camp_id=#{camp_id}
 	</select>
 	
+	<!-- 예약가능한 구역 예약을 위한 정보 -->
+	<select id="getCamping" resultType="camping">
+ 		  SELECT*FROM get_camp_view WHERE camp_zone=#{camp_zone}
+	</select>
+	
 </mapper>

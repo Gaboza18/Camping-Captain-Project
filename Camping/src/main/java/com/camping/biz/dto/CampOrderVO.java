@@ -1,6 +1,7 @@
 package com.camping.biz.dto;
 
-import java.sql.Timestamp;
+
+import java.sql.Date;
 
 import lombok.*;
 
@@ -12,8 +13,8 @@ public class CampOrderVO {
 	private String camp_name;
 	private String camp_zone;
 	private int total_price;
-	private Timestamp indate;
-	private Timestamp outdate;
+	private Date indate;
+	private Date outdate;
 	private String user_id;
 	private String order_name;
 	private int order_people;

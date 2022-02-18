@@ -16,6 +16,11 @@ public class CampingServiceImpl implements CampingService {
 	private CampingDAO cDao;
 
 	@Override
+	public CampingVO getCamping(String camp_zone) {
+		return cDao.getCamping(camp_zone);
+	}
+
+	@Override
 	public List<CampingVO> campingList(int camp_id) {
 		return cDao.campingList(camp_id);
 	}

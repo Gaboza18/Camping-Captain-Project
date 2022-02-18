@@ -21,7 +21,7 @@
    			<input type="text" id="checkout_date" class="outdate" name="checkout_date" value="${outdate}">
    		</div>
    		
-   		<input id="btn" type="submit" value="조회하기" onclick="search_chk()"/>
+   		<input id="btn" type="button" value="조회하기" onclick="search_chk()"/>
    	
 	</form>
 	<div class="clear"></div>

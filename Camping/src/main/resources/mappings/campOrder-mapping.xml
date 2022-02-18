@@ -2,15 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mappings.campOrder-mapping">
 	
-	<!-- 예약가능한 구역 예약을 위한 정보 -->
-	<select id="getCamping" resultType="campOrder">
- 		  SELECT*FROM get_camp_view WHERE camp_zone=#{camp_zone}
-	</select>
-	
 	<!-- 예약정보 insert -->
 	<insert id="insertCampOrder">
 		INSERT INTO camp_order 
 		VALUES(camp_order_seq.NEXTVAL, #{camp_name}, #{camp_zone}, #{indate}, #{outdate},
 		 #{user_id}, #{order_name}, #{order_people}, #{order_phone}, #{order_email}, #{total_price})
 	</insert>
+	
+	<!-- 예약정보 조회 -->
+	<select id="getCampOrderList" resultType="campOrder">
+		SELECT*FROM camp_order WHERE indate=#{indate}
+	</select>
 </mapper>
