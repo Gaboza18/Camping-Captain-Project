@@ -1,6 +1,5 @@
 package com.camping.biz.dao;
 
-import java.sql.Date;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -22,7 +21,7 @@ public class CampOrderDAO {
 	
 	// 예약정보 조회
 	public List<CampOrderVO> getCampOrderList(String indate){
-		return mybatis.selectList("mappings.campOrder-mapping.getCampOrder", indate);
+		return mybatis.selectList("mappings.campOrder-mapping.getCampOrderList", indate);
 	}
 	
 }

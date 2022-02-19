@@ -2,11 +2,11 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../header.jsp" %>	 
  
-<article>
+<article id="campOrder">
 	<h3>캠핑장 예약</h3>    
 	<form name="formm" method="post" action="order_insert">
 		<input name="camp_id" type="hidden" value="${camp.camp_id}"/>
-		<table>
+		<table id="orderForm">
 	      	<tr>
 				<th>캠핑장 이름</th>
 				<td><input type="text" name="camp_name" value="${camp.camp_name}" readOnly="readonly"></td> 
@@ -59,10 +59,10 @@
 		        </td>
 	      	</tr>
 		</table>
-		<div class="clear"></div>
-		<div id="buttons" style="float:right">
-			<input type="submit" value="예약"  class="submit"> 	
+		<div id="buttons">
+			<input type="submit" value="예약" class="submit"> 	
 		</div>
+		<div class="clear"></div>
 	</form>
 </article>
 <%@ include file="../footer.jsp" %>

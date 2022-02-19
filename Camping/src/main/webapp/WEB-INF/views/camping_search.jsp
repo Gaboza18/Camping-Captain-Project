@@ -17,7 +17,7 @@
    			<input type="text" id="checkin_date" class="indate" name="checkin_date" value="${indate}">
    		</div>
    		<div>
-   			<h4>체크인</h4>
+   			<h4>체크아웃</h4>
    			<input type="text" id="checkout_date" class="outdate" name="checkout_date" value="${outdate}">
    		</div>
    		

@@ -116,35 +116,39 @@ body{
 	padding-top: 20px;
 }
 
-/* 캠핑족장 예약을 위한 조회부분 설정
+/* 캠핑족장 예약을 위한 조회부분 설정 */
 form#camp_search {
 	text-align: center;
-	margin: 0 0 0 200px;
+	margin: 0 50px;
+	border: 1px solid rgb(20, 92, 28);
+	border-radius: 10px;
+	height: 85px;
 }
 
 form#camp_search div{
 	display: block;
 	float: left;
+	margin-left: 55px;
 }
 
 form#camp_search input#btn{
 	float: rigth;
-	margin: 20px 0 0 0;
-}*/
+	margin: 30px 0 0 0;
+}
 
 
 /* 캠핑장 리스트 조회 리스트 페이지 설정*/
+#camp_list {
+	text-align: center;
+}
+
 #campZoneList {
     width: 500px;
     height: 140px;
-    border: 1px solid #000;
+    border: 1px solid rgb(20, 92, 28);
 	border-radius: 10px;
-	margin-top: 20px ;
-	margin-bottom: 20px;
+	margin: 20px auto;
 	padding: 0;
-}
-
-#theform{
 }
 
 #campZoneList table{
@@ -160,4 +164,21 @@ form#camp_search input#btn{
 	float: right;
 	margin-top: 60px;
 	margin-right: 15px;
+}
+
+/* 예약페이지 설정*/
+#campOrder {
+	text-align: center;
+}
+
+#orderForm {
+	margin: auto;
+	border: 1px solid rgb(20, 92, 28);
+	border-radius: 10px;
+	padding: 20px;
+}
+
+#campOrder div#buttons{
+	margin: auto;
+	padding: 20px;
 }

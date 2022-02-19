@@ -36,30 +36,8 @@
     });
 
 	$(function(){ 
-		/*
-		$("#checkin_date").datepicker("getDate");
-		$("#checkin_date").datepicker({
-	        showOn:"button", 
-			buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif",
-			buttonImageOnly: true,
-			changeMonth:true,  // 년,월을 셀렉트박스로 표기해서 선택가능하도록 표기
-	        changeYear:true,
-	        yearRange:"-10:+100", // 연도 선택범위(현재 년도를 기준으로 10년전부터 100년후까지만 표기)
-			onClose: function ( selectedDate ) {
-		        $("#checkout_date").datepicker( "option", "minDate", selectedDate );
-		    }
-		});
-	
-	    $("#checkout_date").datepicker({
-	        showOn:"button", 
-			buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif",
-			buttonImageOnly: true,
-			changeMonth:true,  // 년,월을 셀렉트박스로 표기해서 선택가능하도록 표기
-	        changeYear:true,
-	        yearRange:"-10:+100" // 연도 선택범위(현재 년도를 기준으로 10년전부터 100년후까지만 표기)
-	    });*/
 	    
-	    $(".indate").datepicker({
+	    $("#checkin_date").datepicker({
 	        showOn:"button", 
 			buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif",
 			buttonImageOnly: true,
@@ -67,11 +45,11 @@
 	        changeYear:true,
 	        yearRange:"-10:+100", // 연도 선택범위(현재 년도를 기준으로 10년전부터 100년후까지만 표기)
         	onClose: function ( selectedDate ) {
-		        $(".outdate").datepicker( "option", "minDate", selectedDate );
+		        $("#checkout_date").datepicker( "option", "minDate", selectedDate );
 		    }
 	    });
 	    
-	    $(".outdate").datepicker({
+	    $("#checkout_date").datepicker({
 	        showOn:"button", 
 			buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif",
 			buttonImageOnly: true,

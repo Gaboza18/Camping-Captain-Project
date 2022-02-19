@@ -38,14 +38,16 @@
 			        </tr>
 				</table>
 				<div id="button">
-					<c:choose>
-						<c:when test="${camping.camp_zone eq order.camp_zone && indate eq order.indate}">
-		            		<input type="button" value="예약마감">
-						</c:when>
-						<c:otherwise>
-		            		<input type="submit" value="예약하기">
-						</c:otherwise>
-					</c:choose>
+					<c:set var="flag" value="false"/>
+					<c:forEach var="order" items="${order}">
+						<c:if test="${camping.camp_zone eq order.camp_zone and indate eq order.indate}">
+			            	<input type="button" value="예약마감"/>
+			            	<c:set var="flag" value="true"/>
+						</c:if>		
+					</c:forEach>
+					<c:if test="${not flag}">
+	            		<input type="submit" value="예약하기"/>
+					</c:if>
     			</div>
 			</form>
 		</div>

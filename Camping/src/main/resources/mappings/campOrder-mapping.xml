@@ -11,6 +11,6 @@
 	
 	<!-- 예약정보 조회 -->
 	<select id="getCampOrderList" resultType="campOrder">
-		SELECT*FROM camp_order WHERE indate=#{indate}
+		SELECT * FROM camp_order WHERE indate=#{indate}
 	</select>
 </mapper>

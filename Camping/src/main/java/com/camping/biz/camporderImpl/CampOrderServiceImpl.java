@@ -14,7 +14,7 @@ public class CampOrderServiceImpl implements CampOrderService {
 
 	@Autowired
 	private CampOrderDAO cDao;
-	
+
 	@Override
 	public void insertCampOrder(CampOrderVO vo) {
 		cDao.insertCampOrder(vo);

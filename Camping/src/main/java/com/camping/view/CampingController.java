@@ -53,10 +53,13 @@ public class CampingController {
 		int search_camp_name = camp_id;
 		List<CampingVO> campingList = campingService.campingList(camp_id);
 		
+		List<CampOrderVO> orderList = campOrderService.getCampOrderList(indate);
+		
 		model.addAttribute("campingList", campingList);
 		model.addAttribute("indate", indate);
 		model.addAttribute("outdate", outdate);
 		model.addAttribute("selected", search_camp_name);
+		model.addAttribute("order", orderList);
 		
 		return "camping/campingList";
 	}
@@ -86,13 +89,11 @@ public class CampingController {
 			CampingVO camp = new CampingVO();
 			camp = campingService.getCamping(camp_zone);
 			
-			List<CampOrderVO> order = campOrderService.getCampOrderList(indate);
-			
 			String day = "";
 			String inputDate= indate;
 			DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 			Date date = df.parse(inputDate);
-				
+			
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(date);
 			    
@@ -127,7 +128,6 @@ public class CampingController {
 			model.addAttribute("indate", indate);
 			model.addAttribute("outdate", outdate);
 			model.addAttribute("day", day);
-			model.addAttribute("order", order);
 			
 			return "camping/campOrder";
 		}
@@ -142,8 +142,6 @@ public class CampingController {
 		} else { 
 			
 			vo.setUser_id(loginUser.getId());
-			
-			
 			
 			campOrderService.insertCampOrder(vo);
 			
