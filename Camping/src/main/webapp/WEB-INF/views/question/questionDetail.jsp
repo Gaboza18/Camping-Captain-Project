@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-    
+<%@ include file="../header.jsp"%>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,6 +11,7 @@
 </head>
 <body>
 	<h2>자주묻는질문 상세보기</h2>
+  <div align="center">
 	<table border="1">
 		<tr>
 			<th>번호</th>
@@ -24,6 +25,9 @@
 			<th>답변</th>
 			<td width="130">${questionsVO.reply}</td>
 		</tr>
-	</table>
+	</table><br>
+ </div>
+	<input class="btn"  type="button" value="목록" onclick="history.go(-1);">
 </body>
+<%@ include file="../footer.jsp" %>
 </html>

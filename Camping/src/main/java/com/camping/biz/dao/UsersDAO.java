@@ -13,63 +13,66 @@ public class UsersDAO {
 
 	@Autowired
 	private SqlSessionTemplate mybatis;
-	
-	//회원 상세정보 조회
+
+	// 회원 상세정보 조회
 	public UsersVO getUsers(String id) {
-		
 		return mybatis.selectOne("mappings.users-mapping.getUsers", id);
-		}
-	
+	}
+
 	// 회원 존재 여부 확인
 	/*
-	 * 리턴값:
-	 * 		 회원이 존재하면 : 1
-	 * 		 회원이 존재하지 않으면 : -1
+	 * 리턴값: 회원이 존재하면 : 1 회원이 존재하지 않으면 : -1
 	 */
 
 	public int confirmID(String id) {
-		
 		String password = mybatis.selectOne("mappings.users-mapping.confirmID", id);
 
 		if (password != null) {
 			return 1;
-			
 		} else {
 			return -1;
 		}
 	}
+
 	/*
-	 * 회원 인증 
+	 * 회원 인증
 	 * 
-	 * id가 존재하지 않을 경우: -1 반환
-	 * pwd가 틀릴경우 : 0을 반환
-	 * id,pwd가 일치할 경우 : 1을 반환
+	 * id가 존재하지 않을 경우: -1 반환 pwd가 틀릴경우 : 0을 반환 id,pwd가 일치할 경우 : 1을 반환
 	 */
-	
+
 	public int loginID(UsersVO vo) {
-		int result = -1; //조회결과
+		int result = -1; // 조회결과
 
 		String pwd_in_db = mybatis.selectOne("mappings.users-mapping.confirmID", vo.getId());
-		
-		if(pwd_in_db == null) {
+
+		if (pwd_in_db == null) {
 			result = -1;
-			
-		}else if(vo.getPassword().equals(pwd_in_db)) {
-			result =1;
-		}else {
+		} else if (vo.getPassword().equals(pwd_in_db)) {
+			result = 1;
+		} else {
 			result = 0;
 		}
 		return result;
 	}
-	
+
 	// 회원 등록
 	public void insertUsers(UsersVO vo) {
-		mybatis.insert("mappings.users-mapping.insertUsers",vo);
+		mybatis.insert("mappings.users-mapping.insertUsers", vo);
 	}
-	
+
 	// 회원 목록 조회
 	public List<UsersVO> listUsers(String name) {
 		return mybatis.selectList("mappings.users-mapping.listUsers", name);
 	}
-	
+
+	// 회원 ID 찾기
+	public UsersVO findId(UsersVO vo) {
+		return mybatis.selectOne("mappings.users-mapping.findId",vo);
+	}
+		
+	// 회원 비밀번호 수정
+	public int updatePwd(UsersVO vo) {
+		return mybatis.update("mappings.users-mapping.updatePwd", vo);
+	}
+
 }

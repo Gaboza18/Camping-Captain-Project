@@ -26,5 +26,17 @@ WHERE name LIKE '%'||#{name}||'%'
 ORDER BY name
 </select>
 
+<!-- 회원 ID 찾기 -->
+<select id="findId" resultType="users">
+	select * FROM users
+		WHERE name=#{name}
+</select>
+
+<!-- 회원 PWD 변경 -->
+<update id="updatePwd">
+	update users
+		set password=#{password} 
+			where id=#{id}
+</update>
 
 </mapper>
