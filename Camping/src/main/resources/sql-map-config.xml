@@ -10,6 +10,7 @@
 		<typeAlias type="com.camping.biz.dto.QuestionsVO" alias="question" />
 		<typeAlias type="com.camping.biz.dto.UsersVO" alias="users" />
 		<typeAlias type="com.camping.biz.dto.QnaVO" alias="qna" />
+		<typeAlias type="com.camping.biz.dto.CampOrderVO" alias="campOrder" />
 	</typeAliases>
 
 	<!-- SQL 매핑파일 등록 -->
@@ -18,6 +19,7 @@
 		<mapper resource="mappings/question-mapping.xml" />
 		<mapper resource="mappings/users-mapping.xml" />
 		<mapper resource="mappings/qna-mapping.xml" />
+		<mapper resource="mappings/campOrder-mapping.xml" />
 	</mappers>
 	
 </configuration>
