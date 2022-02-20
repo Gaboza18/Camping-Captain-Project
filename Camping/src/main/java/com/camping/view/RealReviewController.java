@@ -45,7 +45,8 @@ public class RealReviewController {
 	pageMaker.setCriteria(criteria); //현재 페이지와 페이지당 항목 수 정보 설정
 	pageMaker.setTotalCount(totalCount); // 전체 공지사항 목록 갯수 설정 및 페이지 정보 초기화
 	
-	model.addAttribute("reviewList", reviewList);
+	
+	model.addAttribute("reviewList", reviewList); // 변수, 값 순서임 왼쪽 변수는 reviewList에서 <for:each>의 변수와 동일함
 	model.addAttribute("reviewListSize", reviewList.size());
 	model.addAttribute("pageMaker", pageMaker);
 	
@@ -84,7 +85,7 @@ public class RealReviewController {
 			}
 
 	}
-	@PostMapping(value="review_write")
+	@PostMapping(value="insertReview")
 	public String reviewwWrite(RealReviewVO vo, HttpSession session) {
 		UsersVO loginUser = (UsersVO) session.getAttribute("loginUser");
 		if(loginUser ==null ) {
@@ -93,7 +94,7 @@ public class RealReviewController {
 		}else {
 			vo.setId(loginUser.getId());
 			reviewsService.insertReview(vo);
-			return "realreview/reviewList";
+			return "redirect:review_list";
 		} 
 	}
 	

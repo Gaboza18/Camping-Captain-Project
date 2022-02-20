@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ include file="../header.jsp" %>	 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,12 +18,12 @@
 <body>
 	<div align="center">
 		<article>
-			<h2>Real Review !</h2>
+			<h2>My Review !</h2>
 			<h3>캠핑족장 리뷰 입니다</h3> 
-			<h3>부족원들의 의견을 들어보세요!</h3>
+			<h3>자신이 쓴 리뷰를 확인해보세요!</h3>
 
 			<!-- 검색 파트 -->
-			<form name="frm" id="review_list" method="get" action = "review_list">
+			<form name="frm" id="my_review_list" method="get" action = "my_review_list">
 				<table>
 			  		<tr>
   						<td>
@@ -76,7 +76,7 @@
 						</c:otherwise>
 					</c:choose>
 				</table>
-				<input class="btn" type="button" name="btn_input" value="리얼 리뷰작성" onClick="location.href='review_write'">
+				
 			</form>
 			<%@ include file="reviewpage_area.jsp"%>
 		</article>

@@ -88,8 +88,8 @@ public class UsersDAO {
 	}
 	
 	public void updateUser(UsersVO vo) {
-		
-		mybatis.update("mappings.users-mapping.deleteId", vo);
+
+		mybatis.update("mappings.users-mapping.updateUser",vo);
 	}
 	
 	

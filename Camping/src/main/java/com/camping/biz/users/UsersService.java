@@ -16,6 +16,7 @@ public interface UsersService {
 	public void deleteId(String id)throws Exception;
 	
 	// 회원정보 수정
+	
 	public void updateUser(UsersVO vo);
 		
 		

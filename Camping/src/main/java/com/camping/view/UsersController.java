@@ -1,6 +1,8 @@
 package com.camping.view;
 
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.camping.biz.dto.UsersVO;
 import com.camping.biz.users.UsersService;
+
+
+import utils.PageMaker;
 
 @Controller
 @SessionAttributes("loginUser")
@@ -160,8 +165,7 @@ public class UsersController {
 		
 		
 		//**********************mypage 이동 
-		// login 해야 마이페이지 이동가능 / 마이페이지에서 수정 update까지
-		
+
 		//참조사이트 : https://melonpeach.tistory.com/42
 		
 		@GetMapping(value="/mypage")
@@ -182,16 +186,29 @@ public class UsersController {
 			return "mypage/userModify";
 		}
 		
+
 		@RequestMapping(value="/usersUpdate", method = RequestMethod.POST)
-		public String userUpdate(UsersVO vo, SessionStatus status) {
+		public String userUpdate(UsersVO vo, HttpSession session)  {
 			
 			usersService.updateUser(vo);
 			
-			status.setComplete();
+			session.invalidate();
 			
-			return "Users/login";
+			return "redirect:/";
 			
 		}
+		
+		
+		//***************************** myreviewList 보기
+		@RequestMapping(value="/myreview", method = RequestMethod.GET)
+		public String myreview() {
+			
+		return "mypage/myreviewList";
+}
+		
+		
+		
+		
 		
 		
 		 /*

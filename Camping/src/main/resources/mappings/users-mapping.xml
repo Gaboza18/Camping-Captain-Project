@@ -32,14 +32,11 @@ VALUES(#{id}, #{password}, #{name}, #{email},#{phone})
 
 </delete>  
 
-<update id="updateUser">
+<select id="updateUser">
 		UPDATE users SET 
-		password = #{password},
-		name = #{name}
-		email = #{email}
-		phone = #{phone}
-		WHERE id = #{id}
-	</update>
+		password = #{password}, name = #{name}, email = #{email}, phone = #{phone}
+		WHERE id= #{id} 
+	</select>
 
 
 </mapper>

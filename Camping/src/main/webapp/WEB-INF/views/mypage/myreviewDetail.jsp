@@ -16,7 +16,7 @@
 <br>
 <div align="center">
 	<h2>리얼리뷰! 상세보기</h2>
-	<form name="frm" id="detail" method="post" action="review_list">
+	<form name="frm" id="reviewdetail" method="post" action="review_list">
 	<table border="1">
 		<tr>
 			<th>번호</th>
@@ -32,11 +32,11 @@
 		</tr>
 		<tr>
 			<th>작성자</th>
-			<td>${UsersVO.id}</td>
+			<td>${id}</td>
 		</tr>
 		<tr>
 			<th>캠핑장이름</th>
-			<td>${RealReviewVO.campingname}</td>
+			<td>${RealReviewVO.name}</td>
 		</tr>
 		<tr>
 			<th>작성일</th>

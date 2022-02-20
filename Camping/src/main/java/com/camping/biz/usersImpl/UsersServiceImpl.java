@@ -49,9 +49,6 @@ public class UsersServiceImpl implements UsersService {
 	
 	//회원 삭제
 
-	
-		
-	
 
 	@Override
 	public void deleteId(String id) throws Exception {
@@ -62,7 +59,9 @@ public class UsersServiceImpl implements UsersService {
 
 	@Override
 	public void updateUser(UsersVO vo) {
+	
 		uDao.updateUser(vo);
+		
 		
 	}
 
