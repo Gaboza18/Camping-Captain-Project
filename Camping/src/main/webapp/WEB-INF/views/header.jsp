@@ -80,7 +80,7 @@
 			          	<a href="#">마이페이지</a>
 			          	<ul class="header_submenu">
 			          		<li><a href="#">내 정보</a></li>
-			          		<li><a href="#">예약내역조회</a></li>
+			          		<li><a href="my_reservation">예약내역조회</a></li>
 			          		<li><a href="#">나의 후기</a></li>
 			          	</ul>
 			        </li>  

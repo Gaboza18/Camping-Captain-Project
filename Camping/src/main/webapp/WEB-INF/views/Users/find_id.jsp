@@ -28,9 +28,7 @@
   text-decoration: none;
 }
 </style>
-		<title>아이디 찾기</title>
-		<script src="jquery/jquery.min.js"></script>
-		<script src="js/bootstrap.bundle.min.js"></script>		
+		<title>아이디 찾기</title>		
 	</head>
 	<body>
 	<div class="w3-content w3-container w3-margin-top">
@@ -55,10 +53,6 @@
 		
 				<!-- 이름과 전화번호가 일치하지 않을 때-->
 				<c:if test="${check == 1}">
-					<script>
-						opener.document.findform.name.value = "";
-						opener.document.findform.phone.value = "";
-					</script>
 					<label>일치하는 정보가 존재하지 않습니다.</label>
 				</c:if>
 
