@@ -2,5 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ include file="header.jsp" %>
 
+<!-- 지점, 예약날짜 선택 -->
+<%@ include file="camping_search.jsp" %>
+
 <%@ include file="footer.jsp" %>
 

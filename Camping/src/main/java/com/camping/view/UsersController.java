@@ -4,6 +4,9 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletResponse;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,7 +32,7 @@ public class UsersController {
 	 * @RequestMapping(value = "/index", method = RequestMethod.GET) public String
 	 * login(Model model) {
 	 * 
-	 * return "Users/login"; // login.jsp È­¸éÀ» È£Ãâ }
+	 * return "Users/login"; // login.jsp í™”ë©´ì„ í˜¸ì¶œ }
 	 */
 
 	@GetMapping(value = "/login")
@@ -37,7 +40,7 @@ public class UsersController {
 		return "Users/login";
 	}
 	/*
-	 * »ç¿ëÀÚ ·Î±×ÀÎ Ã³¸® vo °´Ã¼¿¡¼­ id, password Á¤º¸¸¦ ÀĞ¾î¿Í »ç¿ëÀÚ ÀÎÁõ
+	 * ì‚¬ìš©ì ë¡œê·¸ì¸ ì²˜ë¦¬ vo ê°ì²´ì—ì„œ id, password ì •ë³´ë¥¼ ì½ì–´ì™€ ì‚¬ìš©ì ì¸ì¦
 	 */
 
 	@PostMapping(value = "/login")
@@ -47,21 +50,21 @@ public class UsersController {
 
 		int result = usersService.loginID(vo);
 
-		if (result == 1) { // ÀÎÁõ¼º°ø½Ã
-			// »ç¿ëÀÚ Á¤º¸¸¦ Á¶È¸ÇÏ¿© Session °´Ã¼¿¡ ÀúÀå
+		if (result == 1) { // ì¸ì¦ì„±ê³µì‹œ
+			// ì‚¬ìš©ì ì •ë³´ë¥¼ ì¡°íšŒí•˜ì—¬ Session ê°ì²´ì— ì €ì¥
 			loginUser = usersService.getUsers(vo.getId());
-			// @SessionAttribute·Î ÁöÁ¤ÇÏ¿© ¼¼¼Ç¿¡µµ ÀúÀåµÊ
+			// @SessionAttributeë¡œ ì§€ì •í•˜ì—¬ ì„¸ì…˜ì—ë„ ì €ì¥ë¨
 			model.addAttribute("loginUser", loginUser);
 
-			return "index"; // ·Î±×ÀÎ ¼º°øÇÏ¸é index.jsp·Î ÀÌµ¿
-		} else { // »ç¿ëÀÚ ÀÎÁõ ½ÇÆĞ
+			return "index"; // ë¡œê·¸ì¸ ì„±ê³µí•˜ë©´ index.jspë¡œ ì´ë™
+		} else { // ì‚¬ìš©ì ì¸ì¦ ì‹¤íŒ¨
 			return "Users/login_fail";
 		}
 	}
 
 	@GetMapping(value = "/logout")
 	public String logout(SessionStatus status) {
-		// session.invalidate´Â ¿ÏÀüÈ÷ ·Î±×¾Æ¿ôÇÏÁö ¾Ê±â ¶§¹®¿¡ ¾È¾¸
+		// session.invalidateëŠ” ì™„ì „íˆ ë¡œê·¸ì•„ì›ƒí•˜ì§€ ì•Šê¸° ë•Œë¬¸ì— ì•ˆì”€
 		status.setComplete();
 
 		return "Users/login";
@@ -75,13 +78,13 @@ public class UsersController {
 
 	@PostMapping(value = "/join_form")
 	public String joinView() {
-		System.out.println("È¸¿ø°¡ÀÔÁøÀÔ");
+		System.out.println("íšŒì›ê°€ì…ì§„ì…");
 		return "Users/join";
 	}
 
 //	
 //	/*
-//	 * ID Áßº¹ Ã¼Å© È­¸é Ãâ·Â
+//	 * ID ì¤‘ë³µ ì²´í¬ í™”ë©´ ì¶œë ¥
 //	 */
 
 	@GetMapping(value = "/id_check_form")
@@ -92,7 +95,7 @@ public class UsersController {
 	}
 
 	/*
-	 * ID Áßº¹Ã¼Å© ¼öÇà
+	 * ID ì¤‘ë³µì²´í¬ ìˆ˜í–‰
 	 */
 
 	@PostMapping(value = "/id_check_form")
@@ -106,18 +109,18 @@ public class UsersController {
 	}
 
 	/*
-	 * »ç¿ëÇÒ id¸¦ join(È¸¿ø°¡ÀÔ)È­¸é¿¡ Àü¼Û
+	 * ì‚¬ìš©í•  idë¥¼ join(íšŒì›ê°€ì…)í™”ë©´ì— ì „ì†¡
 	 */
 
 	@GetMapping(value = "/id_check_confirmed")
 	public String idCheckConfirmed(UsersVO vo, Model model) {
-		model.addAttribute("id", vo.getId()); // id Áßº¹È®ÀÎ ÇÊµå
+		model.addAttribute("id", vo.getId()); // id ì¤‘ë³µí™•ì¸ í•„ë“œ
 		return "Users/join";
 
 	}
 
 	/*
-	 * È¸¿ø°¡ÀÔ Ã³¸®
+	 * íšŒì›ê°€ì… ì²˜ë¦¬
 	 */
 
 	@PostMapping(value = "/join")
@@ -126,8 +129,9 @@ public class UsersController {
 		return "Users/login";
 	}
 
+
 	/*
-	 * ¾ÆÀÌµğ Ã£±â ÆäÀÌÁö ÀÌµ¿
+	 * ì•„ì´ë”” ì°¾ê¸° í˜ì´ì§€ ì´ë™
 	 */
 	@RequestMapping(value = "/find_id")
 	public String findView() {
@@ -135,7 +139,7 @@ public class UsersController {
 	}
 
 	/*
-	 * ¾ÆÀÌµğ Ã£±â ½ÇÇà
+	 * ì•„ì´ë”” ì°¾ê¸° ì‹¤í–‰
 	 */
 
 	@RequestMapping(value = "/find_id", method = RequestMethod.POST)
@@ -153,7 +157,7 @@ public class UsersController {
 	}
 	
 	/*
-	 * ºñ¹Ğ¹øÈ£ Ã£±â ÆäÀÌÁö ÀÌµ¿
+	 * ë¹„ë°€ë²ˆí˜¸ ì°¾ê¸° í˜ì´ì§€ ì´ë™
 	 */
 	@RequestMapping(value = "/find_pwd")
 	public String findPwdView() {
@@ -161,11 +165,21 @@ public class UsersController {
 	}
 
 	/*
-	 * ºñ¹Ğ¹øÈ£ Ã£±â ½ÇÇà
+	 * ë¹„ë°€ë²ˆí˜¸ ì°¾ê¸° ì‹¤í–‰
 	 */
 	
 	@RequestMapping(value = "Users/find_pwd", method = RequestMethod.POST)
 	public void findPwdPOST(@ModelAttribute UsersVO user, HttpServletResponse response) throws IOException {
 		usersService.findPwd(response,user);
+	}
+  
+	@ModelAttribute("conditionMap")
+	public Map<String, String> searchConditionMap() {
+		Map<String, String> conditionMap = new LinkedHashMap<>();
+
+		conditionMap.put("ì§€ì ì„ ì„ íƒí•˜ì„¸ìš”", "0");
+		conditionMap.put("ìº í•‘ì¡±ì¥-ê°•ì›ë„ì§€ì ", "1");
+
+		return conditionMap;
 	}
 }
