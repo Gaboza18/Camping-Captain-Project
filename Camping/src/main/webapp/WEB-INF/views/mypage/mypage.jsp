@@ -16,13 +16,18 @@
       
           <div>
          ${sessionScope.loginUser.name}님 환영합니다!
+         <br>
           
-          <label>회원정보수정</label>
+          <br>
+          <label>메뉴를 선택하세요</label>
            <li>
 			<a href="usermodify"  style="width:110px;">회원정보수정</a>
 							</li>
 							<li>
 			<a href="myreview"  style="width:110px;">나의 후기보기</a>
+			</li> 
+			<li>
+			<a href = "deleteIdView" tyle="width:110px;">회원탈퇴</a>
 							</li>
                 
                  

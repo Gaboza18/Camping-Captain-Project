@@ -28,7 +28,7 @@ VALUES(#{id}, #{password}, #{name}, #{email},#{phone})
 
 <!-- 회원탈퇴 -->
 <delete id="deleteId">
-	DELETE FROM users WHERE id= #{id} <!-- AND password= #{password}  --> 
+	DELETE FROM users WHERE id= #{id} AND password= #{password}   
 
 </delete>  
 
@@ -37,6 +37,8 @@ VALUES(#{id}, #{password}, #{name}, #{email},#{phone})
 		password = #{password}, name = #{name}, email = #{email}, phone = #{phone}
 		WHERE id= #{id} 
 	</select>
+	
+	
 
 
 </mapper>

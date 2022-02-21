@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.camping.biz.dto.RealReviewVO;
+import com.camping.biz.dto.UsersVO;
 
 import utils.Criteria;
 
@@ -51,6 +52,11 @@ public class RealReviewDAO {
 	public void insertReview(RealReviewVO vo) {
 		mybatis.insert("mappings.review-mapping.insertReview",vo);
 	}
+	
+	public List<RealReviewVO> seemyreview(RealReviewVO vo) {
+		return mybatis.selectList("mappings.review-mapping.myreview", vo);
+	}
+	
 	
 
 }

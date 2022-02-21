@@ -148,12 +148,14 @@ public class UsersController {
 		
 		}
 		
-		// 여기서부터 구현안됨
+	
 		
 		// 회원 탈퇴 post
 		@RequestMapping(value="/usersDelete", method = RequestMethod.POST)
-		public String usersDelete(String id, RedirectAttributes rttr, HttpSession session) throws Exception{
-			usersService.deleteId(id);
+		public String usersDelete(String id, String password, RedirectAttributes rttr, HttpSession session, Model model ,UsersVO vo) throws Exception{
+			usersService.deleteId(vo);
+			model.addAttribute("password", vo.getPassword());
+			model.addAttribute("id", vo.getId());
 			session.invalidate();
 			rttr.addFlashAttribute("msg", "이용해주셔서 감사합니다");
 			return "redirect:/index";
@@ -190,22 +192,47 @@ public class UsersController {
 		@RequestMapping(value="/usersUpdate", method = RequestMethod.POST)
 		public String userUpdate(UsersVO vo, HttpSession session)  {
 			
+			session.invalidate();
 			usersService.updateUser(vo);
 			
-			session.invalidate();
-			
+						
 			return "redirect:/";
 			
 		}
 		
+//		// 이메일 인증
+//		@RestController
+//		public class MemberRController {
+//		    @Autowired
+//		    private MemberService memberService;
+//		    @Autowired
+//		    private MailSendService mss;
+//
+//
+//		    @RequestMapping("/member/signUp")
+//		     public void signUp(@ModelAttribute UsersVO vo){
+//		        // DB에 기본정보 insert
+//		        usersService.signUp(vo);
+//
+//		        //임의의 authKey 생성 & 이메일 발송
+//		        String authKey = mss.sendAuthMail(vo.getEmail());
+//		        vo.setAuthKey(authKey);
+//
+//		        Map<String, String> map = new HashMap<String, String>();
+//		        map.put("email", vo.getEmail());
+//		        map.put("authKey", vo.getAuthKey());
+//		        System.out.println(map);
+//
+//		      //DB에 authKey 업데이트
+//		      usersService.updateAuthKey(map);
+//
+//		  	}
+//		}
+//		
 		
-		//***************************** myreviewList 보기
-		@RequestMapping(value="/myreview", method = RequestMethod.GET)
-		public String myreview() {
-			
-		return "mypage/myreviewList";
-}
-		
+	
+	
+
 		
 		
 		

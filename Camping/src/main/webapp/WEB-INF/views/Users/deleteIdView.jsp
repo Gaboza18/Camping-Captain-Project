@@ -13,49 +13,46 @@
 	 	
 		<title>회원탈퇴</title>
 	</head>
+	
 	<script type="text/javascript">
 		
-	
-	
-	
-	
-	$(document).ready(function(){
-			// 취소
-			$(".cencle").on("click", function(){
-				
-				location.href = "login";
-						    
-			})
-		
-			$("#submit").on("click", function(){
-				if($("#password").val()==""){
-					alert("비밀번호 또는 아이디를 확인해주세요.");
-					$("#password").focus();
-					return false;
-				}	
-			});
+		function go_out() {
+			 if ($("#password").val() == "") {
+			      alert("비밀번호를 입력 하세요");
+			      $("#password").focus();
+			      return false;
+			   } else if ($("#password1").val() != $("#passwordCheck").val()) {
+			      alert("비밀번호가 일치하지 않습니다");
+			      $("#password").focus();
+			      return false;
 			
-				
-			
-		})
+		}// 여기에는 틀린 비밀번호로 중복확인하고 탈퇴할때 알람 뜨게 해야됨
 		
+			 
+			 
+		}
+
 	</script>
+	
 	<body>
 	 
 		<section id="container">
 			<form id="usersDelete" action="usersDelete" method="post">
 				<div class="form-group has-feedback">
 					<label class="control-label" for="id">아이디</label>
-					<input class="form-control" type="id" id="id" name="id" value="${users.id}" />
+					<input class="form-control" type="text" id="id" name="id" value="${users.id}" />
 				</div>
 				<div class="form-group has-feedback">
 					<label class="control-label" for="password">패스워드</label>
-					<input class="form-control" type="password" id="password" name="password" value="${users.password}" />
+					<input class="form-control" type="password" id="password1" name="password" value="${users.password}" />
+					<br><label>비밀번호 재확인</label> 
+					<input type="password"  id="passwordCheck"><br> 
+				
 				</div>
 				
 				<div class="form-group has-feedback">
-					<button class="btn btn-success" type="submit" id="submit">회원탈퇴</button>
-					<button class="cencle btn btn-danger" type="button">취소</button>
+					<button class="btn btn-success" type="submit" id="submit" onclick="go_out()">회원탈퇴</button>
+					<button class="cencle btn btn-danger" type="button" onclick= "location.href='index'" >취소</button>
 				</div>
 			</form>
 			<div>

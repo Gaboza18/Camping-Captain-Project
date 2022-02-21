@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.camping.biz.dao.RealReviewDAO;
 import com.camping.biz.dto.RealReviewVO;
+import com.camping.biz.dto.UsersVO;
 import com.camping.biz.realreview.RealReviewService;
 
 import utils.Criteria;
@@ -53,5 +54,15 @@ public class RealReviewServiceImpl implements RealReviewService {
 		reviewsDao.insertReview(vo);
 		
 	}
+	
+	@Override
+	public List<RealReviewVO> seemyreview(RealReviewVO vo) {
+		return reviewsDao.seemyreview(vo);
+		
+	}
+
+
+
+	
 
 }

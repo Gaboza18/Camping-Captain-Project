@@ -79,18 +79,17 @@ public class UsersDAO {
 	
 	
 
-	public void deleteId(String id )throws Exception{
-		
-		
-		
-		//아이디 삭제라도 되돌리고 싶을때 사릴 코드
-		mybatis.delete("mappings.users-mapping.deleteId", id);
+	public void deleteId(UsersVO vo )throws Exception{
+	
+		mybatis.delete("mappings.users-mapping.deleteId", vo);
 	}
 	
 	public void updateUser(UsersVO vo) {
 
 		mybatis.update("mappings.users-mapping.updateUser",vo);
 	}
+	
+	
 	
 	
 		// <비밀번호 확인> 변수 : "passwordCheck"

@@ -98,5 +98,41 @@ public class RealReviewController {
 		} 
 	}
 	
+	@RequestMapping(value="/myreview", method = RequestMethod.GET)
+	public String seemyreview(RealReviewVO vo, HttpSession session, Model model, 
+			Criteria criteria) {
+		
+		
+		UsersVO loginUser = (UsersVO) session.getAttribute("loginUser");
+		if(loginUser ==null) {
+			return "Users/login";
+		}else {
+			vo.setId(loginUser.getId());
+			reviewsService.seemyreview(vo);
+
+			
+			List<RealReviewVO> myreviewList = reviewsService.seemyreview(vo);
+			
+			
+			//PageMaker mypageMaker = new PageMaker();
+			//화면에 표시할 페이지 버튼 정보 설정
+			//PageMaker pageMaker = new PageMaker();
+			//int totalCount= reviewsService.countReviewlist(vo.getTitle());
+			
+			//mypageMaker.setCriteria(criteria); //현재 페이지와 페이지당 항목 수 정보 설정
+			//mypageMaker.setTotalCount(totalCount); // 전체 공지사항 목록 갯수 설정 및 페이지 정보 초기화
+			
+			
+			
+			model.addAttribute("myreviewList",myreviewList);
+			//model.addAttribute("myreviewListSize", myreviewList.size());
+			//model.addAttribute("pageMaker", mypageMaker);
+			
+			
+	return "mypage/myreviewList";
+}
+	}
+	
 	
 }
+	

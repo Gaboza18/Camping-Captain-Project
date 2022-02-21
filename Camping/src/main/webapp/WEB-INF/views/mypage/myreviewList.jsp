@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
+<%@ include file="../header.jsp" %>	 
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,12 +18,12 @@
 <body>
 	<div align="center">
 		<article>
-			<h2>My Review !</h2>
+			<h2>Real Review !</h2>
 			<h3>캠핑족장 리뷰 입니다</h3> 
-			<h3>자신이 쓴 리뷰를 확인해보세요!</h3>
+			<h3>부족원들의 의견을 들어보세요!</h3>
 
 			<!-- 검색 파트 -->
-			<form name="frm" id="my_review_list" method="get" action = "my_review_list">
+			<form name="frm" id="review_list" method="get" action = "review_list">
 				<table>
 			  		<tr>
   						<td>
@@ -35,8 +35,8 @@
 			  	</table>
 			  </form>
 			<br>
-			<form name="formm" method="get">
-				<table id="reviewList" border="1">
+			<form name="myreview" method="get">
+				<table id="myreviewList" name=myreview border="1">
 					<tr>
 						<th width="40">번호</th>
 						<th width="200">제목</th>
@@ -45,38 +45,48 @@
 						<th width="130">작성일</th>
 						<th width="50">조회수</th>
 					</tr>
-					<c:choose>
-						<c:when test="${reviewListSize<=0}">
+					<%-- <c:choose>
+						<c:when test="${myreviewListSize<=0}">
 							<tr>
 								<td width="100%" colspan="7" align="center" height="23">
 									등록된 리뷰가 없습니다.</td>
 							</tr>
 						</c:when>
 						<c:otherwise>
-							<c:forEach items="${reviewList}" var="RealReviewVO">
+							<c:forEach items="${myreviewList}" var="myRealReviewVO">
 								<tr>
-									<td height="23" align="center">${RealReviewVO.rseq}
-									 <a href="review_list${pageMaker.makeQuery(pageMaker.criteria.pageNum)}&rseq=${RealReviewVO.rseq}"></a>
+									<td height="23" align="center">${myRealReviewVO.rseq}
+									 <a href="review_list${pageMaker.makeQuery(pageMaker.criteria.pageNum)}&rseq=${myRealReviewVO.rseq}"></a>
 									 </td>    
-									<td><a href="${path}review_detail?rseq=${RealReviewVO.rseq}">${RealReviewVO.title}</a></td>
+									<td><a href="${path}review_detail?rseq=${myRealReviewVO.rseq}">${RealReviewVO.title}</a></td>
 									
 									
-									<td>${RealReviewVO.id}</td>
-									<td>${RealReviewVO.campingname}</td>
+									<td>${myRealReviewVO.id}</td>
+									<td>${myRealReviewVO.campingname}</td>
 									
-									<td><fmt:formatDate value="${RealReviewVO.indate}" type="date" />
+									<td><fmt:formatDate value="${myRealReviewVO.indate}" type="date" />
 									</td>
 									
 									
 									
-									<td>${RealReviewVO.count}</td>
+									<td>${myRealReviewVO.count}</td>
 								</tr>
 							</c:forEach>
 							<tr><td colspan="6" style="text-align: center;"> ${paging} </td></tr>
 						</c:otherwise>
-					</c:choose>
+					</c:choose> --%>
+							<c:forEach items="${myreviewList}" var="myRealReviewVO">
+								<tr>  
+									<td><a href="${path}review_detail?rseq=${myRealReviewVO.rseq}">${RealReviewVO.title}</a></td>
+									<td>${myRealReviewVO.id}</td>
+									<td>${myRealReviewVO.campingname}</td>
+									<td><fmt:formatDate value="${myRealReviewVO.indate}" type="date" />
+									</td>
+									<td>${myRealReviewVO.count}</td>
+								</tr>
+							</c:forEach>
 				</table>
-				
+				<input class="btn" type="button" name="btn_input" value="리얼 리뷰작성" onClick="location.href='review_write'">
 			</form>
 			<%@ include file="reviewpage_area.jsp"%>
 		</article>
