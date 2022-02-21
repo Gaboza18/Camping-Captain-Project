@@ -21,6 +21,13 @@
                  onclick="location='find_pwd'">                                                        
         </div> 
         </fieldset>
+            <input type="button" value="아이디 비밀번호 찾기" class="submit"
+                 onclick="find_id_form()">
+                 <input type="button" value="회원탈퇴" class="submit"
+                 onclick="location.href='deleteIdView'">
+                 
+                     
+        </div>
     </form>  
   </article>
 <%@ include file="../footer.jsp" %>  

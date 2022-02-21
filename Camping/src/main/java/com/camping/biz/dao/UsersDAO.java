@@ -7,21 +7,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.camping.biz.dto.UsersVO;
+import com.camping.biz.users.UsersService;
 
 @Repository
 public class UsersDAO {
+	
+	
 
 	@Autowired
 	private SqlSessionTemplate mybatis;
 
-	// È¸¿ø »ó¼¼Á¤º¸ Á¶È¸
+	// È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸
 	public UsersVO getUsers(String id) {
 		return mybatis.selectOne("mappings.users-mapping.getUsers", id);
 	}
 
-	// È¸¿ø Á¸Àç ¿©ºÎ È®ÀÎ
+	// È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
 	/*
-	 * ¸®ÅÏ°ª: È¸¿øÀÌ Á¸ÀçÇÏ¸é : 1 È¸¿øÀÌ Á¸ÀçÇÏÁö ¾ÊÀ¸¸é : -1
+	 * ï¿½ï¿½ï¿½Ï°ï¿½: È¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ : 1 È¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ : -1
 	 */
 
 	public int confirmID(String id) {
@@ -35,13 +38,13 @@ public class UsersDAO {
 	}
 
 	/*
-	 * È¸¿ø ÀÎÁõ
+	 * È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	 * 
-	 * id°¡ Á¸ÀçÇÏÁö ¾ÊÀ» °æ¿ì: -1 ¹ÝÈ¯ pwd°¡ Æ²¸±°æ¿ì : 0À» ¹ÝÈ¯ id,pwd°¡ ÀÏÄ¡ÇÒ °æ¿ì : 1À» ¹ÝÈ¯
+	 * idï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½: -1 ï¿½ï¿½È¯ pwdï¿½ï¿½ Æ²ï¿½ï¿½ï¿½ï¿½ï¿½ : 0ï¿½ï¿½ ï¿½ï¿½È¯ id,pwdï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ : 1ï¿½ï¿½ ï¿½ï¿½È¯
 	 */
 
 	public int loginID(UsersVO vo) {
-		int result = -1; // Á¶È¸°á°ú
+		int result = -1; // ï¿½ï¿½È¸ï¿½ï¿½ï¿½
 
 		String pwd_in_db = mybatis.selectOne("mappings.users-mapping.confirmID", vo.getId());
 
@@ -55,24 +58,48 @@ public class UsersDAO {
 		return result;
 	}
 
-	// È¸¿ø µî·Ï
+	// È¸ï¿½ï¿½ ï¿½ï¿½ï¿½
 	public void insertUsers(UsersVO vo) {
 		mybatis.insert("mappings.users-mapping.insertUsers", vo);
 	}
 
-	// È¸¿ø ¸ñ·Ï Á¶È¸
+	// È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½È¸
 	public List<UsersVO> listUsers(String name) {
 		return mybatis.selectList("mappings.users-mapping.listUsers", name);
 	}
 
-	// È¸¿ø ID Ã£±â
+	// È¸ï¿½ï¿½ ID Ã£ï¿½ï¿½
 	public UsersVO findId(UsersVO vo) {
 		return mybatis.selectOne("mappings.users-mapping.findId",vo);
 	}
 		
-	// È¸¿ø ºñ¹Ð¹øÈ£ ¼öÁ¤
+	// È¸ï¿½ï¿½ ï¿½ï¿½Ð¹ï¿½È£ ï¿½ï¿½ï¿½ï¿½
 	public int updatePwd(UsersVO vo) {
 		return mybatis.update("mappings.users-mapping.updatePwd", vo);
 	}
 
+	
+	// È¸ï¿½ï¿½Å»ï¿½ï¿½
+	
+	
+
+	public void deleteId(UsersVO vo )throws Exception{
+	
+		mybatis.delete("mappings.users-mapping.deleteId", vo);
+	}
+	
+	public void updateUser(UsersVO vo) {
+
+		mybatis.update("mappings.users-mapping.updateUser",vo);
+	}
+	
+	
+	
+	
+		// <ï¿½ï¿½Ð¹ï¿½È£ È®ï¿½ï¿½> ï¿½ï¿½ï¿½ï¿½ : "passwordCheck"
+	
+	/*public String pwCheck(String password)throws Exception{
+		return mybatis.selectOne("mappings.users-mapping.passwordCheck", password);
+	}
+	*/
 }

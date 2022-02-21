@@ -4,11 +4,14 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.stereotype.Service;
 
 import com.camping.biz.dto.UsersVO;
 
 public interface UsersService {
-	// DAO¿¡¼­ °´Ã¼ Users id ¹Þ¾Æ¿À±â - > ±¸ÇöÀº Impl¿¡¼­
+	// DAOï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ Users id ï¿½Þ¾Æ¿ï¿½ï¿½ï¿½ - > ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Implï¿½ï¿½ï¿½ï¿½
 	public UsersVO getUsers(String id);
 
 	public int confirmID(String id);
@@ -19,12 +22,82 @@ public interface UsersService {
 
 	public List<UsersVO> listUsers(String name);
 
-	public UsersVO findId(UsersVO vo); // È¸¿ø ID Ã£±â
+	public UsersVO findId(UsersVO vo); // È¸ï¿½ï¿½ ID Ã£ï¿½ï¿½
 
-	public int updatePwd(UsersVO vo); // È¸¿ø Pwd º¯°æ
+	public int updatePwd(UsersVO vo); // È¸ï¿½ï¿½ Pwd ï¿½ï¿½ï¿½ï¿½
 
-	public void sendEmailPwd(UsersVO vo, String div); // È¸¿ø Pwd Ã£±â ÀÌ¸ÞÀÏ ¹ß¼Û
+	public void sendEmailPwd(UsersVO vo, String div); // È¸ï¿½ï¿½ Pwd Ã£ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ß¼ï¿½
 
-	public void findPwd(HttpServletResponse response, UsersVO vo) throws IOException; // ¾ÆÀÌµð/ÀÌ¸ÞÀÏ Á¶È¸ ÇÏ¿© ÀÓ½Ãºñ¹Ð¹øÈ£ »ý¼º
+	public void findPwd(HttpServletResponse response, UsersVO vo) throws IOException; // ï¿½ï¿½ï¿½Ìµï¿½/ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½È¸ ï¿½Ï¿ï¿½ ï¿½Ó½Ãºï¿½Ð¹ï¿½È£ ï¿½ï¿½ï¿½ï¿½
+	
+	//È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	public void deleteId(UsersVO vo )throws Exception;
+	
+	// È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	
+	public void updateUser(UsersVO vo);
+		
+//	
+//	//ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+//	@Service("mss")
+//	public class MailSendService {
+//	    @Autowired
+//	    private JavaMailSenderImpl mailSender;
+//
+//	    //ï¿½ï¿½ï¿½ï¿½Å° ï¿½ï¿½ï¿½ï¿½
+//	    private String getKey(int size) {
+//	        this.size = size;
+//	        return getAuthCode();
+//	    }
+//
+//	    //ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½
+//	    private String getAuthCode() {
+//	        Random random = new Random();
+//	        StringBuffer buffer = new StringBuffer();
+//	        int num = 0;
+//
+//	        while(buffer.length() < size) {
+//	            num = random.nextInt(10);
+//	            buffer.append(num);
+//	        }
+//
+//	        return buffer.toString();
+//	    }
+//
+////	    
+//	    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//	    public String sendAuthMail(String email) {
+//	        //6ï¿½Ú¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£ ï¿½ï¿½ï¿½ï¿½
+//	        String authKey = getKey(6);
+//
+//	        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//	        try {
+//	            MailUtils sendMail = new MailUtils(mailSender);
+//	            sendMail.setSubject("È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
+//	            sendMail.setText(new StringBuffer().append("<h1>[ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½]</h1>")
+//	            .append("<p>ï¿½Æ·ï¿½ ï¿½ï¿½Å©ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½Ï½Ã¸ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½Ë´Ï´ï¿½.</p>")
+//	            .append("<a href='http://localhost:9080/member/signUpConfirm?email=")
+//	            .append(email)
+//	            .append("&authKey=")
+//	            .append(authKey)
+//	            .append("' target='_blenk'>ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½</a>")
+//	            .toString());
+//	            sendMail.setFrom("ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½Ö¼ï¿½", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+//	            sendMail.setTo(email);
+//	            sendMail.send();
+//	        } catch (MessagingException e) {
+//	            e.printStackTrace();
+//	        } catch (UnsupportedEncodingException e) {
+//	            e.printStackTrace();
+//	        }
+//
+//	          return authKey;
+//	    }
+//	}
+//	
+		
+	
+	
+	//public void deleteId(UsersVO vo) throws Exception;
 	
 }

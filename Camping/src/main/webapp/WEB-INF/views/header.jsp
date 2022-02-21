@@ -84,7 +84,7 @@
 								<a href="login"  style="width:110px;">로그인</a>
 							</li>
 							<li>
-								<a href="join"  style="width:110px;">회원가입</a>
+								<a href="contract"  style="width:110px;">회원가입</a>
 							</li>
 						</c:when>
 						<c:otherwise>
@@ -107,7 +107,7 @@
 			          	<a href="camp_list">예약하기</a>
 			        </li>  
 			        <li>
-			          	<a href="#">리얼 후기</a>
+			          	<a href="review_list">리얼 후기</a>
 			        </li> 
 			        <li>
 			          	<a href="#">고객센터</a>
