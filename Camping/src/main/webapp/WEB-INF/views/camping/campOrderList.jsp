@@ -17,7 +17,7 @@
 					<p>예약자 이름: ${campOrderList.order_name}</p>
 					<p>캠핑장 지점 이름: ${campOrderList.camp_name}</p>
 					<p>가격: ${campOrderList.total_price}(원)</p>
-					<p>캠핑장 구역: ${campOrderList.camp_name}</p>
+					<p>캠핑장 구역: ${campOrderList.camp_zone}</p>
 					<p>체크인&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;체크아웃</p><p>${campOrderList.indate}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${campOrderList.outdate}</p>
 				</c:forEach>
 			</div>
