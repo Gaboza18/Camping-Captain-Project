@@ -65,12 +65,12 @@ public class UsersDAO {
 		return mybatis.selectList("mappings.users-mapping.listUsers", name);
 	}
 
-	// 회占쏙옙 ID 찾占쏙옙
+	// 회원 ID 찾기
 	public UsersVO findId(UsersVO vo) {
 		return mybatis.selectOne("mappings.users-mapping.findId",vo);
 	}
 		
-	// 회占쏙옙 占쏙옙橘占싫� 占쏙옙占쏙옙
+	// 회원 비밀번호 찾기 및 업데이트
 	public int updatePwd(UsersVO vo) {
 		return mybatis.update("mappings.users-mapping.updatePwd", vo);
 	}
