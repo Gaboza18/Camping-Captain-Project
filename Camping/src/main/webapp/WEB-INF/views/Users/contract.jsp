@@ -192,4 +192,5 @@
       <input type="button" value="Next" class="submit"  onclick="go_next()" style="float: right;"> 
     </form>
   </article>
+<%@ include file="../footer.jsp" %> 
   

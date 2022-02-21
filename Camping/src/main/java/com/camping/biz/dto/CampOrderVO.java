@@ -1,6 +1,5 @@
 package com.camping.biz.dto;
 
-
 import java.sql.Date;
 
 import lombok.*;

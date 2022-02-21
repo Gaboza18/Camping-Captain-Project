@@ -1,5 +1,8 @@
 package com.camping.view;
 
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletResponse;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -10,7 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
@@ -20,126 +24,162 @@ import com.camping.biz.users.UsersService;
 @Controller
 @SessionAttributes("loginUser")
 public class UsersController {
-	
+
 	@Autowired
 	private UsersService usersService;
-	
+
 	/*
-	@RequestMapping(value = "/index", method = RequestMethod.GET)
-	public String login(Model model) {
-		
-		return "Users/login"; // login.jsp È­¸éÀ» È£Ãâ
-	} */
-	
-	
-	@GetMapping(value="/login")
+	 * @RequestMapping(value = "/index", method = RequestMethod.GET) public String
+	 * login(Model model) {
+	 * 
+	 * return "Users/login"; // login.jsp í™”ë©´ì„ í˜¸ì¶œ }
+	 */
+
+	@GetMapping(value = "/login")
 	public String loginView() {
 		return "Users/login";
 	}
 	/*
-	 * »ç¿ëÀÚ ·Î±×ÀÎ Ã³¸®
-	 * vo °´Ã¼¿¡¼­ id, password Á¤º¸¸¦ ÀĞ¾î¿Í »ç¿ëÀÚ ÀÎÁõ
+	 * ì‚¬ìš©ì ë¡œê·¸ì¸ ì²˜ë¦¬ vo ê°ì²´ì—ì„œ id, password ì •ë³´ë¥¼ ì½ì–´ì™€ ì‚¬ìš©ì ì¸ì¦
 	 */
-	
-	@PostMapping(value="/login")
+
+	@PostMapping(value = "/login")
 	public String loginAction(UsersVO vo, Model model) {
-		
+
 		UsersVO loginUser = null;
-		
+
 		int result = usersService.loginID(vo);
-		
-		if(result == 1) { // ÀÎÁõ¼º°ø½Ã
-			//»ç¿ëÀÚ Á¤º¸¸¦ Á¶È¸ÇÏ¿© Session °´Ã¼¿¡ ÀúÀå
+
+		if (result == 1) { // ì¸ì¦ì„±ê³µì‹œ
+			// ì‚¬ìš©ì ì •ë³´ë¥¼ ì¡°íšŒí•˜ì—¬ Session ê°ì²´ì— ì €ì¥
 			loginUser = usersService.getUsers(vo.getId());
-			//@SessionAttribute·Î ÁöÁ¤ÇÏ¿© ¼¼¼Ç¿¡µµ ÀúÀåµÊ
+			// @SessionAttributeë¡œ ì§€ì •í•˜ì—¬ ì„¸ì…˜ì—ë„ ì €ì¥ë¨
 			model.addAttribute("loginUser", loginUser);
-			
-			return "index"; // ·Î±×ÀÎ ¼º°øÇÏ¸é index.jsp·Î ÀÌµ¿ 
-		}else { // »ç¿ëÀÚ ÀÎÁõ ½ÇÆĞ
+
+			return "index"; // ë¡œê·¸ì¸ ì„±ê³µí•˜ë©´ index.jspë¡œ ì´ë™
+		} else { // ì‚¬ìš©ì ì¸ì¦ ì‹¤íŒ¨
 			return "Users/login_fail";
 		}
 	}
-	
 
-	@GetMapping(value="/logout")
+	@GetMapping(value = "/logout")
 	public String logout(SessionStatus status) {
-		//session.invalidate´Â ¿ÏÀüÈ÷ ·Î±×¾Æ¿ôÇÏÁö ¾Ê±â ¶§¹®¿¡ ¾È¾¸
+		// session.invalidateëŠ” ì™„ì „íˆ ë¡œê·¸ì•„ì›ƒí•˜ì§€ ì•Šê¸° ë•Œë¬¸ì— ì•ˆì”€
 		status.setComplete();
-		
+
 		return "Users/login";
 	}
-	
-	
-	@GetMapping(value="/contract")
+
+	@GetMapping(value = "/contract")
 	public String contractView() {
-		
+
 		return "Users/contract";
 	}
 
-	
-
-	@PostMapping(value="/join_form") 
+	@PostMapping(value = "/join_form")
 	public String joinView() {
-		System.out.println("È¸¿ø°¡ÀÔÁøÀÔ");
+		System.out.println("íšŒì›ê°€ì…ì§„ì…");
 		return "Users/join";
 	}
 
 //	
 //	/*
-//	 * ID Áßº¹ Ã¼Å© È­¸é Ãâ·Â
+//	 * ID ì¤‘ë³µ ì²´í¬ í™”ë©´ ì¶œë ¥
 //	 */
 
-	@GetMapping(value="/id_check_form")
+	@GetMapping(value = "/id_check_form")
 	public String idCheckView(UsersVO vo, Model model) {
-		
+
 		model.addAttribute("id", vo.getId());
 		return "Users/idcheck";
 	}
-	
+
 	/*
-	 *  ID Áßº¹Ã¼Å© ¼öÇà
+	 * ID ì¤‘ë³µì²´í¬ ìˆ˜í–‰
 	 */
-	
-	@PostMapping(value="/id_check_form")
+
+	@PostMapping(value = "/id_check_form")
 	public String idCheckAction(UsersVO vo, Model model) {
-		
+
 		int result = usersService.confirmID(vo.getId());
 		model.addAttribute("message", result);
 		model.addAttribute("id", vo.getId());
 		return "Users/idcheck";
-		
+
 	}
 
 	/*
-	 *  »ç¿ëÇÒ id¸¦ join(È¸¿ø°¡ÀÔ)È­¸é¿¡ Àü¼Û
+	 * ì‚¬ìš©í•  idë¥¼ join(íšŒì›ê°€ì…)í™”ë©´ì— ì „ì†¡
 	 */
 
-	@GetMapping(value="/id_check_confirmed")
+	@GetMapping(value = "/id_check_confirmed")
 	public String idCheckConfirmed(UsersVO vo, Model model) {
-	model.addAttribute("id", vo.getId()); // id Áßº¹È®ÀÎ ÇÊµå
-	return "Users/join";
-	
+		model.addAttribute("id", vo.getId()); // id ì¤‘ë³µí™•ì¸ í•„ë“œ
+		return "Users/join";
+
 	}
 
 	/*
-	 * È¸¿ø°¡ÀÔ Ã³¸®
+	 * íšŒì›ê°€ì… ì²˜ë¦¬
 	 */
-	
-	@PostMapping(value="/join")
-	public String joinAction (UsersVO vo) {
+
+	@PostMapping(value = "/join")
+	public String joinAction(UsersVO vo) {
 		usersService.insertUsers(vo);
-		
 		return "Users/login";
 	}
 
+
+	/*
+	 * ì•„ì´ë”” ì°¾ê¸° í˜ì´ì§€ ì´ë™
+	 */
+	@RequestMapping(value = "/find_id")
+	public String findView() {
+		return "Users/find_id";
+	}
+
+	/*
+	 * ì•„ì´ë”” ì°¾ê¸° ì‹¤í–‰
+	 */
+
+	@RequestMapping(value = "/find_id", method = RequestMethod.POST)
+	public String findIdAction(UsersVO vo, Model model) {
+
+		UsersVO user = usersService.findId(vo);
+
+		if (user == null) {
+			model.addAttribute("check", 1);
+		} else {
+			model.addAttribute("check", 0);
+			model.addAttribute("id", user.getId());
+		}
+		return "Users/find_id";
+	}
+	
+	/*
+	 * ë¹„ë°€ë²ˆí˜¸ ì°¾ê¸° í˜ì´ì§€ ì´ë™
+	 */
+	@RequestMapping(value = "/find_pwd")
+	public String findPwdView() {
+		return "Users/find_pwd";
+	}
+
+	/*
+	 * ë¹„ë°€ë²ˆí˜¸ ì°¾ê¸° ì‹¤í–‰
+	 */
+	
+	@RequestMapping(value = "Users/find_pwd", method = RequestMethod.POST)
+	public void findPwdPOST(@ModelAttribute UsersVO user, HttpServletResponse response) throws IOException {
+		usersService.findPwd(response,user);
+	}
+  
 	@ModelAttribute("conditionMap")
 	public Map<String, String> searchConditionMap() {
 		Map<String, String> conditionMap = new LinkedHashMap<>();
 
-		conditionMap.put("ÁöÁ¡À» ¼±ÅÃÇÏ¼¼¿ä", "0");
-		conditionMap.put("Ä·ÇÎÁ·Àå-°­¿øµµÁöÁ¡", "1");
+		conditionMap.put("ì§€ì ì„ ì„ íƒí•˜ì„¸ìš”", "0");
+		conditionMap.put("ìº í•‘ì¡±ì¥-ê°•ì›ë„ì§€ì ", "1");
 
 		return conditionMap;
 	}
-	
 }
