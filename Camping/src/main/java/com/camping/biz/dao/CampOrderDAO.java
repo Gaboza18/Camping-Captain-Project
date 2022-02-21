@@ -14,16 +14,17 @@ public class CampOrderDAO {
 	@Autowired
 	private SqlSessionTemplate mybatis;
 	
-	// ì˜ˆì•½ ì •ë³´ insert
+	// ¿¹¾àÁ¤º¸ µî·Ï
 	public void insertCampOrder(CampOrderVO vo) {
 		mybatis.insert("mappings.campOrder-mapping.insertCampOrder", vo);
 	}
 	
-	// ì˜ˆì•½ì •ë³´ ì¡°íšŒ
+	// ¿¹¾à¸¶°¨Ã³¸®¸¦ À§ÇØ Ã¼Å©ÀÎ ³¯Â¥ ±âÁØÀ¸·Î ¿¹¾àÁ¤º¸ Á¶È¸
 	public List<CampOrderVO> getCampOrderList(String indate){
 		return mybatis.selectList("mappings.campOrder-mapping.getCampOrderList", indate);
 	}
-
+	
+	// Ä·ÇÎÀå ¿¹¾à Á¶È¸(°í°´ Id)
 	public List<CampOrderVO> getAllCampOrderList(String user_id){
 		return mybatis.selectList("mappings.campOrder-mapping.getAllCampOrderList", user_id);
 	}

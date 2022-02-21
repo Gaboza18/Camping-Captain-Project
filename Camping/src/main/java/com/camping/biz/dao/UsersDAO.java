@@ -7,24 +7,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.camping.biz.dto.UsersVO;
-import com.camping.biz.users.UsersService;
 
 @Repository
 public class UsersDAO {
-	
-	
 
 	@Autowired
 	private SqlSessionTemplate mybatis;
 
-	// ȸ�� ������ ��ȸ
+	// 회占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙회
 	public UsersVO getUsers(String id) {
 		return mybatis.selectOne("mappings.users-mapping.getUsers", id);
 	}
 
-	// ȸ�� ���� ���� Ȯ��
+	// 회占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙 확占쏙옙
 	/*
-	 * ���ϰ�: ȸ���� �����ϸ� : 1 ȸ���� �������� ������ : -1
+	 * 占쏙옙占싹곤옙: 회占쏙옙占쏙옙 占쏙옙占쏙옙占싹몌옙 : 1 회占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 : -1
 	 */
 
 	public int confirmID(String id) {
@@ -38,13 +35,13 @@ public class UsersDAO {
 	}
 
 	/*
-	 * ȸ�� ����
+	 * 회占쏙옙 占쏙옙占쏙옙
 	 * 
-	 * id�� �������� ���� ���: -1 ��ȯ pwd�� Ʋ����� : 0�� ��ȯ id,pwd�� ��ġ�� ��� : 1�� ��ȯ
+	 * id占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占�: -1 占쏙옙환 pwd占쏙옙 틀占쏙옙占쏙옙占� : 0占쏙옙 占쏙옙환 id,pwd占쏙옙 占쏙옙치占쏙옙 占쏙옙占� : 1占쏙옙 占쏙옙환
 	 */
 
 	public int loginID(UsersVO vo) {
-		int result = -1; // ��ȸ���
+		int result = -1; // 占쏙옙회占쏙옙占�
 
 		String pwd_in_db = mybatis.selectOne("mappings.users-mapping.confirmID", vo.getId());
 
@@ -58,48 +55,32 @@ public class UsersDAO {
 		return result;
 	}
 
-	// ȸ�� ���
+	// 회占쏙옙 占쏙옙占�
 	public void insertUsers(UsersVO vo) {
 		mybatis.insert("mappings.users-mapping.insertUsers", vo);
 	}
 
-	// ȸ�� ��� ��ȸ
+	// 회占쏙옙 占쏙옙占� 占쏙옙회
 	public List<UsersVO> listUsers(String name) {
 		return mybatis.selectList("mappings.users-mapping.listUsers", name);
 	}
 
-	// ȸ�� ID ã��
+	// 회占쏙옙 ID 찾占쏙옙
 	public UsersVO findId(UsersVO vo) {
 		return mybatis.selectOne("mappings.users-mapping.findId",vo);
 	}
 		
-	// ȸ�� ��й�ȣ ����
+	// 회占쏙옙 占쏙옙橘占싫� 占쏙옙占쏙옙
 	public int updatePwd(UsersVO vo) {
 		return mybatis.update("mappings.users-mapping.updatePwd", vo);
 	}
 
-	
-	// ȸ��Ż��
-	
-	
-
 	public void deleteId(UsersVO vo )throws Exception{
-	
 		mybatis.delete("mappings.users-mapping.deleteId", vo);
 	}
 	
 	public void updateUser(UsersVO vo) {
-
 		mybatis.update("mappings.users-mapping.updateUser",vo);
 	}
 	
-	
-	
-	
-		// <��й�ȣ Ȯ��> ���� : "passwordCheck"
-	
-	/*public String pwCheck(String password)throws Exception{
-		return mybatis.selectOne("mappings.users-mapping.passwordCheck", password);
-	}
-	*/
 }

@@ -56,7 +56,4 @@ public class RealReviewDAO {
 	public List<RealReviewVO> seemyreview(RealReviewVO vo) {
 		return mybatis.selectList("mappings.review-mapping.myreview", vo);
 	}
-	
-	
-
 }

@@ -6,12 +6,12 @@ import com.camping.biz.dto.CampOrderVO;
 
 public interface CampOrderService {
 	
-	// ê²Œì‹œê¸€ insert
+	// ¿¹¾àÁ¤º¸ µî·Ï
 	public void insertCampOrder(CampOrderVO vo);
 	
-	// ì˜ˆì•½ì •ë³´ ì¡°íšŒ
+	// ¿¹¾à¸¶°¨Ã³¸®¸¦ À§ÇØ Ã¼Å©ÀÎ ³¯Â¥ ±âÁØÀ¸·Î ¿¹¾àÁ¤º¸ Á¶È¸
 	public List<CampOrderVO> getCampOrderList(String indate);
 	
-	// ìº í•‘ì¥ ì˜ˆì•½ í˜„í™©(íšŒì› ì•„ì´ë””ë¡œ ì¡°íšŒ)
+	// Ä·ÇÎÀå ¿¹¾à Á¶È¸(°í°´ Id)
 	public List<CampOrderVO> getAllCampOrderList(String user_id);
 }
