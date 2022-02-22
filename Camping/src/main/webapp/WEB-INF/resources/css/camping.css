@@ -24,7 +24,24 @@ body{
     margin:20px 0 20px 380px;
 }
 
+#footer {
+	width: 940px;
+	display: block;
+	float: left;
+}
+
+#admin_login_form {
+	display: block;
+	float: right;
+	margin-top: 0;
+}
+
 /* 로그인, 회원가입 버튼 설정 */
+#admin_logout{
+	float:right;
+    margin-top:20px;
+}
+
 #users_login_join{
 	float:right;
     margin-top:20px;
@@ -181,4 +198,53 @@ form#camp_search input#btn{
 #campOrder div#buttons{
 	margin: auto;
 	padding: 20px;
+}
+
+
+
+.admin_side_menu {
+	width: 250x;
+	float: left;
+	margin: 20px 0;
+}
+
+.admin_side_menu ul {
+	margin-top: 20px;
+	padding-left: 0; 
+	list-style: none;
+}
+
+.admin_side_menu ul li:hover .header_submenu{
+	display: block;
+}
+
+.admin_side_menu ul li a{
+	text-decoration: none;
+	color:rgb(20, 92, 28);
+	font-weight:bold; 
+	font-size:16px;
+	display: block;
+	height: 15px;
+	width: 160px;
+	padding: 7px;
+	border-bottom: 1px dotted rgb(20, 92, 28);
+}
+
+.admin_side_menu a:hover {
+    color: #e6e600;
+    font-weight:bold; 
+}
+
+.admin_side_menu ul li ul.header_submenu{
+	display: none;
+	left: 450px;
+	top: 189px;
+	position: absolute;
+	padding: 0;
+    line-height: 25px;
+    background-color: white;
+}
+
+.admin_side_menu ul li ul.header_submenu li{
+	font-size: 13px;
 }
