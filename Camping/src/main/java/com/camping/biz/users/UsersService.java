@@ -8,10 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
 
+import com.camping.biz.dto.UsersRatio;
 import com.camping.biz.dto.UsersVO;
 
 public interface UsersService {
-	// DAO���� ��ü Users id �޾ƿ��� - > ������ Impl����
+	// DAO占쏙옙占쏙옙 占쏙옙체 Users id 占쌨아울옙占쏙옙 - > 占쏙옙占쏙옙占쏙옙 Impl占쏙옙占쏙옙
 	public UsersVO getUsers(String id);
 
 	public int confirmID(String id);
@@ -22,82 +23,20 @@ public interface UsersService {
 
 	public List<UsersVO> listUsers(String name);
 
-	public UsersVO findId(UsersVO vo); // ȸ�� ID ã��
+	public UsersVO findId(UsersVO vo); // 회占쏙옙 ID 찾占쏙옙
 
-	public int updatePwd(UsersVO vo); // ȸ�� Pwd ����
+	public int updatePwd(UsersVO vo); // 회占쏙옙 Pwd 占쏙옙占쏙옙
 
-	public void sendEmailPwd(UsersVO vo, String div); // ȸ�� Pwd ã�� �̸��� �߼�
+	public void sendEmailPwd(UsersVO vo, String div); // 회占쏙옙 Pwd 찾占쏙옙 占싱몌옙占쏙옙 占쌩쇽옙
 
-	public void findPwd(HttpServletResponse response, UsersVO vo) throws IOException; // ���̵�/�̸��� ��ȸ �Ͽ� �ӽú�й�ȣ ����
+	public void findPwd(HttpServletResponse response, UsersVO vo) throws IOException; // 占쏙옙占싱듸옙/占싱몌옙占쏙옙 占쏙옙회 占싹울옙 占쌈시븝옙橘占싫� 占쏙옙占쏙옙
 	
-	//ȸ������
+	//회占쏙옙占쏙옙占쏙옙
 	public void deleteId(UsersVO vo )throws Exception;
 	
-	// ȸ������ ����
-	
+	// 회占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙
 	public void updateUser(UsersVO vo);
 		
-//	
-//	//�̸��� ����
-//	@Service("mss")
-//	public class MailSendService {
-//	    @Autowired
-//	    private JavaMailSenderImpl mailSender;
-//
-//	    //����Ű ����
-//	    private String getKey(int size) {
-//	        this.size = size;
-//	        return getAuthCode();
-//	    }
-//
-//	    //�����ڵ� ���� �߻�
-//	    private String getAuthCode() {
-//	        Random random = new Random();
-//	        StringBuffer buffer = new StringBuffer();
-//	        int num = 0;
-//
-//	        while(buffer.length() < size) {
-//	            num = random.nextInt(10);
-//	            buffer.append(num);
-//	        }
-//
-//	        return buffer.toString();
-//	    }
-//
-////	    
-//	    //�������� ������
-//	    public String sendAuthMail(String email) {
-//	        //6�ڸ� ���� ������ȣ ����
-//	        String authKey = getKey(6);
-//
-//	        //�������� ������
-//	        try {
-//	            MailUtils sendMail = new MailUtils(mailSender);
-//	            sendMail.setSubject("ȸ������ �̸��� ����");
-//	            sendMail.setText(new StringBuffer().append("<h1>[�̸��� ����]</h1>")
-//	            .append("<p>�Ʒ� ��ũ�� Ŭ���Ͻø� �̸��� ������ �Ϸ�˴ϴ�.</p>")
-//	            .append("<a href='http://localhost:9080/member/signUpConfirm?email=")
-//	            .append(email)
-//	            .append("&authKey=")
-//	            .append(authKey)
-//	            .append("' target='_blenk'>�̸��� ���� Ȯ��</a>")
-//	            .toString());
-//	            sendMail.setFrom("�̸��� �ּ�", "������");
-//	            sendMail.setTo(email);
-//	            sendMail.send();
-//	        } catch (MessagingException e) {
-//	            e.printStackTrace();
-//	        } catch (UnsupportedEncodingException e) {
-//	            e.printStackTrace();
-//	        }
-//
-//	          return authKey;
-//	    }
-//	}
-//	
-		
-	
-	
-	//public void deleteId(UsersVO vo) throws Exception;
+	public List<UsersRatio> getGenderRatio(); // 회원 통계(남,녀성비) 조회
 	
 }

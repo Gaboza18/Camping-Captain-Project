@@ -53,4 +53,24 @@ VALUES(#{id}, #{password}, #{name}, #{email},#{phone})
 			where id=#{id}
 </update>
 
+<!-- 회원 성별 조회를 위한 데이터 매핑 -->
+<resultMap type="com.camping.biz.dto.UsersRatio" id="genderMap">
+	<result column="gender" property="gender"/>
+	<result column="count" property="count"/>
+</resultMap>
+
+<!-- 회원별 성별 조회 -->
+<select id="getGenderRatio" resultMap="genderMap">
+SELECT gender, COUNT(gender) count
+	FROM
+		(SELECT SUBSTR(users.birthday, 7, 1),
+		    CASE 
+		        WHEN SUBSTR(users.birthday, 7, 1) IN ('1', '3', '5', '7', '9') THEN '남자'
+		        WHEN SUBSTR(users.birthday, 7, 1) IN ('2', '4', '6', '8', '0') THEN '여자'
+		        ELSE 'UNKNOWN'
+		    END gender
+		FROM users)
+		GROUP BY gender
+</select>
+
 </mapper>
