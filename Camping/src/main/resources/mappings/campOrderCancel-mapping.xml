@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mappings.campOrderCancel-mapping">
+	<!-- 마이페이지에서 예약조회 후 취소 신청 시 취소테이블에 insert -->
+	<insert id="insertCancelMyOrder">
+		INSERT INTO campordercancel(oseq, usersid, camp_name, camp_zone, indate, outdate, order_name, 
+		       						order_people, order_phone, order_email, total_price, cancelprice, cancelnet) 
+		VALUES(#{oseq}, #{usersid}, #{camp_name}, #{camp_zone}, #{indate}, #{outdate}, #{order_name}, 
+		       #{order_people}, #{order_phone}, #{order_email}, #{total_price}, #{cancelprice}, #{cancelnet})
+	</insert>
+	
+	
+	<!-- 관리자 기능 -->
+	<!-- 관리자가 예약 취소 시 취소 테이블에 insert -->
+	<insert id="insertOrderCancel">
+		INSERT INTO campordercancel(oseq, usersid, camp_name, camp_zone, indate, outdate, order_name, 
+		       						order_people, order_phone, order_email, total_price, cancelprice, reason) 
+		VALUES(#{oseq}, #{usersid}, #{camp_name}, #{camp_zone}, #{indate}, #{outdate}, #{order_name}, 
+		       #{order_people}, #{order_phone}, #{order_email}, #{total_price}, #{cancelprice}, #{reason})
+	</insert>
+</mapper>  

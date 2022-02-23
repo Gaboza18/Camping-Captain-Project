@@ -19,19 +19,32 @@ function search_chk() {
 function minus(){
 	var base = $("#base").val();
 	var people = $("#people").val();
+	var price = parseInt($(".total_price").val());
+	var add_price = 10000;
 	
 	if(people > base){
 		people--;
+		price -= 10000;
 		$("#people").val(people);
+		$(".total_price").val(price);
 	}
 }
 
 function plus(){
 	var max = $("#max").val();
 	var people = $("#people").val();
+	var price = parseInt($(".total_price").val());
+	var add_price = 10000;
 	
 	if(people < max){
 		people++;
+		price += 10000;
 		$("#people").val(people);
+		$(".total_price").val(price);
 	} 
+}
+
+// 예약 완료시 출력
+function complete() {
+	alert("예약이 완료되었습니다.");
 }

@@ -9,6 +9,8 @@ import com.camping.biz.camporder.CampOrderService;
 import com.camping.biz.dao.CampOrderDAO;
 import com.camping.biz.dto.CampOrderVO;
 
+import utils.Criteria;
+
 @Service("campOrderService")
 public class CampOrderServiceImpl implements CampOrderService {
 
@@ -28,6 +30,21 @@ public class CampOrderServiceImpl implements CampOrderService {
 	@Override
 	public List<CampOrderVO> getAllCampOrderList(String user_id) {
 		return cDao.getAllCampOrderList(user_id);
+	}
+
+	@Override
+	public int countOrderList(String camp_name) {
+		return cDao.countOrderList(camp_name);
+	}
+
+	@Override
+	public List<CampOrderVO> getListWithPaging(Criteria criteria, String camp_name) {
+		return cDao.getListWithPaging(criteria, camp_name);
+	}
+
+	@Override
+	public CampOrderVO getCampOrder(int oseq) {
+		return cDao.getCampOrder(oseq);
 	}
   
 }

@@ -6,8 +6,8 @@
 	      <li>
 	      	<a href="#">예약관리</a>
 	      	<ul class="header_submenu">
-	      		<li><a href="#">예약내역 조회</a></li>
-	      		<li><a href="#">예약취소 관리</a></li>
+	      		<li><a href="search_order">예약내역 조회</a></li>
+	      		<li><a href="order_cancel">예약취소 관리</a></li>
 	      	</ul>
 	      </li>
 	      <li>
@@ -25,4 +25,4 @@
 	      <li><a href="#">회원 통계</a></li> 
 	    </ul>
     </nav>
-<%@ include file="admin_footer.jsp" %>
+
