@@ -17,12 +17,16 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.camping.biz.dto.RealReviewVO;
 import com.camping.biz.dto.UsersVO;
 import com.camping.biz.users.UsersService;
+
 
 @Controller
 @SessionAttributes("loginUser")
@@ -126,29 +130,78 @@ public class UsersController {
 	 */
 
 	@PostMapping(value = "/join")
-	public String joinAction(UsersVO vo) {
+	public String joinAction(@RequestParam(value="birth1")int birth1,
+							
+							UsersVO vo) {
+		vo.setBirthday(birth1);
+		
+		//model.addAttribute("birth1",vo.getBirthday());
+		//model.addAttribute("birth2", vo.getBirthday());
+		
+		//(birth1+" " +birth2);
 		usersService.insertUsers(vo);
 		return "Users/login";
 	}
-
-	// 회원탈퇴 get
-	@RequestMapping(value = "/deleteIdView", method = RequestMethod.GET)
-	public String usersDeleteView() throws Exception {
-		return "Users/deleteIdView";
+	
+	
+	
+	@RequestMapping(value= "deleteIdView")
+	
+	public String uersDeleteId() throws Exception {
+		return "Users/deleteIdlogin";
 	}
+	
+	@RequestMapping(value= "deleteIdlogin")
+	public String uersDeleteIdLogin(UsersVO vo, Model model) throws Exception {
+		UsersVO loginUser = null;
 
+		int result = usersService.loginID(vo);
+
+		if (result == 1) { // 인증성공시
+			// 사용자 정보를 조회하여 Session 객체에 저장
+			loginUser = usersService.getUsers(vo.getId());
+			// @SessionAttribute로 지정하여 세션에도 저장됨
+			model.addAttribute("loginUser", loginUser);
+
+			return "Users/deleteIdView";
+		} else { // 사용자 인증 실패
+			return "Users/login_fail";
+		}
+	}
+		
+	
+
+	
 	// 회원탈퇴 post
 	@RequestMapping(value = "/usersDelete", method = RequestMethod.POST)
-	public String usersDelete(String id, String password, RedirectAttributes rttr, HttpSession session, Model model,
-			UsersVO vo) throws Exception {
-		usersService.deleteId(vo);
-		model.addAttribute("password", vo.getPassword());
-		model.addAttribute("id", vo.getId());
-		session.invalidate();
-		rttr.addFlashAttribute("msg", "이용해 주셔서 감사합니다");
-		return "redirect:/index";
+	public String usersDelete(UsersVO vo, HttpSession session, SessionStatus status
+			) throws Exception {
+		
+		UsersVO deleteUser = (UsersVO) session.getAttribute("loginUser");
+		
+	if (deleteUser == null) {
+			return "Users/deleteIdView"; 
+				
+			}else {
+			
+				vo.setId(deleteUser.getId());
+				vo.setPassword(deleteUser.getPassword());
+				
+				
+				
+//				model.addAttribute("id", vo.getId());
+//				model.addAttribute("password", vo.getPassword());
+				usersService.deleteId(vo);
+				status.setComplete();
 
+				return "redirect:/index";
+
+			}
+			
+			
+			
 	}
+	
 
 
 	@GetMapping(value = "/mypage")
@@ -165,6 +218,18 @@ public class UsersController {
 	@RequestMapping(value = "/usermodify", method = RequestMethod.GET)
 	public String registerUpdateView() throws Exception {
 		return "mypage/userModify";
+	}
+	
+	// update 구문
+	@RequestMapping(value="/usersUpdate", method = RequestMethod.POST)
+	public String userUpdate(UsersVO vo, SessionStatus status )  {
+		
+		
+		usersService.updateUser(vo);
+		status.setComplete();
+					
+		return "redirect:/";
+		
 	}
 
 	/*
@@ -193,15 +258,7 @@ public class UsersController {
 		return "Users/find_id";
 	}
 
-	@RequestMapping(value = "/usersUpdate", method = RequestMethod.POST)
-	public String userUpdate(UsersVO vo, HttpSession session) {
-
-		session.invalidate();
-		usersService.updateUser(vo);
-
-		return "redirect:/";
-
-	}
+	
 
 	/*
 	 * 비밀번호 찾기 페이지 이동

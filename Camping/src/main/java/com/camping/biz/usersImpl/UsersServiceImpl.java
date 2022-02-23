@@ -62,6 +62,7 @@ public class UsersServiceImpl implements UsersService {
 	@Override
 	public void updateUser(UsersVO vo) {
 		uDao.updateUser(vo);
+		
 	}
 
 	@Override

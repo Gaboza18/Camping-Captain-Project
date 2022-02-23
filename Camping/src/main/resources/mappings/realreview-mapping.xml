@@ -37,7 +37,7 @@
 		SELECT rseq,title,content,campingname,indate,count, id
 			FROM
 				(
-				SELECT row_number() over(ORDER BY indate) rn,rseq,title,content,campingname,indate,count, id
+				SELECT row_number() over(ORDER BY indate DESC) rn,rseq,title,content,campingname,indate,count, id
 					FROM reviews
 					<if test='title !=null'>
 						WHERE title LIKE '%'||#{title}||'%'

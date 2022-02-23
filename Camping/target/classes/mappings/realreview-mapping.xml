@@ -11,7 +11,7 @@
 	
 	<!-- 공지사항 상세보기 -->
 	<select id="detailReviews" resultType="reviews">
-		SELECT rseq,title,content,campingname,indate,count
+		SELECT rseq,title,content,id,campingname,indate,count
 			 FROM reviews
 				WHERE rseq=#{rseq}
 	</select>
@@ -37,7 +37,7 @@
 		SELECT rseq,title,content,campingname,indate,count, id
 			FROM
 				(
-				SELECT row_number() over(ORDER BY indate) rn,rseq,title,content,campingname,indate,count, id
+				SELECT row_number() over(ORDER BY indate DESC) rn,rseq,title,content,campingname,indate,count, id
 					FROM reviews
 					<if test='title !=null'>
 						WHERE title LIKE '%'||#{title}||'%'

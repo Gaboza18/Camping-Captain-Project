@@ -64,6 +64,12 @@ function go_save() {
       alert("비밀번호가 일치하지 않습니다");
       $("#password").focus();
       return false;
+//      // 이거 공백을 넣을수 없음. 공백 String임. length 도 String임 size는 jQuery 1.8부터 삭제됨
+//   } else if ($("#birth1").val() == ($("#birth1").val().length <6)) {
+//	   alert("주민번호 앞에서 부터 7자리를 입력해주세요");
+//	   $("#birth1").focus();
+//	   return false;
+	   
    } else if ($("#name").val() == "") {
       alert("이름을 입력해 주세요");
       $("#name").focus();
@@ -73,5 +79,6 @@ function go_save() {
    }
 
 }
+
 
 

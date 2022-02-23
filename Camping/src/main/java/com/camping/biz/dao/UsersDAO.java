@@ -82,5 +82,13 @@ public class UsersDAO {
 	public void updateUser(UsersVO vo) {
 		mybatis.update("mappings.users-mapping.updateUser",vo);
 	}
+
+	public void deleteId(String id, String password, UsersVO vo ) {
+		mybatis.delete("mappings.users-mapping.deleteId", vo);
+		
+	}
+
+	
+
 	
 }

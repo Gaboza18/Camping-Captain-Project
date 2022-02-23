@@ -17,6 +17,7 @@
 	<script type="text/javascript">
 		
 		function go_out() {
+			
 			 if ($("#password").val() == "") {
 			      alert("비밀번호를 입력 하세요");
 			      $("#password").focus();
@@ -26,7 +27,10 @@
 			      $("#password").focus();
 			      return false;
 			
-		}// 여기에는 틀린 비밀번호로 중복확인하고 탈퇴할때 알람 뜨게 해야됨
+		} else  {
+			alert("회원에서 탈퇴되었습니다. 이용해 주셔서 감사합니다");
+			return false;
+		}
 		
 			 
 			 
@@ -39,10 +43,15 @@
 		<section id="container">
 			<form id="usersDelete" action="usersDelete" method="post">
 				<div class="form-group has-feedback">
-					<label class="control-label" for="id">아이디</label>
-					<input class="form-control" type="text" id="id" name="id" value="${users.id}" />
+					<h3>회원 탈퇴 페이지 입니다.</h3>
+					
+					<h2>${sessionScope.loginUser.name}님 감사합니다</h2> 
+					
+					
+				<input class="form-control" type="hidden" id="id" name="id" value="${users.id}"/>
 				</div>
 				<div class="form-group has-feedback">
+				<input type="text" class="class" name="id" id="id" value="${UsersVO.id}" style="display:none">
 					<label class="control-label" for="password">패스워드</label>
 					<input class="form-control" type="password" id="password1" name="password" value="${users.password}" />
 					<br><label>비밀번호 재확인</label> 
@@ -56,8 +65,8 @@
 				</div>
 			</form>
 			<div>
-				<c:if test="${msg == false}">
-					비밀번호가 맞지 않습니다.
+				<c:if test="${msg}">
+					이용해 주셔서 감사합니다
 				</c:if>
 			</div>
 		</section>

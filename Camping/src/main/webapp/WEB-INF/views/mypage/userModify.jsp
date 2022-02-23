@@ -22,7 +22,7 @@
 			      return false;
 			   } else {
 			      $("#usermodify").attr("action", "usersUpdate").submit();
-			      alert("회원 정보가 변경되었습니다.")// 회원정보 변경요청
+			      alert("회원 정보가 변경되었습니다. 다시 로그인해주세요" )// 회원정보 변경요청
 			   }
 			
 			}
