@@ -35,7 +35,7 @@ public class UsersController {
 	 * @RequestMapping(value = "/index", method = RequestMethod.GET) public String
 	 * login(Model model) {
 	 * 
-	 * return "Users/login"; // login.jsp 화면호출 }
+	 * return "Users/login"; // login.jsp 이동한다}
 	 */
 
 	@GetMapping(value = "/login")
@@ -44,7 +44,7 @@ public class UsersController {
 	}
 	
 	/*
-	 * 사용자 로그인 처리 VO, 객체에서 id, password 정보를 읽어와 사용자 인증
+	 * �궗�슜�옄 濡쒓렇�씤 泥섎━ VO, 媛앹껜�뿉�꽌 id, password �젙蹂대�� �씫�뼱�� �궗�슜�옄 �씤利�
 	 */
 
 	@PostMapping(value = "/login")
@@ -54,21 +54,21 @@ public class UsersController {
 
 		int result = usersService.loginID(vo);
 
-		if (result == 1) { // 인증성공시
-			// 사용자 정보를 조회하여 Session 객체에 저장
+		if (result == 1) { // �씤利앹꽦怨듭떆
+			// �궗�슜�옄 �젙蹂대�� 議고쉶�븯�뿬 Session 媛앹껜�뿉 ���옣
 			loginUser = usersService.getUsers(vo.getId());
-			// @SessionAttribute로 지정하여 세션에도 저장됨
+			// @SessionAttribute濡� 吏��젙�븯�뿬 �꽭�뀡�뿉�룄 ���옣�맖
 			model.addAttribute("loginUser", loginUser);
 
-			return "index"; // 로그인 성공하면 index.jsp로 이동
-		} else { // 사용자 인증 실패
+			return "index"; // 濡쒓렇�씤 �꽦怨듯븯硫� index.jsp濡� �씠�룞
+		} else { // �궗�슜�옄 �씤利� �떎�뙣
 			return "Users/login_fail";
 		}
 	}
 
 	@GetMapping(value = "/logout")
 	public String logout(SessionStatus status) {
-		// session.invalidate는 완전히 로그아웃하지 않기 때문에 안씀
+		// session.invalidate�뒗 �셿�쟾�엳 濡쒓렇�븘�썐�븯吏� �븡湲� �븣臾몄뿉 �븞��
 		status.setComplete();
 
 		return "Users/login";
@@ -81,12 +81,12 @@ public class UsersController {
 
 	@PostMapping(value = "/join_form")
 	public String joinView() {
-		System.out.println("회원가입진입");
+		System.out.println("�쉶�썝媛��엯吏꾩엯");
 		return "Users/join";
 	}
 
 	/*
-	 * ID 중복 체크 화면 출력 
+	 * ID 以묐났 泥댄겕 �솕硫� 異쒕젰 
 	 */
 
 	@GetMapping(value = "/id_check_form")
@@ -97,7 +97,7 @@ public class UsersController {
 	}
 
 	/*
-	 * ID 중복체크 수행
+	 * ID 以묐났泥댄겕 �닔�뻾
 	 */
 
 	@PostMapping(value = "/id_check_form")
@@ -111,18 +111,18 @@ public class UsersController {
 	}
 
 	/*
-	 * 사용할 id를 join(회원가입)화면에 전송
+	 * �궗�슜�븷 id瑜� join(�쉶�썝媛��엯)�솕硫댁뿉 �쟾�넚
 	 */
 
 	@GetMapping(value = "/id_check_confirmed")
 	public String idCheckConfirmed(UsersVO vo, Model model) {
-		model.addAttribute("id", vo.getId()); // id 중복확인 필드
+		model.addAttribute("id", vo.getId()); // id 以묐났�솗�씤 �븘�뱶
 		return "Users/join";
 
 	}
 
 	/*
-	 * 회원가입 처리
+	 * �쉶�썝媛��엯 泥섎━
 	 */
 
 	@PostMapping(value = "/join")
@@ -131,13 +131,13 @@ public class UsersController {
 		return "Users/login";
 	}
 
-	// 회원탈퇴 get
+	// �쉶�썝�깉�눜 get
 	@RequestMapping(value = "/deleteIdView", method = RequestMethod.GET)
 	public String usersDeleteView() throws Exception {
 		return "Users/deleteIdView";
 	}
 
-	// 회원탈퇴 post
+	// �쉶�썝�깉�눜 post
 	@RequestMapping(value = "/usersDelete", method = RequestMethod.POST)
 	public String usersDelete(String id, String password, RedirectAttributes rttr, HttpSession session, Model model,
 			UsersVO vo) throws Exception {
@@ -145,7 +145,7 @@ public class UsersController {
 		model.addAttribute("password", vo.getPassword());
 		model.addAttribute("id", vo.getId());
 		session.invalidate();
-		rttr.addFlashAttribute("msg", "이용해 주셔서 감사합니다");
+		rttr.addFlashAttribute("msg", "�씠�슜�빐 二쇱뀛�꽌 媛먯궗�빀�땲�떎");
 		return "redirect:/index";
 
 	}
@@ -168,7 +168,7 @@ public class UsersController {
 	}
 
 	/*
-	 * 아이디 찾기 페이지 이동
+	 * �븘�씠�뵒 李얘린 �럹�씠吏� �씠�룞
 	 */
 	@RequestMapping(value = "/find_id")
 	public String findView() {
@@ -176,7 +176,7 @@ public class UsersController {
 	}
 
 	/*
-	 * 아이디 찾기 실행
+	 * �븘�씠�뵒 李얘린 �떎�뻾
 	 */
 
 	@RequestMapping(value = "/find_id", method = RequestMethod.POST)
@@ -204,7 +204,7 @@ public class UsersController {
 	}
 
 	/*
-	 * 비밀번호 찾기 페이지 이동
+	 * 鍮꾨�踰덊샇 李얘린 �럹�씠吏� �씠�룞
 	 */
 	@RequestMapping(value = "/find_pwd")
 	public String findPwdView() {
@@ -212,7 +212,7 @@ public class UsersController {
 	}
 
 	/*
-	 * 비밀번호 찾기로 실행
+	 * 鍮꾨�踰덊샇 李얘린濡� �떎�뻾
 	 */
 
 	@RequestMapping(value = "Users/find_pwd", method = RequestMethod.POST)
@@ -225,7 +225,7 @@ public class UsersController {
 		Map<String, String> conditionMap = new LinkedHashMap<>();
 
 		conditionMap.put("지점을 선택하세요", "0");
-		conditionMap.put("캠핑족장-강원도지점", "1");
+		conditionMap.put("캠핑족장-강원도 지점", "1");
 
 		return conditionMap;
 	}
