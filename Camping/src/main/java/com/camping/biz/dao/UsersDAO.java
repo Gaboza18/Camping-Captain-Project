@@ -15,14 +15,14 @@ public class UsersDAO {
 	@Autowired
 	private SqlSessionTemplate mybatis;
 
-	// 회占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙회
+	// �쉶�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕�뜝�룞�삕 �뜝�룞�삕�쉶
 	public UsersVO getUsers(String id) {
 		return mybatis.selectOne("mappings.users-mapping.getUsers", id);
 	}
 
-	// 회占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙 확占쏙옙
+	// �쉶�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕 �솗�뜝�룞�삕
 	/*
-	 * 占쏙옙占싹곤옙: 회占쏙옙占쏙옙 占쏙옙占쏙옙占싹몌옙 : 1 회占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 : -1
+	 * �뜝�룞�삕�뜝�떦怨ㅼ삕: �쉶�뜝�룞�삕�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕�뜝�떦紐뚯삕 : 1 �쉶�뜝�룞�삕�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕�뜝�룞�삕�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕�뜝�룞�삕 : -1
 	 */
 
 	public int confirmID(String id) {
@@ -36,13 +36,13 @@ public class UsersDAO {
 	}
 
 	/*
-	 * 회占쏙옙 占쏙옙占쏙옙
+	 * �쉶�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕
 	 * 
-	 * id占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占�: -1 占쏙옙환 pwd占쏙옙 틀占쏙옙占쏙옙占� : 0占쏙옙 占쏙옙환 id,pwd占쏙옙 占쏙옙치占쏙옙 占쏙옙占� : 1占쏙옙 占쏙옙환
+	 * id�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕�뜝�룞�삕�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕 �뜝�룞�삕�뜝占�: -1 �뜝�룞�삕�솚 pwd�뜝�룞�삕 ���뜝�룞�삕�뜝�룞�삕�뜝占� : 0�뜝�룞�삕 �뜝�룞�삕�솚 id,pwd�뜝�룞�삕 �뜝�룞�삕移섇뜝�룞�삕 �뜝�룞�삕�뜝占� : 1�뜝�룞�삕 �뜝�룞�삕�솚
 	 */
 
 	public int loginID(UsersVO vo) {
-		int result = -1; // 占쏙옙회占쏙옙占�
+		int result = -1; // �뜝�룞�삕�쉶�뜝�룞�삕�뜝占�
 
 		String pwd_in_db = mybatis.selectOne("mappings.users-mapping.confirmID", vo.getId());
 
@@ -56,22 +56,22 @@ public class UsersDAO {
 		return result;
 	}
 
-	// 회占쏙옙 占쏙옙占�
+	// �쉶�뜝�룞�삕 �뜝�룞�삕�뜝占�
 	public void insertUsers(UsersVO vo) {
 		mybatis.insert("mappings.users-mapping.insertUsers", vo);
 	}
 
-	// 회占쏙옙 占쏙옙占� 占쏙옙회
+	// �쉶�뜝�룞�삕 �뜝�룞�삕�뜝占� �뜝�룞�삕�쉶
 	public List<UsersVO> listUsers(String name) {
 		return mybatis.selectList("mappings.users-mapping.listUsers", name);
 	}
 
-	// 회원 ID 찾기
+	// �쉶�썝 ID 李얘린
 	public UsersVO findId(UsersVO vo) {
 		return mybatis.selectOne("mappings.users-mapping.findId",vo);
 	}
 		
-	// 회원 비밀번호 찾기 및 업데이트
+	// �쉶�썝 鍮꾨�踰덊샇 李얘린 諛� �뾽�뜲�씠�듃
 	public int updatePwd(UsersVO vo) {
 		return mybatis.update("mappings.users-mapping.updatePwd", vo);
 	}
@@ -84,7 +84,7 @@ public class UsersDAO {
 		mybatis.update("mappings.users-mapping.updateUser",vo);
 	}
 	
-	// 회원 통계(남,녀성비) 조회
+	// 회원 통계(남,여 성비) 조회
 	public List<UsersRatio> getGenderRatio(){
 		return mybatis.selectList("mappings.users-mapping.getGenderRatio");
 	}

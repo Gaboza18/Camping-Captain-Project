@@ -35,7 +35,7 @@ public class UsersController {
 	 * @RequestMapping(value = "/index", method = RequestMethod.GET) public String
 	 * login(Model model) {
 	 * 
-	 * return "Users/login"; // login.jsp 이동한다}
+	 * return "Users/login"; // login.jsp �씠�룞�븳�떎}
 	 */
 
 	@GetMapping(value = "/login")
@@ -44,7 +44,7 @@ public class UsersController {
 	}
 	
 	/*
-	 * �궗�슜�옄 濡쒓렇�씤 泥섎━ VO, 媛앹껜�뿉�꽌 id, password �젙蹂대�� �씫�뼱�� �궗�슜�옄 �씤利�
+	 * 占쎄텢占쎌뒠占쎌쁽 嚥≪뮄�젃占쎌뵥 筌ｌ꼶�봺 VO, 揶쏆빘猿쒙옙肉됵옙苑� id, password 占쎌젟癰귣�占쏙옙 占쎌뵭占쎈선占쏙옙 占쎄텢占쎌뒠占쎌쁽 占쎌뵥筌앾옙
 	 */
 
 	@PostMapping(value = "/login")
@@ -54,21 +54,21 @@ public class UsersController {
 
 		int result = usersService.loginID(vo);
 
-		if (result == 1) { // �씤利앹꽦怨듭떆
-			// �궗�슜�옄 �젙蹂대�� 議고쉶�븯�뿬 Session 媛앹껜�뿉 ���옣
+		if (result == 1) { // 占쎌뵥筌앹빘苑��⑤벊�뻻
+			// 占쎄텢占쎌뒠占쎌쁽 占쎌젟癰귣�占쏙옙 鈺곌퀬�돳占쎈릭占쎈연 Session 揶쏆빘猿쒙옙肉� 占쏙옙占쎌삢
 			loginUser = usersService.getUsers(vo.getId());
-			// @SessionAttribute濡� 吏��젙�븯�뿬 �꽭�뀡�뿉�룄 ���옣�맖
+			// @SessionAttribute嚥∽옙 筌욑옙占쎌젟占쎈릭占쎈연 占쎄쉭占쎈�∽옙肉됵옙猷� 占쏙옙占쎌삢占쎈쭡
 			model.addAttribute("loginUser", loginUser);
 
-			return "index"; // 濡쒓렇�씤 �꽦怨듯븯硫� index.jsp濡� �씠�룞
-		} else { // �궗�슜�옄 �씤利� �떎�뙣
+			return "index"; // 嚥≪뮄�젃占쎌뵥 占쎄쉐�⑤벏釉�筌롳옙 index.jsp嚥∽옙 占쎌뵠占쎈짗
+		} else { // 占쎄텢占쎌뒠占쎌쁽 占쎌뵥筌앾옙 占쎈뼄占쎈솭
 			return "Users/login_fail";
 		}
 	}
 
 	@GetMapping(value = "/logout")
 	public String logout(SessionStatus status) {
-		// session.invalidate�뒗 �셿�쟾�엳 濡쒓렇�븘�썐�븯吏� �븡湲� �븣臾몄뿉 �븞��
+		// session.invalidate占쎈뮉 占쎌끏占쎌읈占쎌뿳 嚥≪뮄�젃占쎈툡占쎌뜍占쎈릭筌욑옙 占쎈륫疫뀐옙 占쎈르�눧紐꾨퓠 占쎈툧占쏙옙
 		status.setComplete();
 
 		return "Users/login";
@@ -81,12 +81,12 @@ public class UsersController {
 
 	@PostMapping(value = "/join_form")
 	public String joinView() {
-		System.out.println("�쉶�썝媛��엯吏꾩엯");
+		System.out.println("占쎌돳占쎌뜚揶쏉옙占쎌뿯筌욊쑴�뿯");
 		return "Users/join";
 	}
 
 	/*
-	 * ID 以묐났 泥댄겕 �솕硫� 異쒕젰 
+	 * ID 餓λ쵎�궗 筌ｋ똾寃� 占쎌넅筌롳옙 �빊�뮆�젾 
 	 */
 
 	@GetMapping(value = "/id_check_form")
@@ -97,7 +97,7 @@ public class UsersController {
 	}
 
 	/*
-	 * ID 以묐났泥댄겕 �닔�뻾
+	 * ID 餓λ쵎�궗筌ｋ똾寃� 占쎈땾占쎈뻬
 	 */
 
 	@PostMapping(value = "/id_check_form")
@@ -111,18 +111,18 @@ public class UsersController {
 	}
 
 	/*
-	 * �궗�슜�븷 id瑜� join(�쉶�썝媛��엯)�솕硫댁뿉 �쟾�넚
+	 * 占쎄텢占쎌뒠占쎈막 id�몴占� join(占쎌돳占쎌뜚揶쏉옙占쎌뿯)占쎌넅筌롫똻肉� 占쎌읈占쎈꽊
 	 */
 
 	@GetMapping(value = "/id_check_confirmed")
 	public String idCheckConfirmed(UsersVO vo, Model model) {
-		model.addAttribute("id", vo.getId()); // id 以묐났�솗�씤 �븘�뱶
+		model.addAttribute("id", vo.getId()); // id 餓λ쵎�궗占쎌넇占쎌뵥 占쎈툡占쎈굡
 		return "Users/join";
 
 	}
 
 	/*
-	 * �쉶�썝媛��엯 泥섎━
+	 * 占쎌돳占쎌뜚揶쏉옙占쎌뿯 筌ｌ꼶�봺
 	 */
 
 	@PostMapping(value = "/join")
@@ -131,13 +131,13 @@ public class UsersController {
 		return "Users/login";
 	}
 
-	// �쉶�썝�깉�눜 get
+	// 占쎌돳占쎌뜚占쎄퉱占쎈닚 get
 	@RequestMapping(value = "/deleteIdView", method = RequestMethod.GET)
 	public String usersDeleteView() throws Exception {
 		return "Users/deleteIdView";
 	}
 
-	// �쉶�썝�깉�눜 post
+	// 占쎌돳占쎌뜚占쎄퉱占쎈닚 post
 	@RequestMapping(value = "/usersDelete", method = RequestMethod.POST)
 	public String usersDelete(String id, String password, RedirectAttributes rttr, HttpSession session, Model model,
 			UsersVO vo) throws Exception {
@@ -145,7 +145,7 @@ public class UsersController {
 		model.addAttribute("password", vo.getPassword());
 		model.addAttribute("id", vo.getId());
 		session.invalidate();
-		rttr.addFlashAttribute("msg", "�씠�슜�빐 二쇱뀛�꽌 媛먯궗�빀�땲�떎");
+		rttr.addFlashAttribute("msg", "占쎌뵠占쎌뒠占쎈퉸 雅뚯눘�쏉옙苑� 揶쏅Ŋ沅쀯옙鍮�占쎈빍占쎈뼄");
 		return "redirect:/index";
 
 	}
@@ -168,7 +168,7 @@ public class UsersController {
 	}
 
 	/*
-	 * �븘�씠�뵒 李얘린 �럹�씠吏� �씠�룞
+	 * 占쎈툡占쎌뵠占쎈탵 筌≪뼐由� 占쎈읂占쎌뵠筌욑옙 占쎌뵠占쎈짗
 	 */
 	@RequestMapping(value = "/find_id")
 	public String findView() {
@@ -176,7 +176,7 @@ public class UsersController {
 	}
 
 	/*
-	 * �븘�씠�뵒 李얘린 �떎�뻾
+	 * 占쎈툡占쎌뵠占쎈탵 筌≪뼐由� 占쎈뼄占쎈뻬
 	 */
 
 	@RequestMapping(value = "/find_id", method = RequestMethod.POST)
@@ -204,7 +204,7 @@ public class UsersController {
 	}
 
 	/*
-	 * 鍮꾨�踰덊샇 李얘린 �럹�씠吏� �씠�룞
+	 * �뜮袁⑨옙甕곕뜇�깈 筌≪뼐由� 占쎈읂占쎌뵠筌욑옙 占쎌뵠占쎈짗
 	 */
 	@RequestMapping(value = "/find_pwd")
 	public String findPwdView() {
@@ -212,7 +212,7 @@ public class UsersController {
 	}
 
 	/*
-	 * 鍮꾨�踰덊샇 李얘린濡� �떎�뻾
+	 * �뜮袁⑨옙甕곕뜇�깈 筌≪뼐由경에占� 占쎈뼄占쎈뻬
 	 */
 
 	@RequestMapping(value = "Users/find_pwd", method = RequestMethod.POST)
@@ -225,8 +225,8 @@ public class UsersController {
 		Map<String, String> conditionMap = new LinkedHashMap<>();
 
 		conditionMap.put("지점을 선택하세요", "0");
-		conditionMap.put("캠핑족장-강원도 지점", "1");
-
+		conditionMap.put("캠핑족장-강원도지점", "1");
+		
 		return conditionMap;
 	}
 }

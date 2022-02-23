@@ -21,7 +21,4 @@ public interface RealReviewService {
 	void insertReview(RealReviewVO vo);
 	
 	public List<RealReviewVO> seemyreview(RealReviewVO vo);
-
-	
-
 }
