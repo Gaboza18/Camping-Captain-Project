@@ -15,6 +15,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import com.camping.biz.dao.UsersDAO;
+import com.camping.biz.dto.UsersAge;
 import com.camping.biz.dto.UsersRatio;
 import com.camping.biz.dto.UsersVO;
 import com.camping.biz.users.UsersService;
@@ -146,6 +147,11 @@ public class UsersServiceImpl implements UsersService {
 	@Override
 	public List<UsersRatio> getGenderRatio() {
 		return uDao.getGenderRatio();
+	}
+
+	@Override
+	public List<UsersAge> getAge() {
+		return uDao.getAge();
 	}
 
 }

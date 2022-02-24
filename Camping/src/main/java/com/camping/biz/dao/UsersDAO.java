@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.camping.biz.dto.UsersAge;
 import com.camping.biz.dto.UsersRatio;
 import com.camping.biz.dto.UsersVO;
 
@@ -87,6 +88,11 @@ public class UsersDAO {
 	// 회원 통계(남,여 성비) 조회
 	public List<UsersRatio> getGenderRatio(){
 		return mybatis.selectList("mappings.users-mapping.getGenderRatio");
+	}
+	
+	// 회원 통계(연령별 회원수) 조회
+	public List<UsersAge> getAge(){
+		return mybatis.selectList("mappings.users-mapping.getAge");
 	}
 	
 }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.camping.biz.admin.AdminService;
 import com.camping.biz.dto.AdminVO;
 import com.camping.biz.dto.QnaVO;
+import com.camping.biz.dto.UsersAge;
 import com.camping.biz.dto.UsersRatio;
 import com.camping.biz.qna.QnaService;
 import com.camping.biz.users.UsersService;
@@ -121,5 +122,29 @@ public class AdminController {
 			System.out.println(item);
 		}
 		return listRatio;
+	}
+	
+	/*
+	 *  캠핑족장 연령별 회원수 화면 출력
+	 */
+	@RequestMapping(value="/admin_users_age_ratio")
+	public String adminUsersAgeChart() {
+		return "admin/users/users_age_ratio";
+	}
+	
+	/*
+	 *  차트를 위한 회원별 연령 조회(JSON 데이터 포멧 전송)
+	 */
+	@RequestMapping(value="/users_age_ratio_chart",
+			produces="application/json; charset=UTF-8")
+	@ResponseBody
+	public List<UsersAge> usersAgeChart(){
+		
+		List<UsersAge> listAge = userService.getAge();
+		
+		for(UsersAge item:listAge) {
+			System.out.println(item);
+		}
+		return listAge;
 	}
 }

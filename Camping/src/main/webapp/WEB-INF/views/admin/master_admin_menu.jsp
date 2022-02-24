@@ -22,6 +22,7 @@
 	      <li><a href="admin_qna_list">1:1 문의 관리</a></li> 
 	      <li><a href="#">관리자 게시판 관리</a></li> 
 	      <li><a href="#">전체 정산</a></li> 
-	      <li><a href="admin_users_gender_ratio">회원 통계</a></li> 
+	      <li><a href="admin_users_gender_ratio">회원 성별 통계</a></li> 
+	      <li><a href="admin_users_age_ratio">회원 연령 통계</a></li>
 	    </ul>
     </nav>

@@ -73,4 +73,21 @@ SELECT gender, COUNT(gender) count
 		GROUP BY gender
 </select>
 
+<!-- 연령별 회원수 조회수를 위한 매핑 -->
+<resultMap type="com.camping.biz.dto.UsersAge" id="ageMap">
+	<result column="age" property="age"/>
+	<result column="count" property="count"/>
+</resultMap>
+
+<!-- 연령별 회원수 조회 -->
+<select id="getAge" resultMap="ageMap">
+select decode(floor(age/10), '1','10대', '2', '20대', '3', '30대', '4', '40대', 
+		'5', '50대', '6', '60대', '7', '70대', '8', '80대') as age, count(floor(age/10)) as count
+from
+	(select decode(SUBSTR(users.birthday,7,1),'1','19','2','19','20')||SUBSTR(users.birthday,1,6),
+     	ceil(MONTHS_BETWEEN(sysdate,to_date(decode(SUBSTR(users.birthday,7,1),'1','19','2','19','20')||SUBSTR(users.birthday,1,6))) / 12) as age
+			from users)
+group by floor(age/10)
+</select>
+
 </mapper>

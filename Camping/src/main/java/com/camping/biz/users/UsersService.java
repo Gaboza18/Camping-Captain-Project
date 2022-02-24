@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import com.camping.biz.dto.UsersAge;
 import com.camping.biz.dto.UsersRatio;
 import com.camping.biz.dto.UsersVO;
 
@@ -35,5 +36,7 @@ public interface UsersService {
 	public void updateUser(UsersVO vo);
 		
 	public List<UsersRatio> getGenderRatio(); // 회원 통계(남,녀성비) 조회
+	
+	public List<UsersAge> getAge(); // 회원 통계(연령별 회원수) 조회
 	
 }

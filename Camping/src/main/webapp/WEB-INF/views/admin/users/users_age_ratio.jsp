@@ -12,7 +12,7 @@ $(document).ready(function() {
 					Accept : "application/json; charset=utf-8",
 					"Content-type" : "application/json; charset=utf-8"
 				},
-				url : 'users_gender_ratio_chart',
+				url : 'users_age_ratio_chart',
 				success : function(result) { // result : controller 에서 전달된 데이터 전달
 
 					// 최신 버전의 구글 코어차트 패키지를 메모리로 로드
@@ -37,13 +37,13 @@ $(document).ready(function() {
 			// 차트를 그리는데 사용할 데이터 객체 생성
 			var data = new google.visualization.DataTable();
 
-			data.addColumn("string", "gender");
+			data.addColumn("string", "age");
 			data.addColumn("number", "count");
 
 			// 콘트롤러에서 전달된 json 타입의 데이터를 JS 배열로 변경
 			var dataArray = [];
 			$.each(result, function(i, obj) { // json 배열 타입의 데이터를 항목별로 반복
-				dataArray.push([ obj.gender, obj.count ]);
+				dataArray.push([ obj.age, obj.count ]);
 			})
 
 			// data 객체에 dataArray의 내용을 저장
@@ -52,7 +52,7 @@ $(document).ready(function() {
 
 			// 차트 그리기 옵션 지정
 			var piechart_options = {
-				title : '성별통계',
+				title : '연령통계',
 				width : 300,
 				height : 300
 			};
@@ -65,7 +65,7 @@ $(document).ready(function() {
 
 			// 바 차트 그리기 옵션 지정
 			var barchart_options = {
-				title : '성별통계',
+				title : '연령통계',
 				width : 200,
 				height : 200
 			}
@@ -78,7 +78,7 @@ $(document).ready(function() {
 		}
 </script>
 <div align="center">
-	<h1>성별통계</h1>
+	<h1>연령통계</h1>
 	<table>
 		<tr>
 			<td><div id="piechart_div" style="boarder: 1px solid #cc"></div></td>
