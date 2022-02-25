@@ -61,11 +61,27 @@
 	
 	<select id = "myreview" parameterType="reviews" resultType="reviews">
 	
-	SELECT id,title,content,campingname
+	SELECT id,title,content,campingname,rseq,indate,count
 	FROM reviews
 	WHERE id = #{id}
+	ORDER BY rseq DESC
 	
 	</select>
+	
+	<!--리뷰 삭제하기  -->
+	<select id = "deleteRiviews" >
+	DELETE FROM reviews WHERE rseq=#{rseq}
+	
+	</select>
+	
+	<select id= "modifyRiviews" parameterType="reviews" resultType="reviews">
+	UPDATE reviews SET
+	content = #{content}, campingname= #{campingname}, title=#{title}
+	WHERE rseq=#{rseq}
+		
+	</select>
+	
+	
 	
 
 

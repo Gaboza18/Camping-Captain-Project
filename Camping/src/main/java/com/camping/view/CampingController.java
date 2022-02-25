@@ -68,6 +68,9 @@ public class CampingController {
 	public Map<String, String> searchConditionMap() {
 		Map<String, String> conditionMap = new LinkedHashMap<>();
 
+		
+		//camping_search.jsp에서 반복문으로 설정되어 있어서
+		//conditionMap.put 에서 메뉴를 새로 생성할 수 있음 
 		conditionMap.put("지점을 선택하세요", "0");
 		conditionMap.put("캠핑족장-강원도지점", "1");
 
@@ -84,6 +87,7 @@ public class CampingController {
 		if(loginUser == null) {   
 			return "Users/login";
 		} else { 
+			
 			UsersVO uVo = usersService.getUsers(loginUser.getId());
 			
 			CampingVO camp = new CampingVO();

@@ -8,7 +8,9 @@ import com.camping.biz.dto.UsersVO;
 import utils.Criteria;
 
 public interface RealReviewService {
-	public List<RealReviewVO> listReview();
+
+
+	public List<RealReviewVO> listReview(RealReviewVO vo);
 	
 	public RealReviewVO detailReviews(int rseq);
 	
@@ -22,6 +24,7 @@ public interface RealReviewService {
 	
 	public List<RealReviewVO> seemyreview(RealReviewVO vo);
 
-	
+	public void deletereviews(int rseq);
 
+	public void modifyreviews(int rseq);
 }

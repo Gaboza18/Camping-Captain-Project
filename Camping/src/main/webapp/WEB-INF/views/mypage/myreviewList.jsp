@@ -18,12 +18,12 @@
 <body>
 	<div align="center">
 		<article>
-			<h2>Real Review !</h2>
-			<h3>캠핑족장 리뷰 입니다</h3> 
-			<h3>부족원들의 의견을 들어보세요!</h3>
+			<h2>MY Real Review !</h2>
+			<h3>내가 쓴 리뷰입니다</h3> 
+			<h3>내가쓴 리뷰를 확인해보세요!</h3>
 
 			<!-- 검색 파트 -->
-			<form name="frm" id="review_list" method="get" action = "review_list">
+			<form name="frm" id="review_list" method="get" action = "myreview_list">
 				<table>
 			  		<tr>
   						<td>
@@ -36,7 +36,7 @@
 			  </form>
 			<br>
 			<form name="myreview" method="get">
-				<table id="myreviewList" name=myreview border="1">
+				<table id="myreviewList"  border="1">
 					<tr>
 						<th width="40">번호</th>
 						<th width="200">제목</th>
@@ -45,46 +45,35 @@
 						<th width="130">작성일</th>
 						<th width="50">조회수</th>
 					</tr>
-					<%-- <c:choose>
+					<c:choose>
 						<c:when test="${myreviewListSize<=0}">
 							<tr>
 								<td width="100%" colspan="7" align="center" height="23">
 									등록된 리뷰가 없습니다.</td>
 							</tr>
-						</c:when>
-						<c:otherwise>
-							<c:forEach items="${myreviewList}" var="myRealReviewVO">
-								<tr>
-									<td height="23" align="center">${myRealReviewVO.rseq}
-									 <a href="review_list${pageMaker.makeQuery(pageMaker.criteria.pageNum)}&rseq=${myRealReviewVO.rseq}"></a>
-									 </td>    
-									<td><a href="${path}review_detail?rseq=${myRealReviewVO.rseq}">${RealReviewVO.title}</a></td>
-									
-									
-									<td>${myRealReviewVO.id}</td>
-									<td>${myRealReviewVO.campingname}</td>
-									
-									<td><fmt:formatDate value="${myRealReviewVO.indate}" type="date" />
-									</td>
-									
-									
-									
-									<td>${myRealReviewVO.count}</td>
-								</tr>
-							</c:forEach>
-							<tr><td colspan="6" style="text-align: center;"> ${paging} </td></tr>
-						</c:otherwise>
-					</c:choose> --%>
-							<c:forEach items="${myreviewList}" var="myRealReviewVO">
+							</c:when>
+							<c:otherwise>
+							<c:forEach items="${my_reviewList}" var="myRealReviewVO">
 								<tr>  
-									<td><a href="${path}review_detail?rseq=${myRealReviewVO.rseq}">${RealReviewVO.title}</a></td>
+									<td height="23" align="center">${myRealReviewVO.rseq}
+									 <a href="review_list${mypageMaker.makeQuery(mypageMaker.criteria.pageNum)}&rseq=${myRealReviewVO.rseq}"></a>
+									 </td>    
+									<td><a href="${path}review_detail?rseq=${myRealReviewVO.rseq}">${myRealReviewVO.title}</a></td>
+									
+									
 									<td>${myRealReviewVO.id}</td>
 									<td>${myRealReviewVO.campingname}</td>
+									
 									<td><fmt:formatDate value="${myRealReviewVO.indate}" type="date" />
 									</td>
 									<td>${myRealReviewVO.count}</td>
-								</tr>
+									</tr>
 							</c:forEach>
+							
+							<tr><td colspan="6" style="text-align: center;"> ${paging} </td>
+							</tr>
+								</c:otherwise>
+								</c:choose>
 				</table>
 				<input class="btn" type="button" name="btn_input" value="리얼 리뷰작성" onClick="location.href='review_write'">
 			</form>

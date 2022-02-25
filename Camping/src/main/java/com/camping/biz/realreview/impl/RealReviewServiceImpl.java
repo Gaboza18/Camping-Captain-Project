@@ -19,9 +19,9 @@ public class RealReviewServiceImpl implements RealReviewService {
 	private RealReviewDAO reviewsDao;
 	
 	@Override
-	public List<RealReviewVO> listReview() {
+	public List<RealReviewVO> listReview(RealReviewVO vo) {
 
-		return reviewsDao.listReview();
+		return reviewsDao.listReview(vo);
 	}
 
 	@Override
@@ -58,6 +58,18 @@ public class RealReviewServiceImpl implements RealReviewService {
 	@Override
 	public List<RealReviewVO> seemyreview(RealReviewVO vo) {
 		return reviewsDao.seemyreview(vo);
+		
+	}
+
+	@Override
+	 public void deletereviews(int rseq) {
+		
+		reviewsDao.deletereviews(rseq);
+	}
+
+	@Override
+	public void modifyreviews(int rseq) {
+	  reviewsDao.modifyreviews(rseq);
 		
 	}
 

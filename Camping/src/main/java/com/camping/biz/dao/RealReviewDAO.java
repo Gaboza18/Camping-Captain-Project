@@ -19,8 +19,8 @@ public class RealReviewDAO {
 	private SqlSessionTemplate mybatis;
 	
 	//전체 리뷰 조회(원래 title 없었었음. 2022-02-16)--- title 적어줘야하나
-	public List<RealReviewVO> listReview() {
-		return mybatis.selectList("mappings.review-mapping.listAllReviews");
+	public List<RealReviewVO> listReview(RealReviewVO vo) {
+		return mybatis.selectList("mappings.review-mapping.listAllReviews" ,vo);
 	}
 	
 	// 리뷰 상세보기
@@ -54,6 +54,15 @@ public class RealReviewDAO {
 	}
 	
 	public List<RealReviewVO> seemyreview(RealReviewVO vo) {
-		return mybatis.selectList("mappings.review-mapping.myreview", vo);
+		return mybatis.selectList("mappings.review-mapping.myreview", vo); 
+	}
+	
+	public void deletereviews(int rseq) {
+		mybatis.delete("mappings.review-mapping.deleteRiviews",rseq);
+	}
+	
+	//modifyRiviews
+	public void modifyreviews(int rseq) {
+	  mybatis.update("mappings.review-mapping.modifyRiviews",rseq);
 	}
 }

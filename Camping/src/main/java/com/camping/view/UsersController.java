@@ -130,16 +130,16 @@ public class UsersController {
 	 */
 
 	@PostMapping(value = "/join")
-	public String joinAction(@RequestParam(value="birth1")int birth1,
-							
-							UsersVO vo) {
-		vo.setBirthday(birth1);
+	public String joinAction(UsersVO vo) {
+		
+		usersService.insertUsers(vo);
+	
 		
 		//model.addAttribute("birth1",vo.getBirthday());
 		//model.addAttribute("birth2", vo.getBirthday());
 		
 		//(birth1+" " +birth2);
-		usersService.insertUsers(vo);
+		
 		return "Users/login";
 	}
 	
