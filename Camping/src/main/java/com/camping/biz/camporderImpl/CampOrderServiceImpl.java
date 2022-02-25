@@ -28,8 +28,18 @@ public class CampOrderServiceImpl implements CampOrderService {
 	}
 
 	@Override
-	public List<CampOrderVO> getAllCampOrderList(String user_id) {
-		return cDao.getAllCampOrderList(user_id);
+	public CampOrderVO getMyCampOrder(int oseq) {
+		return cDao.getMyCampOrder(oseq);
+	}
+
+	@Override
+	public int countMyOrderList(String user_id) {
+		return cDao.countMyOrderList(user_id);
+	}
+
+	@Override
+	public List<CampOrderVO> getMyListWithPaging(Criteria criteria, String user_id) {
+		return cDao.getMyListWithPaging(criteria, user_id);
 	}
 
 	@Override
@@ -45,6 +55,16 @@ public class CampOrderServiceImpl implements CampOrderService {
 	@Override
 	public CampOrderVO getCampOrder(int oseq) {
 		return cDao.getCampOrder(oseq);
+	}
+
+	@Override
+	public void updateOrderStatus(int oseq) {
+		cDao.updateOrderStatus(oseq);
+	}
+
+	@Override
+	public void deleteOrderByOseq(int oseq) {
+		cDao.deleteOrderByOseq(oseq);
 	}
   
 }

@@ -8,6 +8,7 @@ import lombok.*;
 @Setter
 @ToString
 public class CampOrderCancelVO {
+	private int cseq;
 	private int oseq;
     private String usersid;
     private String camp_name;
@@ -23,4 +24,5 @@ public class CampOrderCancelVO {
     private int cancelnet; 
     private Date cancel_date; 
     private String reason; 
+    private String status;
 }

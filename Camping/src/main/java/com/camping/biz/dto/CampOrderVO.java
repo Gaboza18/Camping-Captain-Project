@@ -19,4 +19,5 @@ public class CampOrderVO {
 	private int order_people;
 	private String order_phone;
 	private String order_email;
+	private String order_status;
 }

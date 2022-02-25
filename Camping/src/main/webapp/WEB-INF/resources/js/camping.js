@@ -48,3 +48,10 @@ function plus(){
 function complete() {
 	alert("예약이 완료되었습니다.");
 }
+
+// 예약취소 버튼 클릭 시 팝업창 오픈
+function myCancel(oseq) {
+var url = "go_myOrder_cancel?oseq="+oseq;
+	
+	window.open(url, "_blank_", "toolbar=no, menubar=no, scrollbars=no, resizable=yes, width=500, height=550");
+}
