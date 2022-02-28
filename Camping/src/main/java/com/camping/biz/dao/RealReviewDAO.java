@@ -49,6 +49,17 @@ public class RealReviewDAO {
 		
 	}
 	
+	//府胶飘 其捞隆贸府 2
+	
+public List<RealReviewVO> getListWithPaging2(Criteria criteria, String title) {
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("criteria", criteria);
+		map.put("title", title);
+		
+		return mybatis.selectList("mappings.review-mapping.listWithPaging2",map);
+}
+
 	public void insertReview(RealReviewVO vo) {
 		mybatis.insert("mappings.review-mapping.insertReview",vo);
 	}
@@ -62,7 +73,9 @@ public class RealReviewDAO {
 	}
 	
 	//modifyRiviews
-	public void modifyreviews(int rseq) {
-	  mybatis.update("mappings.review-mapping.modifyRiviews",rseq);
+	public void  modifyreviews(RealReviewVO vo) {
+		 mybatis.update("mappings.review-mapping.modifyRiviews",vo);
+	
+	
 	}
 }

@@ -68,11 +68,20 @@ public class RealReviewServiceImpl implements RealReviewService {
 	}
 
 	@Override
-	public void modifyreviews(int rseq) {
-	  reviewsDao.modifyreviews(rseq);
-		
+	public void  modifyreviews(RealReviewVO vo) {
+
+		reviewsDao.modifyreviews(vo);
 	}
 
+	@Override
+	public List<RealReviewVO> getListWithPaging2(Criteria criteria, String title) {
+	
+
+			return reviewsDao.getListWithPaging2(criteria, title);
+	}
+
+	
+	
 
 
 	

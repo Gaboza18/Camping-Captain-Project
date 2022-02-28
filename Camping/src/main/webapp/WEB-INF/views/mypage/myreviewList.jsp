@@ -28,7 +28,7 @@
 			  		<tr>
   						<td>
       						제목 
-     					<input type="text" name="key" id="key">
+     					<input type="text" name="key" id="key" >
      					<input class="btn" type="button" name="btn_search" value="검색" onClick="go_search()">
 			  			</td>
 			  		</tr>
@@ -53,7 +53,7 @@
 							</tr>
 							</c:when>
 							<c:otherwise>
-							<c:forEach items="${my_reviewList}" var="myRealReviewVO">
+							<c:forEach items="${myreviewList}" var="myRealReviewVO">
 								<tr>  
 									<td height="23" align="center">${myRealReviewVO.rseq}
 									 <a href="review_list${mypageMaker.makeQuery(mypageMaker.criteria.pageNum)}&rseq=${myRealReviewVO.rseq}"></a>
@@ -75,6 +75,7 @@
 								</c:otherwise>
 								</c:choose>
 				</table>
+				
 				<input class="btn" type="button" name="btn_input" value="리얼 리뷰작성" onClick="location.href='review_write'">
 			</form>
 			<%@ include file="reviewpage_area.jsp"%>

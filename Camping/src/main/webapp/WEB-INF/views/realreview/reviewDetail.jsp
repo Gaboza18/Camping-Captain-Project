@@ -17,13 +17,24 @@
 function delete_reviews() {
 			
 			      alert("내가 쓴 리뷰가 삭제되었습니다");
-			      $("#delete").attr('action', 'review_list_re').submit(); 
+			      $("#delete").attr('action','review_list_re').submit(); 
 
 				 
 }
 
+function modi_review() {
+/* 	var resq = $("#detail tr:eq(0)>td:eq(0)").text();
+	var title = $("#detail tr:eq(1)>td:eq(0)").text();
+	var content = $("#detail tr:eq(2)>td:eq(0)").text();
+	var campingNm = $("#detail tr:eq(4)>td:eq(0)").text();  */
+	alert("내가쓴 리뷰를 수정합니다");
+	console.log(rseq)
 
-
+	//location.href="modifyreview?resq="+resq+"&&title="+title+"&&content="+content+"&&campingNm="+campingNm;
+	//location.href="/modifyreview.jsp";
+	//location.href='modi'; 
+	$("#detail").attr('action','modi').submit();
+} 
 
 			      </script>
 <body>
@@ -31,7 +42,7 @@ function delete_reviews() {
 	<div align="center">
 		<h2>리얼리뷰! 상세보기</h2>
 		<form name="frm" id="detail" method="get" action="review_list_re">
-			<table border="1" >
+			<table border="1" id="detail">
 				<tr>
 					<th>번호</th>
 					<td width="130">${RealReviewVO.rseq}</td>
@@ -46,7 +57,7 @@ function delete_reviews() {
 				</tr>
 				<tr>
 					<th>작성자</th>
-					<td><input id="id1" value="${RealReviewVO.id}"></td>
+					<td>${RealReviewVO.id}</td>
 				</tr>
 				<tr>
 					<th>캠핑장이름</th>
@@ -69,15 +80,14 @@ function delete_reviews() {
 			<input class="btn" type="button" value="목록"
 				onClick="location.href='review_list'">
 			
-				<c:if test="${userid eq RealReviewVO.id}">
-				<a href="modi">
-			<input class="btn" type="button" id="modi" value="수정" onClick="location.href='modifyreview'">
-			</a>  </c:if><br><br>
-			 </form>
 			<c:if test="${userid eq RealReviewVO.id}">
-				<button class="btn-success" id="delete" onclick="delete_reviews()">리뷰삭제</button>
-			</c:if>
+			<input class="btn" type="button" id="modi" value="수정" onClick="modi_review()"> 
+			</c:if><br><br>
 			
+			<c:if test="${userid eq RealReviewVO.id}">
+				<button type="submit" form="detail" class="btn-success" id="delete" onClick="delete_reviews()">리뷰삭제</button>
+			</c:if>
+			 </form>
 		
 	</div>
 </body>

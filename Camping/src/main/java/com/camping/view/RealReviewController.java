@@ -23,6 +23,8 @@ import utils.PageMaker;
 
 @Controller
 @SessionAttributes("loginUser")
+
+
 public class RealReviewController {
 
 	@Autowired
@@ -35,7 +37,7 @@ public class RealReviewController {
 		// 공지사항 목록 조회 - 공지사항 10개만 조회
 
 		List<RealReviewVO> reviewList = reviewsService.getListWithPaging(criteria, title);
-
+		
 		// 화면에 표시할 페이지 버튼 정보 설정
 		PageMaker pageMaker = new PageMaker();
 		int totalCount = reviewsService.countReviewlist(title);
@@ -104,10 +106,12 @@ public class RealReviewController {
 		} else {
 			
 			vo.setId(loginUser.getId());
-			
+		
+			reviewsService.seemyreview(vo);
+			title = "";
 			
 
-			List<RealReviewVO> myreviewList = reviewsService.getListWithPaging(criteria, title);
+			List<RealReviewVO> myreviewList = reviewsService.getListWithPaging2(criteria, title);
 					
 			 //화면에 표시할 페이지 버튼 정보 설정
 			PageMaker mypageMaker = new PageMaker();
@@ -115,11 +119,11 @@ public class RealReviewController {
 			mypageMaker.setCriteria(criteria); // 현재 페이지와 페이지당 항목 수 정보 설정
 			mypageMaker.setTotalCount(mytotalCount); // 전체 공지사항 목록 갯수 설정 및 페이지 정보 초기화
 
-			reviewsService.seemyreview(vo);
+			
 
 			model.addAttribute("myreviewListSize", myreviewList.size());
 			model.addAttribute("mypageMaker", mypageMaker);
-			model.addAttribute("my_reviewList", myreviewList);
+			model.addAttribute("myreviewList", myreviewList);
 			
 
 			return "mypage/myreviewList";
@@ -160,57 +164,58 @@ public class RealReviewController {
 		
 	}
 	
+	
 	@GetMapping(value = "/modi")
-	public String modifyreview(RealReviewVO vo, HttpSession session) {
+	public String modifyreview(int rseq,RealReviewVO vo,  HttpSession session,Model model) {
 		
 		UsersVO loginUser = (UsersVO) session.getAttribute("loginUser");
 		if (loginUser == null) {
 			return "Users/login";
 		} else {
+
+			
+			String userid = loginUser.getId();
+			RealReviewVO review = reviewsService.detailReviews(vo.getRseq());
+			
+			model.addAttribute("RealReviewVO",review);
+			model.addAttribute("userid", userid);
+			
+
 			return "realreview/modifyreview";
 		}
 	}
 	
 		@RequestMapping(value = "/modifyReview", method = RequestMethod.GET)
-		public String updatereviews (@RequestParam(value="rseq") int rseq, RealReviewVO vo, HttpSession session, Model model,Criteria criteria, String title) {
+		public String updatereviews (int rseq,RealReviewVO vo, HttpSession session, Criteria criteria, String title, 
+		Model model ) {
 
-			UsersVO loginUser = (UsersVO) session.getAttribute("loginUser");
+		UsersVO loginUser = (UsersVO) session.getAttribute("loginUser");
 			if (loginUser == null) {
 				return "Users/login";
-			} else {
-				RealReviewVO rseq1 = (RealReviewVO) session.getAttribute("loginUser");
-				
-				
-				
-				reviewsService.modifyreviews(rseq);
-				List<RealReviewVO> reviewList = reviewsService.getListWithPaging(criteria, title);
-				
-				//model.addAllAttributes(reviewsService.listReview(vo));
-				
-				
-				
-				// 공지사항 목록 조회 - 공지사항 10개만 조회
-
-				
-
-				// 화면에 표시할 페이지 버튼 정보 설정
-				PageMaker pageMaker = new PageMaker();
-				int totalCount = reviewsService.countReviewlist(title);
-
-				pageMaker.setCriteria(criteria); // 현재 페이지와 페이지당 항목 수 정보 설정
-				pageMaker.setTotalCount(totalCount); // 전체 공지사항 목록 갯수 설정 및 페이지 정보 초기화
-
-				
-				model.addAttribute("reviewList", reviewList); // 변수, 값 순서임 왼쪽 변수는 reviewList에서 <for:each>의 변수와 동일함
-				model.addAttribute("reviewListSize", reviewList.size());
-				model.addAttribute("pageMaker", pageMaker);
-				
-				return "realreview/reviewList";
-				
+		} else {
 			
+			reviewsService.modifyreviews(vo);
+			
+			title ="";
+			
+			List<RealReviewVO> reviewList = reviewsService.getListWithPaging(criteria, title);
+			
+			// 화면에 표시할 페이지 버튼 정보 설정
+			PageMaker pageMaker = new PageMaker();
+			int totalCount = reviewsService.countReviewlist(title);
+
+			pageMaker.setCriteria(criteria); // 현재 페이지와 페이지당 항목 수 정보 설정
+			pageMaker.setTotalCount(totalCount); // 전체 공지사항 목록 갯수 설정 및 페이지 정보 초기화
+
+			model.addAttribute("reviewList", reviewList); // 변수, 값 순서임 왼쪽 변수는 reviewList에서 <for:each>의 변수와 동일함
+			model.addAttribute("reviewListSize", reviewList.size());
+			model.addAttribute("pageMaker", pageMaker);
+
+			return "realreview/reviewList";
+			
+
 		
-		
-	}
+		}
 
 		}
 		

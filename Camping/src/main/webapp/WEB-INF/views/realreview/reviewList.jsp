@@ -10,7 +10,20 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="css/camping.css">
 <title>캠핑족장 리얼리뷰</title>
-<script type="text/javascript" src="js/reviews.js"></script>
+<script type="text/javascript" src="js/reviews.js">
+
+function getArea() {
+	var area = 
+	
+	
+	
+}
+
+
+
+
+
+</script>
 
 </head>
 
@@ -36,6 +49,13 @@
 			  </form>
 			<br>
 			<form name="formm" method="get">
+			<input type="radio" name="list" value="전체보기 " checked>전체보기 
+			<input type="radio" name="list" value="서울" onClick= 'getArea()'>서울 
+			<input type="radio" name="list" value="대전" onClick= 'getArea()'>대전
+			<input type="radio" name="list" value="대구" onClick= 'getArea()'>대구
+			<input type="radio" name="list" value="부산" onClick= 'getArea()'>부산
+			<input type="radio" name="list" value="찍고" onClick= 'getArea()'>찍고
+				
 				<table id="reviewList" border="1">
 					<tr>
 						<th width="40">번호</th>
@@ -75,9 +95,9 @@
 							<tr><td colspan="6" style="text-align: center;"> ${paging} </td></tr>
 						</c:otherwise>
 					</c:choose>
-				</table>
+				</table>																	
 				<input class="btn" type="button" name="btn_input" value="리얼 리뷰작성" onClick="location.href='review_write'">
-			</form>
+			</form>  
 			<%@ include file="reviewpage_area.jsp"%>
 		</article>
 	</div>

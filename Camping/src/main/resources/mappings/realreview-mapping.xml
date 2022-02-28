@@ -52,6 +52,27 @@
 		
 	</select>
 	
+	<!-- 페이징처리 2 -->
+	<select id="listWithPaging2" parameterType="hashMap" resultType="reviews">
+
+		SELECT rseq,title,content,campingname,indate,count, id
+			FROM
+				(
+				SELECT row_number() over(ORDER BY indate DESC) rn,rseq,title,content,campingname,indate,count, id
+					FROM reviews
+					<if test='title !=null'>
+						WHERE title LIKE '%'||#{title}||'%' AND id = #{id}
+					</if>
+							
+				)
+	<![CDATA[
+				WHERE rn<=#{criteria.pageNum} * #{criteria.rowsPerPage}  
+					AND rn>=(#{criteria.pageNum}-1) * #{criteria.rowsPerPage}
+					ORDER BY rseq DESC
+	]]>
+		
+	</select>
+	
 	<!-- 조인문을 써야되나?  -->
 	<insert id="insertReview">
 		INSERT INTO reviews(rseq, title, content, campingname,id)
