@@ -26,6 +26,7 @@
 		<mapper resource="mappings/qna-mapping.xml" />
 		<mapper resource="mappings/realreview-mapping.xml" />
 		<mapper resource="mappings/admin-mapping.xml" />
+		<mapper resource="mappings/calculate-mapping.xml" />
 	</mappers>
 	
 </configuration>

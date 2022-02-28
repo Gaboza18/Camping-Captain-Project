@@ -75,7 +75,9 @@
 					<img alt="camping" src="images/CampingCaptain.jpg" width="250" height="100">
 				</a>
 			</div>
-			
+			<div>
+				<input type="text" name="name" value="${loginAdmin.name}">
+			</div>
 			<!-- 로고 들어가는 라인 우측(로그인, 회원가입 버튼) -->
 			<nav id="admin_logout">
 				<a href="admin_logout">LOGOUT</a>

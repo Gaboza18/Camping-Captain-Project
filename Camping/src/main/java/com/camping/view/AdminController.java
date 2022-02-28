@@ -8,11 +8,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.camping.biz.admin.AdminService;
+import com.camping.biz.calculate.CalculateService;
 import com.camping.biz.dto.AdminVO;
+import com.camping.biz.dto.CampOrderVO;
 import com.camping.biz.dto.QnaVO;
 import com.camping.biz.dto.UsersAge;
 import com.camping.biz.dto.UsersRatio;
@@ -32,6 +35,10 @@ public class AdminController {
 	
 	@Autowired
 	private UsersService userService;
+	
+	@Autowired
+	private CalculateService calculateService;
+	
 	
 	@GetMapping(value="/admin_login_form")
 	public String AdminLoginView() {
@@ -147,4 +154,57 @@ public class AdminController {
 		}
 		return listAge;
 	}
+	
+	/*
+	 * 각 지점 연도별 정산(총관리자)
+	 */
+	@RequestMapping(value="/admin_master_calculate_year")
+	public String masterCalculateYear(Model model) {
+		
+		List<CampOrderVO> calculateList = calculateService.calculateYear();
+		
+		model.addAttribute("calculateList", calculateList);
+		
+		return "admin/calculate/admin_all_point_calculate_year";
+	}
+	
+	/*
+	 *  각 지점 월 별 정산(총관리자)
+	 */
+	@RequestMapping(value="/admin_master_calculate_month")
+	public String masterCalculateMonth(Model model) {
+		
+		List<CampOrderVO> calculateList = calculateService.calculateMonth();
+		
+		model.addAttribute("calculateList",calculateList);
+		
+		return "admin/calculate/admin_all_point_calculate_month";
+	}
+	
+	/*
+	 *  각 지점 연도별 정산(지점 관리자): 각 지점 이름을 받아 지점 계정만 조회를 한다
+	 */
+	@RequestMapping(value="/branch_calculate_year")
+	public String managerGwCalculateYear(Model model, @RequestParam (value="name") String name) {
+		
+		List<CampOrderVO> GwcalculateList = calculateService.branchCalculateYear(name);
+		
+		model.addAttribute("GwcalculateList",GwcalculateList);
+		
+		return "admin/calculate/manager_gangwondo_calculate_year";
+	}
+	
+	/*
+	 *  각 지점 월 별 정산(지점 관리자)
+	 */
+	@RequestMapping(value="/branch_calculate_month")
+	public String managerGwCalculateMonth(Model model, @RequestParam (value="name") String name) {
+		
+		List<CampOrderVO> GwcalculateList = calculateService.branchCalculateMonth(name);
+		
+		model.addAttribute("GwcalculateList",GwcalculateList);
+		
+		return "admin/calculate/manager_gangwondo_calculate_month";
+	}
+	
 }
