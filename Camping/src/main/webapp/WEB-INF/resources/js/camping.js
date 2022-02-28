@@ -45,9 +45,9 @@ function plus(){
 }
 
 // 예약 완료시 출력
-function complete() {
-	alert("예약이 완료되었습니다.");
-}
+//function complete() {
+//	alert("예약이 완료되었습니다.");
+//}
 
 // 예약취소 버튼 클릭 시 팝업창 오픈
 function myCancel(oseq) {

@@ -87,11 +87,11 @@ function cancel_chk() {
 	      	</tr>
 	      	<tr>
 		        <th>환불금액</th>
-		        <td><input type="text" name="cancelprice" id="cancelprice" value="${cancelOrder.total_price}" readOnly="readonly">원 </td>
+		        <td><input type="text" name="cancelprice" id="cancelprice" value="${cancelOrder.cancelprice}" readOnly="readonly">원 </td>
 	      	</tr>
 	      	<tr>
 		        <th>위약금</th>
-		        <td><input type="text" name="cancelnet" id="cancelnet" value="${cancelOrder.total_price}" readOnly="readonly">원 </td>
+		        <td><input type="text" name="cancelnet" id="cancelnet" value="${cancelOrder.cancelnet}" readOnly="readonly">원 </td>
 	      	</tr>
 	      	<tr>
 		        <th>취소날짜</th>

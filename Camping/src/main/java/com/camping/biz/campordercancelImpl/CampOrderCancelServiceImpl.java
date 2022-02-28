@@ -24,6 +24,16 @@ public class CampOrderCancelServiceImpl implements CampOrderCancelService {
 	}
 
 	@Override
+	public int countMyCancelList(String usersid) {
+		return cDao.countMyCancelList(usersid);
+	}
+
+	@Override
+	public List<CampOrderCancelVO> getMyListWithPaging(Criteria criteria, String usersid) {
+		return cDao.getMyListWithPaging(criteria, usersid);
+	}
+
+	@Override
 	public int countOrderList(String camp_name) {
 		return cDao.countOrderList(camp_name);
 	}

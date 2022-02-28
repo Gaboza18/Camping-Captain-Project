@@ -68,7 +68,7 @@
       	</tr>
 	</table>
 		<div id="button" align="center">
-			<button type="button" onclick="btnClose(${myOrderDetail.oseq})" style="text-align: center;">닫기</button>
+			<button type="button" onclick="btnClose()" style="text-align: center;">닫기</button>
 		</div>
 </body>
 </html>

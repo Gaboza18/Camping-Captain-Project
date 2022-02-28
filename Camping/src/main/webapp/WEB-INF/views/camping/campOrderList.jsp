@@ -5,7 +5,7 @@
 <article>
 	<div>
 		<h1>현재 예약 확인</h1>
-			<form>
+		<form>
 			<div align="center">
 				<table id="orderList" style="text-align: center;"> 
 					<tr>
@@ -28,26 +28,30 @@
 							<td>${campOrderList.total_price}</td>
 							<td>${campOrderList.indate}</td>
 							<td>${campOrderList.outdate}</td>
-							<td>
-								<c:choose>
-									<c:when test="${orderList.indate < today}">
+							<c:choose>
+								<c:when test="${campOrderList.indate < today}">
+									<td>
 										<span style="color: rgb(145,154,157);">지난내역</span>
-									</c:when>
-									<c:otherwise>
-										<c:choose>
-											<c:when test="${campOrderList.order_status == 'y'}">
+									</td>
+								</c:when>
+								<c:otherwise>
+									<c:choose>
+										<c:when test="${campOrderList.order_status == 'y'}">
+											<td>
 												<span style="color: red;">예약 확정 완료</span>
 												<a href="myOrder_detail?oseq=${campOrderList.oseq}" onclick="window.open(this.href, '_blank', 'toolbar=no, menubar=no, scrollbars=no, resizable=yes, width=500, height=500'); return false;">예약상세내용보기</a>
-											</c:when>
-											<c:when test="${campOrderList.order_status == 'n'}">
+											</td>
+										</c:when>
+										<c:when test="${campOrderList.order_status == 'n'}">
+											<td>
 												<span>예약 진행 중</span>
 												<a href="myOrder_detail?oseq=${campOrderList.oseq}" onclick="window.open(this.href, '_blank', 'toolbar=no, menubar=no, scrollbars=no, resizable=yes, width=500, height=500'); return false;">예약상세내용보기</a>
-											</c:when>
-										</c:choose>
-									</c:otherwise>
-								</c:choose>
-							</td>
-							<td><button id="btn" onclick="myCancel(${campOrderList.oseq})">예약취소하기</button></td>
+											</td>
+										</c:when>
+									</c:choose>
+									<td><button id="btn" onclick="myCancel(${campOrderList.oseq})">예약취소하기</button></td>
+								</c:otherwise>
+							</c:choose>
 						</tr>
 					</c:forEach>
 				</table>
@@ -55,6 +59,7 @@
 		</form>	
 	</div>
 	<%@ include file="myOrder_page_area.jsp"%>
+	
 </article>
 
 <%@ include file="../footer.jsp" %>

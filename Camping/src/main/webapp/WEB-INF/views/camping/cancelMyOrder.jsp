@@ -118,22 +118,22 @@ function deleteOrder() {
     				<c:choose>
 		        		<c:when test="${check_in - to_day == 0 || check_in - to_day == 1}">
 		        			<fmt:parseNumber var="oneday" value="${campOrder.total_price * 0.8}" integerOnly="true" />
-		        			<input type="number" name="cancelprice" id="cancelprice" value="${oneday}" readOnly="readonly">원
+		        			<input type="number" name="cancelnet" id="cancelnet" value="${oneday}" readOnly="readonly">원
 		        		</c:when>
 		        		<c:when test="${check_in - to_day == 2 || check_in - to_day == 3}">
 		        			<fmt:parseNumber var="threeday" value="${campOrder.total_price * 0.5}" integerOnly="true" />
-		        			<input type="number" name="cancelprice" id="cancelprice" value="${threeday}" readOnly="readonly">원
+		        			<input type="number" name="cancelnet" id="cancelnet" value="${threeday}" readOnly="readonly">원
 		        		</c:when>
 		        		<c:when test="${check_in - to_day == 4 || check_in - to_day == 5}">
 		        			<fmt:parseNumber var="fiveday" value="${campOrder.total_price * 0.3}" integerOnly="true" />
-		        			<input type="number" name="cancelprice" id="cancelprice" value="${fiveday}" readOnly="readonly">원
+		        			<input type="number" name="cancelnet" id="cancelnet" value="${fiveday}" readOnly="readonly">원
 		        		</c:when>
 		        		<c:when test="${check_in - to_day == 6 || check_in - to_day == 7}">
 		        			<fmt:parseNumber var="sevenday" value="${campOrder.total_price * 0.1}" integerOnly="true" />
-		        			<input type="number" name="cancelprice" id="cancelprice" value="${sevenday}" readOnly="readonly">원
+		        			<input type="number" name="cancelnet" id="cancelnet" value="${sevenday}" readOnly="readonly">원
 		        		</c:when>
 		        		<c:when test="${check_in - to_day > 8}">
-		        			<input type="number" name="cancelprice" id="cancelprice" value="0" readOnly="readonly">원
+		        			<input type="number" name="cancelnet" id="cancelnet" value="0" readOnly="readonly">원
 		        		</c:when>
 		        	</c:choose>
     			</td>

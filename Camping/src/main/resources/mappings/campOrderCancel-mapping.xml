@@ -9,6 +9,30 @@
 		       #{order_people}, #{order_phone}, #{order_email}, #{total_price}, #{cancelprice}, #{cancelnet})
 	</insert>
 	
+	<!-- 회원이 본인의 취소내역 조회 -->
+	<!-- 총 취소내역 현황 목옥 갯수 조회 -->
+	<select id="countMyCancelList" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM campordercancel 
+		 WHERE usersid=#{usersid}
+	</select>
+	
+	<!-- 페이징 처리(1~10개씩 출력) -->
+	<select id="MylistWithPaging" parameterType="hashMap" resultType="cancel">
+		<![CDATA[
+		
+			SELECT cseq, oseq, camp_name, camp_zone, indate, outdate, order_name, order_people, order_phone, order_email, 
+					total_price, cancelprice, cancelnet, cancel_date, reason, status
+				FROM
+					(SELECT row_number() over(ORDER BY cancel_date DESC) rn, cseq, oseq, camp_name, camp_zone, indate, outdate, 
+											order_name, order_people, order_phone, order_email, total_price, cancelprice, cancelnet, cancel_date, reason, status
+						FROM campordercancel 
+							WHERE usersid=#{usersid}	
+					)
+					WHERE rn<=#{criteria.pageNum} * #{criteria.rowsPerPage}  
+						AND rn>=(#{criteria.pageNum}-1) * #{criteria.rowsPerPage}
+		]]>
+	</select>
+	
 	
 	<!-- 관리자 기능 -->
 	<!-- 본인 지점 예약 취소현황 -->

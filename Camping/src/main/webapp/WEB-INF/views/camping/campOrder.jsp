@@ -4,7 +4,7 @@
  
 <article id="campOrder">
 	<h3>캠핑장 예약</h3>    
-	<form name="formm" method="post" action="order_insert" onsubmit="return complete()">
+	<form name="formm" method="post" action="go_payForm"><!--  onsubmit="return complete()"> -->
 		<input name="camp_id" type="hidden" value="${camp.camp_id}"/>
 		<table id="orderForm">
 	      	<tr>
