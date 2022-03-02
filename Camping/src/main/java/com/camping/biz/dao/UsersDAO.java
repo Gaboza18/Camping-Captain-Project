@@ -16,14 +16,14 @@ public class UsersDAO {
 	@Autowired
 	private SqlSessionTemplate mybatis;
 
-	// �쉶�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕�뜝�룞�삕 �뜝�룞�삕�쉶
+	// 占쎌돳占쎈쐻占쎈짗占쎌굲 占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲 占쎈쐻占쎈짗占쎌굲占쎌돳
 	public UsersVO getUsers(String id) {
 		return mybatis.selectOne("mappings.users-mapping.getUsers", id);
 	}
 
-	// �쉶�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕 �솗�뜝�룞�삕
+	// 占쎌돳占쎈쐻占쎈짗占쎌굲 占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲 占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲 占쎌넇占쎈쐻占쎈짗占쎌굲
 	/*
-	 * �뜝�룞�삕�뜝�떦怨ㅼ삕: �쉶�뜝�룞�삕�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕�뜝�떦紐뚯삕 : 1 �쉶�뜝�룞�삕�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕�뜝�룞�삕�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕�뜝�룞�삕 : -1
+	 * 占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈뼣�ⓦ끉�굲: 占쎌돳占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲 占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈뼣筌뤿슣�굲 : 1 占쎌돳占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲 占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲 占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲 : -1
 	 */
 
 	public int confirmID(String id) {
@@ -37,13 +37,13 @@ public class UsersDAO {
 	}
 
 	/*
-	 * �쉶�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕
+	 * 占쎌돳占쎈쐻占쎈짗占쎌굲 占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲
 	 * 
-	 * id�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕�뜝�룞�삕�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕 �뜝�룞�삕�뜝占�: -1 �뜝�룞�삕�솚 pwd�뜝�룞�삕 ���뜝�룞�삕�뜝�룞�삕�뜝占� : 0�뜝�룞�삕 �뜝�룞�삕�솚 id,pwd�뜝�룞�삕 �뜝�룞�삕移섇뜝�룞�삕 �뜝�룞�삕�뜝占� : 1�뜝�룞�삕 �뜝�룞�삕�솚
+	 * id占쎈쐻占쎈짗占쎌굲 占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲 占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲 占쎈쐻占쎈짗占쎌굲占쎈쐻�뜝占�: -1 占쎈쐻占쎈짗占쎌굲占쎌넎 pwd占쎈쐻占쎈짗占쎌굲 占쏙옙占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲占쎈쐻�뜝占� : 0占쎈쐻占쎈짗占쎌굲 占쎈쐻占쎈짗占쎌굲占쎌넎 id,pwd占쎈쐻占쎈짗占쎌굲 占쎈쐻占쎈짗占쎌굲燁살꼪�쐻占쎈짗占쎌굲 占쎈쐻占쎈짗占쎌굲占쎈쐻�뜝占� : 1占쎈쐻占쎈짗占쎌굲 占쎈쐻占쎈짗占쎌굲占쎌넎
 	 */
 
 	public int loginID(UsersVO vo) {
-		int result = -1; // �뜝�룞�삕�쉶�뜝�룞�삕�뜝占�
+		int result = -1; // 占쎈쐻占쎈짗占쎌굲占쎌돳占쎈쐻占쎈짗占쎌굲占쎈쐻�뜝占�
 
 		String pwd_in_db = mybatis.selectOne("mappings.users-mapping.confirmID", vo.getId());
 
@@ -57,22 +57,22 @@ public class UsersDAO {
 		return result;
 	}
 
-	// �쉶�뜝�룞�삕 �뜝�룞�삕�뜝占�
+	// 占쎌돳占쎈쐻占쎈짗占쎌굲 占쎈쐻占쎈짗占쎌굲占쎈쐻�뜝占�
 	public void insertUsers(UsersVO vo) {
 		mybatis.insert("mappings.users-mapping.insertUsers", vo);
 	}
 
-	// �쉶�뜝�룞�삕 �뜝�룞�삕�뜝占� �뜝�룞�삕�쉶
+	// 占쎌돳占쎈쐻占쎈짗占쎌굲 占쎈쐻占쎈짗占쎌굲占쎈쐻�뜝占� 占쎈쐻占쎈짗占쎌굲占쎌돳
 	public List<UsersVO> listUsers(String name) {
 		return mybatis.selectList("mappings.users-mapping.listUsers", name);
 	}
 
-	// �쉶�썝 ID 李얘린
+	// 占쎌돳占쎌뜚 ID 筌≪뼐由�
 	public UsersVO findId(UsersVO vo) {
 		return mybatis.selectOne("mappings.users-mapping.findId",vo);
 	}
 		
-	// �쉶�썝 鍮꾨�踰덊샇 李얘린 諛� �뾽�뜲�씠�듃
+	// 占쎌돳占쎌뜚 �뜮袁⑨옙甕곕뜇�깈 筌≪뼐由� 獄쏉옙 占쎈씜占쎈쑓占쎌뵠占쎈뱜
 	public int updatePwd(UsersVO vo) {
 		return mybatis.update("mappings.users-mapping.updatePwd", vo);
 	}
@@ -85,12 +85,12 @@ public class UsersDAO {
 		mybatis.update("mappings.users-mapping.updateUser",vo);
 	}
 	
-	// 회원 통계(남,여 성비) 조회
+	// �쉶�썝 �넻怨�(�궓,�뿬 �꽦鍮�) 議고쉶
 	public List<UsersRatio> getGenderRatio(){
 		return mybatis.selectList("mappings.users-mapping.getGenderRatio");
 	}
 	
-	// 회원 통계(연령별 회원수) 조회
+	// �쉶�썝 �넻怨�(�뿰�졊蹂� �쉶�썝�닔) 議고쉶
 	public List<UsersAge> getAge(){
 		return mybatis.selectList("mappings.users-mapping.getAge");
 	}

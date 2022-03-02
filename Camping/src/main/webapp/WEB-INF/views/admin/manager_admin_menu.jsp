@@ -19,6 +19,7 @@
 	      	</ul>
 	      </li>
 	      <li><a href="branch_calculate_year?name=${loginAdmin.name}">연도별 정산</a></li>
-	      <li><a href="branch_calculate_month?name=${loginAdmin.name}">월 별 정산</a></li>  
+	      <li><a href="branch_calculate_month?name=${loginAdmin.name}">월 별 정산</a></li>
+	      <li><a href="branch_calculate_day?name=${loginAdmin.name}">일일 별 정산</a></li>    
 	    </ul>
     </nav>

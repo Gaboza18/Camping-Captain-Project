@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../admin_header.jsp"%>
-<%@ include file="../manager_admin_menu.jsp"%>
+<%@ include file="../master_admin_menu.jsp"%>
 <style>
 	table#calculateList {
 		border-collapse: collapse; /* border 사이의 간격 없앰 */
@@ -23,16 +23,16 @@
 </style>
 	<div align="center">
 		<article>
-			<h1>${loginAdmin.name} - 월 정산</h1>
+			<h1>캠핑족장 - 일일 정산</h1>
 			<table id="calculateList">
 				<tr>
-					<th>월 별</th> <th>지점이름</th> <th>총합</th>
+					<th>년 도</th> <th>지점이름</th> <th>총합</th>
 				</tr>
-			<c:forEach items="${GwcalculateList}" var="GwcalculateList">
+			<c:forEach items="${calculateList}" var="calculateList">
 				<tr>
-					<td height="23" align="center">${GwcalculateList.indate }</td>
-					<td style="text-align: left; padding-left: 50px; padding-right: 0px;">${GwcalculateList.camp_name }</td>
-					<td>${GwcalculateList.total_price } 원</td>
+					<td height="23" align="center">${calculateList.indate }</td>
+					<td style="text-align: left; padding-left: 50px; padding-right: 0px;">${calculateList.camp_name }</td>
+					<td>${calculateList.total_price } 원</td>
 				</tr>	
 			</c:forEach>	
 			</table>

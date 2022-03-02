@@ -23,10 +23,10 @@
 </style>
 	<div align="center">
 		<article>
-			<h1>${loginAdmin.name} - 연도 별 정산</h1>
+			<h1>${loginAdmin.name} - 월 정산</h1>
 			<table id="calculateList">
 				<tr>
-					<th>연도 별</th> <th>지점이름</th> <th>총합</th>
+					<th>년 도</th> <th>지점이름</th> <th>총합</th>
 				</tr>
 			<c:forEach items="${GwcalculateList}" var="GwcalculateList">
 				<tr>

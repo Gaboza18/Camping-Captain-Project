@@ -1,16 +1,21 @@
 package com.camping.view;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import com.camping.biz.admin.AdminService;
 import com.camping.biz.calculate.CalculateService;
@@ -21,6 +26,8 @@ import com.camping.biz.dto.UsersAge;
 import com.camping.biz.dto.UsersRatio;
 import com.camping.biz.qna.QnaService;
 import com.camping.biz.users.UsersService;
+
+import utils.Criteria;
 
 
 @Controller
@@ -60,6 +67,15 @@ public class AdminController {
 		} else {
 			return "admin/login_fail";
 		}
+	}
+	
+	/*
+	 * 관리자 로그아웃
+	 */
+	@GetMapping(value = "/admin_logout")
+	public String logout(SessionStatus status) {
+		status.setComplete();
+		return "admin/admin_login";
 	}
 	
 	/*
@@ -155,19 +171,7 @@ public class AdminController {
 		return listAge;
 	}
 	
-	/*
-	 * 각 지점 연도별 정산(총관리자)
-	 */
-	@RequestMapping(value="/admin_master_calculate_year")
-	public String masterCalculateYear(Model model) {
-		
-		List<CampOrderVO> calculateList = calculateService.calculateYear();
-		
-		model.addAttribute("calculateList", calculateList);
-		
-		return "admin/calculate/admin_all_point_calculate_year";
-	}
-	
+
 	/*
 	 *  각 지점 월 별 정산(총관리자)
 	 */
@@ -182,6 +186,19 @@ public class AdminController {
 	}
 	
 	/*
+	 *  각 지점 월 별 정산(총관리자)
+	 */
+	@RequestMapping(value="/admin_master_calculate_day")
+	public String masterCalculateDay(Model model) {
+		
+		List<CampOrderVO> calculateList = calculateService.calculateDay();
+		
+		model.addAttribute("calculateList",calculateList);
+		
+		return "admin/calculate/admin_all_point_calculate_day";
+	}
+	
+	/*
 	 *  각 지점 연도별 정산(지점 관리자): 각 지점 이름을 받아 지점 계정만 조회를 한다
 	 */
 	@RequestMapping(value="/branch_calculate_year")
@@ -191,7 +208,7 @@ public class AdminController {
 		
 		model.addAttribute("GwcalculateList",GwcalculateList);
 		
-		return "admin/calculate/manager_gangwondo_calculate_year";
+		return "admin/calculate/manager_calculate_year";
 	}
 	
 	/*
@@ -204,7 +221,66 @@ public class AdminController {
 		
 		model.addAttribute("GwcalculateList",GwcalculateList);
 		
-		return "admin/calculate/manager_gangwondo_calculate_month";
+		return "admin/calculate/manager_calculate_month";
+	}
+	
+	/*
+	 *  각 지점 일일 별 정산(지점 관리자)
+	 */
+	@RequestMapping(value="/branch_calculate_day")
+	public String managerGwCalculateDay(Model model, @RequestParam (value="name") String name) {
+		
+		List<CampOrderVO> GwcalculateList = calculateService.branchCalculateDay(name);
+		
+		model.addAttribute("GwcalculateList",GwcalculateList);
+		
+		return "admin/calculate/manager_calculate_day";
+	}
+	
+	/*
+	 * 각 지점 연도별 정산(총관리자) - 서브메뉴 -> 연도별 정산 조회 컨트롤러 
+	 */
+	
+	@RequestMapping(value="/go_admin_master_calculate_year", method=RequestMethod.GET)
+	public String masterCalculateYear() {
+		return "admin/calculate/admin_all_point_calculate_year";
+	}
+	
+	
+	/*
+	 * 각 지점 연도별 정산(총관리자) - 조회할 년도 '시작년도 ~ 끝나는 년도'
+	 */
+	
+	@RequestMapping(value="/admin_master_calculate_year", method=RequestMethod.GET)
+	public String masterCalculateYear(@RequestParam(value = "startYear") String startYear,
+									@RequestParam(value = "endYear") String endYear, Model model) {
+		
+		String stYear = startYear;
+		String edYear = endYear;
+		
+		List<CampOrderVO> calculateList = calculateService.searchCalculateYear(startYear, endYear);
+		
+		model.addAttribute("calculateList", calculateList);
+		model.addAttribute("stYear", stYear);
+		model.addAttribute("edYear", edYear);
+		
+		return "admin/calculate/admin_all_point_calculate_year";
+	}
+	
+	/*
+	 * 각 지점 연도별 정산(총관리자) - 년도 검색 선택박스 항목
+	 */
+	@ModelAttribute("conditionMapYear")
+	public Map<String, String> searchConditionMapYear() {
+		Map<String, String> conditionMapYear = new LinkedHashMap<>();
+
+		conditionMapYear.put("2019년", "2019년");
+		conditionMapYear.put("2020년", "2020년");
+		conditionMapYear.put("2021년", "2021년");
+		conditionMapYear.put("2022년", "2022년");
+		conditionMapYear.put("2023년", "2023년");
+
+		return conditionMapYear;
 	}
 	
 }
