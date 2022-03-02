@@ -26,7 +26,7 @@
 			<h1>캠핑족장 - 월 정산</h1>
 			<table id="calculateList">
 				<tr>
-					<th>월 별</th> <th>지점이름</th> <th>총합</th>
+					<th>년 도</th> <th>지점이름</th> <th>총합</th>
 				</tr>
 			<c:forEach items="${calculateList}" var="calculateList">
 				<tr>
