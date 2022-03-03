@@ -12,6 +12,8 @@
 <script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="js/users.js"></script>
 <script type="text/javascript" src="js/camping.js"></script>
+<script type="text/javascript" src="js/admin_search_calculate.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 <!-- 캘린더 설정구간 -->
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -74,7 +76,9 @@
 					<img alt="camping" src="images/CampingCaptain.jpg" width="250" height="100">
 				</a>
 			</div>
-			
+			<div>
+				<input type="text" name="name" value="${loginAdmin.name}">
+			</div>
 			<!-- 로고 들어가는 라인 우측(로그인, 회원가입 버튼) -->
 			<nav id="admin_logout">
 				<a href="admin_logout">LOGOUT</a>
