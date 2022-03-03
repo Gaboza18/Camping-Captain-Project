@@ -9,4 +9,7 @@ public interface PayService {
 	
 	// 실결제 한건 조회
 	public PayVO getPay(PayVO vo);
+	
+	// 결제 취소시 실결제 정보 삭제
+	public void deletePay(String tid);
 }

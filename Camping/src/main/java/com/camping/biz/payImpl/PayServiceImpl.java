@@ -23,4 +23,9 @@ public class PayServiceImpl implements PayService {
 		return pDao.getPay(vo);
 	}
 
+	@Override
+	public void deletePay(String tid) {
+			pDao.deletePay(tid);
+	}
+
 }

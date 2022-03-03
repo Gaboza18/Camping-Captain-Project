@@ -5,10 +5,9 @@
 	<!-- 예약정보 insert -->
 	<insert id="insertCampOrder">
 		INSERT INTO camp_order(oseq, camp_name, camp_zone, indate, outdate, user_id, order_name, order_people, order_phone, order_email, total_price)
-		VALUES(camp_order_seq.NEXTVAL, #{camp_name}, #{camp_zone}, #{indate}, #{outdate},
-		 		#{user_id}, #{order_name}, #{order_people}, #{order_phone}, #{order_email}, #{total_price})
+		VALUES(camp_order_seq.NEXTVAL, #{camp_name}, #{camp_zone}, #{indate}, #{outdate}, #{user_id}, #{order_name}, #{order_people}, #{order_phone}, #{order_email}, #{total_price})
 	</insert>
-	
+		
 	<!-- 예약정보 조회 -->
 	<select id="getCampOrderList" resultType="campOrder">
 		SELECT * FROM camp_order WHERE indate=#{indate}

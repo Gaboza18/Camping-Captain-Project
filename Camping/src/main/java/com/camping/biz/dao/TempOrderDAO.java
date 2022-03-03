@@ -19,7 +19,13 @@ public class TempOrderDAO {
 		mybatis.insert("mappings.tempOrder-mapping.insertTempOrder", vo);
 	}
 	
+	// 임시 예약번호를 기준으로 한건 조회
 	public TempOrderVO getTempOrder(String temp_id) {
 		return mybatis.selectOne("mappings.tempOrder-mapping.getTempOrder", temp_id);
+	}
+	
+	// 실결제 성공 시 임시테이블 삭제
+	public void deleteTempOrder(String temp_id) {
+		mybatis.delete("mappings.tempOrder-mapping.deleteTempOrder", temp_id);
 	}
 }

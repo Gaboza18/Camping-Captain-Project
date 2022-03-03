@@ -21,4 +21,9 @@ public class PayDAO {
 	public PayVO getPay(PayVO vo) {
 		return mybatis.selectOne("mappings.pay-mapping.getPay", vo);
 	}
+	
+	// 결제 취소시 실결제 정보 삭제
+	public void deletePay(String tid) {
+		mybatis.delete("mappings.pay-mapping.deletePay", tid);
+	}
 }

@@ -25,4 +25,9 @@ public class TempOrderServiceImpl implements TempOrderService {
 	public TempOrderVO getTempOrder(String temp_id) {
 		return tDao.getTempOrder(temp_id);
 	}
+
+	@Override
+	public void deleteTempOrder(String temp_id) {
+		tDao.deleteTempOrder(temp_id);
+	}
 }
