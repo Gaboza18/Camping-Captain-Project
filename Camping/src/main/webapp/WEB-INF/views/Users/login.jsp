@@ -23,7 +23,6 @@
                  onclick="location.href='deleteIdView'">                                                        
         </div> 
         </fieldset>
-        </div>
     </form>  
   </article>
 <%@ include file="../footer.jsp" %>  

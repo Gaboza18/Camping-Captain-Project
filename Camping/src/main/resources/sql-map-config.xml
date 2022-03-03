@@ -32,6 +32,7 @@
 		<mapper resource="mappings/campOrderCancel-mapping.xml" />
 		<mapper resource="mappings/tempOrder-mapping.xml" />
 		<mapper resource="mappings/pay-mapping.xml" />
+		<mapper resource="mappings/calculate-mapping.xml" />
 	</mappers>
 	
 </configuration>

@@ -53,4 +53,41 @@ VALUES(#{id}, #{password}, #{name}, #{email},#{phone})
 			where id=#{id}
 </update>
 
+<!-- 회원 성별 조회를 위한 데이터 매핑 -->
+<resultMap type="com.camping.biz.dto.UsersRatio" id="genderMap">
+	<result column="gender" property="gender"/>
+	<result column="count" property="count"/>
+</resultMap>
+
+<!-- 회원별 성별 조회 -->
+<select id="getGenderRatio" resultMap="genderMap">
+SELECT gender, COUNT(gender) count
+	FROM
+		(SELECT SUBSTR(users.birthday, 7, 1),
+		    CASE 
+		        WHEN SUBSTR(users.birthday, 7, 1) IN ('1', '3', '5', '7', '9') THEN '남자'
+		        WHEN SUBSTR(users.birthday, 7, 1) IN ('2', '4', '6', '8', '0') THEN '여자'
+		        ELSE 'UNKNOWN'
+		    END gender
+		FROM users)
+		GROUP BY gender
+</select>
+
+<!-- 연령별 회원수 조회수를 위한 매핑 -->
+<resultMap type="com.camping.biz.dto.UsersAge" id="ageMap">
+	<result column="age" property="age"/>
+	<result column="count" property="count"/>
+</resultMap>
+
+<!-- 연령별 회원수 조회 -->
+<select id="getAge" resultMap="ageMap">
+select decode(floor(age/10), '1','10대', '2', '20대', '3', '30대', '4', '40대', 
+		'5', '50대', '6', '60대', '7', '70대', '8', '80대') as age, count(floor(age/10)) as count
+from
+	(select decode(SUBSTR(users.birthday,7,1),'1','19','2','19','20')||SUBSTR(users.birthday,1,6),
+     	ceil(MONTHS_BETWEEN(sysdate,to_date(decode(SUBSTR(users.birthday,7,1),'1','19','2','19','20')||SUBSTR(users.birthday,1,6))) / 12) as age
+			from users)
+group by floor(age/10)
+</select>
+
 </mapper>
