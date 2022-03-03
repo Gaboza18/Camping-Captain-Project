@@ -17,7 +17,7 @@ public class RealReviewServiceImpl implements RealReviewService {
 
 	@Autowired
 	private RealReviewDAO reviewsDao;
-	
+
 	@Override
 	public List<RealReviewVO> listReview() {
 
@@ -50,19 +50,15 @@ public class RealReviewServiceImpl implements RealReviewService {
 
 	@Override
 	public void insertReview(RealReviewVO vo) {
-		
+
 		reviewsDao.insertReview(vo);
-		
+
 	}
-	
+
 	@Override
 	public List<RealReviewVO> seemyreview(RealReviewVO vo) {
 		return reviewsDao.seemyreview(vo);
-		
+
 	}
-
-
-
-	
 
 }

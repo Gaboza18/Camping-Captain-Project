@@ -13,11 +13,13 @@
 	      <li>
 	      	<a href="#">게시판</a>
 	      	<ul class="header_submenu">
-	      		<li><a href="#">관리지 게시판</a></li>
+	      		<li><a href="#">관리자 게시판</a></li>
 	      		<li><a href="#">회원 게시판 관리</a></li>
 	      		<li><a href="#">후기 관리</a></li>
 	      	</ul>
 	      </li>
-	      <li><a href="#">각 지점 정산</a></li> 
+	      <li><a href="branch_calculate_year?name=${loginAdmin.name}">연도별 정산</a></li>
+	      <li><a href="branch_calculate_month?name=${loginAdmin.name}">월 별 정산</a></li>
+	      <li><a href="branch_calculate_day?name=${loginAdmin.name}">일일 별 정산</a></li>    
 	    </ul>
     </nav>

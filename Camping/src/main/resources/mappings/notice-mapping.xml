@@ -35,7 +35,7 @@
 		SELECT nseq,title,content,admin_name,indate,count
 			FROM
 				(
-				SELECT row_number() over(ORDER BY indate) rn,nseq,title,content,admin_name,indate,count
+				SELECT row_number() over(ORDER BY indate DESC) rn,nseq,title,content,admin_name,indate,count
 					FROM notice
 						WHERE title LIKE '%'||#{title}||'%'	
 				)
