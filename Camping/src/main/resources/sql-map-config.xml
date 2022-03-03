@@ -14,6 +14,8 @@
 		<typeAlias type="com.camping.biz.dto.QnaVO" alias="qna" />
 		<typeAlias type="com.camping.biz.dto.RealReviewVO" alias="reviews"/>
 		<typeAlias type="com.camping.biz.dto.AdminVO" alias="admin"/>
+		<typeAlias type="com.camping.biz.dto.CampOrderCancelVO" alias="cancel"/>
+		<typeAlias type="com.camping.biz.dto.TempOrderVO" alias="tempOrder" />
 	</typeAliases>
 
 	<!-- SQL 매핑파일 등록 -->
@@ -26,6 +28,8 @@
 		<mapper resource="mappings/qna-mapping.xml" />
 		<mapper resource="mappings/realreview-mapping.xml" />
 		<mapper resource="mappings/admin-mapping.xml" />
+		<mapper resource="mappings/campOrderCancel-mapping.xml" />
+		<mapper resource="mappings/tempOrder-mapping.xml" />
 		<mapper resource="mappings/calculate-mapping.xml" />
 	</mappers>
 	

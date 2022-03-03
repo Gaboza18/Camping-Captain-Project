@@ -7,8 +7,8 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-public class CampOrderVO {
-	private int oseq;
+public class TempOrderVO {
+	private String temp_id;
 	private String camp_name;
 	private String camp_zone;
 	private int total_price;
@@ -19,5 +19,4 @@ public class CampOrderVO {
 	private int order_people;
 	private String order_phone;
 	private String order_email;
-	private String order_status;
 }

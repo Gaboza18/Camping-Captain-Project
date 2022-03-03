@@ -12,6 +12,7 @@
 <script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="js/users.js"></script>
 <script type="text/javascript" src="js/camping.js"></script>
+<script type="text/javascript" src="js/admin.js"></script>
 <script type="text/javascript" src="js/admin_search_calculate.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
@@ -87,4 +88,3 @@
 			<hr>
 		</header>
 		<!-- 헤더파일 종료 -->
-	

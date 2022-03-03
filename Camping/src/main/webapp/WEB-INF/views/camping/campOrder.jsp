@@ -4,7 +4,7 @@
  
 <article id="campOrder">
 	<h3>캠핑장 예약</h3>    
-	<form name="formm" method="post" action="order_insert">
+	<form name="formm" method="post" action="go_payForm"><!--  onsubmit="return complete()"> -->
 		<input name="camp_id" type="hidden" value="${camp.camp_id}"/>
 		<table id="orderForm">
 	      	<tr>
@@ -53,8 +53,8 @@
 		        <th>결제</th>
 		        <td>
 		        <c:choose>
-					<c:when test="${day eq '금' || day eq '토'}"><input type="text" name="total_price" value="${camp.weekend_price}"></c:when>
-					<c:otherwise><input type="text" name="total_price" value="${camp.weekdays_price}"></c:otherwise>
+					<c:when test="${day eq '금' || day eq '토'}"><input type="text" class="total_price" name="total_price" value="${camp.weekend_price}" readOnly="readonly"></c:when>
+					<c:otherwise><input type="text" class="total_price" name="total_price" value="${camp.weekdays_price}" readOnly="readonly"></c:otherwise>
 				</c:choose>
 		        </td>
 	      	</tr>

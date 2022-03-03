@@ -19,19 +19,39 @@ function search_chk() {
 function minus(){
 	var base = $("#base").val();
 	var people = $("#people").val();
+	var price = parseInt($(".total_price").val());
+	var add_price = 10000;
 	
 	if(people > base){
 		people--;
+		price -= 10000;
 		$("#people").val(people);
+		$(".total_price").val(price);
 	}
 }
 
 function plus(){
 	var max = $("#max").val();
 	var people = $("#people").val();
+	var price = parseInt($(".total_price").val());
+	var add_price = 10000;
 	
 	if(people < max){
 		people++;
+		price += 10000;
 		$("#people").val(people);
+		$(".total_price").val(price);
 	} 
+}
+
+// 예약 완료시 출력
+//function complete() {
+//	alert("예약이 완료되었습니다.");
+//}
+
+// 예약취소 버튼 클릭 시 팝업창 오픈
+function myCancel(oseq) {
+var url = "go_myOrder_cancel?oseq="+oseq;
+	
+	window.open(url, "_blank_", "toolbar=no, menubar=no, scrollbars=no, resizable=yes, width=500, height=550");
 }

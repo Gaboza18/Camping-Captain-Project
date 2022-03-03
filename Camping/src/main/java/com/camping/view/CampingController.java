@@ -132,22 +132,6 @@ public class CampingController {
 			return "camping/campOrder";
 		}
 	}
-	
-	@RequestMapping(value="/order_insert", method=RequestMethod.POST)
-	public String campingOrderAction(String in, String out, CampOrderVO vo, HttpSession session) {
-		UsersVO loginUser =(UsersVO)session.getAttribute("loginUser");
-		
-		if(loginUser == null) {   
-			return "Users/login";
-		} else { 
-			
-			vo.setUser_id(loginUser.getId());
-			
-			campOrderService.insertCampOrder(vo);
-			
-			return "index";
-		}
-	}
 }
 
 

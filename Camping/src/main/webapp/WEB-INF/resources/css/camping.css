@@ -202,8 +202,10 @@ form#camp_search input#btn{
 
 
 
+/* 사이드메뉴 설정 */
+
 .admin_side_menu {
-	width: 250x;
+	width: 150x;
 	float: left;
 	margin: 20px 0;
 }
@@ -247,4 +249,36 @@ form#camp_search input#btn{
 
 .admin_side_menu ul li ul.header_submenu li{
 	font-size: 13px;
+}
+
+/* 예약 현황 리스트 설정 */
+table#orderList tr th{
+	border-bottom: 1px solid #000;
+	line-height: 30px;
+}
+
+table#orderList tr td{
+	line-height: 30px;
+}
+
+/* 예약취소 리스트 설정 */
+table#cancelList tr th{
+	border-bottom: 1px solid #000;
+	line-height: 30px;
+}
+
+table#cancelList tr td{
+	line-height: 30px;
+}
+
+table#cancelList tr td a{
+	text-decoration: none;
+	color: blue;
+}
+
+/* 마이페이지 예약현황 조회 페이지 설정*/
+table#orderList tr td a{
+	text-decoration: none;
+	color: blue;
+	float: right;
 }

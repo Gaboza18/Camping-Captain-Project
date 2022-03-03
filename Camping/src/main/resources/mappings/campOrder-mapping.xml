@@ -4,9 +4,9 @@
 
 	<!-- 예약정보 insert -->
 	<insert id="insertCampOrder">
-		INSERT INTO camp_order 
+		INSERT INTO camp_order(oseq, camp_name, camp_zone, indate, outdate, user_id, order_name, order_people, order_phone, order_email, total_price)
 		VALUES(camp_order_seq.NEXTVAL, #{camp_name}, #{camp_zone}, #{indate}, #{outdate},
-		 #{user_id}, #{order_name}, #{order_people}, #{order_phone}, #{order_email}, #{total_price})
+		 		#{user_id}, #{order_name}, #{order_people}, #{order_phone}, #{order_email}, #{total_price})
 	</insert>
 	
 	<!-- 예약정보 조회 -->
@@ -14,9 +14,74 @@
 		SELECT * FROM camp_order WHERE indate=#{indate}
 	</select>
 
-	<!-- 예약정보 회원 Id로 전체 조회 -->
-	<select id="getAllCampOrderList" resultType="campOrder">
-		SELECT * FROM camp_order WHERE user_id=#{user_id}
+	<!-- 예약번호로 예약내역 한건 조회 -->
+	<select id="getMyCampOrder" resultType="campOrder">
+		SELECT * FROM camp_order WHERE oseq=#{oseq}
 	</select>
-
+	
+	<!-- 회원 id를 기준으로 총 예약 목록 갯수 조회 -->
+	<select id="countMyOrderList" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM camp_order 
+		 WHERE user_id=#{user_id}
+	</select>
+	
+	<!-- 페이징 처리(1~10개씩 출력) / 지점 선택 기능 -->
+	<select id="MylistWithPaging" parameterType="hashMap" resultType="campOrder">
+		<![CDATA[
+		
+		SELECT oseq, camp_name, camp_zone, order_name, indate, outdate, total_price, order_people, order_phone, order_email, order_status
+			FROM
+				(
+				SELECT row_number() over(ORDER BY indate DESC) rn, oseq, camp_name, camp_zone, order_name, indate, outdate, total_price, order_people, order_phone, order_email, order_status
+					FROM camp_order 
+						WHERE user_id=#{user_id}	
+				)
+				WHERE rn<=#{criteria.pageNum} * #{criteria.rowsPerPage}  
+					AND rn>=(#{criteria.pageNum}-1) * #{criteria.rowsPerPage}
+	]]>
+	</select>
+	
+	
+	
+	
+	
+	<!--  관리자 기능    -->
+	<!-- 본인 지점 예약 현황 -->
+	<!-- 총 예약현황 목록 갯수 조회 -->
+	<select id="countOrderList" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM camp_order 
+		 WHERE camp_name=#{camp_name}
+	</select>
+	
+	<!-- 페이징 처리(1~10개씩 출력) / 지점 선택 기능 -->
+	<select id="listWithPaging" parameterType="hashMap" resultType="campOrder">
+		<![CDATA[
+		
+		SELECT oseq, camp_name, camp_zone, user_id, order_name, indate, outdate, total_price, order_phone, order_email, order_status
+			FROM
+				(
+				SELECT row_number() over(ORDER BY indate DESC) rn, oseq, camp_name, camp_zone, user_id, order_name, indate, outdate, total_price, order_phone, order_email, order_status
+					FROM camp_order 
+						WHERE camp_name=#{camp_name}	
+				)
+				WHERE rn<=#{criteria.pageNum} * #{criteria.rowsPerPage}  
+					AND rn>=(#{criteria.pageNum}-1) * #{criteria.rowsPerPage}
+	]]>
+	</select>
+	
+	<!-- 예약번호를 기준으로 예약내역 한건 조회 -->
+	<select id="getCampOrder" parameterType="int" resultType="campOrder">
+		SELECT*FROM camp_order WHERE oseq=#{oseq}
+	</select>
+	
+	<!-- 예약 확정 시 예약상태 변경 -->
+	<update id="updateOrderStatus">
+		UPDATE camp_order SET order_status='y' WHERE oseq=#{oseq}
+	</update>
+	
+	<!-- 예약번호를 기준으로 예약내역 삭제 -->
+	<delete id="deleteOrderByOseq">
+		DELETE FROM camp_order WHERE oseq=#{oseq}
+	</delete>
+	
 </mapper>

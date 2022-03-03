@@ -1,5 +1,4 @@
 package com.camping.view;
-
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +35,7 @@ public class AdminController {
 	
 	@Autowired
 	private AdminService adminService;
+
 	
 	@Autowired
 	private QnaService qnaService;
@@ -69,8 +69,20 @@ public class AdminController {
 		}
 	}
 	
+
+	
+	@ModelAttribute("conditionMap")
+	public Map<String, String> searchConditionMap() {
+		Map<String, String> conditionMap = new LinkedHashMap<>();
+
+		conditionMap.put("ì§€ì ì„ ì„ íƒí•˜ì„¸ìš”", "0");
+		conditionMap.put("ìº í•‘ì¡±ì¥-ê°•ì›ë„ì§€ì ", "1");
+
+		return conditionMap;
+	}
+
 	/*
-	 * °ü¸®ÀÚ ·Î±×¾Æ¿ô
+	 * ê´€ë¦¬ì ë¡œê·¸ì•„ì›ƒ
 	 */
 	@GetMapping(value = "/admin_logout")
 	public String logout(SessionStatus status) {
@@ -79,52 +91,52 @@ public class AdminController {
 	}
 	
 	/*
-	 * °Ô½ÃÆÇ °ü¸®(QnA ¸ñ·ÏÁ¶È¸ Ã³¸®)
+	 * ê²Œì‹œíŒ ê´€ë¦¬(QnA ëª©ë¡ì¡°íšŒ ì²˜ë¦¬)
 	 */
 	@RequestMapping(value = "/admin_qna_list")
 	public String adminQnaList(Model model) {
 
-		// QnA ¸ñ·ÏÀ» Å×ÀÌºí¿¡¼­ Á¶È¸
+		// QnA ëª©ë¡ì„ í…Œì´ë¸”ì—ì„œ ì¡°íšŒ
 		List<QnaVO> qnaList = qnaService.listAllQna();
 
-		// Á¶È¸ °á°ú¸¦ model °´Ã¼¿¡ ÀúÀå
+		// ì¡°íšŒ ê²°ê³¼ë¥¼ model ê°ì²´ì— ì €ì¥
 		model.addAttribute("qnaList", qnaList);
 
-		// QnA È­¸é È£Ãâ
+		// QnA í™”ë©´ í˜¸ì¶œ
 		return "admin/qna/qnaList";
 	}
 	
 	/*
-	 * QnA °Ô½Ã±Û »ó¼¼º¸±â(ÃÑ°ü¸®ÀÚ)
+	 * QnA ê²Œì‹œê¸€ ìƒì„¸ë³´ê¸°(ì´ê´€ë¦¬ì)
 	 */
 	@PostMapping(value = "/admin_qna_detail")
 	public String adminQnaDetail(QnaVO vo, Model model) {
 
-		// °Ô½Ã±Û ÀÏ·Ã¹øÈ£¸¦ Á¶°ÇÀ¸·Î °Ô½Ã±Û »ó¼¼ Á¶È¸
+		// ê²Œì‹œê¸€ ì¼ë ¨ë²ˆí˜¸ë¥¼ ì¡°ê±´ìœ¼ë¡œ ê²Œì‹œê¸€ ìƒì„¸ ì¡°íšŒ
 		QnaVO qna = qnaService.getQna(vo.getQseq());
 
-		// Á¶È¸ °á°ú¸¦ model °´Ã¼¿¡ ÀúÀå
+		// ì¡°íšŒ ê²°ê³¼ë¥¼ model ê°ì²´ì— ì €ì¥
 		model.addAttribute("qnaVO", qna);
 
-		// °Ô½Ã±Û »ó¼¼È­¸é È£Ãâ
+		// ê²Œì‹œê¸€ ìƒì„¸í™”ë©´ í˜¸ì¶œ
 		return "admin/qna/qnaDetail";
 	}
 	
 	/*
-	 * QnA °ü¸®ÀÚ ´äº¯ ¿äÃ» Ã³¸®
+	 * QnA ê´€ë¦¬ì ë‹µë³€ ìš”ì²­ ì²˜ë¦¬
 	 */
 	@PostMapping(value = "/admin_qna_repsave")
 	public String adminQnaRepSave(QnaVO vo) {
 
-		// QnA ¼­ºñ½ºÀÇ Update È£Ãâ
+		// QnA ì„œë¹„ìŠ¤ì˜ Update í˜¸ì¶œ
 		qnaService.updateQna(vo);
 
-		// QnA °Ô½Ã±Û ¸ñ·Ï È£Ãâ
+		// QnA ê²Œì‹œê¸€ ëª©ë¡ í˜¸ì¶œ
 		return "redirect:admin_qna_list";
 	}
 	
 	/*
-	 *  Ä·ÇÎÁ·Àå È¸¿ø ¼ºº° È­¸é Ãâ·Â
+	 *  ìº í•‘ì¡±ì¥ íšŒì› ì„±ë³„ í™”ë©´ ì¶œë ¥
 	 */
 	@RequestMapping(value="/admin_users_gender_ratio")
 	public String adminUsersChart() {
@@ -132,7 +144,7 @@ public class AdminController {
 	}
 	
 	/*
-	 *  Â÷Æ®¸¦ À§ÇÑ È¸¿øº° ¼ºº° Á¶È¸(JSON µ¥ÀÌÅÍ Æ÷¸ä Àü¼Û)
+	 *  ì°¨íŠ¸ë¥¼ ìœ„í•œ íšŒì›ë³„ ì„±ë³„ ì¡°íšŒ(JSON ë°ì´í„° í¬ë©§ ì „ì†¡)
 	 */
 	@RequestMapping(value="/users_gender_ratio_chart",
 			produces="application/json; charset=UTF-8")
@@ -148,7 +160,7 @@ public class AdminController {
 	}
 	
 	/*
-	 *  Ä·ÇÎÁ·Àå ¿¬·Éº° È¸¿ø¼ö È­¸é Ãâ·Â
+	 *  ìº í•‘ì¡±ì¥ ì—°ë ¹ë³„ íšŒì›ìˆ˜ í™”ë©´ ì¶œë ¥
 	 */
 	@RequestMapping(value="/admin_users_age_ratio")
 	public String adminUsersAgeChart() {
@@ -156,7 +168,7 @@ public class AdminController {
 	}
 	
 	/*
-	 *  Â÷Æ®¸¦ À§ÇÑ È¸¿øº° ¿¬·É Á¶È¸(JSON µ¥ÀÌÅÍ Æ÷¸ä Àü¼Û)
+	 *  ì°¨íŠ¸ë¥¼ ìœ„í•œ íšŒì›ë³„ ì—°ë ¹ ì¡°íšŒ(JSON ë°ì´í„° í¬ë©§ ì „ì†¡)
 	 */
 	@RequestMapping(value="/users_age_ratio_chart",
 			produces="application/json; charset=UTF-8")
@@ -173,7 +185,7 @@ public class AdminController {
 	
 
 	/*
-	 *  °¢ ÁöÁ¡ ¿ù º° Á¤»ê(ÃÑ°ü¸®ÀÚ)
+	 *  ê° ì§€ì  ì›” ë³„ ì •ì‚°(ì´ê´€ë¦¬ì)
 	 */
 	@RequestMapping(value="/admin_master_calculate_month")
 	public String masterCalculateMonth(Model model) {
@@ -186,7 +198,7 @@ public class AdminController {
 	}
 	
 	/*
-	 *  °¢ ÁöÁ¡ ¿ù º° Á¤»ê(ÃÑ°ü¸®ÀÚ)
+	 *  ê° ì§€ì  ì›” ë³„ ì •ì‚°(ì´ê´€ë¦¬ì)
 	 */
 	@RequestMapping(value="/admin_master_calculate_day")
 	public String masterCalculateDay(Model model) {
@@ -199,7 +211,7 @@ public class AdminController {
 	}
 	
 	/*
-	 *  °¢ ÁöÁ¡ ¿¬µµº° Á¤»ê(ÁöÁ¡ °ü¸®ÀÚ): °¢ ÁöÁ¡ ÀÌ¸§À» ¹Ş¾Æ ÁöÁ¡ °èÁ¤¸¸ Á¶È¸¸¦ ÇÑ´Ù
+	 *  ê° ì§€ì  ì—°ë„ë³„ ì •ì‚°(ì§€ì  ê´€ë¦¬ì): ê° ì§€ì  ì´ë¦„ì„ ë°›ì•„ ì§€ì  ê³„ì •ë§Œ ì¡°íšŒë¥¼ í•œë‹¤
 	 */
 	@RequestMapping(value="/branch_calculate_year")
 	public String managerGwCalculateYear(Model model, @RequestParam (value="name") String name) {
@@ -212,7 +224,7 @@ public class AdminController {
 	}
 	
 	/*
-	 *  °¢ ÁöÁ¡ ¿ù º° Á¤»ê(ÁöÁ¡ °ü¸®ÀÚ)
+	 *  ê° ì§€ì  ì›” ë³„ ì •ì‚°(ì§€ì  ê´€ë¦¬ì)
 	 */
 	@RequestMapping(value="/branch_calculate_month")
 	public String managerGwCalculateMonth(Model model, @RequestParam (value="name") String name) {
@@ -225,7 +237,7 @@ public class AdminController {
 	}
 	
 	/*
-	 *  °¢ ÁöÁ¡ ÀÏÀÏ º° Á¤»ê(ÁöÁ¡ °ü¸®ÀÚ)
+	 *  ê° ì§€ì  ì¼ì¼ ë³„ ì •ì‚°(ì§€ì  ê´€ë¦¬ì)
 	 */
 	@RequestMapping(value="/branch_calculate_day")
 	public String managerGwCalculateDay(Model model, @RequestParam (value="name") String name) {
@@ -238,7 +250,7 @@ public class AdminController {
 	}
 	
 	/*
-	 * °¢ ÁöÁ¡ ¿¬µµº° Á¤»ê(ÃÑ°ü¸®ÀÚ) - ¼­ºê¸Ş´º -> ¿¬µµº° Á¤»ê Á¶È¸ ÄÁÆ®·Ñ·¯ 
+	 * ê° ì§€ì  ì—°ë„ë³„ ì •ì‚°(ì´ê´€ë¦¬ì) - ì„œë¸Œë©”ë‰´ -> ì—°ë„ë³„ ì •ì‚° ì¡°íšŒ ì»¨íŠ¸ë¡¤ëŸ¬ 
 	 */
 	
 	@RequestMapping(value="/go_admin_master_calculate_year", method=RequestMethod.GET)
@@ -248,7 +260,7 @@ public class AdminController {
 	
 	
 	/*
-	 * °¢ ÁöÁ¡ ¿¬µµº° Á¤»ê(ÃÑ°ü¸®ÀÚ) - Á¶È¸ÇÒ ³âµµ '½ÃÀÛ³âµµ ~ ³¡³ª´Â ³âµµ'
+	 * ê° ì§€ì  ì—°ë„ë³„ ì •ì‚°(ì´ê´€ë¦¬ì) - ì¡°íšŒí•  ë…„ë„ 'ì‹œì‘ë…„ë„ ~ ëë‚˜ëŠ” ë…„ë„'
 	 */
 	
 	@RequestMapping(value="/admin_master_calculate_year", method=RequestMethod.GET)
@@ -268,19 +280,18 @@ public class AdminController {
 	}
 	
 	/*
-	 * °¢ ÁöÁ¡ ¿¬µµº° Á¤»ê(ÃÑ°ü¸®ÀÚ) - ³âµµ °Ë»ö ¼±ÅÃ¹Ú½º Ç×¸ñ
+	 * ê° ì§€ì  ì—°ë„ë³„ ì •ì‚°(ì´ê´€ë¦¬ì) - ë…„ë„ ê²€ìƒ‰ ì„ íƒë°•ìŠ¤ í•­ëª©
 	 */
 	@ModelAttribute("conditionMapYear")
 	public Map<String, String> searchConditionMapYear() {
 		Map<String, String> conditionMapYear = new LinkedHashMap<>();
 
-		conditionMapYear.put("2019³â", "2019³â");
-		conditionMapYear.put("2020³â", "2020³â");
-		conditionMapYear.put("2021³â", "2021³â");
-		conditionMapYear.put("2022³â", "2022³â");
-		conditionMapYear.put("2023³â", "2023³â");
+		conditionMapYear.put("2019ë…„", "2019ë…„");
+		conditionMapYear.put("2020ë…„", "2020ë…„");
+		conditionMapYear.put("2021ë…„", "2021ë…„");
+		conditionMapYear.put("2022ë…„", "2022ë…„");
+		conditionMapYear.put("2023ë…„", "2023ë…„");
 
 		return conditionMapYear;
 	}
-	
 }
