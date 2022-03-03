@@ -20,7 +20,7 @@
 	      		<li><a href="#">관리지 게시판</a></li>
 	      		<li><a href="#">회원 게시판 관리</a></li>
 	      		
-	      		
+	      	
 	      		 <!-- get 
     <form method="get" action="response_sendRedirect.jsp">
         response.sendRedirect 이름 : <input type=text name="name2">

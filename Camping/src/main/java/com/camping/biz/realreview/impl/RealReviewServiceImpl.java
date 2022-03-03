@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.camping.biz.dao.RealReviewDAO;
 import com.camping.biz.dto.RealReviewVO;
-import com.camping.biz.dto.UsersVO;
+
 import com.camping.biz.realreview.RealReviewService;
 
 import utils.Criteria;
@@ -78,6 +78,13 @@ public class RealReviewServiceImpl implements RealReviewService {
 	
 
 			return reviewsDao.getListWithPaging2(criteria, title);
+	}
+
+	@Override
+	public List<RealReviewVO> areaList(RealReviewVO vo) {
+
+		 return reviewsDao.areaList(vo);
+		
 	}
 
 	

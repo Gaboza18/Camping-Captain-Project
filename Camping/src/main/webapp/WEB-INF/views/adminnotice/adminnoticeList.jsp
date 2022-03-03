@@ -96,12 +96,12 @@ $.ajax({
 <body>
 	<div align="center">
 		<article>
-			<h2>Real Review !</h2>
-			<h3>캠핑족장 리뷰 입니다</h3> 
-			<h3>부족원들의 의견을 들어보세요!</h3>
+			<h2>캠핑족장 고지사항 !</h2>
+			<h3>캠핑족장 임직원 공지사항 입니다</h3> 
+
 
 			<!-- 검색 파트 -->
-			<form name="frm" id="review_list" method="get" action = "review_list">
+			<form name="frm" id="adminnotice_list" method="get" action = "adminNotice">
 				<table>
 			  		<tr>
   						<td>
@@ -117,32 +117,10 @@ $.ajax({
 			
 			<form name="formm" method="get">
 			
-			<ul class="arealist">
 			
-			<!-- 인자값(입력해서 요청보내는 값) -->
-			<input type="radio" id="radio1" name="arealist" value="전체보기 " checked>전체보기
 
-			<input type="radio" id="radio2"name="arealist" value="서울" ><label for="radio2">서울</label> 
-			
-			<input type="radio" id="radio3"name="arealist" value="대전" ><label for="radio3">대전</label>
-			
-			
-			<input type="radio" id="radio4"name="arealist" value="대구" ><label for="radio4">대구</label>
-			
-			
-			<input type="radio" id="radio5"name="arealist" value="부산" ><label for="radio5">부산</label>
-			
-			
-			<input type="radio" id="radio6"  name="arealist" value="찍고" ><label for="radio6">찍고</label>
-			
-			</ul>
-			
-			<br><br>
-			
-			<!-- p안에 라디오 내용 넣기 -->
-				<p id="reviews"></p>
 				
-				<table id="reviewList" border="1">
+				<table id="adminnotice" border="1">
 					<tr>
 						<th width="40">번호</th>
 						<th width="200">제목</th>

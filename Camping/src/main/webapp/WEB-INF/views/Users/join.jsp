@@ -18,7 +18,7 @@
         <input type="password"  name="passwordCheck" id="passwordCheck"><br> 
         <label>Name</label>
         <input type="text" name="name" id="name"><br> 
-        주민번호 앞 (7자리)입력 <input type="text" name="birth1" id="birth1" maxlength='7' size="10"><br>
+        주민번호 앞 (7자리)입력 <input type="text" name="birthday" id="birth1" maxlength='7' size="10"><br>
 
         <label>E-Mail</label>
         <input type="text" name="email"><br>

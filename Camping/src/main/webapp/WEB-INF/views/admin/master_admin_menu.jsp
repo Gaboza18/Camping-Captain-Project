@@ -13,9 +13,9 @@
 	      <li>
 	      	<a href="#">게시판</a>
 	      	<ul class="header_submenu">
-	      		<li><a href="#">관리지 게시판</a></li>
+	      		<li><a href="#">관리자 공지사항</a></li>
 	      		<li><a href="#">회원 게시판 관리</a></li>
-	      		<li><a href="#">후기 관리</a></li>
+	      		<li><a href="adminReview">후기 관리</a></li>
 	      	</ul>
 	      </li>
 	      <li><a href="#">회원관리</a></li> 
@@ -25,4 +25,9 @@
 	      <li><a href="#">회원 통계</a></li> 
 	    </ul>
     </nav>
+    
+    	<h2> css문제로 화면이 떨어져서 여기로 생성 
+          	 
+          	<li><a href="adminReview">후기 관리</a></li>
+          	<li><a href="adminNotice">관리자 공지사항</a></li>
 <%@ include file="admin_footer.jsp" %>

@@ -102,6 +102,11 @@
 		
 	</select>
 	
+	<select id="areaList" parameterType="reviews" resultType="reviews">
+	SELECT * FROM reviews
+			WHERE campingname= #{campingname}
+			ORDER BY rseq DESC
+	</select>
 	
 	
 

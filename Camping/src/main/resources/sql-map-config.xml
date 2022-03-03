@@ -14,6 +14,7 @@
 		<typeAlias type="com.camping.biz.dto.QnaVO" alias="qna" />
 		<typeAlias type="com.camping.biz.dto.RealReviewVO" alias="reviews"/>
 		<typeAlias type="com.camping.biz.dto.AdminVO" alias="admin"/>
+		<typeAlias type="com.camping.biz.dto.AdminNoticeVO" alias="adminnotice"/>
 	</typeAliases>
 
 	<!-- SQL 매핑파일 등록 -->

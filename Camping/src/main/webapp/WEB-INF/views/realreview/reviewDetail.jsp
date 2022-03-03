@@ -18,9 +18,13 @@ function delete_reviews() {
 			
 			      alert("내가 쓴 리뷰가 삭제되었습니다");
 			      $("#delete").attr('action','review_list_re').submit(); 
-
-				 
+			 
 }
+function admin_delete() {
+	
+    alert("회원이쓴 리뷰가 삭제되었습니다");
+    $("#delete1").attr('action','review_list_re').submit(); 
+
 
 function modi_review() {
 /* 	var resq = $("#detail tr:eq(0)>td:eq(0)").text();
@@ -87,6 +91,13 @@ function modi_review() {
 			<c:if test="${userid eq RealReviewVO.id}">
 				<button type="submit" form="detail" class="btn-success" id="delete" onClick="delete_reviews()">리뷰삭제</button>
 			</c:if>
+			
+			<c:if test="${loginAdmin1 eq AdminVO.id}">
+				<button type="submit" form="detail" class="btn-success" id="delete1" onClick="admin_delete()">리뷰삭제</button>
+			</c:if>
+			
+			
+			
 			 </form>
 		
 	</div>

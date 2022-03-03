@@ -30,4 +30,6 @@ public interface RealReviewService {
 	public void deletereviews(int rseq);
 
 	public void  modifyreviews(RealReviewVO vo);
+	
+	public List<RealReviewVO> areaList(RealReviewVO vo);
 }

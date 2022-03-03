@@ -75,7 +75,8 @@ public List<RealReviewVO> getListWithPaging2(Criteria criteria, String title) {
 	//modifyRiviews
 	public void  modifyreviews(RealReviewVO vo) {
 		 mybatis.update("mappings.review-mapping.modifyRiviews",vo);
-	
-	
+}
+	public List<RealReviewVO> areaList(RealReviewVO vo) {
+		return mybatis.selectList("mappings.review-mapping.areaList",vo);
 	}
 }
