@@ -7,11 +7,33 @@
 <title>WebStandard example</title> 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">              
 <script type="text/javascript" src="https://stdpay.inicis.com/stdjs/INIStdPay.js" charset="UTF-8"></script>      
+<!-- <script>
+	function fnGoInipay() {
+		if(!fnValidation()){
+			return;
+		}
+		
+		fnSetMerchanData();
+		
+		var frm = document.sendPayForm;
+		var radioVal = $("input[name='paymentType']:checked").val();
+		
+		if(radioVal == 'C') {
+			frm.gopaymethod.value = "Card";
+		} else if (radioVal == 'A') {
+			frm.gopaymethod.value = "DirectBank";
+		} else {
+			frm.gopaymethod.value = "";
+		}
+		
+		$("btnPay").click();
+	}
+</script> -->
 </head>
 
  <body onload="INIStdPay.pay('SendPayForm_id')">
 
-   <form id="SendPayForm_id" name="" method="POST">
+   <form id="SendPayForm_id" name="SendPayForm_id" method="POST">
    		<!-- 고정 -->
 		<input type="hidden"  name="version" value="1.0" > <!-- 전문 버전 ["1.0" 고정] -->  
         <input type="hidden"  name="gopaymethod" value="Card" > <!-- 요청지불수단  * 빈값으로 세팅 시, 전체 결제수단 표시 -->  
@@ -36,7 +58,7 @@
 
    </form>
 
-	<!-- <button onclick="INIStdPay.pay('SendPayForm_id')" style="padding:10px; margin-left:10%">결제요청</button> -->
+	<!-- <button id="btnPay" onclick="INIStdPay.pay('SendPayForm_id')" style="padding:10px; margin-left:10%">결제요청</button> -->
 
  </body>
 </html>

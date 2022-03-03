@@ -1,12 +1,7 @@
 package utils;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -25,7 +20,7 @@ public class HttpUtil {
 	 * @param parameters JSP의 form 내부에 들어가는 input 파라미터들
 	 * @return
 	 */
-	public static String sendRequest(String targetURL, List<NameValuePair> parameters) {
+	public String sendRequest(String targetURL, List<NameValuePair> parameters) {
 		  String strResponse ="";
 		  try {
 			  HttpClient httpClient = HttpClients.createDefault(); // 객체생성
@@ -42,5 +37,6 @@ public class HttpUtil {
 		  }
 		  
 		  return strResponse;
-		}
+	}
+	
 }
