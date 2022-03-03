@@ -15,7 +15,7 @@
 	      	<ul class="header_submenu">
 	      		<li><a href="#">관리자 게시판</a></li>
 	      		<li><a href="#">회원 게시판 관리</a></li>
-	      		<li><a href="#">후기 관리</a></li>
+	      		<li><a href="adminReview">후기 관리</a></li>
 	      	</ul>
 	      </li>
 	      <li><a href="#">회원관리</a></li> 

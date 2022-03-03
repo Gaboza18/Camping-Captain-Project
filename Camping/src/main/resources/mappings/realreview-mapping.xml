@@ -36,12 +36,38 @@
 
 		SELECT rseq,title,content,campingname,indate,count, id
 			FROM
-				(
-				SELECT row_number() over(ORDER BY indate) rn,rseq,title,content,campingname,indate,count, id
+				(												<!-- rn= order by indate desc의 변수 -->
+				SELECT row_number() over(ORDER BY indate DESC) AS rn,rseq,title,content,campingname,indate,count, id
 					FROM reviews
 					<if test='title !=null'>
 						WHERE title LIKE '%'||#{title}||'%'
 					</if>
+							
+				)
+	<![CDATA[
+				WHERE rn<=#{criteria.pageNum} * #{criteria.rowsPerPage}  
+					AND rn>=(#{criteria.pageNum}-1) * #{criteria.rowsPerPage}
+					ORDER BY rseq DESC
+	]]>
+		
+	</select>
+	<!-- 페이징처리 2 -->
+		<select id="countReviewlist2" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM reviews
+		WHERE id=#{id}
+	</select>
+	
+	
+	<select id="listWithPaging2" parameterType="hashMap" resultType="reviews">
+
+		SELECT rseq,title,content,campingname,indate,count, id
+			FROM
+				(
+				SELECT row_number() over(ORDER BY indate DESC) rn,rseq,title,content,campingname,indate,count, id
+					FROM reviews
+				
+						WHERE id = #{id}
+					
 							
 				)
 	<![CDATA[
@@ -61,11 +87,32 @@
 	
 	<select id = "myreview" parameterType="reviews" resultType="reviews">
 	
-	SELECT id,title,content,campingname
+	SELECT id,title,content,campingname,rseq,indate,count
 	FROM reviews
 	WHERE id = #{id}
+	ORDER BY rseq DESC
 	
 	</select>
+	
+	<!--리뷰 삭제하기  -->
+	<select id = "deleteRiviews" >
+	DELETE FROM reviews WHERE rseq=#{rseq}
+	
+	</select>
+	
+	<select id= "modifyRiviews" parameterType="reviews" resultType="reviews">
+	UPDATE reviews SET
+	content = #{content}, campingname= #{campingname}, title=#{title}
+	WHERE rseq=#{rseq}
+		
+	</select>
+	
+	<select id="areaList" parameterType="reviews" resultType="reviews">
+	SELECT * FROM reviews
+			WHERE campingname= #{campingname}
+			ORDER BY rseq DESC
+	</select>
+	
 	
 
 

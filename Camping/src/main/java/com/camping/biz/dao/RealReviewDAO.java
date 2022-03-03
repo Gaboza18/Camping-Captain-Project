@@ -19,8 +19,8 @@ public class RealReviewDAO {
 	private SqlSessionTemplate mybatis;
 	
 	//전체 리뷰 조회(원래 title 없었었음. 2022-02-16)--- title 적어줘야하나
-	public List<RealReviewVO> listReview() {
-		return mybatis.selectList("mappings.review-mapping.listAllReviews");
+	public List<RealReviewVO> listReview(RealReviewVO vo) {
+		return mybatis.selectList("mappings.review-mapping.listAllReviews" ,vo);
 	}
 	
 	// 리뷰 상세보기
@@ -49,11 +49,40 @@ public class RealReviewDAO {
 		
 	}
 	
+	//리스트 페이징처리 2
+	
+public List<RealReviewVO> getListWithPaging2(Criteria criteria, String id) {
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("criteria", criteria);
+		map.put("id", id);
+		
+		return mybatis.selectList("mappings.review-mapping.listWithPaging2",map);
+}
+
+//전체 리뷰 갯수 조회
+	public int countReviewlist2(String id) {
+		return mybatis.selectOne("mappings.review-mapping.countReviewlist",id);
+	}
+
+
 	public void insertReview(RealReviewVO vo) {
 		mybatis.insert("mappings.review-mapping.insertReview",vo);
 	}
 	
 	public List<RealReviewVO> seemyreview(RealReviewVO vo) {
-		return mybatis.selectList("mappings.review-mapping.myreview", vo);
+		return mybatis.selectList("mappings.review-mapping.myreview", vo); 
+	}
+	
+	public void deletereviews(int rseq) {
+		mybatis.delete("mappings.review-mapping.deleteRiviews",rseq);
+	}
+	
+	//modifyRiviews
+	public void  modifyreviews(RealReviewVO vo) {
+		 mybatis.update("mappings.review-mapping.modifyRiviews",vo);
+}
+	public List<RealReviewVO> areaList(RealReviewVO vo) {
+		return mybatis.selectList("mappings.review-mapping.areaList",vo);
 	}
 }

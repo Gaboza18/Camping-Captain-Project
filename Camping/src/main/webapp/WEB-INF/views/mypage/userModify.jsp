@@ -22,7 +22,7 @@
 			      return false;
 			   } else {
 			      $("#usermodify").attr("action", "usersUpdate").submit();
-			      alert("회원 정보가 변경되었습니다.")// 회원정보 변경요청
+			      alert("회원 정보가 변경되었습니다. 다시 로그인해주세요" )// 회원정보 변경요청
 			   }
 			
 			}
@@ -61,16 +61,17 @@
         <label>Retype Password</label> 
         <input type="password"  id="passwordCheck"><br> 
         <label>Name</label>
-        <input type="text" name="name" id="name"><br> 
+        <input type="text" name="name" id="name" value="${users.name}"><br> 
         <label>E-Mail</label>
-        <input type="text" name="email"><br>
+        <input type="text" name="email" value="${users.email}"><br>
+        
 
         
       </fieldset>
       <fieldset>
         <legend>Optional</legend>
         <label>Phone Number</label> 
-        <input  type="text"       name="phone"><br>
+        <input  type="text"       name="phone" value="${users.phone}"><br>
       </fieldset>
       <div class="clear"></div>
       <div id="buttons">

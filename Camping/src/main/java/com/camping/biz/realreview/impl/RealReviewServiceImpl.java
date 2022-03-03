@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.camping.biz.dao.RealReviewDAO;
 import com.camping.biz.dto.RealReviewVO;
-import com.camping.biz.dto.UsersVO;
+
 import com.camping.biz.realreview.RealReviewService;
 
 import utils.Criteria;
@@ -17,11 +17,11 @@ public class RealReviewServiceImpl implements RealReviewService {
 
 	@Autowired
 	private RealReviewDAO reviewsDao;
-
+	
 	@Override
-	public List<RealReviewVO> listReview() {
+	public List<RealReviewVO> listReview(RealReviewVO vo) {
 
-		return reviewsDao.listReview();
+		return reviewsDao.listReview(vo);
 	}
 
 	@Override
@@ -50,15 +50,53 @@ public class RealReviewServiceImpl implements RealReviewService {
 
 	@Override
 	public void insertReview(RealReviewVO vo) {
-
+		
 		reviewsDao.insertReview(vo);
-
+		
 	}
-
+	
 	@Override
 	public List<RealReviewVO> seemyreview(RealReviewVO vo) {
 		return reviewsDao.seemyreview(vo);
-
+		
 	}
+
+	@Override
+	 public void deletereviews(int rseq) {
+		
+		reviewsDao.deletereviews(rseq);
+	}
+
+	@Override
+	public void  modifyreviews(RealReviewVO vo) {
+
+		reviewsDao.modifyreviews(vo);
+	}
+
+	@Override
+	public List<RealReviewVO> getListWithPaging2(Criteria criteria, String id) {
+	
+
+			return reviewsDao.getListWithPaging2(criteria, id);
+	}
+
+	@Override
+	public List<RealReviewVO> areaList(RealReviewVO vo) {
+
+		 return reviewsDao.areaList(vo);
+		
+	}
+
+	@Override
+	public int countReviewlist2(String id) {
+		// TODO Auto-generated method stub
+		return reviewsDao.countReviewlist2(id);
+	}
+
+	
+	
+
+
+	
 
 }
