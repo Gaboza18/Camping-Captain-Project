@@ -14,7 +14,7 @@ function reason_chk() {
 	} else {
 		$.ajax({
 			type: "GET",
-			url: "cancel_order",
+			url: "go_cancel",
 			dataType: "html",
 			contentType:  "application/json; charset=UTF-8",
 			data: $("#cancel_order").serialize()

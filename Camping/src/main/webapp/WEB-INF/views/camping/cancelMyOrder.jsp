@@ -106,7 +106,7 @@ function deleteOrder() {
 		        		<c:when test="${check_in - to_day == 6 || check_in - to_day == 7}">
 		        			<input type="number" name="cancelprice" id="cancelprice" value="${sevenday_ago}" readOnly="readonly">원
 		        		</c:when>
-		        		<c:when test="${check_in - to_day > 8}">
+		        		<c:when test="${check_in - to_day > 7}">
 		        			<input type="number" name="cancelprice" id="cancelprice" value="${campOrder.total_price}" readOnly="readonly">원
 		        		</c:when>
 		        	</c:choose>
@@ -132,7 +132,7 @@ function deleteOrder() {
 		        			<fmt:parseNumber var="sevenday" value="${campOrder.total_price * 0.1}" integerOnly="true" />
 		        			<input type="number" name="cancelnet" id="cancelnet" value="${sevenday}" readOnly="readonly">원
 		        		</c:when>
-		        		<c:when test="${check_in - to_day > 8}">
+		        		<c:when test="${check_in - to_day > 7}">
 		        			<input type="number" name="cancelnet" id="cancelnet" value="0" readOnly="readonly">원
 		        		</c:when>
 		        	</c:choose>

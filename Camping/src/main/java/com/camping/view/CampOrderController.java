@@ -1,5 +1,6 @@
 package com.camping.view;
 
+import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -34,10 +35,14 @@ import com.camping.biz.camporder.CampOrderService;
 import com.camping.biz.campordercancel.CampOrderCancelService;
 import com.camping.biz.dto.CampOrderCancelVO;
 import com.camping.biz.dto.CampOrderVO;
+import com.camping.biz.dto.PayVO;
 import com.camping.biz.dto.TempOrderVO;
 import com.camping.biz.dto.UsersVO;
+import com.camping.biz.pay.PayService;
 import com.camping.biz.temporder.TempOrderService;
 import com.camping.biz.users.UsersService;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import utils.Criteria;
 import utils.HttpUtil;
@@ -58,6 +63,8 @@ public class CampOrderController {
 	private TempOrderService tempOrderService;
 	@Autowired
 	private UsersService usersService;
+	@Autowired
+	private PayService payService;
 	
 	/*
 	 *  캠핑장 예약하기
@@ -72,10 +79,10 @@ public class CampOrderController {
 			SHA256 sha256 = new SHA256();
 			
 			vo.setUser_id(loginUser.getId());
-			// 17자리 날짜 문자열 설정.
-			Date date = new Date();
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-			String today = sdf.format(date);
+			// 날짜 문자열 설정.
+			Date now = new Date();
+			SimpleDateFormat formmat = new SimpleDateFormat("yyyyMMddHHmmss");
+			String today = formmat.format(now);
 			// vo에 setTempId
 			vo.setTemp_id(today);
 			
@@ -157,109 +164,129 @@ public class CampOrderController {
 			//#####################
 			// 인증이 성공일 경우만
 			//#####################
-				
-			// 1. 전문 필드 값 설정(*** 가맹점 개발수정 ***)
-		
-			System.out.println("## 인증데이터 일괄수신 ##");
-			System.out.println("<p>"+paramMap.toString()+"</p>");
-			
-			String mKey = "3a9503069192f207491d4b19bd743fc249a761ed94246c8c42fed06c3cd15a33"; // 테스트용
-			String mid = paramMap.get("mid");               // 가맹점 ID 수신 받은 데이터로 설정
-			Long timestamp= System.currentTimeMillis();     // util에 의해서 자동생성
-			String charset = "UTF-8";                       // 리턴형식[UTF-8,EUC-KR](가맹점 수정후 고정)
-			String format = "JSON";                         // 리턴형식[XML,JSON,NVP](가맹점 수정후 고정)
-			String authToken= paramMap.get("authToken");    // 취소 요청 tid에 따라서 유동적(가맹점 수정후 고정)
-			String authUrl= paramMap.get("authUrl");        // 승인요청 API url(수신 받은 값으로 설정, 임의 세팅 금지)
-			String netCancel= paramMap.get("netCancelUrl"); // 망취소 API url(수신 받은 값으로 설정, 임의 세팅 금지)
-			
-			//#####################
-			// 2.signature 생성
-			//#####################
-			SHA256 sha256 = new SHA256();
-			// signature 데이터 생성 (모듈에서 자동으로 signParam을 알파벳 순으로 정렬후 NVP 방식으로 나열해 hash)
-			String sha = "authToken="+authToken+"&timestamp="+timestamp;
-			String signature = "";
-			
-			try {
-				// signature 데이터 생성(모듈에서 자동으로 signParam을 알파벳순으로 정렬 후 NVP 방식으로 나열해 hash
-				signature = sha256.encrypt(sha);
-				
-			} catch (NoSuchAlgorithmException e) {
-				e.printStackTrace();
-			}
-			
-			//#####################
-			// 3.API 요청 전문 생성
-			//#####################
-			List<NameValuePair> param = new ArrayList<NameValuePair>();
-			
-			// BasicNameValuePair의 Key = input태그의 name,
-			// BasicNameValuePair의 value = input태그의 value
-			param.add(new BasicNameValuePair("mid",mid));
-			param.add(new BasicNameValuePair("authToken",authToken));
-			param.add(new BasicNameValuePair("signature",signature));
-			param.add(new BasicNameValuePair("timestamp",timestamp.toString()));
-			param.add(new BasicNameValuePair("charset",charset));
-			param.add(new BasicNameValuePair("format",format));
-			
-			            
-			System.out.println("##승인요청 API 요청##");
-			
-			
-			HttpUtil httpUtil = new HttpUtil();
-			String result = httpUtil.sendRequest(authUrl, param);
-			//#####################
-			// 4.API 통신 시작
-			//#####################
-			String authResultString = "";
-			
-			// 1. result를 map 형태로 변환 parse String to map 할것.
-			 
-			// 2. 성공 실패 판단하는 변수를 map.get(키)로 가져와서 성공 실패 판단 resultCode = 0000
 			if("0000".equals(paramMap.get("resultCode"))){
+				// 1. 전문 필드 값 설정(*** 가맹점 개발수정 ***)
+			
+				System.out.println("## 인증데이터 일괄수신 ##");
+				System.out.println("<p>"+paramMap.toString()+"</p>");
+				
+				String mKey = "3a9503069192f207491d4b19bd743fc249a761ed94246c8c42fed06c3cd15a33"; // 테스트용
+				String mid = paramMap.get("mid");               // 가맹점 ID 수신 받은 데이터로 설정
+				Long timestamp= System.currentTimeMillis();     // util에 의해서 자동생성
+				String charset = "UTF-8";                       // 리턴형식[UTF-8,EUC-KR](가맹점 수정후 고정)
+				String format = "JSON";                         // 리턴형식[XML,JSON,NVP](가맹점 수정후 고정)
+				String authToken= paramMap.get("authToken");    // 취소 요청 tid에 따라서 유동적(가맹점 수정후 고정)
+				String authUrl= paramMap.get("authUrl");        // 승인요청 API url(수신 받은 값으로 설정, 임의 세팅 금지)
+				String netCancel= paramMap.get("netCancelUrl"); // 망취소 API url(수신 받은 값으로 설정, 임의 세팅 금지)
+				
+				//#####################
+				// 2.signature 생성
+				//#####################
+				SHA256 sha256 = new SHA256();
+				// signature 데이터 생성 (모듈에서 자동으로 signParam을 알파벳 순으로 정렬후 NVP 방식으로 나열해 hash)
+				String sha = "authToken="+authToken+"&timestamp="+timestamp;
+				String signature = "";
+				
+				try {
+					// signature 데이터 생성(모듈에서 자동으로 signParam을 알파벳순으로 정렬 후 NVP 방식으로 나열해 hash
+					signature = sha256.encrypt(sha);
+					
+				} catch (NoSuchAlgorithmException e) {
+					e.printStackTrace();
+				}
+				
+				//#####################
+				// 3.API 요청 전문 생성
+				//#####################
+				List<NameValuePair> param = new ArrayList<NameValuePair>();
+				
+				// BasicNameValuePair의 Key = input태그의 name,
+				// BasicNameValuePair의 value = input태그의 value
+				param.add(new BasicNameValuePair("mid",mid));
+				param.add(new BasicNameValuePair("authToken",authToken));
+				param.add(new BasicNameValuePair("signature",signature));
+				param.add(new BasicNameValuePair("timestamp",timestamp.toString()));
+				param.add(new BasicNameValuePair("charset",charset));
+				param.add(new BasicNameValuePair("format",format));
+				
+				            
+				System.out.println("##승인요청 API 요청##");
+				
+				
+				//#####################
+				// 4.API 통신 시작
+				//#####################
+				HttpUtil httpUtil = new HttpUtil();
+				String result = httpUtil.sendRequest(authUrl, param);
+				
+				// result를 map 형태로 변환 parse String to map 할것.
+				ObjectMapper mapper = new ObjectMapper();
+	
+				Map<String, String> resultMap =  new HashMap<String, String>();
+				
+			    try{
+			    	resultMap  = mapper.readValue(result, new TypeReference<Map<String, String>>() {});
 
-			 // 성공일 때, 실결제테이블 insert
-			}else{
-			 // 실패일 때, 
-			//#############
-			// 인증 실패시
-			//#############
-//			out.println("<br/>");
-//			out.println("####인증실패####");
-//			out.println("<p>"+paramMap.toString()+"</p>");
-			
-			}
-			
-			}catch(Exception e){
-			System.out.println(e);
-			}
-		
-		
-		
-		
-		campOrderService.insertCampOrder(vo);
-		
-		// 예약 목록 10개 조회
-		List<CampOrderVO> campOrderList = campOrderService.getMyListWithPaging(criteria, loginUser.getId());
-		
-		// 화면에 표시할 페이지 버튼정보 생성
-		PageMaker pageMaker = new PageMaker();
-		int totalCount = campOrderService.countMyOrderList(loginUser.getId());
 	
-		pageMaker.setCriteria(criteria); // 현재 페이지와 페이지당 항목 수 정보 설정
-		pageMaker.setTotalCount(totalCount); // 전체 예약현황 목록 갯수 설정 및 페이지 정보 초기화
+			    } catch (IOException e){
+			        e.printStackTrace();
+			    }
+				
+				 
+				//  성공 실패 판단하는 변수를 map.get(키)로 가져와서 성공 실패 판단 resultCode = 0000
+				if("0000".equals(resultMap.get("resultCode"))) {
+					// 성공일 때, 실결제테이블 insert
+					PayVO pVo = new PayVO();
+					
+					pVo.setTid(resultMap.get("tid"));
+					pVo.setTotPrice(resultMap.get("TotPrice"));
+					pVo.setUser_id(tVo.getUser_id());
+					pVo.setCamp_zone(tVo.getCamp_zone());
+					pVo.setIndate(tVo.getIndate());
+					
+					payService.insertPay(pVo);
+					
+					campOrderService.insertCampOrder(vo);
+					
+					// 예약 목록 10개 조회
+					List<CampOrderVO> campOrderList = campOrderService.getMyListWithPaging(criteria, loginUser.getId());
+					
+					// 화면에 표시할 페이지 버튼정보 생성
+					PageMaker pageMaker = new PageMaker();
+					int totalCount = campOrderService.countMyOrderList(loginUser.getId());
+				
+					pageMaker.setCriteria(criteria); // 현재 페이지와 페이지당 항목 수 정보 설정
+					pageMaker.setTotalCount(totalCount); // 전체 예약현황 목록 갯수 설정 및 페이지 정보 초기화
+					
+					Date date = new Date();
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+					String today = sdf.format(date);
+				
+					model.addAttribute("today", today);
+					model.addAttribute("campOrderList", campOrderList);
+					model.addAttribute("pageMaker", pageMaker);
+						
+					
+					
+					retUrl = "camping/campOrderList";
+				} else {
+					// 실패일 때, 
+				    // 인증 실패시
+					//#############
+					System.out.println("<br/>");
+					System.out.println("####인증실패####");
+					System.out.println("<p>"+paramMap.toString()+"</p>");
+					
+					model.addAttribute("errorMsg", resultMap.get("resultMsg"));
+					
+					retUrl = "index";
+				} 
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 		
-		Date date = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		String today = sdf.format(date);
-	
-		model.addAttribute("today", today);
-		model.addAttribute("campOrderList", campOrderList);
-		model.addAttribute("pageMaker", pageMaker);
-			
-		
-		
-		return "camping/campOrderList";
+		return retUrl;
 	}
 	
 	
@@ -388,7 +415,7 @@ public class CampOrderController {
 	@RequestMapping(value="/search_order", method = RequestMethod.GET)
 	public String orderList(Model model) {
 		
-		return "admin/admin_orderList";
+		return "admin/campOrder/admin_orderList";
 	}
 	
 	//  예약 현황 조회페이지에서 지점 선택시 지점별 예약현황 리스트 조회
@@ -417,7 +444,7 @@ public class CampOrderController {
 		model.addAttribute("pageMaker", pageMaker);
 		model.addAttribute("selected", camp_id);
 		
-		return "admin/admin_orderList";
+		return "admin/campOrder/admin_orderList";
 	}
 	
 	// 예약 현황 리스트에서 '취소'버튼 클릭 시 사유 입력하는 페이지 오픈
@@ -428,17 +455,85 @@ public class CampOrderController {
 		model.addAttribute("campOrder", campOrder);
 		model.addAttribute("selected", camp_id);
 		
-		return "admin/cancelOrder";
+		return "admin/campOrder/admin_cancelOrder";
 	}
 	
-	// 팝업창에서 '취소' 버튼 클릭 시 예약취소 실행(취소 테이블로 이동) + 예약테이블에서 삭제
-	@RequestMapping(value="/cancel_order", method=RequestMethod.GET)
-	public String cancelOrderAction(CampOrderCancelVO vo) {
+	// 팝업창에서 '취소' 버튼 클릭 시  결제 취소 실행
+	@RequestMapping(value="/go_cancel", method=RequestMethod.GET)
+	public String cancelOrder(CampOrderCancelVO vo, Model model, HttpServletRequest request) throws NoSuchAlgorithmException {
+		PayVO pVo = new PayVO();
+		pVo.setUser_id(vo.getUsersid());
+		pVo.setCamp_zone(vo.getCamp_zone());
+		pVo.setIndate(vo.getIndate());
+		
+		PayVO pay = payService.getPay(pVo);
+		
+		Date now = new Date();
+		SimpleDateFormat formmat = new SimpleDateFormat("yyyyMMddHHmmss"); 
+		
+		
+	    //step1. 요청을 위한 파라미터 설정
+	    String mid="INIpayTest";
+	    String Key="ItEQKi3rY7uvDS8l"; // INIpayTest 의 INIAPI key
+	    String type="Refund";          // "Refund" 고정
+	    String paymethod="Card";
+	    String timestamp = formmat.format(now);  // 검증용 시간값
+	    String clientIp="127.0.0.1";
+	    String tid=pay.getTid();      // 40byte 승인 TID 입력
+	    String msg="거래취소요청";
+	    
+	    //Hash 암호화
+	    String data_hash=Key+type+paymethod+timestamp+clientIp+mid+tid;
+	    SHA256 sha256 = new SHA256();
+	    String hashData = sha256.encrypt(data_hash); // SHA_512_Util 을 이용하여 hash암호화(해당 LIB는 직접구현 필요)
+	         
+	    // 전송 URL
+	    String APIURL="https://iniapi.inicis.com/api/v1/refund"; // 전송 URL
+	    
+	    List<NameValuePair> param = new ArrayList<NameValuePair>();
+	    
+		// BasicNameValuePair의 Key = input태그의 name,
+		// BasicNameValuePair의 value = input태그의 value
+		param.add(new BasicNameValuePair("type",type));
+		param.add(new BasicNameValuePair("paymethod",paymethod));
+		param.add(new BasicNameValuePair("timestamp",timestamp));
+		param.add(new BasicNameValuePair("clientIp",clientIp));
+		param.add(new BasicNameValuePair("mid",mid));
+		param.add(new BasicNameValuePair("tid",tid));
+		param.add(new BasicNameValuePair("msg",msg));
+		param.add(new BasicNameValuePair("hashData",hashData));
+		
+		
+	     //step2. key=value 로 post 요청
+
+	    HttpUtil httpUtil=new HttpUtil();
+	    
+	    try{
+		     String authResultString = "";
+		     authResultString = httpUtil.sendRequest(APIURL , param);
+		     System.out.println(authResultString);
+		    
+		    //step3. 요청 결과
+		     System.out.println("<h1>"+authResultString+"</h2>");
+		     
+	    }catch (Exception ex) {
+	    	ex.printStackTrace();
+	    }
+
 		campOrderCancelService.insertOrderCancel(vo);
 		campOrderService.deleteOrderByOseq(vo.getOseq());
-		
-		return "admin/admin_orderList";
+	    
+	    return "admin/campOrder/admin_orderList";
 	}
+	
+	// 결제 취소 완료된 후 예약취소 실행(취소 테이블로 이동) + 예약테이블에서 삭제
+//	@RequestMapping(value="/cancel_order", method=RequestMethod.GET)
+//	public String cancelOrderAction(CampOrderCancelVO vo) {
+//		campOrderCancelService.insertOrderCancel(vo);
+//		campOrderService.deleteOrderByOseq(vo.getOseq());
+//		
+//		return "admin/admin_orderList";
+//	}
 	
 	// 예약 현황 리스트에서 '예약완료' 버튼 클릭 시 예약 상세내용확인을 위한 팝업창 오픈
 	@GetMapping(value="/confirm_order_check")
@@ -448,7 +543,7 @@ public class CampOrderController {
 		model.addAttribute("campOrder", campOrder);
 		model.addAttribute("selected", camp_id);
 		
-		return "admin/confirmOrder";
+		return "admin/campOrder/admin_confirmOrder";
 	}
 	
 	// 예약 상세내용 팝업창에서 '예약확정'버튼 클릭 시 실행
@@ -456,14 +551,14 @@ public class CampOrderController {
 	public String confirmOrderAction(CampOrderVO vo) {
 		campOrderService.updateOrderStatus(vo.getOseq());
 		
-		return "admin/admin_orderList";
+		return "admin/campOrder/admin_orderList";
 	}
 	
 	// 예약 취소내역 조회 페이지로 이동
 	@RequestMapping(value="/search_cancel", method = RequestMethod.GET)
 	public String cancelOrderList(Model model) {
 		
-		return "admin/admin_cancelList";
+		return "admin/campOrder/admin_cancelList";
 	}
 	
 	// 예약 취소현황 조회페이지에서 지점 선택시 지점별 취소현황 리스트 조회
@@ -487,7 +582,7 @@ public class CampOrderController {
 		model.addAttribute("pageMaker", pageMaker);
 		model.addAttribute("selected", camp_id);
 		
-		return "admin/admin_cancelList";
+		return "admin/campOrder/admin_cancelList";
 	}
 	
 	// 전체 취소내역 리스트에서 '취소하기' 버튼 클릭시 취소 신청이 들어온 예약내역이 담긴 팝업창 오픈
@@ -498,15 +593,74 @@ public class CampOrderController {
 		model.addAttribute("cancelOrder", cancelOrder);
 		model.addAttribute("selected", camp_id);
 		
-		return "admin/admin_confirmCancel";
+		return "admin/campOrder/admin_confirmCancel";
 	}
 	
 	// 취소 확정하는 팝업창에서 '취소하기'버튼 클릭 시 취소 확정 완료
 	@RequestMapping(value="/confirm_cancel_order", method=RequestMethod.GET)
-	public String confirmCancelOrderAction(CampOrderCancelVO vo) {
+	public String confirmCancelOrderAction(CampOrderCancelVO vo, HttpServletRequest request) throws NoSuchAlgorithmException {
+		PayVO pVo = new PayVO();
+		pVo.setUser_id(vo.getUsersid());
+		pVo.setCamp_zone(vo.getCamp_zone());
+		pVo.setIndate(vo.getIndate());
+		
+		PayVO pay = payService.getPay(pVo);
+		
+		Date now = new Date();
+		SimpleDateFormat formmat = new SimpleDateFormat("yyyyMMddHHmmss");
+		
+	      
+	    //step1. 요청을 위한 파라미터 설정
+	    String mid="INIpayTest";
+	    String Key="ItEQKi3rY7uvDS8l"; // INIpayTest 의 INIAPI key
+	    String type="Refund";          // "Refund" 고정
+	    String paymethod="Card";
+	    String timestamp = formmat.format(now);  // 검증용 시간값
+	    String clientIp="192.168.1.112";
+	    String tid=pay.getTid();      // 40byte 승인 TID 입력
+	    String msg="";
+	    
+	    //Hash 암호화
+	    String data_hash=Key+type+paymethod+timestamp+clientIp+mid+tid;
+	    SHA256 sha256 = new SHA256();
+	    String hashData = sha256.encrypt(data_hash); // SHA_512_Util 을 이용하여 hash암호화(해당 LIB는 직접구현 필요)
+	         
+	    // 전송 URL
+	    String APIURL="https://iniapi.inicis.com/api/v1/refund"; // 전송 URL
+	    
+	    List<NameValuePair> param = new ArrayList<NameValuePair>();
+	    
+		// BasicNameValuePair의 Key = input태그의 name,
+		// BasicNameValuePair의 value = input태그의 value
+		param.add(new BasicNameValuePair("type",type));
+		param.add(new BasicNameValuePair("paymethod",paymethod));
+		param.add(new BasicNameValuePair("timestamp",timestamp));
+		param.add(new BasicNameValuePair("clientIp",clientIp));
+		param.add(new BasicNameValuePair("mid",mid));
+		param.add(new BasicNameValuePair("tid",tid));
+		param.add(new BasicNameValuePair("msg",msg));
+		param.add(new BasicNameValuePair("hashData",hashData));
+		
+		
+	     //step2. key=value 로 post 요청
+
+	    HttpUtil httpUtil=new HttpUtil();
+	    
+	    try{
+		     String authResultString = "";
+		     authResultString = httpUtil.sendRequest(APIURL , param);
+		     System.out.println(authResultString);
+		    
+		    //step3. 요청 결과
+		     System.out.println("<h1>"+authResultString+"</h2>");
+		     
+	    }catch (Exception ex) {
+	    	ex.printStackTrace();
+	    }
+		
 		campOrderCancelService.updateCancelStatus(vo.getCseq());
 		
-		return "admin/admin_cancelList";
+		return "admin/campOrder/admin_cancelList";
 	}
 	
 	// 취소내용 상세보기
@@ -516,7 +670,7 @@ public class CampOrderController {
 		
 		model.addAttribute("cancelDetail", cancelDetail);
 		
-		return "admin/cancelDetail";
+		return "admin/campOrder/admin_cancelDetail";
 	}
 	
 	@ModelAttribute("conditionMap")

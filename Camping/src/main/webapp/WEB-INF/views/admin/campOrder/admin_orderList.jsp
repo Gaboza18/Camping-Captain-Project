@@ -3,15 +3,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<%@ include file="admin_header.jsp" %>
+<%@ include file="../admin_header.jsp" %>
 
 <c:choose>
 	<c:when test="${loginAdmin.status eq 1}">
-		<%@ include file="master_admin_menu.jsp" %>
+		<%@ include file="../master_admin_menu.jsp" %>
 	</c:when>
 	
 	<c:when test="${loginAdmin.status eq 2}">
-		<%@ include file="manager_admin_menu.jsp" %>
+		<%@ include file="../manager_admin_menu.jsp" %>
 	</c:when>
 </c:choose> 
 
@@ -79,5 +79,5 @@
 	</form>
 	<%@ include file="order_page_area.jsp"%>
 </article>
-<%@ include file="admin_footer.jsp" %>
+<%@ include file="../admin_footer.jsp" %>
 
