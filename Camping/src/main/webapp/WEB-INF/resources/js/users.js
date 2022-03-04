@@ -74,4 +74,19 @@ function go_save() {
 
 }
 
-
+function go_out() {
+	if($("#passwordCheck").val() == ""){
+		alert("비밀번호를 입력해주세요");
+	    $("#password").focus();
+	    return false;
+	} else if ($("#password").val() != $("#passwordCheck").val()) {
+		alert("비밀번호가 일치하지 않습니다");
+	    $("#password").focus();
+	    return false;
+	} else {
+		alert("탈퇴되었습니다.");
+	    $("#usersDelete").attr("action", "usersDelete").submit(); // 회원가입 요청
+	}// 여기에는 틀린 비밀번호로 중복확인하고 탈퇴할때 알람 뜨게 해야됨		 
+	
+	return true;
+}
