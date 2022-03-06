@@ -1,48 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mappings.adminnotice-mapping">
-
-<select id="adminNotice" resultType="adminnotice">
+	
+	<!-- 관리자 공지사항 조회 -->
+	<select id="adminNoticeList" resultType="adminnotice">
 		SELECT * FROM adminnotice
 			ORDER BY aseq DESC
 	</select>
 	
+	<!-- 관리자 공지사항 상세보기  -->
+	<select id="adminNoticeDetail" resultType="adminnotice">
+		SELECT aseq,title,content,admin_name,indate,count
+			FROM adminnotice
+				WHERE aseq=#{aseq}
+	</select>
+	
+	<!-- 공지사항 조회수 증가 -->
 	<update id="updateViewCount">
-		UPDATE adminnotice 
-			SET count=count+1 
+		UPDATE adminnotice
+			SET count=count+1
 				WHERE aseq=#{aseq}
 	</update>
 	
-	<select id="countReviewlist" parameterType="String" resultType="int">
-		SELECT COUNT(*) FROM reviews
-		<if test='title !=null'>
+	<!-- 총 관리자 공지사항 목록 갯수 조회 -->
+	<select id="countAdminNoticelist" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM adminnotice
 			WHERE title LIKE '%'||#{title}||'%'
-		</if>
 	</select>
-
-<select id="listWithPaging" parameterType="hashMap" resultType="adminnotice">
-
-		SELECT aseq,title,content,indate,count,id
+	
+	<!-- 페이징 처리(1~10개씩 출력) / 게시물 검색기능-->
+	<select id="listWithPaging" parameterType="hashMap" resultType="adminnotice">
+	<![CDATA[
+		
+		SELECT aseq,title,content,admin_name,indate,count
 			FROM
 				(
-				SELECT row_number() over(ORDER BY indate DESC) rn,aseq,id,title,content,id,indate,count 
+				SELECT row_number() over(ORDER BY indate DESC) rn,aseq,title,content,admin_name,indate,count
 					FROM adminnotice
-					<if test='title !=null'>
-						WHERE title LIKE '%'||#{title}||'%'
-					</if>
-							
+						WHERE title LIKE '%'||#{title}||'%'	
 				)
-	<![CDATA[
 				WHERE rn<=#{criteria.pageNum} * #{criteria.rowsPerPage}  
 					AND rn>=(#{criteria.pageNum}-1) * #{criteria.rowsPerPage}
-					ORDER BY rseq DESC
 	]]>
 		
 	</select>
-
-
-
-
-
 
 </mapper>

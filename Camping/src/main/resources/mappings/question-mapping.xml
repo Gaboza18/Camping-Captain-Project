@@ -15,4 +15,22 @@
 				WHERE qseq=#{qseq}
 	</select>
 	
+	<!-- 자주묻는 질문 등록하기: 총관리자 -->
+	<insert id="insertQuestion">
+		INSERT INTO questions(qseq, question, reply)
+			VALUES(questions_seq.nextval, #{question}, #{reply})
+	</insert>
+	
+	<!-- 자주묻는 질문 수정하기: 총관리자 -->
+	<update id="updateQuestion">
+		UPDATE questions 
+			set question=#{question},reply=#{reply} 
+				where qseq=#{qseq}
+	</update>
+	
+	<!-- 자주묻는 질문 삭제하기: 총관리자 -->
+	<delete id="deleteQuestion" parameterType="int">
+		DELETE FROM questions WHERE qseq=#{qseq}	
+	</delete>
+	
 </mapper>

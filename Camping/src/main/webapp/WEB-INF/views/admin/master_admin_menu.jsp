@@ -13,9 +13,10 @@
 	      <li>
 	      	<a href="#">게시판</a>
 	      	<ul class="header_submenu">
-	      		<li><a href="#">관리자 게시판</a></li>
+	      		<li><a href="admin_notice_list">관리자 게시판</a></li>
 	      		<li><a href="#">회원 게시판 관리</a></li>
 	      		<li><a href="adminReview">후기 관리</a></li>
+	      		<li><a href="question_write_form">자주 묻는질문</a></li>
 	      	</ul>
 	      </li>
 	      <li><a href="#">회원관리</a></li> 
@@ -28,3 +29,10 @@
 	      <li><a href="admin_users_age_ratio">회원 연령 통계</a></li>
 	    </ul>
     </nav>
+    <div id="master_main">
+    	 <h2>${loginAdmin.name}님 환영합니다</h2>
+    	 
+    </div>
+     
+
+

@@ -12,52 +12,91 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.camping.biz.adminnotice.AdminNotice;
+import com.camping.biz.adminnotice.AdminNoticeService;
 import com.camping.biz.dto.AdminNoticeVO;
-import com.camping.biz.dto.AdminVO;
-import com.camping.biz.dto.RealReviewVO;
 
 import utils.Criteria;
 import utils.PageMaker;
 
-
-
-
-
 @Controller
-@SessionAttributes("loginAdmin")
 public class AdminNoticeController {
+	
 	@Autowired
-	private AdminNotice adminnoticeService;
+	private AdminNoticeService adminNoticeService;
 	
-	
+	/*
+	 * 관리자 공지사항 상세보기, 조회수 증가(총관리자)
+	 */
+	@RequestMapping(value = "/adimin_notice_detail", method = RequestMethod.GET)
+	public String adminNoticeDetail(HttpSession session, AdminNoticeVO vo, Model model, int aseq) {
 
-	@RequestMapping(value = "/adminNotice", method = RequestMethod.GET) public
-	 String noticeList(@RequestParam(value = "key", defaultValue = "") String title, Criteria criteria,
-			 HttpSession session, Model model,int aseq) {
-			
-		  AdminVO loginAdmin = (AdminVO) session.getAttribute("loginAdmin");
-			if (loginAdmin == null) {
-				return "admin/admin_login";
+		adminNoticeService.updateViewCount(vo.getAseq()); // 조회수 증가
 
-			}else {
-		  
-				List<AdminNoticeVO> adminnoticeList = adminnoticeService.getListWithPaging(criteria, title);
-				
-				// ȭ�鿡 ǥ���� ������ ��ư ���� ����
-				PageMaker pageMaker = new PageMaker();
-				int totalCount = adminnoticeService.updateViewCount(aseq);
+		AdminNoticeVO AdminNoticeDetail = adminNoticeService.detailNotice(aseq);
+		model.addAttribute("adminnoticeVO", AdminNoticeDetail);
 
-				pageMaker.setCriteria(criteria); // ���� �������� �������� �׸� �� ���� ����
-				pageMaker.setTotalCount(totalCount); // ��ü �������� ��� ���� ���� �� ������ ���� �ʱ�ȭ
-
-				model.addAttribute("adminnoticeList", adminnoticeList); // ����, �� ������ ���� ������ reviewList���� <for:each>�� ������ ������
-				model.addAttribute("noticeListSize", adminnoticeList.size());
-				model.addAttribute("pageMaker", pageMaker);
-
-				return "adminnotice/adminnoticeList";
-	 
- }
+		return "admin/adminnotice/admin_notice_detail";
 	}
 	
+	/*
+	 * 관리자 공지사항(페이징 처리) 조회(총관리자)
+	 */
+	@RequestMapping(value = "/admin_notice_list", method = RequestMethod.GET)
+	public String adminnoticeList(@RequestParam(value = "key", defaultValue = "") String title, Criteria criteria,
+			HttpSession session, Model model) {
+
+		// 공지사항 목록 조회 - 공지사항 10개만 조회
+		List<AdminNoticeVO> AdminNoticeList = adminNoticeService.getListWithPaging(criteria, title);
+
+		// 화면에 표시할 페이지 버튼 정보 설정
+		PageMaker pageMaker = new PageMaker();
+		int totalCount = adminNoticeService.countNoticeList(title);
+
+		pageMaker.setCriteria(criteria); // 현재 페이지와 페이지당 항목 수 정보 설정
+		pageMaker.setTotalCount(totalCount); // 전체 공지사항 목록 갯수 설정 및 페이지 정보 초기화
+
+		model.addAttribute("adminnoticeList", AdminNoticeList); // ${noticeList} 속성값에 담고 화면에 호출한다
+		model.addAttribute("adminnoticeListSize", AdminNoticeList.size());
+		model.addAttribute("pageMaker", pageMaker);
+
+		return "admin/adminnotice/admin_notice_list"; // 공지사항 리스트 화면으로 전송
+	}
+	
+	/*
+	 *  관리자 공지사항 조회(지점관리자)
+	 */
+	@RequestMapping(value = "/manager_admin_notice_list", method = RequestMethod.GET)
+	public String managerAdminNoticeList(@RequestParam(value = "key", defaultValue = "") String title, Criteria criteria,
+			HttpSession session, Model model) {
+
+		// 공지사항 목록 조회 - 공지사항 10개만 조회
+		List<AdminNoticeVO> AdminNoticeList = adminNoticeService.getListWithPaging(criteria, title);
+
+		// 화면에 표시할 페이지 버튼 정보 설정
+		PageMaker pageMaker = new PageMaker();
+		int totalCount = adminNoticeService.countNoticeList(title);
+
+		pageMaker.setCriteria(criteria); // 현재 페이지와 페이지당 항목 수 정보 설정
+		pageMaker.setTotalCount(totalCount); // 전체 공지사항 목록 갯수 설정 및 페이지 정보 초기화
+
+		model.addAttribute("adminnoticeList", AdminNoticeList); // ${noticeList} 속성값에 담고 화면에 호출한다
+		model.addAttribute("adminnoticeListSize", AdminNoticeList.size());
+		model.addAttribute("pageMaker", pageMaker);
+
+		return "admin/adminnotice/manager_admin_notice_list"; // 공지사항 리스트 화면으로 전송
+	}
+	
+	/*
+	 * 관리자 공지사항 조회(지점 관리자)
+	 */
+	@RequestMapping(value = "/manager_adimin_notice_detail", method = RequestMethod.GET)
+	public String managerAdminNoticeDetail(HttpSession session, AdminNoticeVO vo, Model model, int aseq) {
+
+		adminNoticeService.updateViewCount(vo.getAseq()); // 조회수 증가
+
+		AdminNoticeVO AdminNoticeDetail = adminNoticeService.detailNotice(aseq);
+		model.addAttribute("adminnoticeVO", AdminNoticeDetail);
+
+		return "admin/adminnotice/manager_admin_notice_detail";
+	}
 }

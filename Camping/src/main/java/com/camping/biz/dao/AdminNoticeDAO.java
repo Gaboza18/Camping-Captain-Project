@@ -11,29 +11,40 @@ import com.camping.biz.dto.AdminNoticeVO;
 
 import utils.Criteria;
 
-
-
 @Repository
 public class AdminNoticeDAO {
-	
+
 	@Autowired
 	private SqlSessionTemplate mybatis;
 	
-	public List<AdminNoticeVO> listNotice(AdminNoticeVO vo) {
-		return mybatis.selectList("mappings.adminnotice-mapping.adminNotice" ,vo);
+	// 전체 관리자 공지사항 조회
+	public List<AdminNoticeVO> listNotice() {
+		return mybatis.selectList("mappings.adminnotice-mapping.adminNoticeList");
 	}
 	
-	public int updateViewCount(int aseq) {
-		return mybatis.update("mappings.adminnotice-mapping.updateViewCount",aseq);
+	// 전체 관리자 공지사항 상세 보기
+	public AdminNoticeVO detailNotice(int aseq) {
+		return mybatis.selectOne("mappings.adminnotice-mapping.adminNoticeDetail", aseq);
 	}
-public List<AdminNoticeVO> getListWithPaging(Criteria criteria, String title) {
-		
+	
+	// 전체 관리자 공지사항 조회수 증가
+	public int updateViewCount(int aseq) {
+		return mybatis.update("mappings.adminnotice-mapping.updateViewCount", aseq);
+	}
+	
+	// 전체 관리자 공지사항 갯수 조회
+	public int countNoticeList(String title) {
+		return mybatis.selectOne("mappings.adminnotice-mapping.countAdminNoticelist", title);
+	}
+
+	// 페이지별 공지사항 조회
+	public List<AdminNoticeVO> getListWithPaging(Criteria criteria, String title) {
+
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("criteria", criteria);
 		map.put("title", title);
-		
-		return mybatis.selectList("mappings.adminnotice-mapping.listWithPaging",map);
-		
+
+		return mybatis.selectList("mappings.adminnotice-mapping.listWithPaging", map);
 	}
-	
+
 }
