@@ -31,7 +31,7 @@ function idcheck() {
 
    // id가 입력이 되었으면 id 중복확인 윈도우 창 오픈(윈도우창 크기 및 사이즈 변경 여부)
    var url = "id_check_form?id=" + $("#id").val();
-   window.open(url, "_blank_", "toolbar=no, menubar=no, scrollbars=no, resizable=yes, width=350, height=200");
+   window.open(url, "_blank_", "toolbar=no, menubar=no, scrollbars=no, resizable=yes, width=500, height=300");
 }
 
 /*
@@ -83,10 +83,18 @@ function go_out() {
 		alert("비밀번호가 일치하지 않습니다");
 	    $("#password").focus();
 	    return false;
+	} 
+	
+	if($("#OrderCount").val() != 0) {
+		alert("진행 중인 예약 내역이 있어 탈퇴하실 수 없습니다.");
+	    return false;
+	} else if($("#CancelCount").val() != 0) {
+		alert("대기 중인 취소 내역이 있어 탈퇴하실 수 없습니다.");
+	    return false;
 	} else {
-		alert("탈퇴되었습니다.");
+		alert("성공적으로 탈퇴되었습니다.");
 	    $("#usersDelete").attr("action", "usersDelete").submit(); // 회원가입 요청
-	}// 여기에는 틀린 비밀번호로 중복확인하고 탈퇴할때 알람 뜨게 해야됨		 
+	} // 여기에는 틀린 비밀번호로 중복확인하고 탈퇴할때 알람 뜨게 해야됨		 
 	
 	return true;
 }

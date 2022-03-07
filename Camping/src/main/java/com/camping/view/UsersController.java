@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.camping.biz.camporder.CampOrderService;
+import com.camping.biz.campordercancel.CampOrderCancelService;
 import com.camping.biz.dto.UsersVO;
 import com.camping.biz.users.UsersService;
 
@@ -31,6 +33,10 @@ public class UsersController {
 
 	@Autowired
 	private UsersService usersService;
+	@Autowired
+	private CampOrderService campOrderService;
+	@Autowired
+	private CampOrderCancelService campOrderCancelService;
 
 	/*
 	 * @RequestMapping(value = "/index", method = RequestMethod.GET) public String
@@ -143,8 +149,12 @@ public class UsersController {
 		
 		UsersVO loginUser = (UsersVO) session.getAttribute("loginUser");
 		UsersVO users = usersService.getUsers(loginUser.getId());
+		int OrderCount = campOrderService.countMyOrderList(loginUser.getId());
+		int CancelCount = campOrderCancelService.countMyNonCancelList(loginUser.getId());
 		
 		model.addAttribute("users", users);
+		model.addAttribute("OrderCount", OrderCount);
+		model.addAttribute("CancelCount", CancelCount);
 		
 		return "Users/deleteIdView";
 	}

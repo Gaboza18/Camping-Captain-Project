@@ -68,6 +68,26 @@
 	]]>
 	</select>
 	
+	<!-- 전체 지점 총 예약현황 목록 갯수 조회 -->
+	<select id="countAllOrderList" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM camp_order 
+	</select>
+	
+	<!-- 전체 지점 페이징 처리(1~10개씩 출력) / 지점 선택 기능 -->
+	<select id="AlllistWithPaging" parameterType="hashMap" resultType="campOrder">
+		<![CDATA[
+		
+		SELECT oseq, camp_name, camp_zone, user_id, order_name, indate, outdate, total_price, order_phone, order_email, order_status
+			FROM
+				(
+				SELECT row_number() over(ORDER BY indate DESC) rn, oseq, camp_name, camp_zone, user_id, order_name, indate, outdate, total_price, order_phone, order_email, order_status
+					FROM camp_order 
+				)
+				WHERE rn<=#{criteria.pageNum} * #{criteria.rowsPerPage}  
+					AND rn>=(#{criteria.pageNum}-1) * #{criteria.rowsPerPage}
+	]]>
+	</select>
+	
 	<!-- 예약번호를 기준으로 예약내역 한건 조회 -->
 	<select id="getCampOrder" parameterType="int" resultType="campOrder">
 		SELECT*FROM camp_order WHERE oseq=#{oseq}

@@ -30,12 +30,6 @@ body{
 	float: left;
 }
 
-#admin_login_form {
-	display: block;
-	float: right;
-	margin-top: 0;
-}
-
 /* 로그인, 회원가입 버튼 설정 */
 #admin_logout{
 	float:right;
@@ -146,6 +140,8 @@ body{
 #buttons input{
 	padding: 5px;
 }
+
+
 
 /* 헤더 메인메뉴 설정 */
 #header_menu{
@@ -283,57 +279,6 @@ form#camp_search input#btn{
 	padding: 20px;
 }
 
-
-
-/* 사이드메뉴 설정 */
-
-.admin_side_menu {
-	width: 150x;
-	float: left;
-	margin: 20px 0;
-}
-
-.admin_side_menu ul {
-	margin-top: 20px;
-	padding-left: 0; 
-	list-style: none;
-}
-
-.admin_side_menu ul li:hover .header_submenu{
-	display: block;
-}
-
-.admin_side_menu ul li a{
-	text-decoration: none;
-	color:rgb(20, 92, 28);
-	font-weight:bold; 
-	font-size:16px;
-	display: block;
-	height: 15px;
-	width: 160px;
-	padding: 7px;
-	border-bottom: 1px dotted rgb(20, 92, 28);
-}
-
-.admin_side_menu a:hover {
-    color: #e6e600;
-    font-weight:bold; 
-}
-
-.admin_side_menu ul li ul.header_submenu{
-	display: none;
-	left: 450px;
-	top: 189px;
-	position: absolute;
-	padding: 0;
-    line-height: 25px;
-    background-color: white;
-}
-
-.admin_side_menu ul li ul.header_submenu li{
-	font-size: 13px;
-}
-
 /* 예약 현황 리스트 설정 */
 table#orderList tr th{
 	border-bottom: 1px solid #000;
@@ -361,7 +306,7 @@ table#cancelList tr td a{
 
 /* 마이페이지 내정보 페이지 설정*/
 #userForm {
-	margin: auto;
+	margin: 20px auto;
 	border: 1px solid rgb(20, 92, 28);
 	border-radius: 10px;
 	padding: 20px;
@@ -369,10 +314,12 @@ table#cancelList tr td a{
 
 #userForm tr th{
 	line-height: 30px;
+	border: none;
 }
 
 #userForm tr td{
 	line-height: 30px;
+	border: none;
 }
 
 #button{
@@ -436,23 +383,44 @@ table#cancelList tr td a{
 	padding: 20px 0;
 }
 
+#usersDeleteForm ul {
+	display: block;
+	margin: 10px auto;
+	padding-right: 20px;
+	text-align: left;
+}
+
+#usersDeleteForm table, th, td {
+	border: 1px solid rgb(20, 92, 28);
+}
+
+#usersDeleteForm table {
+	border-collapse: collapse;
+	margin: 10px 20px 20px 75px;
+	padding-left: 40px;
+}
+
 #usersDeleteForm label {
 	width: 95px;
 	float: left;
 	margin-top: 12px;
-	margin-left: 130px;
+	margin-left: 170px;
 	right: 0;
 }
 
 #usersDeleteForm input {
 	float: left;
-	margin-left: 20px;
+	margin-left: 10px;
 	margin-top: 10px;
 	padding: 0;
 }
 
+#usersDeleteForm input#passwordCheck {
+	margin-bottom: 20px;
+}
+
 #subbtn {
-	margin: 20px 0 50px 220px;
+	margin: 10px 0 50px 220px;
 }
 
 #subbtn input{
@@ -464,4 +432,100 @@ table#orderList tr td a{
 	text-decoration: none;
 	color: blue;
 	float: right;
+}
+
+/*
+ * 관리자 기능 페이지 설정
+ */
+
+#admin_login_form {
+	display: block;
+	float: right;
+	margin-top: 0;
+}
+
+/* 관리자 로그인 폼 설정 */
+#admin_loginForm {
+	text-align: center;
+}
+
+#admin_loginForm form#admin_login {
+	width: 600px;
+	margin: 20px auto;
+	border: 1px solid rgb(20, 92, 28);
+	border-radius: 10px;
+	padding: 20px 0;
+}
+
+#admin_loginForm label {
+	width: 95px;
+	float: left;
+	margin-top: 12px;
+	margin-left: 150px;
+	right: 0;
+}
+
+#admin_loginForm input {
+	float: left;
+	margin-left: 10px;
+	margin-top: 10px;
+	padding: 0;
+}
+
+#admin_login_buttons {
+	margin: 20px 0 70px 270px;
+}
+
+#loginbtn input{
+	padding: 2px 10px;
+}
+
+
+/* 사이드메뉴 설정 */
+
+.admin_side_menu {
+	width: 150x;
+	float: left;
+	margin: 20px 0;
+}
+
+.admin_side_menu ul {
+	margin-top: 20px;
+	padding-left: 0; 
+	list-style: none;
+}
+
+.admin_side_menu ul li:hover .header_submenu{
+	display: block;
+}
+
+.admin_side_menu ul li a{
+	text-decoration: none;
+	color:rgb(20, 92, 28);
+	font-weight:bold; 
+	font-size:16px;
+	display: block;
+	height: 15px;
+	width: 160px;
+	padding: 7px;
+	border-bottom: 1px dotted rgb(20, 92, 28);
+}
+
+.admin_side_menu a:hover {
+    color: #e6e600;
+    font-weight:bold; 
+}
+
+.admin_side_menu ul li ul.header_submenu{
+	display: none;
+	left: 450px;
+	top: 189px;
+	position: absolute;
+	padding: 0;
+    line-height: 25px;
+    background-color: white;
+}
+
+.admin_side_menu ul li ul.header_submenu li{
+	font-size: 13px;
 }

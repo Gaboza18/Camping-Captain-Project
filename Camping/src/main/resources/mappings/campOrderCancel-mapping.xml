@@ -10,7 +10,14 @@
 	</insert>
 	
 	<!-- 회원이 본인의 취소내역 조회 -->
-	<!-- 총 취소내역 현황 목옥 갯수 조회 -->
+	<!-- 대기중인 취소목록 갯수 조회 -->
+	<select id="countMyNonCancelList" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM campordercancel 
+		 WHERE usersid=#{usersid}
+		   AND status='n'
+	</select>
+	
+	<!-- 총 취소내역 현황 목록 갯수 조회 -->
 	<select id="countMyCancelList" parameterType="String" resultType="int">
 		SELECT COUNT(*) FROM campordercancel 
 		 WHERE usersid=#{usersid}

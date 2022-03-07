@@ -66,5 +66,15 @@ public class CampOrderServiceImpl implements CampOrderService {
 	public void deleteOrderByOseq(int oseq) {
 		cDao.deleteOrderByOseq(oseq);
 	}
+
+	@Override
+	public int countAllOrderList() {
+		return cDao.countAllOrderList();
+	}
+
+	@Override
+	public List<CampOrderVO> getAllListWithPaging(Criteria criteria) {
+		return cDao.getAllListWithPaging(criteria);
+	}
   
 }

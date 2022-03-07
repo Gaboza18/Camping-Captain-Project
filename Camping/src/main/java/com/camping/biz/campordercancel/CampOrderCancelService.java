@@ -12,6 +12,9 @@ public interface CampOrderCancelService {
 	// 마이페이지에서 예약조회 후 취소 신청 시 취소테이블에 insert
 	public void insertCancelMyOrder(CampOrderCancelVO vo);
 	
+	// 대기중인 취소목록 갯수 조회
+	public int  countMyNonCancelList(String usersid);
+	
 	// 마이페이지에서 내 취소내역 조회 시 취소현황 갯수 조회
 	public int countMyCancelList(String usersid);
 	
