@@ -13,9 +13,7 @@
 <body>
 	<div align="center">
 		<article>
-			<h2>공지사항</h2>
 			<h3>캠핑족장 관리자 공지사항 입니다</h3>
-
 			<!-- 검색 파트 -->
 			<form name="frm" id="admin_notice_form" method="get">
 				<table>
@@ -51,7 +49,7 @@
 									<td height="23" align="center">${adminnoticeVO.aseq}
 									 <a href="admin_notice_list${pageMaker.makeQuery(pageMaker.criteria.pageNum)}&aseq=${adminnoticeVO.aseq}"></a>
 									 </td>    
-									<td><a href="${path}admin_notice_detail?aseq=${adminnoticeVO.aseq}">${adminnoticeVO.title}</a></td>
+									<td><a href="${path}manager_admin_notice_detail?aseq=${adminnoticeVO.aseq}">${adminnoticeVO.title}</a></td>
 									<td>${adminnoticeVO.admin_name}</td>
 									<td><fmt:formatDate value="${adminnoticeVO.indate}" type="date" />
 									</td>

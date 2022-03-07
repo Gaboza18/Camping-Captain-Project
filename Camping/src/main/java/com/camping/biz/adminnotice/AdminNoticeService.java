@@ -24,4 +24,12 @@ public interface AdminNoticeService {
 	// 페이지별 공지사항 조회
 	public List<AdminNoticeVO> getListWithPaging(Criteria criteria, String title);
 	
+	// 관리자 공지사항 등록
+	public void insertAdminNotice(AdminNoticeVO vo);
+	
+	// 관리자 공지사항 수정
+	public void updateAdminNotice(AdminNoticeVO vo);
+	
+	// 관리자 공지사항 삭제
+	public void deleteAdminNotice(int aseq);
 }

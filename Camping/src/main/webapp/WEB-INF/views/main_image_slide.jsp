@@ -8,8 +8,8 @@
 <body>
 
 	<div class="w3-content" style="max-width: 100%; position: relative">
-	
-		<img class="mySlides" src="images/camping-1.jpg" style="width: 100%">
+		
+		<img class="mySlides" src="images/camping-1.jpg" style="width: 100%">	
 		<img class="mySlides" src="images/camping-2.jpg" style="width: 100%">
 		<img class="mySlides" src="images/camping-3.jpg" style="width: 100%"> 
 		<img class="mySlides" src="images/camping-4.jpg" style="width: 100%">

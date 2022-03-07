@@ -2,7 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-    
+<%@ include file="../admin_header.jsp"%>
+<%@ include file="../master_admin_menu.jsp"%>        
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +11,7 @@
 <title>관리자 공지사항 상세보기</title>
 </head>
 <body>
-<h2>공지사항 상세보기</h2>
+<h2>총관리자 공지사항 상세보기</h2>
 	<div align="center">
 	<form name="frm" id="admin_detail_form" method="post">
 	<table border="1">
@@ -40,7 +41,10 @@
 		</tr>
 	</table><br>
 		<input class="btn"  type="button" value="목록" onclick="history.go(-1);">
+		<a href="${path}admin_notice_update_form?aseq=${adminnoticeVO.aseq}"><input type="button" value="수정"></a>
+	    <a href="${path}admin_notice_delete?aseq=${adminnoticeVO.aseq}"><input type="button" value="삭제"></a>
 	</form>
 	</div>
 </body>
 </html>
+<%@ include file="../admin_footer.jsp"%>

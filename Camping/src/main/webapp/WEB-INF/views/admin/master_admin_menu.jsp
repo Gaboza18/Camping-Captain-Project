@@ -21,7 +21,7 @@
 	      </li>
 	      <li><a href="#">회원관리</a></li> 
 	      <li><a href="admin_qna_list">1:1 문의 관리</a></li> 
-	      <li><a href="#">관리자 게시판 관리</a></li>
+	      <li><a href="admin_notice_list">관리자 게시판 관리</a></li>
 	      <li><a href="go_admin_master_calculate_year">캠핑족장 - 연 정산</a></li>
 	      <li><a href="admin_master_calculate_month">캠핑족장 - 월 정산</a></li>
 	      <li><a href="admin_master_calculate_day">캠핑족장 - 일일 정산</a></li>

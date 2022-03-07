@@ -27,8 +27,8 @@
 			</tr>
 		</table><br>
 		<input class="btn"  type="button" value="목록" onclick="history.go(-1);">
-		<a href="${path}admin_question_update_form?qseq=${questionsVO.qseq}">수정</a>
-	    <a href="${path}admin_question_delete?qseq=${questionsVO.qseq}">삭제</a>
+		<a href="${path}admin_question_update_form?qseq=${questionsVO.qseq}"><input type="button" value="수정"></a>
+	    <a href="${path}admin_question_delete?qseq=${questionsVO.qseq}"><input type="button" value="삭제"></a>
 </div>
 </body>
 <%@ include file="../admin_footer.jsp"%>

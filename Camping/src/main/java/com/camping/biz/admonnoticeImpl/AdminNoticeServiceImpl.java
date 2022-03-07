@@ -42,4 +42,19 @@ public class AdminNoticeServiceImpl implements AdminNoticeService {
 		return adminNoticeDao.getListWithPaging(criteria, title);
 	}
 
+	@Override
+	public void insertAdminNotice(AdminNoticeVO vo) {
+		adminNoticeDao.insertAdminNotice(vo);
+	}
+
+	@Override
+	public void updateAdminNotice(AdminNoticeVO vo) {
+		adminNoticeDao.updateAdminNotice(vo);
+	}
+
+	@Override
+	public void deleteAdminNotice(int aseq) {
+		adminNoticeDao.deleteAdminNotice(aseq);
+	}
+
 }

@@ -15,14 +15,14 @@
 				WHERE aseq=#{aseq}
 	</select>
 	
-	<!-- 공지사항 조회수 증가 -->
+	<!-- 관리자 공지사항 조회수 증가 -->
 	<update id="updateViewCount">
 		UPDATE adminnotice
 			SET count=count+1
 				WHERE aseq=#{aseq}
 	</update>
 	
-	<!-- 총 관리자 공지사항 목록 갯수 조회 -->
+	<!-- 관리자 공지사항 목록 갯수 조회 -->
 	<select id="countAdminNoticelist" parameterType="String" resultType="int">
 		SELECT COUNT(*) FROM adminnotice
 			WHERE title LIKE '%'||#{title}||'%'
@@ -42,7 +42,24 @@
 				WHERE rn<=#{criteria.pageNum} * #{criteria.rowsPerPage}  
 					AND rn>=(#{criteria.pageNum}-1) * #{criteria.rowsPerPage}
 	]]>
-		
 	</select>
+	
+	<!-- 관리자 공지사항 등록하기: 총관리자 -->
+	<insert id="insertAdminNotice">
+		INSERT INTO adminnotice(aseq,title,content,admin_name)
+			VALUES(adminnotice_seq.nextval,#{title},#{content},#{admin_name})
+	</insert>
+	
+	<!-- 관리자 공지사항 수정하기: 총관리자 -->
+	<update id="updateAdminNotice">
+		UPDATE adminnotice
+			SET title=#{title}, content=#{content}
+				where aseq=#{aseq}
+	</update>
+	
+	<!-- 관리자 공지사항 삭제하기: 총관리자 -->
+	<delete id="deleteAdminNotice" parameterType="int">
+		DELETE FROM adminnotice WHERE aseq=#{aseq}	
+	</delete>
 
 </mapper>

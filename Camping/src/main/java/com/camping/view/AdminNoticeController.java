@@ -19,6 +19,7 @@ import utils.Criteria;
 import utils.PageMaker;
 
 @Controller
+@SessionAttributes("admin_notice")
 public class AdminNoticeController {
 	
 	@Autowired
@@ -27,7 +28,7 @@ public class AdminNoticeController {
 	/*
 	 * 관리자 공지사항 상세보기, 조회수 증가(총관리자)
 	 */
-	@RequestMapping(value = "/adimin_notice_detail", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin_notice_detail", method = RequestMethod.GET)
 	public String adminNoticeDetail(HttpSession session, AdminNoticeVO vo, Model model, int aseq) {
 
 		adminNoticeService.updateViewCount(vo.getAseq()); // 조회수 증가
@@ -87,9 +88,9 @@ public class AdminNoticeController {
 	}
 	
 	/*
-	 * 관리자 공지사항 조회(지점 관리자)
+	 * 관리자 공지사항 상세보기(지점 관리자)
 	 */
-	@RequestMapping(value = "/manager_adimin_notice_detail", method = RequestMethod.GET)
+	@RequestMapping(value = "/manager_admin_notice_detail", method = RequestMethod.GET)
 	public String managerAdminNoticeDetail(HttpSession session, AdminNoticeVO vo, Model model, int aseq) {
 
 		adminNoticeService.updateViewCount(vo.getAseq()); // 조회수 증가
@@ -99,4 +100,55 @@ public class AdminNoticeController {
 
 		return "admin/adminnotice/manager_admin_notice_detail";
 	}
+	
+	/*
+	 * 관리자 공지사항 등록 페이지 이동(총관리자)
+	 */
+	@RequestMapping(value="/admin_notice_write_form", method=RequestMethod.GET)
+	public String adminNoitceWriteForm(HttpSession session, AdminNoticeVO vo) {
+		return "admin/adminnotice/admin_notice_write_form";
+	}
+	
+	/*
+	 * 관리자 공지사항 등록(총관리자)
+	 */
+	@RequestMapping(value="/admin_notice_write", method=RequestMethod.GET)
+	public String adminNoticeWrite(HttpSession session, AdminNoticeVO vo) {
+		
+		adminNoticeService.insertAdminNotice(vo);
+		return "redirect:admin_notice_list";
+	}
+	
+	/*
+	 * 관리자 공지사항 수정 페이지 이동(총관리자)
+	 */
+	@RequestMapping(value = "/admin_notice_update_form", method = RequestMethod.GET)
+	public String adminQuestionUpdateForm(@RequestParam("aseq") int aseq, Model model) {
+		
+		AdminNoticeVO  adminNoitceDetail = adminNoticeService.detailNotice(aseq);
+		model.addAttribute("adminnoticeVO", adminNoitceDetail);
+		
+		return "admin/adminnotice/admin_notice_update_form";
+	}
+	
+	/*
+	 * 관리자 공지사항 수정(총관리자)
+	 */
+	@RequestMapping(value="/admin_notice_update", method=RequestMethod.GET)
+	public String adminNoticeUpdate(HttpSession session, AdminNoticeVO vo) {
+		
+		adminNoticeService.updateAdminNotice(vo);
+		return "redirect:admin_notice_list";
+	}
+	
+	/*
+	 * 관리자 공지사항 삭제(총관리자)
+	 */
+	@RequestMapping(value = "/admin_notice_delete", method = RequestMethod.GET)
+	public String adminQuestionDelete(HttpSession session, AdminNoticeVO vo, int aseq) {
+		
+		adminNoticeService.deleteAdminNotice(aseq);
+		return "redirect:admin_notice_list";
+	}
+	
 }

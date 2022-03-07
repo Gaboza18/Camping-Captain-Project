@@ -46,5 +46,20 @@ public class AdminNoticeDAO {
 
 		return mybatis.selectList("mappings.adminnotice-mapping.listWithPaging", map);
 	}
+	
+	// 관리자 공지사항 등록(총관리자)
+	public void insertAdminNotice(AdminNoticeVO vo) {
+		mybatis.insert("mappings.adminnotice-mapping.insertAdminNotice",vo);
+	}
+	
+	// 관리자 공지사항 수정(총관리자)
+	public void updateAdminNotice(AdminNoticeVO vo) {
+		mybatis.update("mappings.adminnotice-mapping.updateAdminNotice",vo);
+	}
+	
+	// 관리자 공지사항 삭제(총관리자)
+	public void deleteAdminNotice(int aseq) {
+		mybatis.delete("mappings.adminnotice-mapping.deleteAdminNotice", aseq);
+	}
 
 }
