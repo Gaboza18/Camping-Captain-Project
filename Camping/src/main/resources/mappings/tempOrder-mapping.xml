@@ -9,9 +9,14 @@
 		 		#{user_id}, #{order_name}, #{order_people}, #{order_phone}, #{order_email}, #{total_price})
 	</insert>
 	
-	<!-- 예약번호를 기준으로 한건 조회 -->
+	<!-- 임시 예약번호를 기준으로 한건 조회 -->
 	<select id="getTempOrder" resultType="tempOrder">
 		SELECT * FROM temp_order WHERE temp_id=#{temp_id}
 	</select>
+	
+	<!-- 실결제 성공 시 임시테이블 삭제 -->
+	<delete id="deleteTempOrder">
+		DELETE FROM temp_order WHERE temp_id=#{temp_id}
+	</delete>
 	
 </mapper>

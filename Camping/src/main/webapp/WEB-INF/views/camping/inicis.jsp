@@ -33,7 +33,7 @@
 
  <body onload="INIStdPay.pay('SendPayForm_id')">
 
-   <form id="SendPayForm_id" name="SendPayForm_id" method="POST">
+   <form id="SendPayForm_id" name="SendPayForm_id" method="POST" action="order_insert">
    		<!-- 고정 -->
 		<input type="hidden"  name="version" value="1.0" > <!-- 전문 버전 ["1.0" 고정] -->  
         <input type="hidden"  name="gopaymethod" value="Card" > <!-- 요청지불수단  * 빈값으로 세팅 시, 전체 결제수단 표시 -->  

@@ -57,7 +57,7 @@ public class UsersServiceImpl implements UsersService {
 	//회원 삭제
 
 	@Override
-	public void deleteId(UsersVO vo) throws Exception {
+	public void deleteId(UsersVO vo) {
 		uDao.deleteId(vo);
 	}
 

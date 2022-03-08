@@ -37,7 +37,7 @@ function deleteOrder() {
 </style>
 </head>
 <body>
-	<form id="cancel_myOrder" name="frmm" method="post" action="cancel_myOrder">
+	<form id="cancel_myOrder" name="frmm" method="get" action="cancel_myOrder">
 		<input type="hidden" name="usersid" id="usersid" value="${campOrder.user_id}">
 		<table>
 	      	<tr>

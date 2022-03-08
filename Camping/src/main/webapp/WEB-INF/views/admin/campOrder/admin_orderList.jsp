@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <%@ include file="../admin_header.jsp" %>
 
@@ -55,22 +56,50 @@
 					<td>${orderList.order_phone}</td>
 					<td>${orderList.order_email}</td>   
 					<td>
+						<c:set var="camp_name" value="${orderList.camp_name}"/>
+						<c:set var="admin_name" value="${admin_name}"/>
 						<c:choose>
-							<c:when test="${orderList.indate < today}">
-								<span style="color: rgb(145,154,157);">지난내역</span>
-							</c:when>
-							<c:otherwise>
+							<c:when test="${loginAdmin.status eq 1}"> <!-- 총관리자일 때 -->
 								<c:choose>
-									<c:when test="${orderList.order_status == 'y'}">
-										<span style="color: red;">예약 확정 완료</span>
+									<c:when test="${orderList.indate < today}">
+										<span style="color: rgb(145,154,157);">지난내역</span>
 									</c:when>
-									<c:when test="${orderList.order_status == 'n'}">
-										<input type="button" value="예약완료" onclick="confirm_order(${orderList.oseq})">
-										<input type="button" value="취소" onclick="cancel_order(${orderList.oseq})">
-									</c:when>
+									<c:otherwise>
+										<c:choose>
+											<c:when test="${orderList.order_status == 'y'}">
+												<span style="color: red;">예약 확정 완료</span>
+											</c:when>
+											<c:when test="${orderList.order_status == 'n'}">
+												<input type="button" value="예약완료" onclick="confirm_order(${orderList.oseq})">
+												<input type="button" value="취소" onclick="cancel_order(${orderList.oseq})">
+											</c:when>
+										</c:choose>
+									</c:otherwise>
 								</c:choose>
-							</c:otherwise>
-						</c:choose>
+							</c:when>
+							<c:when test="${loginAdmin.status eq 2}"> <!-- 지점관리자일 때 -->
+								<c:choose>
+									<c:when test="${orderList.indate < today}">
+										<span style="color: rgb(145,154,157);">지난내역</span>
+									</c:when>
+									<c:otherwise>
+										<c:choose>
+											<c:when test="${fn:contains(camp_name, admin_name)}">
+												<c:choose>
+													<c:when test="${orderList.order_status == 'y'}">
+														<span style="color: red;">예약 확정 완료</span>
+													</c:when>
+													<c:when test="${orderList.order_status == 'n'}">
+														<input type="button" value="예약완료" onclick="confirm_order(${orderList.oseq})">
+														<input type="button" value="취소" onclick="cancel_order(${orderList.oseq})">
+													</c:when>
+												</c:choose>
+											</c:when>
+										</c:choose>
+									</c:otherwise>
+								</c:choose>
+							</c:when>
+						</c:choose> 
 					</td>
 				</tr>
 			</c:forEach>

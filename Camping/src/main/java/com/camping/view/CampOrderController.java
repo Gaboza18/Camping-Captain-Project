@@ -33,6 +33,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.camping.biz.camping.CampingService;
 import com.camping.biz.camporder.CampOrderService;
 import com.camping.biz.campordercancel.CampOrderCancelService;
+import com.camping.biz.dto.AdminVO;
 import com.camping.biz.dto.CampOrderCancelVO;
 import com.camping.biz.dto.CampOrderVO;
 import com.camping.biz.dto.PayVO;
@@ -87,22 +88,32 @@ public class CampOrderController {
 			vo.setTemp_id(today);
 			
 			tempOrderService.insertTempOrder(vo);
-
+			
+			/*
+			 * INIpay 모듈 세팅 시작
+			 * 
+			 *  위변조 방지 체크를 위해 signature 생성 
+			 *  	-> signature : oid, price, timestamp 3개의 키와 값을 "key=value" 형식으로 하여 '&'으로 연결하고 SHA-256으로 암호화한 값
+			 *  	-> key를 기준으로 알파벳 순서대로 정렬하는 것임.
+			 *  	-> timestamp는 반드시 signature 생성에 사용한 값을 그대로 timestamp input에 사용하여야 함.
+			 *  
+			 */
+			
+			
+			// 1. 전문 필드값 설정(가맹점 개발수정)
 			String mid = "INIpayTest";  // 가맹점 Id(발급 필요, 현재는 테스트용)
 			String mKey = "3a9503069192f207491d4b19bd743fc249a761ed94246c8c42fed06c3cd15a33"; // 테스트용
 			String oid = vo.getTemp_id();  // 임시 주문번호
 			Long timestamp = System.currentTimeMillis();  // 검증용 시간값
 			String sha = "oid="+oid+"&price="+vo.getTotal_price()+"&timestamp="+timestamp;
 			String signature = "";
-			
+			// SAH 256 을 이용해 signature 데이터 생성(모듈에서 자동으로 signParam을 알파벳순으로 정렬 후 NVP 방식으로 나열해 hash
 			try {
-				// signature 데이터 생성(모듈에서 자동으로 signParam을 알파벳순으로 정렬 후 NVP 방식으로 나열해 hash
 				signature = sha256.encrypt(sha);
-				
 			} catch (NoSuchAlgorithmException e) {
 				e.printStackTrace();
-			}
-			
+			} 
+				
 			model.addAttribute("tempOrder", vo);
 			model.addAttribute("mid", mid);
 			model.addAttribute("mKey", mKey);
@@ -116,11 +127,9 @@ public class CampOrderController {
 	
 	@RequestMapping(value="/order_insert", method=RequestMethod.POST)
 	public String campingOrderAction(String temp_id, CampOrderVO vo, ModelMap modelMap, HttpServletRequest request, HttpServletResponse response, HttpSession session, Criteria criteria, Model model) {
-		UsersVO loginUser = null;
 		
 		TempOrderVO tVo = tempOrderService.getTempOrder(temp_id);
-		loginUser = usersService.getUsers(tVo.getUser_id());
-		
+		UsersVO loginUser = usersService.getUsers(tVo.getUser_id());
 		
 		vo.setCamp_name(tVo.getCamp_name());
 		vo.setCamp_zone(tVo.getCamp_zone());
@@ -136,15 +145,14 @@ public class CampOrderController {
 		/*
 		 * 결제 후 처리
 		 */
-		String retUrl = "";
+		String retUrl = "index";
 		
 		HttpSession hSession = request.getSession();
 		
 		try{
-
-			//#############################
-			// 인증결과 파라미터 일괄 수신
-			//#############################
+			/*
+			 *  인증결과 파라미터 일괄 수신
+			 */
 			request.setCharacterEncoding("UTF-8");
 			Map<String,String> paramMap = new Hashtable<String,String>();
 			Enumeration elems = request.getParameterNames();
@@ -159,11 +167,11 @@ public class CampOrderController {
 			System.out.println("paramMap : "+ paramMap.toString());
 	
 			
-			// STEP2 에 이어 인증결과가 성공일 경우 STEP2 에서 받은 인증결과로 아래 승인요청 진행
+			// 인증결과가 성공일 경우, 전달받은 인증결과로 아래 승인요청 진행
 			
-			//#####################
-			// 인증이 성공일 경우만
-			//#####################
+			/*
+			 *  인증이 성공일 경우만
+			 */
 			if("0000".equals(paramMap.get("resultCode"))){
 				// 1. 전문 필드 값 설정(*** 가맹점 개발수정 ***)
 			
@@ -179,25 +187,22 @@ public class CampOrderController {
 				String authUrl= paramMap.get("authUrl");        // 승인요청 API url(수신 받은 값으로 설정, 임의 세팅 금지)
 				String netCancel= paramMap.get("netCancelUrl"); // 망취소 API url(수신 받은 값으로 설정, 임의 세팅 금지)
 				
-				//#####################
-				// 2.signature 생성
-				//#####################
+				/*
+				 *  2.signature 생성
+				 */
 				SHA256 sha256 = new SHA256();
-				// signature 데이터 생성 (모듈에서 자동으로 signParam을 알파벳 순으로 정렬후 NVP 방식으로 나열해 hash)
 				String sha = "authToken="+authToken+"&timestamp="+timestamp;
 				String signature = "";
-				
+				// SAH 256 을 이용해 signature 데이터 생성(모듈에서 자동으로 signParam을 알파벳순으로 정렬 후 NVP 방식으로 나열해 hash
 				try {
-					// signature 데이터 생성(모듈에서 자동으로 signParam을 알파벳순으로 정렬 후 NVP 방식으로 나열해 hash
 					signature = sha256.encrypt(sha);
-					
 				} catch (NoSuchAlgorithmException e) {
 					e.printStackTrace();
 				}
 				
-				//#####################
-				// 3.API 요청 전문 생성
-				//#####################
+				/*
+				 *  3.API 요청 전문 생성
+				 */
 				List<NameValuePair> param = new ArrayList<NameValuePair>();
 				
 				// BasicNameValuePair의 Key = input태그의 name,
@@ -213,9 +218,9 @@ public class CampOrderController {
 				System.out.println("##승인요청 API 요청##");
 				
 				
-				//#####################
-				// 4.API 통신 시작
-				//#####################
+				/*
+				 *  4.API 통신 시작
+				 */
 				HttpUtil httpUtil = new HttpUtil();
 				String result = httpUtil.sendRequest(authUrl, param);
 				
@@ -248,31 +253,9 @@ public class CampOrderController {
 					
 					campOrderService.insertCampOrder(vo);
 					
-					// 예약 목록 10개 조회
-					List<CampOrderVO> campOrderList = campOrderService.getMyListWithPaging(criteria, loginUser.getId());
-					
-					// 화면에 표시할 페이지 버튼정보 생성
-					PageMaker pageMaker = new PageMaker();
-					int totalCount = campOrderService.countMyOrderList(loginUser.getId());
-				
-					pageMaker.setCriteria(criteria); // 현재 페이지와 페이지당 항목 수 정보 설정
-					pageMaker.setTotalCount(totalCount); // 전체 예약현황 목록 갯수 설정 및 페이지 정보 초기화
-					
-					Date date = new Date();
-					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-					String today = sdf.format(date);
-				
-					model.addAttribute("today", today);
-					model.addAttribute("campOrderList", campOrderList);
-					model.addAttribute("pageMaker", pageMaker);
-						
-					
-					
-					retUrl = "camping/campOrderList";
+					retUrl = "camping/successOrder";
 				} else {
-					// 실패일 때, 
 				    // 인증 실패시
-					//#############
 					System.out.println("<br/>");
 					System.out.println("####인증실패####");
 					System.out.println("<p>"+paramMap.toString()+"</p>");
@@ -285,6 +268,10 @@ public class CampOrderController {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+		
+		tempOrderService.deleteTempOrder(tVo.getTemp_id());
+		
+		session.setAttribute("loginUser", loginUser);
 		
 		return retUrl;
 	}
@@ -413,7 +400,22 @@ public class CampOrderController {
 	 */
 	// 예약 현황 조회 페이지로 이동
 	@RequestMapping(value="/search_order", method = RequestMethod.GET)
-	public String orderList(Model model) {
+	public String orderList(Model model,HttpSession session, Criteria criteria) {
+		AdminVO loginAdmin = (AdminVO)session.getAttribute("loginAdmin");
+		
+		// 예약현황 10개 조회
+		List<CampOrderVO> orderList = campOrderService.getAllListWithPaging(criteria);
+		
+		//화면에 표시할 페이지 버튼 정보 생성
+		PageMaker pageMaker = new PageMaker();
+		int totalCount = campOrderService.countAllOrderList();
+		
+		pageMaker.setCriteria(criteria); // 현재 페이지와 페이지당 항목 수 정보 설정
+		pageMaker.setTotalCount(totalCount); // 전체 예약현황 목록 갯수 설정 및 페이지 정보 초기화
+		
+		model.addAttribute("orderList", orderList);
+		model.addAttribute("pageMaker", pageMaker);
+		model.addAttribute("admin_name", loginAdmin.getName());
 		
 		return "admin/campOrder/admin_orderList";
 	}
@@ -482,10 +484,15 @@ public class CampOrderController {
 	    String tid=pay.getTid();      // 40byte 승인 TID 입력
 	    String msg="거래취소요청";
 	    
+	    System.out.println(timestamp);
+	    System.out.println(tid);
+	    
 	    //Hash 암호화
 	    String data_hash=Key+type+paymethod+timestamp+clientIp+mid+tid;
 	    SHA256 sha256 = new SHA256();
-	    String hashData = sha256.encrypt(data_hash); // SHA_512_Util 을 이용하여 hash암호화(해당 LIB는 직접구현 필요)
+	    String hashData = sha256.getSHA512(data_hash); // SHA_512_Util 을 이용하여 hash암호화(해당 LIB는 직접구현 필요)
+	    
+	    System.out.println(hashData);
 	         
 	    // 전송 URL
 	    String APIURL="https://iniapi.inicis.com/api/v1/refund"; // 전송 URL
@@ -522,6 +529,7 @@ public class CampOrderController {
 
 		campOrderCancelService.insertOrderCancel(vo);
 		campOrderService.deleteOrderByOseq(vo.getOseq());
+		payService.deletePay(pay.getTid());
 	    
 	    return "admin/campOrder/admin_orderList";
 	}
@@ -607,23 +615,28 @@ public class CampOrderController {
 		PayVO pay = payService.getPay(pVo);
 		
 		Date now = new Date();
-		SimpleDateFormat formmat = new SimpleDateFormat("yyyyMMddHHmmss");
+		SimpleDateFormat formmat = new SimpleDateFormat("yyyyMMddHHmmss"); 
 		
-	      
+		
 	    //step1. 요청을 위한 파라미터 설정
 	    String mid="INIpayTest";
 	    String Key="ItEQKi3rY7uvDS8l"; // INIpayTest 의 INIAPI key
 	    String type="Refund";          // "Refund" 고정
 	    String paymethod="Card";
 	    String timestamp = formmat.format(now);  // 검증용 시간값
-	    String clientIp="192.168.1.112";
+	    String clientIp="127.0.0.1";
 	    String tid=pay.getTid();      // 40byte 승인 TID 입력
-	    String msg="";
+	    String msg="거래취소요청";
+	    
+	    System.out.println(timestamp);
+	    System.out.println(tid);
 	    
 	    //Hash 암호화
 	    String data_hash=Key+type+paymethod+timestamp+clientIp+mid+tid;
 	    SHA256 sha256 = new SHA256();
-	    String hashData = sha256.encrypt(data_hash); // SHA_512_Util 을 이용하여 hash암호화(해당 LIB는 직접구현 필요)
+	    String hashData = sha256.getSHA512(data_hash); // SHA_512_Util 을 이용하여 hash암호화(해당 LIB는 직접구현 필요)
+	    
+	    System.out.println(hashData);
 	         
 	    // 전송 URL
 	    String APIURL="https://iniapi.inicis.com/api/v1/refund"; // 전송 URL
@@ -657,8 +670,9 @@ public class CampOrderController {
 	    }catch (Exception ex) {
 	    	ex.printStackTrace();
 	    }
-		
+
 		campOrderCancelService.updateCancelStatus(vo.getCseq());
+		payService.deletePay(pay.getTid());
 		
 		return "admin/campOrder/admin_cancelList";
 	}
@@ -679,6 +693,11 @@ public class CampOrderController {
 
 		conditionMap.put("지점을 선택하세요", "0");
 		conditionMap.put("캠핑족장-강원도지점", "1");
+		conditionMap.put("캠핑족장-경기도지점", "2");
+		conditionMap.put("캠핑족장-충청도지점", "3");
+		conditionMap.put("캠핑족장-경상도지점", "4");
+		conditionMap.put("캠핑족장-전라도지점", "5");
+		conditionMap.put("캠핑족장-제주도지점", "6");
 
 		return conditionMap;
 	}
