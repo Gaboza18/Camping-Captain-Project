@@ -253,6 +253,15 @@ form#camp_search input#btn{
     height: 140px;
 	display: block;
     float: left;
+    border: none;
+}
+
+#campZoneList table th{
+    border: none;
+}
+
+#campZoneList table td{
+    border: none;
 }
 
 #campZoneList #button {
@@ -272,6 +281,13 @@ form#camp_search input#btn{
 	border: 1px solid rgb(20, 92, 28);
 	border-radius: 10px;
 	padding: 20px;
+}
+#orderForm th{
+    border: none;
+}
+
+#orderForm td{
+    border: none;
 }
 
 #campOrder div#buttons{
