@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletResponse;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -20,16 +21,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.camping.biz.camporder.CampOrderService;
 import com.camping.biz.campordercancel.CampOrderCancelService;
 import com.camping.biz.dto.UsersVO;
 import com.camping.biz.users.UsersService;
 
+
 @Controller
 @SessionAttributes("loginUser")
+
 public class UsersController {
+	// 이메일 인증 이메일 보낼때 필요한 객체
+//    @Autowired
+//    private MailSendService mss;
 
 	@Autowired
 	private UsersService usersService;
@@ -37,6 +43,7 @@ public class UsersController {
 	private CampOrderService campOrderService;
 	@Autowired
 	private CampOrderCancelService campOrderCancelService;
+
 
 	/*
 	 * @RequestMapping(value = "/index", method = RequestMethod.GET) public String
@@ -47,29 +54,37 @@ public class UsersController {
 	
 	// 로그인페이지로 이동
 	@GetMapping(value = "/login")
-	public String loginView() {
+	public String loginView(HttpSession session) {
+		//일반 로그인창 진입시 admin세션 삭제 => 이유: admin과 user 아이디 동시에 접속시
+		//admin 권한을 없애기 위해
+		session.removeAttribute("loginAdmin");
+		
 		return "Users/login";
 	}
 	
 	/*
+	 * 사용자 로그인 처리 VO, 객체에서 id, password 정보를 읽어와 사용자 인증
 	 * 사용자 로그인 표시 
 	 * vo객체에서 사용자id, password 정보를 읽어와 사용자 인증
 	 */
-
 	@PostMapping(value = "/login")
-	public String loginAction(UsersVO vo, Model model) {
+	public String loginAction(UsersVO vo, Model model,HttpSession session) {
 
 		UsersVO loginUser = null;
-
+	
 		int result = usersService.loginID(vo);
 
-		if (result == 1) { // 사용자 인증 성공
+		if (result == 1) { // 인증성공시
 			// 사용자 정보를 조회하여 Session 객체에 저장
 			loginUser = usersService.getUsers(vo.getId());
-			//@SessionAttributes로 지정하여 세션에도 저장됨 
+			
+			//admin session 삭제
+			session.removeAttribute("loginAdmin");
+
+			// @SessionAttribute로 지정하여 세션에도 저장됨
 			model.addAttribute("loginUser", loginUser);
 
-			return "index"; // 사용자 인증 성공시  index.jsp 페이지로 이동
+			return "index"; // 로그인 성공하면 index.jsp로 이동
 		} else { // 사용자 인증 실패
 			return "Users/login_fail";
 		}
@@ -77,6 +92,9 @@ public class UsersController {
 
 	@GetMapping(value = "/logout")
 	public String logout(SessionStatus status) {
+
+		// session.invalidate는 완전히 로그아웃하지 않기 때문에 안씀
+
 		// session.invalidate  // 완전하게 로그아웃이 동작하지않음
 		status.setComplete();
 
@@ -92,10 +110,12 @@ public class UsersController {
 	// 약관 동의하면 회원가입페이지로 이동
 	@PostMapping(value = "/join_form")
 	public String joinView() {
+		System.out.println("회원가입진입");
 		return "Users/join";
 	}
 
 	/*
+	 * ID 중복 체크 화면 출력 
 	 * ID 중복체크 화면 출력
 	 */
 	@GetMapping(value = "/id_check_form")
@@ -119,30 +139,66 @@ public class UsersController {
 		return "Users/idcheck";
 
 	}
+	
+	//이메일 체크 화면
+	
+	
+	//참고 자료 홈페이지 내용 : 3-1. DB에 기본 정보 저장 이메일 인증실패-전송만가능
+//	@GetMapping(value="/signUpConfirm")
+//	public String emailView(UsersVO vo, Model model) {
+//		
+//		//이메일 인증
+//		 String emailchk = mss.sendemailchkMail(vo.getEmail());
+//	     vo.setEmailchk(emailchk);   
+//		 
+//		 
+//
+//	        Map<String, String> map = new HashMap<String, String>();
+//	        map.put("email", vo.getEmail());
+//	        map.put("authKey", vo.getEmailchk());
+//	        System.out.println(map);
+//
+//	      //DB에 emailchk 업데이트
+//	     usersService.emailchk(map);
+//		
+//	
+//		model.addAttribute("email", vo.getEmail());
+//		return "Users/emailcheck";
+//	}
+	
+	
+
+//	 @PostMapping(value="/resignUpConfirm") public String
+//	  signUpConfirm(UsersVO vo){
+//	  //email, authKey 가 일치할경우 authStatus 업데이트 
+//		 usersService.updateemailchk(vo);
+//	  
+//	
+//		 return "Users/signUp_confirm";
+//	  }
+	 
 
 	/*
 	 * 사용할 id를 join(회원가입)화면에 전송
 	 */
 	@GetMapping(value = "/id_check_confirmed")
 	public String idCheckConfirmed(UsersVO vo, Model model) {
-		
-		model.addAttribute("id", vo.getId()); // id 값을 모델에 저장해서 회원가입 화면으로 전달
-		
+		model.addAttribute("id", vo.getId()); // id 값을 모델에 저장해서 회원가입 화면으로 전달, id 중복확인 필드
 		return "Users/join";
-
 	}
 
 	/*
 	 * 회원가입 처리
 	 */
+
 	@PostMapping(value = "/join")
 	public String joinAction(@RequestParam(value="birth") String birth, @RequestParam(value="birth_gen") String birth_gen, UsersVO vo) {
 		vo.setBirthday(birth+birth_gen);
 		usersService.insertUsers(vo);
-		
+
 		return "Users/login";
 	}
-
+	
 	// 회원탈퇴페이지로 이동
 	@RequestMapping(value = "/deleteIdView", method = RequestMethod.GET)
 	public String usersDeleteView(Model model, HttpSession session) {
@@ -157,7 +213,9 @@ public class UsersController {
 		model.addAttribute("CancelCount", CancelCount);
 		
 		return "Users/deleteIdView";
+
 	}
+	
 
 	// 회원 탈퇴 실행
 	@RequestMapping(value = "/usersDelete", method = RequestMethod.POST)
@@ -167,8 +225,41 @@ public class UsersController {
 		status.setComplete();
 		
 		return "redirect:/index";
-
 	}
+		
+	
+
+	
+	//----------------- 회원탈퇴 post
+	@RequestMapping(value = "/usersDelete", method = RequestMethod.POST)
+	public String usersDelete(UsersVO vo, HttpSession session, SessionStatus status
+			) throws Exception {
+		
+		UsersVO deleteUser = (UsersVO) session.getAttribute("loginUser");
+		
+	if (deleteUser == null) {
+			return "Users/deleteIdView"; 
+				
+			}else {
+			
+				vo.setId(deleteUser.getId());
+				vo.setPassword(deleteUser.getPassword());
+				
+				
+				
+//				model.addAttribute("id", vo.getId());
+//				model.addAttribute("password", vo.getPassword());
+				usersService.deleteId(vo);
+				status.setComplete();
+
+				return "redirect:/index";
+
+			}
+			
+			
+			
+	}
+	
 
 	// 마이페이지로 이동
 	@GetMapping(value = "/mypage")
@@ -185,14 +276,32 @@ public class UsersController {
 			return "mypage/mypage";
 		} 
 	}
+	//회원가입 수정
 
 	@RequestMapping(value = "/usermodify", method = RequestMethod.GET)
-	public String registerUpdateView() throws Exception {
+	public String registerUpdateView(HttpSession session, Model model) throws Exception {
+		UsersVO loginUser = (UsersVO) session.getAttribute("loginUser");
+		
+		UsersVO users = usersService.getUsers(loginUser.getId());
+		model.addAttribute("users",users);
+		
 		return "mypage/userModify";
+	}
+	
+	// update 구문
+	@RequestMapping(value="/usersUpdate", method = RequestMethod.POST)
+	public String userUpdate(UsersVO vo, SessionStatus status )  {
+		
+		
+		usersService.updateUser(vo);
+		status.setComplete();
+					
+		return "redirect:/";
+		
 	}
 
 	/*
-	 * id 찾기 페이지로 이동
+	 * 아이디 찾기 페이지 이동
 	 */
 	@RequestMapping(value = "/find_id")
 	public String findView() {
@@ -200,7 +309,7 @@ public class UsersController {
 	}
 
 	/*
-	 * id 찾기 수행
+	 * 아이디 찾기 실행
 	 */
 	@RequestMapping(value = "/find_id", method = RequestMethod.POST)
 	public String findIdAction(UsersVO vo, Model model) {
@@ -216,18 +325,10 @@ public class UsersController {
 		return "Users/find_id";
 	}
 
-	@RequestMapping(value = "/usersUpdate", method = RequestMethod.POST)
-	public String userUpdate(UsersVO vo, HttpSession session) {
-
-		session.invalidate();
-		usersService.updateUser(vo);
-
-		return "redirect:/";
-
-	}
+	
 
 	/*
-	 * 비밀번호 찾기 페이지로 이동
+	 * 비밀번호 찾기 페이지 이동
 	 */
 	@RequestMapping(value = "/find_pwd")
 	public String findPwdView() {
@@ -235,7 +336,7 @@ public class UsersController {
 	}
 
 	/*
-	 * 비밀번호 찾기 
+	 * 비밀번호 찾기로 실행
 	 */
 	@RequestMapping(value = "Users/find_pwd", method = RequestMethod.POST)
 	public void findPwdPOST(@ModelAttribute UsersVO user, HttpServletResponse response) throws IOException {

@@ -26,6 +26,7 @@ import com.camping.biz.dto.QnaVO;
 import com.camping.biz.dto.RealReviewVO;
 import com.camping.biz.dto.UsersAge;
 import com.camping.biz.dto.UsersRatio;
+import com.camping.biz.dto.UsersVO;
 import com.camping.biz.qna.QnaService;
 import com.camping.biz.realreview.RealReviewService;
 import com.camping.biz.users.UsersService;
@@ -309,7 +310,8 @@ public class AdminController {
 	
 	
 	@RequestMapping(value = "/adminReview", method = RequestMethod.GET)
-	public String reviewList(@RequestParam(value = "key", defaultValue = "") String title, Criteria criteria,
+	public String reviewList(@RequestParam(value = "key", defaultValue = "")
+			 String title,  Criteria criteria, RealReviewVO vo,
 			HttpSession session, Model model) {
 
 		//realreviewVo에 디테일 볼 수 있는 로직을 썼는데, 세션에 저장이 안되었을가봐 list볼때에도 if 문으로 login문 구현
@@ -318,6 +320,7 @@ public class AdminController {
 			return "admin/admin_login";
 
 		}else {
+			vo.setRseq(vo.getRseq());
 		
 		// 공지사항 목록 조회 - 공지사항 10개만 조회
 
@@ -329,12 +332,99 @@ public class AdminController {
 
 		pageMaker.setCriteria(criteria); // 현재 페이지와 페이지당 항목 수 정보 설정
 		pageMaker.setTotalCount(totalCount); // 전체 공지사항 목록 갯수 설정 및 페이지 정보 초기화
-
+		//리뷰 삭제
+		reviewsService.deletereviews(vo.getRseq());
+		
 		model.addAttribute("reviewList", reviewList); // 변수, 값 순서임 왼쪽 변수는 reviewList에서 <for:each>의 변수와 동일함
 		model.addAttribute("reviewListSize", reviewList.size());
 		model.addAttribute("pageMaker", pageMaker);
 
-		return "realreview/reviewList";
+		return "admin/managerealreview";
 	}
+		
+		
 	}
+	
+	@RequestMapping(value = "manage_review_detail", method = RequestMethod.GET)
+	public String reviewDetail(HttpSession session, RealReviewVO vo, Model model, int rseq) {
+
+		
+		AdminVO loginAdmin = (AdminVO) session.getAttribute("loginAdmin");
+		
+		if (loginAdmin == null) {
+			return "admin/admin_login";
+
+		}else {
+			//admin 로그인시 리뷰상세보기
+			reviewsService.updateViewCount(vo.getRseq()); // 조회수 증가
+			String loginadmin = loginAdmin.getId();
+			RealReviewVO reviewsDetail = reviewsService.detailReviews(rseq);
+			model.addAttribute("RealReviewVO", reviewsDetail);
+			model.addAttribute("loginAdmin1", loginadmin);
+			return "admin/manageReviewDetail";
+		
+		}
+	}
+	
+	//밑의 코드는 관리자 리뷰 삭제 페이지에서 삭제할때 돌아가지 않음
+	
+	/*
+	@RequestMapping(value="/manage_review_list", method = RequestMethod.GET)
+	public String deletereviews(@RequestParam(value="rseq") int rseq, HttpSession session, Model model,Criteria criteria, String title, RealReviewVO vo) throws Exception {
+	AdminVO loginAdmin = (AdminVO) session.getAttribute("loginAdmin");
+		
+		if (loginAdmin == null) {
+			return "admin/admin_login";
+
+		}else {
+		
+			vo.setRseq(vo.getRseq());
+			
+			
+			//model.addAllAttributes(reviewsService.listReview(vo));
+			reviewsService.deletereviews(rseq);
+			// 공지사항 목록 조회 - 공지사항 10개만 조회
+
+			List<RealReviewVO> reviewList = reviewsService.getListWithPaging(criteria, title);
+			// 화면에 표시할 페이지 버튼 정보 설정
+			PageMaker pageMaker = new PageMaker();
+			int totalCount = reviewsService.countReviewlist(title);
+
+		pageMaker.setCriteria(criteria); // 현재 페이지와 페이지당 항목 수 정보 설정
+			pageMaker.setTotalCount(totalCount); // 전체 공지사항 목록 갯수 설정 및 페이지 정보 초기화
+
+			model.addAttribute("reviewList", reviewList); // 변수, 값 순서임 왼쪽 변수는 reviewList에서 <for:each>의 변수와 동일함
+			model.addAttribute("reviewListSize", reviewList.size());
+			model.addAttribute("pageMaker", pageMaker);
+			
+			return "admin/managerealreview";
+	}
+		
+	}
+	*/
+	
+	// 지점별 리뷰 필터링(지점별 선택시 필터링됨)
+	@RequestMapping(value="/arealist", method = RequestMethod.GET) 
+	@ResponseBody
+	
+	public List<RealReviewVO> areaList(@RequestParam(value="campingname") String campingname, 
+										RealReviewVO vo, Model model) {
+		
+		System.out.println("area="+campingname);
+		vo.setCampingname(campingname+"지점");
+
+		List<RealReviewVO> reviewlist= reviewsService.areaList(vo);
+		
+		for(RealReviewVO review: reviewlist) {
+			System.out.println(review);
+		}
+		//model.addAttribute("reviewList", reviewlist);
+		
+		return reviewlist;
+		
+	}
+	
+
+	
+	
 }

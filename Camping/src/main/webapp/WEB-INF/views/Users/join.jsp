@@ -40,7 +40,7 @@
 	        
 	    	<tr>
 		        <th>E-Mail</th>
-		        <td><input type="text" name="email"></td>
+		        <td><input type="text" name="email"> <input type="button" value="이메일 인증"  class="dup" onclick="emailcheck()"></td>
 	        </tr>
 	        
 	    	<tr>
@@ -49,7 +49,7 @@
 	        </tr>
 	        
         </table>
-        
+      
       	<div class="clear"></div>
       
       	<div id="buttons">

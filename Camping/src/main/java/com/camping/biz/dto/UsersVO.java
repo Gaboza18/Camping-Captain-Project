@@ -18,5 +18,5 @@ public class UsersVO {
 	private String phone;
 	private Timestamp regdate;
 	private String status;
-	private String emailchk;
+	private int users_auth;
 }

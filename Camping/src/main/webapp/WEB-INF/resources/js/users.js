@@ -34,6 +34,26 @@ function idcheck() {
    window.open(url, "_blank_", "toolbar=no, menubar=no, scrollbars=no, resizable=yes, width=500, height=300");
 }
 
+
+/*
+ *  emailcheck 화면출력
+ */
+
+function emailcheck() {
+
+	   if ($("#email").val() == "") { // id 입력하지 않았을떄
+	      alert("이메일을 입력해주세요");
+	      $("#email").focus();
+	      return false;
+	   }
+
+	   // id가 입력이 되었으면 id 중복확인 윈도우 창 오픈(윈도우창 크기 및 사이즈 변경 여부)
+	   var url = "signUpConfirm?email=" + $("#email").val();
+	   window.open(url, "_blank_", "toolbar=no, menubar=no, scrollbars=no, resizable=yes, width=350, height=200");
+	}
+
+
+
 /*
  *  중복확인 ID 사용
  */

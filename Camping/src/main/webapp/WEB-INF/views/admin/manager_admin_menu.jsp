@@ -15,7 +15,8 @@
 	      	<ul class="header_submenu">
 	      		<li><a href="manager_admin_notice_list">관리자 게시판</a></li>
 	      		<li><a href="#">회원 게시판 관리</a></li>
-	      		<li><a href="#">후기 관리</a></li>
+	      		
+	      		<li><a href="adminReview">후기 관리</a></li>
 	      	</ul>
 	      </li>
 	      <li><a href="branch_calculate_year?name=${loginAdmin.name}">연도별 정산</a></li>
