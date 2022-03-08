@@ -13,7 +13,7 @@
 	      <li>
 	      	<a href="#">게시판</a>
 	      	<ul class="header_submenu">
-	      		<li><a href="#">관리자 게시판</a></li>
+	      		<li><a href="manager_admin_notice_list">관리자 게시판</a></li>
 	      		<li><a href="#">회원 게시판 관리</a></li>
 	      		
 	      		<li><a href="adminReview">후기 관리</a></li>
@@ -24,3 +24,4 @@
 	      <li><a href="branch_calculate_day?name=${loginAdmin.name}">일일 별 정산</a></li>    
 	    </ul>
     </nav>
+   <h2>${loginAdmin.name} 관리자님 환영합니다</h2> 

@@ -12,7 +12,7 @@ import com.camping.biz.dto.UsersVO;
 
 
 public interface UsersService {
-	// DAO占쏙옙占쏙옙 占쏙옙체 Users id 占쌨아울옙占쏙옙 - > 占쏙옙占쏙옙占쏙옙 Impl占쏙옙占쏙옙
+	// DAO�뜝�룞�삕�뜝�룞�삕 �뜝�룞�삕泥� Users id �뜝�뙣�븘�슱�삕�뜝�룞�삕 - > �뜝�룞�삕�뜝�룞�삕�뜝�룞�삕 Impl�뜝�룞�삕�뜝�룞�삕
 	public UsersVO getUsers(String id);
 
 	public int confirmID(String id);
@@ -23,24 +23,23 @@ public interface UsersService {
 
 	public List<UsersVO> listUsers(String name);
 
-	public UsersVO findId(UsersVO vo); // 회占쏙옙 ID 찾占쏙옙
+	public UsersVO findId(UsersVO vo); // �쉶�뜝�룞�삕 ID 李얍뜝�룞�삕
 
-	public int updatePwd(UsersVO vo); // 회占쏙옙 Pwd 占쏙옙占쏙옙
+	public int updatePwd(UsersVO vo); // �쉶�뜝�룞�삕 Pwd �뜝�룞�삕�뜝�룞�삕
 
-	public void sendEmailPwd(UsersVO vo, String div); // 회占쏙옙 Pwd 찾占쏙옙 占싱몌옙占쏙옙 占쌩쇽옙
+	public void sendEmailPwd(UsersVO vo, String div); // �쉶�뜝�룞�삕 Pwd 李얍뜝�룞�삕 �뜝�떛紐뚯삕�뜝�룞�삕 �뜝�뙥�눦�삕
 
-	public void findPwd(HttpServletResponse response, UsersVO vo) throws IOException; // 占쏙옙占싱듸옙/占싱몌옙占쏙옙 占쏙옙회 占싹울옙 占쌈시븝옙橘占싫� 占쏙옙占쏙옙
+	public void findPwd(HttpServletResponse response, UsersVO vo) throws IOException; // �뜝�룞�삕�뜝�떛�벝�삕/�뜝�떛紐뚯삕�뜝�룞�삕 �뜝�룞�삕�쉶 �뜝�떦�슱�삕 �뜝�뙂�떆釉앹삕艅섇뜝�떕占� �뜝�룞�삕�뜝�룞�삕
 	
-	//회占쏙옙占쏙옙占쏙옙
-	public void deleteId(UsersVO vo )throws Exception;
+	//�쉶�뜝�룞�삕�뜝�룞�삕�뜝�룞�삕
+	public void deleteId(UsersVO vo);
 	
-	// 회占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙
+	// �쉶�뜝�룞�삕�뜝�룞�삕�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕
 	public void updateUser(UsersVO vo);
 		
-	public List<UsersRatio> getGenderRatio(); // 회원 통계(남,녀성비) 조회
+	public List<UsersRatio> getGenderRatio(); // �쉶�썝 �넻怨�(�궓,���꽦鍮�) 議고쉶
 	
 	public List<UsersAge> getAge(); // 회원 통계(연령별 회원수) 조회
-
 
 // <이메일 인증 구현시 이메일만 전송할 수 있는 부분
 //	public void emailchk(Map<String, String> map);
@@ -48,5 +47,6 @@ public interface UsersService {
 	
 //	public String statusChange(char status);
 	
+	public List<UsersAge> getAge(); // �쉶�썝 �넻怨�(�뿰�졊蹂� �쉶�썝�닔) 議고쉶
 	
 }

@@ -25,4 +25,19 @@ public class QuestionServiceImpl implements QuestionService {
 		return questionsDao.detailQuestion(qseq);
 	}
 
+	@Override
+	public void insertQuestion(QuestionsVO vo) {
+		questionsDao.insertQuestion(vo);
+	}
+
+	@Override
+	public void deleteQuestion(int qseq) {
+		questionsDao.deleteQuestion(qseq);
+	}
+
+	@Override
+	public void updateQuestion(QuestionsVO vo) {
+		questionsDao.updateQuestion(vo);
+	}
+
 }

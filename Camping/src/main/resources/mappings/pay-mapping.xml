@@ -11,4 +11,9 @@
 	<select id="getPay" resultType="pay">
 		SELECT * FROM pay WHERE user_id=#{user_id} AND camp_zone=#{camp_zone} AND indate=#{indate}
 	</select>
+	
+	<!-- 결제 취소시 실결제 테이블 정보 삭제 -->
+	<delete id="deletePay">
+		DELETE FROM pay WHERE tid=#{tid}
+	</delete>
 </mapper>

@@ -10,20 +10,21 @@
 <link href="CSS/subpage.css" rel="stylesheet">
 <style type="text/css">
 body{   
-  background-color:#B96DB5;
-  font-family: Verdana;
+	text-align: center;
+	background-color:rgb(36, 204, 99);
 }
+
 #wrap{     
-  margin: 0 20px;
+	margin: 70px auto;
 }
+
 h1 {
-  font-family: "Times New Roman", Times, serif;
-  font-size: 45px;
-  color: #CCC;
-  font-weight: normal;
+	font-size: 45px;
+	color: #CCC;
+	font-weight: normal;
 }
+
 input[type=button], input[type=submit] {
-  float: right;
 }
 </style>
 <script type="text/javascript">

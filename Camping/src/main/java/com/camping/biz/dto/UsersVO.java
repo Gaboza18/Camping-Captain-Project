@@ -14,7 +14,7 @@ public class UsersVO {
 	private String password;
 	private String name;
 	private String email;
-	private int birthday;
+	private String birthday;
 	private String phone;
 	private Timestamp regdate;
 	private String status;

@@ -60,6 +60,7 @@ public class CampingController {
 		model.addAttribute("outdate", outdate);
 		model.addAttribute("selected", search_camp_name);
 		model.addAttribute("order", orderList);
+		model.addAttribute("camp_id", camp_id);
 		
 		return "camping/campingList";
 	}
@@ -70,6 +71,11 @@ public class CampingController {
 
 		conditionMap.put("지점을 선택하세요", "0");
 		conditionMap.put("캠핑족장-강원도지점", "1");
+		conditionMap.put("캠핑족장-경기도지점", "2");
+		conditionMap.put("캠핑족장-충청도지점", "3");
+		conditionMap.put("캠핑족장-경상도지점", "4");
+		conditionMap.put("캠핑족장-전라도지점", "5");
+		conditionMap.put("캠핑족장-제주도지점", "6");
 
 		return conditionMap;
 	}

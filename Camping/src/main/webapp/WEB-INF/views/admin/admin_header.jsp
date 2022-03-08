@@ -78,10 +78,17 @@
 				</a>
 			</div>
 			<div>
-				<input type="text" name="name" value="${loginAdmin.name}">
+				<input type="hidden" name="name" value="${loginAdmin.name}">
 			</div>
-			<!-- 로고 들어가는 라인 우측(로그인, 회원가입 버튼) -->
 			<nav id="admin_logout">
+				<c:choose>
+					<c:when test="${loginAdmin.status eq 1}">
+						<b>${sessionScope.loginAdmin.name}</b> 님
+					</c:when>
+					<c:when test="${loginAdmin.status eq 2}">
+						<b>${sessionScope.loginAdmin.name}</b> 관리자님
+					</c:when>
+				</c:choose> 
 				<a href="admin_logout">LOGOUT</a>
 			</nav>
 			<div class="clear"></div>

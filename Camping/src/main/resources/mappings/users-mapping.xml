@@ -15,8 +15,8 @@
 
 <!-- users등록  -->
 <insert id="insertUsers">
-INSERT INTO users(id,password,name,email,phone)
-VALUES(#{id}, #{password}, #{name}, #{email},#{phone})
+INSERT INTO users(id,password,name,email,birthday,phone)
+VALUES(#{id}, #{password}, #{name}, #{email},#{birthday},#{phone})
 </insert>
 
 <!-- users 전체 목록 조회 -->
@@ -28,7 +28,7 @@ VALUES(#{id}, #{password}, #{name}, #{email},#{phone})
 
 <!-- 회원탈퇴 -->
 <delete id="deleteId">
-	DELETE FROM users WHERE id= #{id} AND password= #{password}   
+	DELETE FROM users WHERE id= #{id} 
 
 </delete>  
 

@@ -58,4 +58,9 @@ public class CampOrderCancelServiceImpl implements CampOrderCancelService {
 		cDao.updateCancelStatus(cseq);
 	}
 
+	@Override
+	public int countMyNonCancelList(String usersid) {
+		return cDao.countMyNonCancelList(usersid);
+	}
+
 }

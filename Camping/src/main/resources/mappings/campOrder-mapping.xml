@@ -5,10 +5,9 @@
 	<!-- 예약정보 insert -->
 	<insert id="insertCampOrder">
 		INSERT INTO camp_order(oseq, camp_name, camp_zone, indate, outdate, user_id, order_name, order_people, order_phone, order_email, total_price)
-		VALUES(camp_order_seq.NEXTVAL, #{camp_name}, #{camp_zone}, #{indate}, #{outdate},
-		 		#{user_id}, #{order_name}, #{order_people}, #{order_phone}, #{order_email}, #{total_price})
+		VALUES(camp_order_seq.NEXTVAL, #{camp_name}, #{camp_zone}, #{indate}, #{outdate}, #{user_id}, #{order_name}, #{order_people}, #{order_phone}, #{order_email}, #{total_price})
 	</insert>
-	
+		
 	<!-- 예약정보 조회 -->
 	<select id="getCampOrderList" resultType="campOrder">
 		SELECT * FROM camp_order WHERE indate=#{indate}
@@ -63,6 +62,26 @@
 				SELECT row_number() over(ORDER BY indate DESC) rn, oseq, camp_name, camp_zone, user_id, order_name, indate, outdate, total_price, order_phone, order_email, order_status
 					FROM camp_order 
 						WHERE camp_name=#{camp_name}	
+				)
+				WHERE rn<=#{criteria.pageNum} * #{criteria.rowsPerPage}  
+					AND rn>=(#{criteria.pageNum}-1) * #{criteria.rowsPerPage}
+	]]>
+	</select>
+	
+	<!-- 전체 지점 총 예약현황 목록 갯수 조회 -->
+	<select id="countAllOrderList" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM camp_order 
+	</select>
+	
+	<!-- 전체 지점 페이징 처리(1~10개씩 출력) / 지점 선택 기능 -->
+	<select id="AlllistWithPaging" parameterType="hashMap" resultType="campOrder">
+		<![CDATA[
+		
+		SELECT oseq, camp_name, camp_zone, user_id, order_name, indate, outdate, total_price, order_phone, order_email, order_status
+			FROM
+				(
+				SELECT row_number() over(ORDER BY indate DESC) rn, oseq, camp_name, camp_zone, user_id, order_name, indate, outdate, total_price, order_phone, order_email, order_status
+					FROM camp_order 
 				)
 				WHERE rn<=#{criteria.pageNum} * #{criteria.rowsPerPage}  
 					AND rn>=(#{criteria.pageNum}-1) * #{criteria.rowsPerPage}
