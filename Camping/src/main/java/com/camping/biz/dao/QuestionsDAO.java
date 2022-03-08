@@ -14,14 +14,28 @@ public class QuestionsDAO {
 	@Autowired
 	private SqlSessionTemplate mybatis;
 
-	// ÀüÃ¼ ÀÚÁÖ¹¯´ÂÁú¹® Á¶È¸
+	// ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸
 	public List<QuestionsVO> listQuestion() {
 		return mybatis.selectList("mappings.question-mapping.listAllQuestion");
 	}
 
-	// ÀÚÁÖ¹¯´ÂÁú¹® »ó¼¼ º¸±â
+	// ï¿½ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	public QuestionsVO detailQuestion(int qseq) {
 		return mybatis.selectOne("mappings.question-mapping.detailQuestion", qseq);
 	}
-
+	
+	// ìì£¼ ë¬»ëŠ” ì§ˆë¬¸ ë“±ë¡(ì´ê´€ë¦¬ì)
+	public void insertQuestion(QuestionsVO vo) {
+		mybatis.insert("mappings.question-mapping.insertQuestion",vo);
+	}
+	
+	// ìì£¼ ë¬»ëŠ” ì§ˆë¬¸ ìˆ˜ì •(ì´ê´€ë¦¬ì)
+	public void updateQuestion(QuestionsVO vo) {
+		mybatis.update("mappings.question-mapping.updateQuestion",vo);
+	}
+	
+	// ìë¬´ ë¬»ëŠ” ì§ˆë¬¸ ì‚­ì œ(ì´ê´€ë¦¬ì)
+	public void deleteQuestion(int qseq) {
+		mybatis.delete("mappings.question-mapping.deleteQuestion", qseq);
+	}
 }

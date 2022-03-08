@@ -7,18 +7,18 @@ import utils.Criteria;
 
 public interface NoticeService {
 	
-	// °øÁö»çÇ× ÀüÃ¼ Á¶È¸
+	// ê³µì§€ì‚¬í•­ ì¡°íšŒ
 	public List<NoticeVO> listNotice();
 	
-	// °øÁö»çÇ× »ó¼¼º¸±â
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ó¼¼ºï¿½ï¿½ï¿½
 	public NoticeVO detailNotice(int nseq);
 	
-	// °øÁö»çÇ× Á¶È¸¼ö Ä«¿îÆ®
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸ï¿½ï¿½ Ä«ï¿½ï¿½Æ®
 	public int updateViewCount(int nseq);
 	
-	// ÀüÃ¼ °øÁö»çÇ×ÀÇ °¹¼ö Á¶È¸
+	// ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸
 	public int countNoticetList(String title);
 	
-	// ÆäÀÌÁöº° °øÁö»çÇ× Á¶È¸
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸
 	public List<NoticeVO> getListWithPaging(Criteria criteria, String title);
 }

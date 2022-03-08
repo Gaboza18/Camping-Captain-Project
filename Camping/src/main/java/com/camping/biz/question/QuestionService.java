@@ -6,9 +6,18 @@ import com.camping.biz.dto.QuestionsVO;
 
 public interface QuestionService {
 	
-	// юзаж ╧╞╢баЗ╧╝ юЭц╪ а╤х╦
+	// О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫ О©╫О©╫ц╪ О©╫О©╫х╦
 	public List<QuestionsVO> listQuestion();
 	
-	// юзаж ╧╞╢баЗ╧╝ ╩С╪╪╨╦╠Б
+	// О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫ О©╫С╪╪╨О©╫О©╫О©╫
 	QuestionsVO detailQuestion(int qseq);
+	
+	// Л·░Лё╪К╛╩К┼■ Л╖┬К╛╦ К⌠╠К║²: Л╢²Й╢─К╕╛Л·░
+	public void insertQuestion(QuestionsVO vo);
+	
+	// Л·░Лё╪К╛╩К┼■ Л╖┬К╛╦ Л┌╜Л═°: Л╢²Й╢─К╕╛Л·░
+	public void deleteQuestion(int qseq);
+	
+	// Л·░Лё╪К╛╩К┼■ Л╖┬К╛╦ Л┬≤Л═∙: Л╢²Й╢─К╕╛Л·░
+	public void updateQuestion(QuestionsVO vo);
 }
