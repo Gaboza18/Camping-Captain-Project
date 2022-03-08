@@ -90,4 +90,18 @@ from
 group by floor(age/10)
 </select>
 
+
+<update id="statuschange">
+	UPDATE USERS SET status='b' WHERE id=#{id}
+</update>
+
+<insert id="createAuthKey">
+	insert into mp_users_auth values(#{usersemail}, #{authkey})
+</insert>
+
+<update id="usersAuth">
+	<![CDATA[update users set users_auth = 1 where (select count(*) from mp_users_auth where usersemail = #{email}) > 0]]>
+</update>
+
+
 </mapper>

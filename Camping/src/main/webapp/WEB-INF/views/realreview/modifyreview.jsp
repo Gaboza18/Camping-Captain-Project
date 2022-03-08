@@ -45,13 +45,13 @@ function modify_reviews() {
 
 
 				<select name="campingname">
-					<option name="campingname" value="${RealReviewVO.campingname}">서울지점</option>
-					<option name="campingname" value="${RealReviewVO.campingname}">대전지점</option>
-					<option name="campingname" value="${RealReviewVO.campingname}">대구지점</option>
-					<option name="campingname" value="${RealReviewVO.campingname}">부산지점</option>
-					<option name="campingname" value="${RealReviewVO.campingname}">찍고지점</option>
-
-				</select>
+  				 <option name="campingname value="${RealReviewVO.campingname}">강원도지점</option>
+  				<option name="campingname value="${RealReviewVO.campingname}">경기도지점</option>
+  				<option name="campingname value="${RealReviewVO.campingname}">충청도지점</option>
+  				<option name="campingname value="${RealReviewVO.campingname}">경상도지점</option>
+  				<option name="campingname value="${RealReviewVO.campingname}">전라도지점</option>
+  				<option name="campingname value="${RealReviewVO.campingname}">제주도지점</option>
+  				</select>
 				<!-- 이렇게 하니 실행되었음 name이 중요함
   				  <input type="text" name ="campingname" value="${RealReviewVO.campingname}">
   				</input> -->

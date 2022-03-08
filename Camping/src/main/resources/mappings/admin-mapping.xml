@@ -10,4 +10,8 @@
 		SELECT password FROM admin WHERE id=#{id}
 	</select>
 
+
+
+
+
 </mapper>

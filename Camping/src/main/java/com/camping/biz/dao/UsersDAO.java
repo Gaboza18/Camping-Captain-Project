@@ -1,6 +1,8 @@
 package com.camping.biz.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,6 +95,23 @@ public class UsersDAO {
 	// �쉶�썝 �넻怨�(�뿰�졊蹂� �쉶�썝�닔) 議고쉶
 	public List<UsersAge> getAge(){
 		return mybatis.selectList("mappings.users-mapping.getAge");
+	}
+	
+	// 블랙리스트 설정
+	public void statusChangeBlack(String id) {
+		mybatis.update("mappings.users-mapping.statusChangeBlack", id);
+	}
+	
+	public void createAuthKey(String usersemail,String authkey) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("memberemail", usersemail);
+		map.put("authKey", authkey);
+		
+		mybatis.selectOne("mappings.users-mapping.createAuthKey", map);
+	}
+	
+	public void usersAuth(String memberemail) throws Exception {
+		mybatis.update("mappings.users-mapping.memberAuth", memberemail);
 	}
 	
 }

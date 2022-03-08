@@ -18,7 +18,9 @@
         <label>Name</label>
         <input type="text" name="name" id="name"><br> 
         <label>E-Mail</label>
-        <input type="text" name="email"><br>
+        <input type="text" name="email" id="email">
+        <input type="button"    value="이메일 인증"  class="dup" onclick="emailcheck()"><br>
+        
 
         
       </fieldset>

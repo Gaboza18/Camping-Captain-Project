@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletResponse;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -17,58 +18,65 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.camping.biz.dto.UsersVO;
 import com.camping.biz.users.UsersService;
 
+
 @Controller
 @SessionAttributes("loginUser")
+
 public class UsersController {
+	// 이메일 인증 이메일 보낼때 필요한 객체
+//    @Autowired
+//    private MailSendService mss;
 
 	@Autowired
 	private UsersService usersService;
 
-	/*
-	 * @RequestMapping(value = "/index", method = RequestMethod.GET) public String
-	 * login(Model model) {
-	 * 
-	 * return "Users/login"; // login.jsp �씠�룞�븳�떎}
-	 */
-
 	@GetMapping(value = "/login")
-	public String loginView() {
+	public String loginView(HttpSession session) {
+		//일반 로그인창 진입시 admin세션 삭제 => 이유: admin과 user 아이디 동시에 접속시
+		//admin 권한을 없애기 위해
+		session.removeAttribute("loginAdmin");
+		
 		return "Users/login";
 	}
 	
 	/*
-	 * 占쎄텢占쎌뒠占쎌쁽 嚥≪뮄�젃占쎌뵥 筌ｌ꼶�봺 VO, 揶쏆빘猿쒙옙肉됵옙苑� id, password 占쎌젟癰귣�占쏙옙 占쎌뵭占쎈선占쏙옙 占쎄텢占쎌뒠占쎌쁽 占쎌뵥筌앾옙
+	 * 사용자 로그인 처리 VO, 객체에서 id, password 정보를 읽어와 사용자 인증
 	 */
 
 	@PostMapping(value = "/login")
-	public String loginAction(UsersVO vo, Model model) {
+	public String loginAction(UsersVO vo, Model model,HttpSession session) {
 
 		UsersVO loginUser = null;
-
+	
 		int result = usersService.loginID(vo);
 
-		if (result == 1) { // 占쎌뵥筌앹빘苑��⑤벊�뻻
-			// 占쎄텢占쎌뒠占쎌쁽 占쎌젟癰귣�占쏙옙 鈺곌퀬�돳占쎈릭占쎈연 Session 揶쏆빘猿쒙옙肉� 占쏙옙占쎌삢
+		if (result == 1) { // 인증성공시
+			// 사용자 정보를 조회하여 Session 객체에 저장
 			loginUser = usersService.getUsers(vo.getId());
-			// @SessionAttribute嚥∽옙 筌욑옙占쎌젟占쎈릭占쎈연 占쎄쉭占쎈�∽옙肉됵옙猷� 占쏙옙占쎌삢占쎈쭡
+			
+			//admin session 삭제
+			session.removeAttribute("loginAdmin");
+
+			// @SessionAttribute로 지정하여 세션에도 저장됨
 			model.addAttribute("loginUser", loginUser);
 
-			return "index"; // 嚥≪뮄�젃占쎌뵥 占쎄쉐�⑤벏釉�筌롳옙 index.jsp嚥∽옙 占쎌뵠占쎈짗
-		} else { // 占쎄텢占쎌뒠占쎌쁽 占쎌뵥筌앾옙 占쎈뼄占쎈솭
+			return "index"; // 로그인 성공하면 index.jsp로 이동
+		} else { // 사용자 인증 실패
 			return "Users/login_fail";
 		}
 	}
 
 	@GetMapping(value = "/logout")
 	public String logout(SessionStatus status) {
-		// session.invalidate占쎈뮉 占쎌끏占쎌읈占쎌뿳 嚥≪뮄�젃占쎈툡占쎌뜍占쎈릭筌욑옙 占쎈륫疫뀐옙 占쎈르�눧紐꾨퓠 占쎈툧占쏙옙
+		// session.invalidate는 완전히 로그아웃하지 않기 때문에 안씀
 		status.setComplete();
 
 		return "Users/login";
@@ -81,12 +89,12 @@ public class UsersController {
 
 	@PostMapping(value = "/join_form")
 	public String joinView() {
-		System.out.println("占쎌돳占쎌뜚揶쏉옙占쎌뿯筌욊쑴�뿯");
+		System.out.println("회원가입진입");
 		return "Users/join";
 	}
 
 	/*
-	 * ID 餓λ쵎�궗 筌ｋ똾寃� 占쎌넅筌롳옙 �빊�뮆�젾 
+	 * ID 중복 체크 화면 출력 
 	 */
 
 	@GetMapping(value = "/id_check_form")
@@ -97,7 +105,7 @@ public class UsersController {
 	}
 
 	/*
-	 * ID 餓λ쵎�궗筌ｋ똾寃� 占쎈땾占쎈뻬
+	 * ID 중복체크 수행
 	 */
 
 	@PostMapping(value = "/id_check_form")
@@ -109,46 +117,130 @@ public class UsersController {
 		return "Users/idcheck";
 
 	}
+	
+	//이메일 체크 화면
+	
+	
+	//참고 자료 홈페이지 내용 : 3-1. DB에 기본 정보 저장 이메일 인증실패-전송만가능
+//	@GetMapping(value="/signUpConfirm")
+//	public String emailView(UsersVO vo, Model model) {
+//		
+//		//이메일 인증
+//		 String emailchk = mss.sendemailchkMail(vo.getEmail());
+//	     vo.setEmailchk(emailchk);   
+//		 
+//		 
+//
+//	        Map<String, String> map = new HashMap<String, String>();
+//	        map.put("email", vo.getEmail());
+//	        map.put("authKey", vo.getEmailchk());
+//	        System.out.println(map);
+//
+//	      //DB에 emailchk 업데이트
+//	     usersService.emailchk(map);
+//		
+//	
+//		model.addAttribute("email", vo.getEmail());
+//		return "Users/emailcheck";
+//	}
+	
+	
+
+//	 @PostMapping(value="/resignUpConfirm") public String
+//	  signUpConfirm(UsersVO vo){
+//	  //email, authKey 가 일치할경우 authStatus 업데이트 
+//		 usersService.updateemailchk(vo);
+//	  
+//	
+//		 return "Users/signUp_confirm";
+//	  }
+	 
 
 	/*
-	 * 占쎄텢占쎌뒠占쎈막 id�몴占� join(占쎌돳占쎌뜚揶쏉옙占쎌뿯)占쎌넅筌롫똻肉� 占쎌읈占쎈꽊
+	 * 사용할 id를 join(회원가입)화면에 전송
 	 */
 
 	@GetMapping(value = "/id_check_confirmed")
 	public String idCheckConfirmed(UsersVO vo, Model model) {
-		model.addAttribute("id", vo.getId()); // id 餓λ쵎�궗占쎌넇占쎌뵥 占쎈툡占쎈굡
+		model.addAttribute("id", vo.getId()); // id 중복확인 필드
 		return "Users/join";
 
 	}
 
 	/*
-	 * 占쎌돳占쎌뜚揶쏉옙占쎌뿯 筌ｌ꼶�봺
+	 * 회원가입 처리
 	 */
 
-	@PostMapping(value = "/join")
-	public String joinAction(UsersVO vo) {
+	
+	@PostMapping(value = "/join") // 이메일 인증위해 modellattribute설정
+	public String joinAction(UsersVO vo, Model model) {
+	
 		usersService.insertUsers(vo);
+	
 		return "Users/login";
 	}
+	
 
-	// 占쎌돳占쎌뜚占쎄퉱占쎈닚 get
-	@RequestMapping(value = "/deleteIdView", method = RequestMethod.GET)
-	public String usersDeleteView() throws Exception {
-		return "Users/deleteIdView";
+	
+	
+	
+	@RequestMapping(value= "deleteIdView")
+	
+	public String uersDeleteId() throws Exception {
+		return "Users/deleteIdlogin";
 	}
+	
+	@RequestMapping(value= "deleteIdlogin")
+	public String uersDeleteIdLogin(UsersVO vo, Model model) throws Exception {
+		UsersVO loginUser = null;
 
-	// 占쎌돳占쎌뜚占쎄퉱占쎈닚 post
+		int result = usersService.loginID(vo);
+
+		if (result == 1) { // 인증성공시
+			// 사용자 정보를 조회하여 Session 객체에 저장
+			loginUser = usersService.getUsers(vo.getId());
+			// @SessionAttribute로 지정하여 세션에도 저장됨
+			model.addAttribute("loginUser", loginUser);
+
+			return "Users/deleteIdView";
+		} else { // 사용자 인증 실패
+			return "Users/login_fail";
+		}
+	}
+		
+	
+
+	
+	//----------------- 회원탈퇴 post
 	@RequestMapping(value = "/usersDelete", method = RequestMethod.POST)
-	public String usersDelete(String id, String password, RedirectAttributes rttr, HttpSession session, Model model,
-			UsersVO vo) throws Exception {
-		usersService.deleteId(vo);
-		model.addAttribute("password", vo.getPassword());
-		model.addAttribute("id", vo.getId());
-		session.invalidate();
-		rttr.addFlashAttribute("msg", "占쎌뵠占쎌뒠占쎈퉸 雅뚯눘�쏉옙苑� 揶쏅Ŋ沅쀯옙鍮�占쎈빍占쎈뼄");
-		return "redirect:/index";
+	public String usersDelete(UsersVO vo, HttpSession session, SessionStatus status
+			) throws Exception {
+		
+		UsersVO deleteUser = (UsersVO) session.getAttribute("loginUser");
+		
+	if (deleteUser == null) {
+			return "Users/deleteIdView"; 
+				
+			}else {
+			
+				vo.setId(deleteUser.getId());
+				vo.setPassword(deleteUser.getPassword());
+				
+				
+				
+//				model.addAttribute("id", vo.getId());
+//				model.addAttribute("password", vo.getPassword());
+				usersService.deleteId(vo);
+				status.setComplete();
 
+				return "redirect:/index";
+
+			}
+			
+			
+			
 	}
+	
 
 
 	@GetMapping(value = "/mypage")
@@ -161,14 +253,32 @@ public class UsersController {
 			return "mypage/mypage";
 		}
 	}
+	//회원가입 수정
 
 	@RequestMapping(value = "/usermodify", method = RequestMethod.GET)
-	public String registerUpdateView() throws Exception {
+	public String registerUpdateView(HttpSession session, Model model) throws Exception {
+		UsersVO loginUser = (UsersVO) session.getAttribute("loginUser");
+		
+		UsersVO users = usersService.getUsers(loginUser.getId());
+		model.addAttribute("users",users);
+		
 		return "mypage/userModify";
+	}
+	
+	// update 구문
+	@RequestMapping(value="/usersUpdate", method = RequestMethod.POST)
+	public String userUpdate(UsersVO vo, SessionStatus status )  {
+		
+		
+		usersService.updateUser(vo);
+		status.setComplete();
+					
+		return "redirect:/";
+		
 	}
 
 	/*
-	 * 占쎈툡占쎌뵠占쎈탵 筌≪뼐由� 占쎈읂占쎌뵠筌욑옙 占쎌뵠占쎈짗
+	 * 아이디 찾기 페이지 이동
 	 */
 	@RequestMapping(value = "/find_id")
 	public String findView() {
@@ -176,7 +286,7 @@ public class UsersController {
 	}
 
 	/*
-	 * 占쎈툡占쎌뵠占쎈탵 筌≪뼐由� 占쎈뼄占쎈뻬
+	 * 아이디 찾기 실행
 	 */
 
 	@RequestMapping(value = "/find_id", method = RequestMethod.POST)
@@ -193,18 +303,10 @@ public class UsersController {
 		return "Users/find_id";
 	}
 
-	@RequestMapping(value = "/usersUpdate", method = RequestMethod.POST)
-	public String userUpdate(UsersVO vo, HttpSession session) {
-
-		session.invalidate();
-		usersService.updateUser(vo);
-
-		return "redirect:/";
-
-	}
+	
 
 	/*
-	 * �뜮袁⑨옙甕곕뜇�깈 筌≪뼐由� 占쎈읂占쎌뵠筌욑옙 占쎌뵠占쎈짗
+	 * 비밀번호 찾기 페이지 이동
 	 */
 	@RequestMapping(value = "/find_pwd")
 	public String findPwdView() {
@@ -212,7 +314,7 @@ public class UsersController {
 	}
 
 	/*
-	 * �뜮袁⑨옙甕곕뜇�깈 筌≪뼐由경에占� 占쎈뼄占쎈뻬
+	 * 비밀번호 찾기로 실행
 	 */
 
 	@RequestMapping(value = "Users/find_pwd", method = RequestMethod.POST)
@@ -226,7 +328,7 @@ public class UsersController {
 
 		conditionMap.put("지점을 선택하세요", "0");
 		conditionMap.put("캠핑족장-강원도지점", "1");
-		
+
 		return conditionMap;
 	}
 }

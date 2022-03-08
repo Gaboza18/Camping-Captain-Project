@@ -2,22 +2,28 @@ package com.camping.biz.usersImpl;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 import javax.inject.Inject;
 import javax.mail.Message.RecipientType;
+import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
+
 import org.springframework.stereotype.Service;
 
 import com.camping.biz.dao.UsersDAO;
 import com.camping.biz.dto.UsersAge;
 import com.camping.biz.dto.UsersRatio;
 import com.camping.biz.dto.UsersVO;
+
 import com.camping.biz.users.UsersService;
 
 @Service("usersService")
@@ -90,7 +96,7 @@ public class UsersServiceImpl implements UsersService {
 			if (div.equals(div)) {
 
 				// 이메일 발신자(이메일, 발송자 이름설정)
-				msg.addFrom(new InternetAddress[] { new InternetAddress("cpctad1234@gmail.com", "캠핑족장 관리자") });
+				msg.addFrom(new InternetAddress[] { new InternetAddress("test0313a@gmail.com", "캠핑족장 관리자") });
 
 				// 이메일 제목
 				msg.setSubject("회원님의 임시비밀번호 입니다.", "utf-8");
@@ -153,5 +159,21 @@ public class UsersServiceImpl implements UsersService {
 	public List<UsersAge> getAge() {
 		return uDao.getAge();
 	}
+
+//	@Override
+//	public String statusChange(char status) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+	
+
+	//@Override
+//	public void updateemailchk(UsersVO vo) {
+//
+//		return uDao.
+//		
+//	}
+
+	
 
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.camping.biz.dto.AdminVO;
 import com.camping.biz.dto.RealReviewVO;
+import com.camping.biz.dto.UsersVO;
 
 import utils.Criteria;
 
@@ -77,6 +78,10 @@ public RealReviewVO detailReviews(int rseq) {
 	public int updateViewCount(int rseq) {
 		return mybatis.update("mappings.admin-mapping.countReviewlist",rseq);
 	}
-}
+
+	
+	
+
+	}
 
 

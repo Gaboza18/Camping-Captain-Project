@@ -1,6 +1,6 @@
 package com.camping.biz.dto;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -17,7 +17,7 @@ public class RealReviewVO {
 	private String campingname;
 	private int category;
 	private String content;
-	private Timestamp indate;
+	private Date indate;
 	private String id;
 	private int count;
 	private String searchCondition;

@@ -2,12 +2,14 @@ package com.camping.biz.users;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
 import com.camping.biz.dto.UsersAge;
 import com.camping.biz.dto.UsersRatio;
 import com.camping.biz.dto.UsersVO;
+
 
 public interface UsersService {
 	// DAO占쏙옙占쏙옙 占쏙옙체 Users id 占쌨아울옙占쏙옙 - > 占쏙옙占쏙옙占쏙옙 Impl占쏙옙占쏙옙
@@ -38,5 +40,13 @@ public interface UsersService {
 	public List<UsersRatio> getGenderRatio(); // 회원 통계(남,녀성비) 조회
 	
 	public List<UsersAge> getAge(); // 회원 통계(연령별 회원수) 조회
+
+
+// <이메일 인증 구현시 이메일만 전송할 수 있는 부분
+//	public void emailchk(Map<String, String> map);
+//	public void updateemailchk(UsersVO vo);
+	
+//	public String statusChange(char status);
+	
 	
 }
