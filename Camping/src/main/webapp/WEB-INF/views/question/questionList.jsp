@@ -16,7 +16,7 @@
 			<p>고객님들 께서 자주 질문해신 내용을 정리해 놓은 게시판 입니다</p>
 		  <br>
 			<form name="formm" method="get">
-				<table id="questionList" border="1">
+				<table id="questionList">
 					<tr>
 						<th width="50">번호</th>
 						<th width="350">질문</th>

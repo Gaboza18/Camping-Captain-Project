@@ -13,17 +13,17 @@
 	<h2>공지사항 상세보기</h2>
 	<div align="center">
 	<form name="frm" id="detail_form" method="post">
-	<table border="1">
+	<table>
 		<tr>
-			<th>번호</th>
-			<td width="130">${noticeVO.nseq}</td>
+			<th width="75">번호</th>
+			<td>${noticeVO.nseq}</td>
 		</tr>
 		<tr>
 			<th>제목</th>
 			<td>${noticeVO.title}</td>
 		</tr>
 		<tr>
-			<th width="130">내용</th>
+			<th width="75">내용</th>
 			<td>${noticeVO.content}</td>
 		</tr>
 		<tr>

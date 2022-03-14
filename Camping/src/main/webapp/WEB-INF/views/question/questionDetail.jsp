@@ -12,7 +12,7 @@
 <body>
 	<h2>자주묻는질문 상세보기</h2>
   <div align="center">
-	<table border="1">
+	<table>
 		<tr>
 			<th>번호</th>
 			<td width="130">${questionsVO.qseq}</td>

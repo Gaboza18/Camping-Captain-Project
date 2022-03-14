@@ -2,7 +2,6 @@ package com.camping.biz.users;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -46,7 +45,5 @@ public interface UsersService {
 //	public void updateemailchk(UsersVO vo);
 	
 //	public String statusChange(char status);
-	
-	public List<UsersAge> getAge(); // �쉶�썝 �넻怨�(�뿰�졊蹂� �쉶�썝�닔) 議고쉶
 	
 }

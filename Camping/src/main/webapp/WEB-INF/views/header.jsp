@@ -12,6 +12,7 @@
 <script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="js/users.js"></script>
 <script type="text/javascript" src="js/camping.js"></script>
+<script type="text/javascript" src="js/qna.js"></script>
 <script type="text/javascript" src="js/admin_question.js"></script>
 
 <!-- 캘린더 설정구간 -->
@@ -105,7 +106,7 @@
 		      	<ul>
 			        <li>
 			          	<a href="intro">캠핑족장 소개</a>
-			        </li>  
+			        </li>
 			        <li>
 			          	<a href="camp_list">예약하기</a>
 			        </li>  

@@ -15,11 +15,6 @@ public class CalculateDAO {
 	@Autowired
 	private SqlSessionTemplate mybatis;
 		
-	// 월 별 전체 정산내역 조회(총관리자)
-	public List<CampOrderVO> calculateMonth(){
-		return mybatis.selectList("mappings.calculate-mapping.getAllpointCalculateMonth");
-	}
-	
 	// 일일 별 전체 정산내역 조회(총관리자)
 	public List<CampOrderVO> calculateDay(){
 		return mybatis.selectList("mappings.calculate-mapping.getAllpointCalculateDay");
@@ -49,4 +44,16 @@ public class CalculateDAO {
 		
 		return mybatis.selectList("mappings.calculate-mapping.searchYearCalculate",map);
 	}
+	
+	// 년도/월 별 전체 정산내역 조회(총관리자)
+	public List<CampOrderVO> searchCalculateYearMonth(String startYearMonth, String endYearMonth){
+		
+		HashMap<String, String> map = new HashMap<>();
+		map.put("startYearMonth", startYearMonth);
+		map.put("endYearMonth", endYearMonth);
+		
+		return mybatis.selectList("mappings.calculate-mapping.searchYearMonthCalculate",map);
+		
+	}
+
 }

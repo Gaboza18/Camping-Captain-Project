@@ -22,8 +22,38 @@
 	}
 </style>
 	<div align="center">
-		<article>
 			<h1>캠핑족장 - 월 정산</h1>
+			<form id="camp_order_year_month_search" action="admin_master_calculate_yearmonth" method="get">
+				<div>
+					<h4>연도/월 선택</h4>
+						<select name="startYear" id="startYear">
+							<c:forEach items="${conditionMapYear}" var="option">
+								<option value="${option.value}"
+									<c:if test="${option.value == stYear}">selected</c:if>>${option.key}</option>
+							</c:forEach>
+						</select>
+						<select name="startMonth" id="startMonth">
+							<c:forEach items="${conditionMapMonth}" var="option">
+								<option value="${option.value}"
+									<c:if test="${option.value == stMonth}">selected</c:if>>${option.key}</option>
+							</c:forEach>
+						</select>
+						~ 
+						<select name="endYear" id="endYear">
+							<c:forEach items="${conditionMapYear}" var="option">
+								<option value="${option.value}"
+									<c:if test="${option.value == edYear}">selected</c:if>>${option.key}</option>
+							</c:forEach>
+						</select>
+						<select name="endMonth" id="endMonth">
+							<c:forEach items="${conditionMapMonth}" var="option">
+								<option value="${option.value}"
+									<c:if test="${option.value == edMonth}">selected</c:if>>${option.key}</option>
+							</c:forEach>
+						</select> 
+						<input id="btn" type="button" value="조회하기" onclick="admin_search_chk_month()" />
+		</div><br>
+	</form>
 			<table id="calculateList">
 				<tr>
 					<th>년 도</th> <th>지점이름</th> <th>총합</th>
@@ -36,7 +66,6 @@
 				</tr>	
 			</c:forEach>	
 			</table>
-		</article>
 	</div>
 	
 <%@ include file="../admin_footer.jsp"%>

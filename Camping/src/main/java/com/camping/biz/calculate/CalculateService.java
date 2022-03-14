@@ -6,9 +6,6 @@ import com.camping.biz.dto.CampOrderVO;
 
 public interface CalculateService {
 		
-	// 모든 지점 월별 정산 조회(총관리자)
-	public List<CampOrderVO> calculateMonth();
-	
 	// 모든 지점 일일 정산 조회(총관리자)
 	public List<CampOrderVO> calculateDay();
 	
@@ -24,4 +21,6 @@ public interface CalculateService {
 	// 모든 지점 조회할 년도 '시작년도' ~ '끝나는 년도' 사이 정산 조회(총관리자)
 	public List<CampOrderVO> searchCalculateYear(String startYear, String endYear);
 	
+	// 모든 지점 조회할 년,월 '시작년도/월' ~ '끝나는 년도/월' 사이 정산 조회(총관리자)
+	public List<CampOrderVO> searchCalculateYearMonth(String startYearMonth, String endYearMonth);
 }
