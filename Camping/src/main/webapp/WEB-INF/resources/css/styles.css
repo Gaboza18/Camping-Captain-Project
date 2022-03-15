@@ -12406,6 +12406,10 @@ div#qna_list_form article form[name=formm] table td {
 	border: 1px solid #c0c0c0;
 }
 
+div#qna_list_form article form[name=formm] table td a {
+	text-decoration: none;
+}
+
 div#qna_list_form article form[name=formm] input.submit {
 	padding: 3px 10px;
 	background-color: rgb(255, 200, 0);
@@ -12594,16 +12598,12 @@ div#user_update_form article#userUpdate h4 {
 }
 
 div#user_update_form article#userUpdate label {
-	width: 155px;
+	width: 160px;
 	font-size: 20px;
-	float: left;
-	text-align: right;
-	margin: 5px 0 5px 500px;
 }
 
 div#user_update_form article#userUpdate input {
 	width: 300px;
-	margin: 5px 500px 10px 0;
 	border-radius: 12px;
 	text-align: center;
 }
@@ -12617,10 +12617,6 @@ div#user_update_form article#userUpdate input.birth_gen {
 	width:40px;
 	margin-right: 5px;
 	margin-left: 2px;
-}
-
-div#user_update_form article#userUpdate span#spanRight {
-	margin-right: 500px;
 }
 
 div#user_update_form article#userUpdate div#btn input {
@@ -12845,6 +12841,11 @@ div#myreview_list_form article form#review_list1 table td input.btn:hover {
 
 div#myreview_list_form article form[name=myreview] table#myreviewList {
 	margin: auto;
+	text-align: center;
+}
+
+div#myreview_list_form article form[name=myreview] table#myreviewList td a {
+	text-decoration: none;
 }
 
 div#myreview_list_form article form[name=myreview] input.btn {
@@ -13404,8 +13405,8 @@ div#admin_notice_update_form form[name=formm] button {
 }
 
 div#admin_notice_update_form form[name=formm] button:hover {
-	background-color: #464f5
-
+	background-color: #464f5;
+}
 
 /* 관리자 페이지 footer */
 div#footer {
@@ -13416,11 +13417,12 @@ div#footer {
 /*
 	페이징 처리 페이지
 */
-div.page {
+div#page {
 	padding: 0;
 	margin: 0;
+	text-align: center;
 }
 
-div.page ul.pagination li {
+div#page ul.pagination li {
 	margin: 10px auto;
 }

@@ -119,7 +119,7 @@
             </div>
             <!-- Submit Button-->
             <div class="text-center">
-            	<input class="btn btn-primary btn-xl text-uppercase" type="button" value="회원가입" onclick="go_save()">
+            	<input class="btn btn-primary btn-xl text-uppercase" type="button" value="회원가입" onclick="go_save1()">
 	        	<input class="btn btn-primary btn-xl text-uppercase" type="reset" value="취소" onclick="location='index'">
             </div>
         </form>

@@ -62,6 +62,21 @@ public class CampOrderCancelDAO {
 		return mybatis.selectList("mappings.campOrderCancel-mapping.listWithPaging", map);
 	}
 	
+	// 전체 예약취소 현황 목록 갯수 조회
+	public int countAllOrderList() {
+		return mybatis.selectOne("mappings.campOrderCancel-mapping.countAllOrderList");
+	}
+	
+	// 전체 취소 내역 페이징 처리
+	public List<CampOrderCancelVO> getAllListWithPaging(Criteria criteria) {
+
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("criteria", criteria);
+
+		return mybatis.selectList("mappings.campOrderCancel-mapping.AlllistWithPaging", map);
+	}
+	
+	
 	// 취소내역 한건 조회
 	public CampOrderCancelVO getCancelOrder(int cseq) {
 		return mybatis.selectOne("mappings.campOrderCancel-mapping.getCancelOrder", cseq);

@@ -4,7 +4,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ include file="../header.jsp" %>	 
-<link rel="stylesheet" href="css/styles.css" >
 <script type="text/javascript">
 
 /* function getArea(area1) {
@@ -51,16 +50,16 @@ $(document).ready(function(){
 	 			alert(area+"지점 리뷰를 선택하였습니다");
 	 		
 	 	
-	 			var htmlOut = '<table id="reviewlist" border="1">';
-	 			htmlOut += '<tr><th width="40">번호</th><th width="200">제목</th><th width="100">작성자</th><th width="100">캠핑장지점이름</th><th width="130">작성일</th><th width="50">조회수</th></tr>';
+	 			var htmlOut = '<table id="reviewlist" style="border: 1px solid #c0c0c0; background-color: #212529; text-align: center; font-size: 15px;">';
+	 			htmlOut += '<tr><th style="border: 1px solid #c0c0c0;" width="40">번호</th><th style="border: 1px solid #c0c0c0;" width="200">제목</th><th style="border: 1px solid #c0c0c0;" width="100">작성자</th><th style="border: 1px solid #c0c0c0;" width="130">캠핑장지점이름</th><th style="border: 1px solid #c0c0c0;" width="130">작성일</th><th style="border: 1px solid #c0c0c0;" width="50">조회수</th></tr>';
 		 		$.each(data, function() {
 		 			var conv_date = getFormatDate(new Date(this.indate));
 		 			//var conv_rseq = Int(new rseq(this.rseq));
 		 			
 		 			htmlOut += // 방법1 : '<tr><td>'+ this.rseq+'</td><td><input ="${RealReviewVO.rseq} type="hidden"><a href="${path}manage_review_detail?rseq=${RealReviewVO.rseq}">'+this.title+'</a></td>'
-		 				'<tr><td>'+ this.rseq+'</td><td><a href="review_detail?rseq='+this.rseq+'">'+this.title+'</a></td>'
-		 					+'<td>'+ this.id+'</td><td>'+this.campingname+'</a></td>'+
-		 					'<td>'+ conv_date+'</td><td>'+this.count+'</td></tr>';
+		 				'<tr><td style="border: 1px solid #c0c0c0;">'+ this.rseq+'</td><td style="border: 1px solid #c0c0c0;"><a href="review_detail?rseq='+this.rseq+'" style="text-decoration: none;">'+this.title+'</a></td>'
+		 					+'<td style="border: 1px solid #c0c0c0;">'+ this.id+'</td><td style="border: 1px solid #c0c0c0;">'+this.campingname+'</a></td>'+
+		 					'<td style="border: 1px solid #c0c0c0;">'+ conv_date+'</td><td style="border: 1px solid #c0c0c0;">'+this.count+'</td></tr>';
 		 		});
 	 			
 	 			$("#review_content").html(htmlOut);
@@ -242,7 +241,9 @@ $("#delete3").onClick(function admin_delete() {
 			</div>																	
 			<input class="btn" type="button" name="btn_input" value="리얼 리뷰작성" onClick="location.href='review_write'">
 		</form>  
-		<%@ include file="reviewpage_area.jsp"%>
+		<div class="pageArea">
+			<%@ include file="reviewpage_area.jsp"%>
+		</div>
 	</div>
 </article>
 	

@@ -26,8 +26,6 @@
     <!-- Google fonts-->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
-    <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="css/styles.css" rel="stylesheet" />
 
 <!-- 캘린더 설정구간 -->
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">

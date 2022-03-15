@@ -64,7 +64,7 @@ public class UsersController {
 	 * 사용자 로그인 처리 VO, 객체에서 id, password 정보를 읽어와 사용자 인증 사용자 로그인 표시 vo객체에서 사용자id,
 	 * password 정보를 읽어와 사용자 인증
 	 */
-	@PostMapping(value = "/login")
+	@PostMapping(value = "/login_action")
 	public String loginAction(UsersVO vo, Model model, HttpSession session) {
 
 		UsersVO loginUser = null;
@@ -81,7 +81,7 @@ public class UsersController {
 			// @SessionAttribute로 지정하여 세션에도 저장됨
 			model.addAttribute("loginUser", loginUser);
 
-			return "index"; // 로그인 성공하면 index.jsp로 이동
+			return "NewFile"; // 로그인 성공하면 index.jsp로 이동
 		} else { // 사용자 인증 실패
 			return "Users/login_fail";
 		}
@@ -256,7 +256,7 @@ public class UsersController {
 		}
 
 	// 회원탈퇴페이지로 이동
-	@RequestMapping(value = "/deleteusersView", method = RequestMethod.GET)
+	@RequestMapping(value = "/deleteIdView", method = RequestMethod.GET)
 	public String usersDeleteView(Model model, HttpSession session) {
 
 		UsersVO loginUser = (UsersVO) session.getAttribute("loginUser");
@@ -308,17 +308,25 @@ public class UsersController {
 		
 		
 		// users 변수를 만들어서 한꺼번에 model로 jsp에 표시하려고 
-		//UsersVO users = usersService.getUsers(loginUser.getId());
+		UsersVO users = usersService.getUsers(loginUser.getId());
+		
+		String birthday = users.getBirthday();
+		String birth = birthday.substring(0, 6);
+		String birth_gen = birthday.substring(6);
 		
 		//이메일 인증 버튼과 관련된 모델 추가
-		//model.addAttribute("users", users);
+		model.addAttribute("users", users);
 		
 		//그대로 emailcheck에 값을 넘겨주기 위해
 		model.addAttribute("id",loginUser.getId());
 		model.addAttribute("email" ,loginUser.getEmail());
+	    model.addAttribute("birth", birth);
+	    model.addAttribute("birth_gen", birth_gen);
 
 		return "mypage/userModify";
 	}
+
+
 
 	// update 구문
 	@RequestMapping(value = "/usersUpdate", method = RequestMethod.POST)

@@ -27,6 +27,7 @@ import com.camping.biz.dto.QnaVO;
 import com.camping.biz.dto.RealReviewVO;
 import com.camping.biz.dto.UsersAge;
 import com.camping.biz.dto.UsersRatio;
+import com.camping.biz.dto.UsersVO;
 import com.camping.biz.qna.QnaService;
 import com.camping.biz.realreview.RealReviewService;
 import com.camping.biz.users.UsersService;
@@ -517,7 +518,6 @@ public class AdminController {
 		
 		
 		return "admin/usersblacklist/usersblacklist";
-		}
 	}
 }
 

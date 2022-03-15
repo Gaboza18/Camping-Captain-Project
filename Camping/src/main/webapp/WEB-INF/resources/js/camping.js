@@ -19,28 +19,28 @@ function search_chk() {
 function minus(){
 	var base = $("#base").val();
 	var people = $("#people").val();
-	var price = parseInt($(".total_price").val());
+	var price = parseInt($("#total_price").val());
 	var add_price = 10000;
 	
 	if(people > base){
 		people--;
 		price -= 10000;
 		$("#people").val(people);
-		$(".total_price").val(price);
+		$("#total_price").val(price);
 	}
 }
 
 function plus(){
 	var max = $("#max").val();
 	var people = $("#people").val();
-	var price = parseInt($(".total_price").val());
+	var price = parseInt($("#total_price").val());
 	var add_price = 10000;
 	
 	if(people < max){
 		people++;
 		price += 10000;
 		$("#people").val(people);
-		$(".total_price").val(price);
+		$("#total_price").val(price);
 	} 
 }
 

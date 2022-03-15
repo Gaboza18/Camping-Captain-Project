@@ -53,24 +53,23 @@
 	      	<c:if test="${loginUser.status eq 'n'}">
 			      <label>E-mail</label>
 
-          <input type="text" name="email" id="email">
-          <input type="button" name="email" id="email" value="이메일 인증하기"
-				    class="dup" onclick="emailcheck2()">
-          <input type="hidden" name="id" id="id" value="${id}">
-          <input type="hidden" name="id" id="id" value="${users.id}">
-		</c:if>
+		          <input type="text" name="email" id="email">
+		          <input type="button" name="email" id="email" value="이메일 인증하기" class="dup" onclick="emailcheck2()"><br>
+		          <input type="hidden" name="id" id="id" value="${id}">
+		          <input type="hidden" name="id" id="id" value="${users.id}">
+			</c:if>
 
-		<c:if test="${loginUser.status eq 'y'}">
-			<label>E-mail</label>
-			  <input type="text" name="email" id="email" value="${email}"
-				readOnly="readonly">
-		</c:if>
+			<c:if test="${loginUser.status eq 'y'}">
+				<label>E-mail</label>
+				  <input type="text" name="email" id="email" value="${email}"
+					readOnly="readonly"><br>
+			</c:if>
 	        
 	        <label>Phone Number</label> 
 	        <input  type="text" name="phone" value="${users.phone}"><br>
 	        
 	      	<div class="clear"></div>
-	      	
+	      	<br><br>
 	      	<div id="btn">
 		        <input type="button" value="회원정보수정 완료"   class="submit" onclick="go_modify()"> 
 		        <input type="reset" value="취소" class="cancel" onClick="location.href='index'">

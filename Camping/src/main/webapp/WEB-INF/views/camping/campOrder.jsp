@@ -110,9 +110,9 @@
 							<span>인원선택</span>
 							<input name="max" id="max" type="hidden" value="${camp.max_people}"/>
 				        	<input name="base" id="base" type="hidden" value="${camp.base_people}"/><br>
-					        <button type="button" onclick="minus();">-</button>
+					        <button type="button" onclick="minus()">-</button>
 					        <input class="form-control_people"  type="text" id="people" name="order_people" value="${camp.base_people}" readonly="readonly"/>
-					        <button type ="button" onclick="plus();">+</button>
+					        <button type ="button" onclick="plus()">+</button>
                         </div>
                         <div class="form-group">
 							<br><span>예약자 전화번호(변경가능)</span>

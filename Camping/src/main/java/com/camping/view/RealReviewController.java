@@ -37,19 +37,19 @@ public class RealReviewController {
 	public String reviewList(@RequestParam(value = "key", defaultValue = "") String title, Criteria criteria,
 			HttpSession session, Model model) {
 
-		// �������� ��� ��ȸ - �������� 10���� ��ȸ
+		// 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占� 占쏙옙회 - 占쏙옙占쏙옙占쏙옙占쏙옙 10占쏙옙占쏙옙 占쏙옙회
 
 		List<RealReviewVO> reviewList = reviewsService.getListWithPaging(criteria, title);
 
-		// ȭ�鿡 ǥ���� ������ ��ư ���� ����
+		// 화占썽에 표占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙튼 占쏙옙占쏙옙 占쏙옙占쏙옙
 		PageMaker pageMaker = new PageMaker();
 		int totalCount = reviewsService.countReviewlist(title);
 
-		pageMaker.setCriteria(criteria); // ���� �������� �������� �׸� �� ���� ����
-		pageMaker.setTotalCount(totalCount); // ��ü �������� ��� ���� ���� �� ������ ���� �ʱ�ȭ
+		pageMaker.setCriteria(criteria); // 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쌓몌옙 占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙
+		pageMaker.setTotalCount(totalCount); // 占쏙옙체 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占� 占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占십깍옙화
 
-		model.addAttribute("reviewList", reviewList); // ����, �� ������ ���� ������ reviewList���� <for:each>�� ������
-														// ������
+		model.addAttribute("reviewList", reviewList); // 占쏙옙占쏙옙, 占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 reviewList占쏙옙占쏙옙 <for:each>占쏙옙 占쏙옙占쏙옙占쏙옙
+														// 占쏙옙占쏙옙占쏙옙
 		model.addAttribute("reviewListSize", reviewList.size());
 		model.addAttribute("pageMaker", pageMaker);
 
@@ -66,11 +66,11 @@ public class RealReviewController {
 		if (loginUser == null && loginAdmin == null) {
 			return "Users/login";
 
-			// admin�� ���󸮺�� �߸� ���ӽ� ���� ������
+			// admin占쏙옙 占쏙옙占쏢리븝옙占� 占쌩몌옙 占쏙옙占쌈쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙
 		} else if (loginAdmin != null) {
 
-			// admin �α��ν� ����󼼺���
-			reviewsService.updateViewCount(vo.getRseq()); // ��ȸ�� ����
+			// admin 占싸깍옙占싸쏙옙 占쏙옙占쏙옙撰성占쏙옙占�
+			reviewsService.updateViewCount(vo.getRseq()); // 占쏙옙회占쏙옙 占쏙옙占쏙옙
 			String loginadmin = loginAdmin.getId();
 			RealReviewVO reviewsDetail = reviewsService.detailReviews(rseq);
 			model.addAttribute("RealReviewVO", reviewsDetail);
@@ -78,12 +78,12 @@ public class RealReviewController {
 			return "realreview/reviewDetail";
 		} else {
 
-			reviewsService.updateViewCount(vo.getRseq()); // ��ȸ�� ����
+			reviewsService.updateViewCount(vo.getRseq()); // 占쏙옙회占쏙옙 占쏙옙占쏙옙
 
 			String userid = loginUser.getId();
 
-			// else �ȿ� model��ü�� �����Ǽ� admin���� �α��� �ϸ� detail�� �ȶߴ°ǰ�
-			// �; ����
+			// else 占싫울옙 model占쏙옙체占쏙옙 占쏙옙占쏙옙占실쇽옙 admin占쏙옙占쏙옙 占싸깍옙占쏙옙 占싹몌옙 detail占쏙옙 占싫뜨는건곤옙
+			// 占싶어서 占쏙옙占쏙옙咀�
 			// String loginadmin = loginAdmin.getId();
 
 			RealReviewVO reviewsDetail = reviewsService.detailReviews(rseq);
@@ -132,12 +132,12 @@ public class RealReviewController {
 
 			List<RealReviewVO> myreviewList = reviewsService.getListWithPaging2(criteria, vo.getId());
 
-			// ȭ�鿡 ǥ���� ������ ��ư ���� ����
+			// 화占썽에 표占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙튼 占쏙옙占쏙옙 占쏙옙占쏙옙
 			PageMaker mypageMaker = new PageMaker();
 			int totalCount = reviewsService.countReviewlist2(id);
 
-			mypageMaker.setCriteria(criteria); // ���� �������� �������� �׸� �� ���� ����
-			mypageMaker.setTotalCount(totalCount); // ��ü �������� ��� ���� ���� �� ������ ���� �ʱ�ȭ
+			mypageMaker.setCriteria(criteria); // 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쌓몌옙 占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙
+			mypageMaker.setTotalCount(totalCount); // 占쏙옙체 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占� 占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占십깍옙화
 
 			model.addAttribute("myreviewListSize", myreviewList.size());
 			model.addAttribute("mypageMaker", mypageMaker);
@@ -147,9 +147,9 @@ public class RealReviewController {
 		}
 	}
 
-	// �������(��������� ���� �����ߴ� reviewsServcice.detail)���� login session��
-	// �̿��Ͽ� ������
-	// �����Ͽ� ����� �� ����
+	// 占쏙옙占쏙옙占쏙옙占�(占쏙옙占쏙옙占쏙옙占쏙옙占� 占쏙옙占쏙옙 占쏙옙占쏙옙占쌩댐옙 reviewsServcice.detail)占쏙옙占쏙옙 login session占쏙옙
+	// 占싱울옙占싹울옙 占쏙옙占쏙옙占쏙옙
+	// 占쏙옙占쏙옙占싹울옙 占쏙옙占쏙옙占� 占쏙옙 占쏙옙占쏙옙
 	@RequestMapping(value = "/review_list_re", method = RequestMethod.GET)
 	@ResponseBody
 	public String deletereviews(@RequestParam(value = "rseq") int rseq, HttpSession session, Model model,
@@ -160,45 +160,45 @@ public class RealReviewController {
 		if (loginUser == null && loginAdmin == null) {
 			return "Users/login";
 
-			// admin�� ���󸮺�� �߸� ���ӽ� ���� ������
+			// admin占쏙옙 占쏙옙占쏢리븝옙占� 占쌩몌옙 占쏙옙占쌈쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙
 		} else if (loginAdmin != null) {
 
 			// model.addAllAttributes(reviewsService.listReview(vo));
 
-			// ���� ��ư Ŭ���� �����Ǵ� �κ�
+			// 占쏙옙占쏙옙 占쏙옙튼 클占쏙옙占쏙옙 占쏙옙占쏙옙占실댐옙 占싸븝옙
 			reviewsService.deletereviews(rseq);
-			// �������� ��� ��ȸ - �������� 10���� ��ȸ
+			// 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占� 占쏙옙회 - 占쏙옙占쏙옙占쏙옙占쏙옙 10占쏙옙占쏙옙 占쏙옙회
 
 			List<RealReviewVO> reviewList = reviewsService.getListWithPaging(criteria, title);
 
-			// ȭ�鿡 ǥ���� ������ ��ư ���� ����
+			// 화占썽에 표占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙튼 占쏙옙占쏙옙 占쏙옙占쏙옙
 			PageMaker pageMaker = new PageMaker();
 			int totalCount = reviewsService.countReviewlist(title);
 
-			pageMaker.setCriteria(criteria); // ���� �������� �������� �׸� �� ���� ����
-			pageMaker.setTotalCount(totalCount); // ��ü �������� ��� ���� ���� �� ������ ���� �ʱ�ȭ
+			pageMaker.setCriteria(criteria); // 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쌓몌옙 占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙
+			pageMaker.setTotalCount(totalCount); // 占쏙옙체 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占� 占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占십깍옙화
 
-			model.addAttribute("reviewList", reviewList); // ����, �� ������ ���� ������ reviewList���� <for:each>��
-															// ������ ������
+			model.addAttribute("reviewList", reviewList); // 占쏙옙占쏙옙, 占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 reviewList占쏙옙占쏙옙 <for:each>占쏙옙
+															// 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙
 			model.addAttribute("reviewListSize", reviewList.size());
 			model.addAttribute("pageMaker", pageMaker);
 
 			return "admin/managerealreview";
 		} else {
 			reviewsService.deletereviews(rseq);
-			// �������� ��� ��ȸ - �������� 10���� ��ȸ
+			// 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占� 占쏙옙회 - 占쏙옙占쏙옙占쏙옙占쏙옙 10占쏙옙占쏙옙 占쏙옙회
 
 			List<RealReviewVO> reviewList = reviewsService.getListWithPaging(criteria, title);
 
-			// ȭ�鿡 ǥ���� ������ ��ư ���� ����
+			// 화占썽에 표占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙튼 占쏙옙占쏙옙 占쏙옙占쏙옙
 			PageMaker pageMaker = new PageMaker();
 			int totalCount = reviewsService.countReviewlist(title);
 
-			pageMaker.setCriteria(criteria); // ���� �������� �������� �׸� �� ���� ����
-			pageMaker.setTotalCount(totalCount); // ��ü �������� ��� ���� ���� �� ������ ���� �ʱ�ȭ
+			pageMaker.setCriteria(criteria); // 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쌓몌옙 占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙
+			pageMaker.setTotalCount(totalCount); // 占쏙옙체 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占� 占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占십깍옙화
 
-			model.addAttribute("reviewList", reviewList); // ����, �� ������ ���� ������ reviewList���� <for:each>��
-															// ������ ������
+			model.addAttribute("reviewList", reviewList); // 占쏙옙占쏙옙, 占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 reviewList占쏙옙占쏙옙 <for:each>占쏙옙
+															// 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙
 			model.addAttribute("reviewListSize", reviewList.size());
 			model.addAttribute("pageMaker", pageMaker);
 
@@ -240,15 +240,15 @@ public class RealReviewController {
 
 			List<RealReviewVO> reviewList = reviewsService.getListWithPaging(criteria, title);
 
-			// ȭ�鿡 ǥ���� ������ ��ư ���� ����
+			// 화占썽에 표占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙튼 占쏙옙占쏙옙 占쏙옙占쏙옙
 			PageMaker pageMaker = new PageMaker();
 			int totalCount = reviewsService.countReviewlist(title);
 
-			pageMaker.setCriteria(criteria); // ���� �������� �������� �׸� �� ���� ����
-			pageMaker.setTotalCount(totalCount); // ��ü �������� ��� ���� ���� �� ������ ���� �ʱ�ȭ
+			pageMaker.setCriteria(criteria); // 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쌓몌옙 占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙
+			pageMaker.setTotalCount(totalCount); // 占쏙옙체 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占� 占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占십깍옙화
 
-			model.addAttribute("reviewList", reviewList); // ����, �� ������ ���� ������ reviewList���� <for:each>��
-															// ������ ������
+			model.addAttribute("reviewList", reviewList); // 占쏙옙占쏙옙, 占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 reviewList占쏙옙占쏙옙 <for:each>占쏙옙
+															// 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙
 			model.addAttribute("reviewListSize", reviewList.size());
 			model.addAttribute("pageMaker", pageMaker);
 

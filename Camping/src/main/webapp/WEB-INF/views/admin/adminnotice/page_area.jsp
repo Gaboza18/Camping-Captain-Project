@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<div class="page" align="center">
+<div id="page" align="center">
 	<ul class="pagination">
 	
 		<c:if test="${pageMaker.prev}">
