@@ -5,9 +5,8 @@
 <%@ include file="../header.jsp"%>
 	<div id="notice_list_form" align="center">
 		<article>
-			<h2>공지사항</h2>
-			<h5>캠핑족장 공지사항 입니다</h5>
 
+			<h2>캠핑족장 공지사항</h2>
 			<!-- 검색 파트 -->
 			<form name="frm" id="notice_form" method="get">
 				<table>
@@ -22,7 +21,7 @@
 			  </form>
 			<br>
 			<form name="formm" method="get">
-				<table id="noticeList" border="1">
+				<table id="noticeList">
 					<tr>
 						<th width="40">번호</th>
 						<th width="400">제목</th>

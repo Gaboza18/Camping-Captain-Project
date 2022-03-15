@@ -34,6 +34,7 @@ public class UsersController {
 //    @Autowired
 //    private MailSendService mss;
 
+
    @Autowired
    private UsersService usersService;
    @Autowired
@@ -145,12 +146,14 @@ public class UsersController {
 //        vo.setEmailchk(emailchk);   
 //       
 //       
+
 //
 //           Map<String, String> map = new HashMap<String, String>();
 //           map.put("email", vo.getEmail());
 //           map.put("authKey", vo.getEmailchk());
 //           System.out.println(map);
 //
+
 //         //DB에 emailchk 업데이트
 //        usersService.emailchk(map);
 //      
@@ -320,3 +323,4 @@ public class UsersController {
       return conditionMap;
    }
 }
+

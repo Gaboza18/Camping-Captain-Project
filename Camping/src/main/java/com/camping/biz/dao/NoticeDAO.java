@@ -46,5 +46,20 @@ public class NoticeDAO {
 
 		return mybatis.selectList("mappings.notice-mapping.listWithPaging", map);
 	}
+	
+	// 회원 공지사항 등록(지점관리자,총관리자)
+	public void insertNotice(NoticeVO vo) {
+		mybatis.insert("mappings.notice-mapping.insertNotice",vo);
+	}
+	
+	// 회원 공지사항 수정(지점관리자,총관리자)
+	public void updateNotice(NoticeVO vo) {
+		mybatis.update("mappings.notice-mapping.updateNotice",vo);
+	}
+	
+	// 회원 공지사항 삭제(지점관리자,총관리자)
+	public void deleteNotice(int nseq) {
+		mybatis.delete("mappings.notice-mapping.deleteNotice", nseq);
+	}
 
 }

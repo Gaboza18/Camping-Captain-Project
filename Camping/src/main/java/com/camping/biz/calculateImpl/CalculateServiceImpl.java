@@ -16,11 +16,6 @@ public class CalculateServiceImpl implements CalculateService {
 	private CalculateDAO calDao;
 	
 	@Override
-	public List<CampOrderVO> calculateMonth() {
-		return calDao.calculateMonth();
-	}
-	
-	@Override
 	public List<CampOrderVO> calculateDay() {	
 		return calDao.calculateDay();
 	}
@@ -43,6 +38,11 @@ public class CalculateServiceImpl implements CalculateService {
 	@Override
 	public List<CampOrderVO> searchCalculateYear(String startYear, String endYear) {
 		return calDao.searchCalculateYear(startYear, endYear);
+	}
+
+	@Override
+	public List<CampOrderVO> searchCalculateYearMonth(String startYearMonth, String endYearMonth) {
+		return calDao.searchCalculateYearMonth(startYearMonth, endYearMonth);
 	}
 
 }

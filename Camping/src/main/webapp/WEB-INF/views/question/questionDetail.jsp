@@ -8,7 +8,9 @@
 	
 <div id="question_detail_form" align="center">
 	<h2>자주묻는질문 상세보기</h2>
-	<table border="1">
+
+  <div align="center">
+	<table>
 		<tr>
 			<th width="100">번호</th>
 			<td width="250">${questionsVO.qseq}</td>
@@ -27,4 +29,3 @@
 </div>
 
 <%@ include file="../footer.jsp" %>
-

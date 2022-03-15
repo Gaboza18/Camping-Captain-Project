@@ -1,5 +1,6 @@
+	
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ include file="../header.jsp" %>	 
@@ -8,86 +9,91 @@
 <script type="text/javascript" >
 
 /* function getArea(area1) {
-	
-	$.ajax({
-		url: "review_list", //액션값 넣기
-		type: "GET", //get or post방식 정하기
-		data: { 
-			area: area1 //넘길 인자값
-		},
-		dataType: "json", //응답받는 데이터타입(제이슨이니까 제이슨)
-		success:function(data){//응답 값 
-			console.log(data);
-		}
-		
-	});
+   
+   $.ajax({
+      url: "review_list", //액션값 넣기
+      type: "GET", //get or post방<식 정하기
+      data: { 
+         area: area1 //넘길 인자값
+      },
+      dataType: "json", //응답받는 데이터타입(제이슨이니까 제이슨)
+      success:function(data){//응답 값 
+         console.log(data);
+      }
+      
+   });
 } */
 
 //document 는 html이 다 실행되었을때 버튼 누르면 작동되게 하는것
 function getFormatDate(date) {
-	var year = date.getFullYear();
-	var month = (1 + date.getMonth());
-	month = month>=10 ? month : '0'+month;
-	var day = date.getDate();
-	day = day>=10 ? day : '0'+day;
-	
-	return year+'.'+month+'.'+day;
+   var year = date.getFullYear();
+   var month = (1 + date.getMonth());
+   month = month>=10 ? month : '0'+month;
+   var day = date.getDate();
+   day = day>=10 ? day : '0'+day;
+   
+   return year+'.'+month+'.'+day;
 }
 
 $(document).ready(function(){
-	$("input[name='arealist']:radio").change(function(){
-	 var area=this.value; 
+   $("input[name='arealist']:radio").change(function(){
+    var area=this.value; 
 
-	 console.log("AREA="+area);
+    console.log("AREA="+area);
 
-	 $.ajax({
-			url: "arealist?campingname="+area, //radio name=arealist 액션값 넣기
-			type: "GET", //get or post방식 정하기	
-			dataType: "json", //응답받는 데이터타입(제이슨이니까 제이슨)
-	 		success:function(data){//응답 값 '
-	 			console.log("응답받기 성공");
-	 			alert(area+"지점 리뷰를 선택하였습니다");
-	 		
-	 	
-	 			var htmlOut = '<table id="reviewlist" border="1">';
-	 			htmlOut += '<tr><th width="40">번호</th><th width="200">제목</th><th width="100">작성자</th><th width="100">캠핑장지점이름</th><th width="130">작성일</th><th width="50">조회수</th><th width="50">삭제버튼</th></tr>';
-		 		$.each(data, function() {
-		 			var conv_date = getFormatDate(new Date(this.indate));
-		 			htmlOut += '<tr><td>'+ this.rseq+'</td><td>'+this.title+'</td>'
-		 					+'<td>'+ this.id+'</td><td>'+this.campingname+'</td>'+
-		 					'<td>'+ conv_date+'</td><td>'+this.count+'</td></tr>';
-		 		});
-	 			
-	 			$("#review_content").html(htmlOut);
-	 		
-			},
-			error : function(request, status, error){
-				alert("code:"+request.status+"\n"+
-						"message:"+request.responseText+"\n"+
-						"error:"+error);
-			}
-	 		
-		});
-	})
-});
+    $.ajax({
+         url: "arealist?campingname="+area, //radio name=arealist 액션값 넣기
+         type: "GET", //get or post방식 정하기   
+         dataType: "json", //응답받는 데이터타입(제이슨이니까 제이슨)
+          success:function(data){//응답 값 '
+             console.log("응답받기 성공");
+             alert(area+"지점 리뷰를 선택하였습니다");
+          
+       
+             var htmlOut = '<table id="reviewlist" border="1">';
+             htmlOut += '<tr><th width="40">번호</th><th width="200">제목</th><th width="100">작성자</th><th width="100">캠핑장지점이름</th><th width="130">작성일</th><th width="50">조회수</th></tr>';
+             $.each(data, function() {
+                var conv_date = getFormatDate(new Date(this.indate));
+                //var conv_rseq = Int(new rseq(this.rseq));
+                
+                htmlOut += // 방법1 : '<tr><td>'+ this.rseq+'</td><td><input ="${RealReviewVO.rseq} type="hidden"><a href="${path}manage_review_detail?rseq=${RealReviewVO.rseq}">'+this.title+'</a></td>'
+                   '<tr><td>'+ this.rseq+'</td><td><a href="review_detail?rseq='+this.rseq+'">'+this.title+'</a></td>'
+                      +'<td>'+ this.id+'</td><td>'+this.campingname+'</a></td>'+
+                      '<td>'+ conv_date+'</td><td>'+this.count+'</td></tr>';
+             });
+             
+             $("#review_content").html(htmlOut);
+          
+         },
+         error : function(request, status, error){
+            alert("code:"+request.status+"\n"+
+                  "message:"+request.responseText+"\n"+
+                  "error:"+error);
+         }
+          
+      });
+      })
+      
+   });
 
 
- /* $function() {
+
+/*   $function() {
 $("#radio2").onClick(function(){
 alert("radio2 클릭");
 $.ajax({
-	url: "review_list", //액션값 넣기
-	type: "GET", //get or post방식 정하기
-	data: { 
-		${RealReviewVO.campingname}: $("#radio2").val() //넘길 인자값
-	},
-	dataType: "json", //응답받는 데이터타입(제이슨이니까 제이슨)
-	success:function(data){//응답 값 
-		console.log(data);
-	}
-	
+   url: "review_list", //액션값 넣기
+   type: "GET", //get or post방식 정하기
+   data: { 
+      ${RealReviewVO.campingname}: $("#radio2").val() //넘길 인자값
+   },
+   dataType: "json", //응답받는 데이터타입(제이슨이니까 제이슨)
+   success:function(data){ //응답 값 
+      console.log(data);
+   }
+   
 });
-})  */
+
 
 </script>
 
@@ -195,5 +201,4 @@ $.ajax({
 	</div>
 </article>
 	
-
 <%@ include file="../footer.jsp" %>

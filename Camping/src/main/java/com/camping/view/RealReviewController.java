@@ -27,84 +27,73 @@ import utils.PageMaker;
 @Controller
 @SessionAttributes("loginUser")
 
-
 public class RealReviewController {
 
 	@Autowired
 	private RealReviewService reviewsService;
-	
-
-	
 
 	@RequestMapping(value = "/review_list", method = RequestMethod.GET)
-	
+
 	public String reviewList(@RequestParam(value = "key", defaultValue = "") String title, Criteria criteria,
 			HttpSession session, Model model) {
-		
-	
-		
-		// °øÁö»çÇ× ¸ñ·Ï Á¶È¸ - °øÁö»çÇ× 10°³¸¸ Á¶È¸
+
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½È¸ - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 10ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸
 
 		List<RealReviewVO> reviewList = reviewsService.getListWithPaging(criteria, title);
-		
-		// È­¸é¿¡ Ç¥½ÃÇÒ ÆäÀÌÁö ¹öÆ° Á¤º¸ ¼³Á¤
+
+		// È­ï¿½é¿¡ Ç¥ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		PageMaker pageMaker = new PageMaker();
 		int totalCount = reviewsService.countReviewlist(title);
 
-		pageMaker.setCriteria(criteria); // ÇöÀç ÆäÀÌÁö¿Í ÆäÀÌÁö´ç Ç×¸ñ ¼ö Á¤º¸ ¼³Á¤
-		pageMaker.setTotalCount(totalCount); // ÀüÃ¼ °øÁö»çÇ× ¸ñ·Ï °¹¼ö ¼³Á¤ ¹× ÆäÀÌÁö Á¤º¸ ÃÊ±âÈ­
+		pageMaker.setCriteria(criteria); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		pageMaker.setTotalCount(totalCount); // ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
 
-		model.addAttribute("reviewList", reviewList); // º¯¼ö, °ª ¼ø¼­ÀÓ ¿ÞÂÊ º¯¼ö´Â reviewList¿¡¼­ <for:each>ÀÇ º¯¼ö¿Í µ¿ÀÏÇÔ
+		model.addAttribute("reviewList", reviewList); // ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ reviewListï¿½ï¿½ï¿½ï¿½ <for:each>ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+														// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		model.addAttribute("reviewListSize", reviewList.size());
 		model.addAttribute("pageMaker", pageMaker);
 
 		return "realreview/reviewList";
-			}
-	
-	
-
-
+	}
 
 	@RequestMapping(value = "review_detail", method = RequestMethod.GET)
-	
+
 	public String reviewDetail(HttpSession session, RealReviewVO vo, Model model, int rseq) {
 
 		UsersVO loginUser = (UsersVO) session.getAttribute("loginUser");
 		AdminVO loginAdmin = (AdminVO) session.getAttribute("loginAdmin");
 
-		if (loginUser == null && loginAdmin==null) {
+		if (loginUser == null && loginAdmin == null) {
 			return "Users/login";
-			
-			//adminÀÌ ¸®¾ó¸®ºä·Î Àß¸ø Á¢¼Ó½Ã »èÁ¦ °¡´ÉÇÔ
-		}else if(loginAdmin != null) {
-			
-			//admin ·Î±×ÀÎ½Ã ¸®ºä»ó¼¼º¸±â
-			reviewsService.updateViewCount(vo.getRseq()); // Á¶È¸¼ö Áõ°¡
+
+			// adminï¿½ï¿½ ï¿½ï¿½ï¿½ó¸®ºï¿½ï¿½ ï¿½ß¸ï¿½ ï¿½ï¿½ï¿½Ó½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		} else if (loginAdmin != null) {
+
+			// admin ï¿½Î±ï¿½ï¿½Î½ï¿½ ï¿½ï¿½ï¿½ï¿½ó¼¼ºï¿½ï¿½ï¿½
+			reviewsService.updateViewCount(vo.getRseq()); // ï¿½ï¿½È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			String loginadmin = loginAdmin.getId();
 			RealReviewVO reviewsDetail = reviewsService.detailReviews(rseq);
 			model.addAttribute("RealReviewVO", reviewsDetail);
 			model.addAttribute("loginAdmin1", loginadmin);
 			return "realreview/reviewDetail";
-		}else {
-					
-			reviewsService.updateViewCount(vo.getRseq()); // Á¶È¸¼ö Áõ°¡
-			
+		} else {
+
+			reviewsService.updateViewCount(vo.getRseq()); // ï¿½ï¿½È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+
 			String userid = loginUser.getId();
-			
-			
-			//else ¾È¿¡ model°´Ã¼°¡ »ý¼ºµÇ¼­ adminÀ¸·Î ·Î±×ÀÎ ÇÏ¸é detailÀÌ ¾È¶ß´Â°Ç°¡ 
-			//½Í¾î¼­ ¸¸µé¾îº½
-			//String loginadmin = loginAdmin.getId();
-			
+
+			// else ï¿½È¿ï¿½ modelï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¼ï¿½ adminï¿½ï¿½ï¿½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ ï¿½Ï¸ï¿½ detailï¿½ï¿½ ï¿½È¶ß´Â°Ç°ï¿½
+			// ï¿½Í¾î¼­ ï¿½ï¿½ï¿½ï¿½îº½
+			// String loginadmin = loginAdmin.getId();
+
 			RealReviewVO reviewsDetail = reviewsService.detailReviews(rseq);
 			model.addAttribute("RealReviewVO", reviewsDetail);
 			model.addAttribute("userid", userid);
-			//model.addAttribute("loginAdmin1", loginadmin);
+			// model.addAttribute("loginAdmin1", loginadmin);
 			return "realreview/reviewDetail";
 
 		}
 	}
-
 
 	@GetMapping(value = "/review_write")
 	public String reviewWrite(RealReviewVO vo, HttpSession session) {
@@ -128,156 +117,145 @@ public class RealReviewController {
 			return "redirect:review_list";
 		}
 	}
-	
-	
 
 	@RequestMapping(value = "/myreview", method = RequestMethod.GET)
-	public String seemyreview (RealReviewVO vo, HttpSession session, Model model, Criteria criteria,String id) {
+	public String seemyreview(RealReviewVO vo, HttpSession session, Model model, Criteria criteria, String id) {
 
 		UsersVO loginUser = (UsersVO) session.getAttribute("loginUser");
 		if (loginUser == null) {
 			return "Users/login";
 		} else {
-			
+
 			vo.setId(loginUser.getId());
-		
+
 			reviewsService.seemyreview(vo);
-		
-			
+
 			List<RealReviewVO> myreviewList = reviewsService.getListWithPaging2(criteria, vo.getId());
-			
-			// È­¸é¿¡ Ç¥½ÃÇÒ ÆäÀÌÁö ¹öÆ° Á¤º¸ ¼³Á¤
+
+			// È­ï¿½é¿¡ Ç¥ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			PageMaker mypageMaker = new PageMaker();
 			int totalCount = reviewsService.countReviewlist2(id);
 
-			mypageMaker.setCriteria(criteria); // ÇöÀç ÆäÀÌÁö¿Í ÆäÀÌÁö´ç Ç×¸ñ ¼ö Á¤º¸ ¼³Á¤
-			mypageMaker.setTotalCount(totalCount); // ÀüÃ¼ °øÁö»çÇ× ¸ñ·Ï °¹¼ö ¼³Á¤ ¹× ÆäÀÌÁö Á¤º¸ ÃÊ±âÈ­
-
-			
+			mypageMaker.setCriteria(criteria); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			mypageMaker.setTotalCount(totalCount); // ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
 
 			model.addAttribute("myreviewListSize", myreviewList.size());
 			model.addAttribute("mypageMaker", mypageMaker);
 			model.addAttribute("myreviewList", myreviewList);
-			
 
 			return "mypage/myreviewList";
 		}
 	}
 
-	//¸®ºä»èÁ¦(¸®ºä»èÁ¦½Ã ¿ø·¡ »ý¼ºÇß´ø reviewsServcice.detail)»ç¿ë½Ã login sessionÀ» ÀÌ¿ëÇÏ¿© Á¤º¸¸¦
-	//ÀúÀåÇÏ¿© »ç¿ëÇÒ ¼ö ÀÖÀ½
-	@RequestMapping(value="/review_list_re", method = RequestMethod.GET)
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß´ï¿½ reviewsServcice.detail)ï¿½ï¿½ï¿½ï¿½ login sessionï¿½ï¿½
+	// ï¿½Ì¿ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	@RequestMapping(value = "/review_list_re", method = RequestMethod.GET)
 	@ResponseBody
-	public String deletereviews(@RequestParam(value="rseq") int rseq, HttpSession session, Model model,Criteria criteria, String title) throws Exception {
-		
+	public String deletereviews(@RequestParam(value = "rseq") int rseq, HttpSession session, Model model,
+			Criteria criteria, String title) throws Exception {
 
 		UsersVO loginUser = (UsersVO) session.getAttribute("loginUser");
 		AdminVO loginAdmin = (AdminVO) session.getAttribute("loginAdmin");
-		if (loginUser == null && loginAdmin==null) {
+		if (loginUser == null && loginAdmin == null) {
 			return "Users/login";
-			
-			//adminÀÌ ¸®¾ó¸®ºä·Î Àß¸ø Á¢¼Ó½Ã »èÁ¦ °¡´ÉÇÔ
-		}else if(loginAdmin != null) {
-			
-			//model.addAllAttributes(reviewsService.listReview(vo));
-			
-			//»èÁ¦ ¹öÆ° Å¬¸¯½Ã »èÁ¦µÇ´Â ºÎºÐ
+
+			// adminï¿½ï¿½ ï¿½ï¿½ï¿½ó¸®ºï¿½ï¿½ ï¿½ß¸ï¿½ ï¿½ï¿½ï¿½Ó½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		} else if (loginAdmin != null) {
+
+			// model.addAllAttributes(reviewsService.listReview(vo));
+
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç´ï¿½ ï¿½Îºï¿½
 			reviewsService.deletereviews(rseq);
-			// °øÁö»çÇ× ¸ñ·Ï Á¶È¸ - °øÁö»çÇ× 10°³¸¸ Á¶È¸
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½È¸ - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 10ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸
 
 			List<RealReviewVO> reviewList = reviewsService.getListWithPaging(criteria, title);
 
-			// È­¸é¿¡ Ç¥½ÃÇÒ ÆäÀÌÁö ¹öÆ° Á¤º¸ ¼³Á¤
+			// È­ï¿½é¿¡ Ç¥ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			PageMaker pageMaker = new PageMaker();
 			int totalCount = reviewsService.countReviewlist(title);
 
-			pageMaker.setCriteria(criteria); // ÇöÀç ÆäÀÌÁö¿Í ÆäÀÌÁö´ç Ç×¸ñ ¼ö Á¤º¸ ¼³Á¤
-			pageMaker.setTotalCount(totalCount); // ÀüÃ¼ °øÁö»çÇ× ¸ñ·Ï °¹¼ö ¼³Á¤ ¹× ÆäÀÌÁö Á¤º¸ ÃÊ±âÈ­
+			pageMaker.setCriteria(criteria); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			pageMaker.setTotalCount(totalCount); // ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
 
-			model.addAttribute("reviewList", reviewList); // º¯¼ö, °ª ¼ø¼­ÀÓ ¿ÞÂÊ º¯¼ö´Â reviewList¿¡¼­ <for:each>ÀÇ º¯¼ö¿Í µ¿ÀÏÇÔ
+			model.addAttribute("reviewList", reviewList); // ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ reviewListï¿½ï¿½ï¿½ï¿½ <for:each>ï¿½ï¿½
+															// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			model.addAttribute("reviewListSize", reviewList.size());
 			model.addAttribute("pageMaker", pageMaker);
-			
+
 			return "admin/managerealreview";
-		}else {
+		} else {
 			reviewsService.deletereviews(rseq);
-			// °øÁö»çÇ× ¸ñ·Ï Á¶È¸ - °øÁö»çÇ× 10°³¸¸ Á¶È¸
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½È¸ - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 10ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸
 
 			List<RealReviewVO> reviewList = reviewsService.getListWithPaging(criteria, title);
 
-			// È­¸é¿¡ Ç¥½ÃÇÒ ÆäÀÌÁö ¹öÆ° Á¤º¸ ¼³Á¤
+			// È­ï¿½é¿¡ Ç¥ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			PageMaker pageMaker = new PageMaker();
 			int totalCount = reviewsService.countReviewlist(title);
 
-			pageMaker.setCriteria(criteria); // ÇöÀç ÆäÀÌÁö¿Í ÆäÀÌÁö´ç Ç×¸ñ ¼ö Á¤º¸ ¼³Á¤
-			pageMaker.setTotalCount(totalCount); // ÀüÃ¼ °øÁö»çÇ× ¸ñ·Ï °¹¼ö ¼³Á¤ ¹× ÆäÀÌÁö Á¤º¸ ÃÊ±âÈ­
+			pageMaker.setCriteria(criteria); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			pageMaker.setTotalCount(totalCount); // ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
 
-			model.addAttribute("reviewList", reviewList); // º¯¼ö, °ª ¼ø¼­ÀÓ ¿ÞÂÊ º¯¼ö´Â reviewList¿¡¼­ <for:each>ÀÇ º¯¼ö¿Í µ¿ÀÏÇÔ
+			model.addAttribute("reviewList", reviewList); // ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ reviewListï¿½ï¿½ï¿½ï¿½ <for:each>ï¿½ï¿½
+															// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			model.addAttribute("reviewListSize", reviewList.size());
 			model.addAttribute("pageMaker", pageMaker);
-			
+
 			return "realreview/reviewList";
 		}
-		
+
 	}
-	
-	
+
 	@GetMapping(value = "/modi")
-	public String modifyreview(int rseq,RealReviewVO vo,  HttpSession session,Model model) {
-		
+	public String modifyreview(int rseq, RealReviewVO vo, HttpSession session, Model model) {
+
 		UsersVO loginUser = (UsersVO) session.getAttribute("loginUser");
 		if (loginUser == null) {
 			return "Users/login";
 		} else {
 
-			
 			String userid = loginUser.getId();
 			RealReviewVO review = reviewsService.detailReviews(vo.getRseq());
-			
-			model.addAttribute("RealReviewVO",review);
+
+			model.addAttribute("RealReviewVO", review);
 			model.addAttribute("userid", userid);
-			
 
 			return "realreview/modifyreview";
 		}
 	}
-	
-		@RequestMapping(value = "/modifyReview", method = RequestMethod.GET)
-		public String updatereviews (int rseq,RealReviewVO vo, HttpSession session, Criteria criteria, String title, 
-		Model model ) {
+
+	@RequestMapping(value = "/modifyReview", method = RequestMethod.GET)
+	public String updatereviews(int rseq, RealReviewVO vo, HttpSession session, Criteria criteria, String title,
+			Model model) {
 
 		UsersVO loginUser = (UsersVO) session.getAttribute("loginUser");
-			if (loginUser == null) {
-				return "Users/login";
+		if (loginUser == null) {
+			return "Users/login";
 		} else {
-			
+
 			reviewsService.modifyreviews(vo);
-			
-			title ="";
-			
+
+			title = "";
+
 			List<RealReviewVO> reviewList = reviewsService.getListWithPaging(criteria, title);
-			
-			// È­¸é¿¡ Ç¥½ÃÇÒ ÆäÀÌÁö ¹öÆ° Á¤º¸ ¼³Á¤
+
+			// È­ï¿½é¿¡ Ç¥ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			PageMaker pageMaker = new PageMaker();
 			int totalCount = reviewsService.countReviewlist(title);
 
-			pageMaker.setCriteria(criteria); // ÇöÀç ÆäÀÌÁö¿Í ÆäÀÌÁö´ç Ç×¸ñ ¼ö Á¤º¸ ¼³Á¤
-			pageMaker.setTotalCount(totalCount); // ÀüÃ¼ °øÁö»çÇ× ¸ñ·Ï °¹¼ö ¼³Á¤ ¹× ÆäÀÌÁö Á¤º¸ ÃÊ±âÈ­
+			pageMaker.setCriteria(criteria); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			pageMaker.setTotalCount(totalCount); // ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
 
-			model.addAttribute("reviewList", reviewList); // º¯¼ö, °ª ¼ø¼­ÀÓ ¿ÞÂÊ º¯¼ö´Â reviewList¿¡¼­ <for:each>ÀÇ º¯¼ö¿Í µ¿ÀÏÇÔ
+			model.addAttribute("reviewList", reviewList); // ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ reviewListï¿½ï¿½ï¿½ï¿½ <for:each>ï¿½ï¿½
+															// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			model.addAttribute("reviewListSize", reviewList.size());
 			model.addAttribute("pageMaker", pageMaker);
 
 			return "realreview/reviewList";
-			
-
-		
-		}
 
 		}
-		
-		
-		
-		
-		
+
+	}
+
 }

@@ -12,3 +12,8 @@ function go_search(){
 function go_list(){
 	$("#detail_form").attr("action", "notice_list").submit();
 }
+
+//공지사항 등록
+function go_insert(){
+	$("#admin_notice_form").attr("action", "admin_notice_write_form").submit();
+}

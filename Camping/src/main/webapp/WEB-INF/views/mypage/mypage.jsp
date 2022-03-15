@@ -33,9 +33,7 @@
 					<a href="deleteIdView" style="width: 110px;">회원탈퇴</a>
 				</div>
 			</div>
-			
 		</form>
 	</article>
 </div>
 <%@ include file="../footer.jsp" %>
-
