@@ -10,8 +10,46 @@
 		SELECT password FROM admin WHERE id=#{id}
 	</select>
 
+<!-- 전체 회원 조회 -->
+	<select id="listAllUsers" resultType="users">
+		SELECT * FROM users
+			ORDER BY useq DESC
+	</select>
+	
+<!-- 총 회원 리스트 목록 갯수 조회 -->
+	<select id="countUserslist" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM users
+		<if test='id !=null'>
+			WHERE id LIKE '%'||#{id}||'%'
+		</if>
+	</select>
+	
+	<!-- 페이징 처리(1~10개씩 출력) / 게시물 id로 검색기능-->
+	<select id="listWithPaging" parameterType="hashMap" resultType="users">
 
+		SELECT useq,id,name,email,regdate,blacklist
+			FROM
+				(												<!-- rn= order by indate desc의 변수 -->
+				SELECT row_number() over(ORDER BY regdate DESC) AS un,useq,id,name,email,regdate,blacklist
+					FROM users
+					<if test='id !=null'>
+						WHERE id LIKE '%'||#{id}||'%'
+					</if>
+							
+				)
+	<![CDATA[
+				WHERE un<=#{criteria.pageNum} * #{criteria.rowsPerPage}  
+					AND un>=(#{criteria.pageNum}-1) * #{criteria.rowsPerPage}
+					ORDER BY useq DESC
+	]]>
+		
+	</select>
+	
+	<update id="statuschange">
+     UPDATE users SET blacklist='y' 
 
+      WHERE useq=#{useq}
+</update>
 
 
 </mapper>

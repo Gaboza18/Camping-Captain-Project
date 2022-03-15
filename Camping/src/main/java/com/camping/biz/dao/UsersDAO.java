@@ -1,5 +1,6 @@
 package com.camping.biz.dao;
 
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.camping.biz.dto.UsersAge;
 import com.camping.biz.dto.UsersRatio;
 import com.camping.biz.dto.UsersVO;
+
 
 @Repository
 public class UsersDAO {
@@ -97,21 +99,29 @@ public class UsersDAO {
 		return mybatis.selectList("mappings.users-mapping.getAge");
 	}
 	
-	// 블랙리스트 설정
-	public void statusChangeBlack(String id) {
-		mybatis.update("mappings.users-mapping.statusChangeBlack", id);
+	//이메일 구현
+	public void updateemailchk(UsersVO vo) {
+		mybatis.update("mappings.users-mapping.updateEmailchk",vo);
 	}
 	
-	public void createAuthKey(String usersemail,String authkey) throws Exception {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("memberemail", usersemail);
-		map.put("authKey", authkey);
+	public String emailchkok(String id, String email) {
+		Map<String, String> map = new HashMap<>();
+		map.put("id", id);
+		map.put("email",email);
 		
-		mybatis.selectOne("mappings.users-mapping.createAuthKey", map);
+		return mybatis.selectOne("mappings.users-mapping.emailchkOk" ,map);
 	}
 	
-	public void usersAuth(String memberemail) throws Exception {
-		mybatis.update("mappings.users-mapping.memberAuth", memberemail);
-	}
+	public void updateEmail(UsersVO vo) {
+	mybatis.update("mappings.users-mapping.updateEmail", vo);
 	
+	}	
+	
+	
+		
+		
+		
+		
+		
+
 }

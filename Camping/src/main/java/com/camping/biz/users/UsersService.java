@@ -10,8 +10,9 @@ import com.camping.biz.dto.UsersRatio;
 import com.camping.biz.dto.UsersVO;
 
 
+
 public interface UsersService {
-	// DAO�뜝�룞�삕�뜝�룞�삕 �뜝�룞�삕泥� Users id �뜝�뙣�븘�슱�삕�뜝�룞�삕 - > �뜝�룞�삕�뜝�룞�삕�뜝�룞�삕 Impl�뜝�룞�삕�뜝�룞�삕
+	// DAO占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲 占쎈쐻占쎈짗占쎌굲筌ｏ옙 Users id 占쎈쐻占쎈솭占쎈툡占쎌뒻占쎌굲占쎈쐻占쎈짗占쎌굲 - > 占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲 Impl占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲
 	public UsersVO getUsers(String id);
 
 	public int confirmID(String id);
@@ -22,27 +23,34 @@ public interface UsersService {
 
 	public List<UsersVO> listUsers(String name);
 
-	public UsersVO findId(UsersVO vo); // �쉶�뜝�룞�삕 ID 李얍뜝�룞�삕
+	public UsersVO findId(UsersVO vo); // 占쎌돳占쎈쐻占쎈짗占쎌굲 ID 筌≪뼃�쐻占쎈짗占쎌굲
 
-	public int updatePwd(UsersVO vo); // �쉶�뜝�룞�삕 Pwd �뜝�룞�삕�뜝�룞�삕
+	public int updatePwd(UsersVO vo); // 占쎌돳占쎈쐻占쎈짗占쎌굲 Pwd 占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲
 
-	public void sendEmailPwd(UsersVO vo, String div); // �쉶�뜝�룞�삕 Pwd 李얍뜝�룞�삕 �뜝�떛紐뚯삕�뜝�룞�삕 �뜝�뙥�눦�삕
+	public void sendEmailPwd(UsersVO vo, String div); // 占쎌돳占쎈쐻占쎈짗占쎌굲 Pwd 筌≪뼃�쐻占쎈짗占쎌굲 占쎈쐻占쎈뼓筌뤿슣�굲占쎈쐻占쎈짗占쎌굲 占쎈쐻占쎈솯占쎈닰占쎌굲
 
-	public void findPwd(HttpServletResponse response, UsersVO vo) throws IOException; // �뜝�룞�삕�뜝�떛�벝�삕/�뜝�떛紐뚯삕�뜝�룞�삕 �뜝�룞�삕�쉶 �뜝�떦�슱�삕 �뜝�뙂�떆釉앹삕艅섇뜝�떕占� �뜝�룞�삕�뜝�룞�삕
+	public void findPwd(HttpServletResponse response, UsersVO vo) throws IOException; // 占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈뼓占쎈쿈占쎌굲/占쎈쐻占쎈뼓筌뤿슣�굲占쎈쐻占쎈짗占쎌굲 占쎈쐻占쎈짗占쎌굲占쎌돳 占쎈쐻占쎈뼣占쎌뒻占쎌굲 占쎈쐻占쎈셽占쎈뻻�뇡�빘�굲�뎲�꼪�쐻占쎈뼍�뜝占� 占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲
 	
-	//�쉶�뜝�룞�삕�뜝�룞�삕�뜝�룞�삕
+	//占쎌돳占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲
 	public void deleteId(UsersVO vo);
 	
-	// �쉶�뜝�룞�삕�뜝�룞�삕�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕
+	// 占쎌돳占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲 占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲
 	public void updateUser(UsersVO vo);
 		
-	public List<UsersRatio> getGenderRatio(); // �쉶�썝 �넻怨�(�궓,���꽦鍮�) 議고쉶
+public List<UsersRatio> getGenderRatio(); // 회원 통계(남,녀성비) 조회
 	
 	public List<UsersAge> getAge(); // 회원 통계(연령별 회원수) 조회
 
-// <이메일 인증 구현시 이메일만 전송할 수 있는 부분
-//	public void emailchk(Map<String, String> map);
-//	public void updateemailchk(UsersVO vo);
+
+
+	public void updateemailchk(UsersVO vo);
+	
+	public String emailchkok(String id, String email);
+
+	
+	
+	//이메일 업데이트(인서트)추가
+	public void updateEmail(UsersVO vo);
 	
 //	public String statusChange(char status);
 	

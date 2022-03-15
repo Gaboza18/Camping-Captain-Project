@@ -3,6 +3,7 @@
 <%@ include file="../header.jsp" %>	 
 <link rel="stylesheet" href="css/styles.css" >
 
+
 <div id="mypage_view_form" align="center">
 	<article id="mypage">
 		<h2>My Page</h2>
@@ -32,7 +33,7 @@
 					<a href="usermodify" style="width: 110px;">회원정보수정</a>
 					<a href="deleteIdView" style="width: 110px;">회원탈퇴</a>
 				</div>
-			</div>
+			</div>			
 		</form>
 	</article>
 </div>

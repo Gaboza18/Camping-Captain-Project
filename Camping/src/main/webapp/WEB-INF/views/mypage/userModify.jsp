@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>  
-<%@ include file="../header.jsp" %>  
+	pageEncoding="UTF-8"%>
+<%@ include file="../header.jsp"%>
+
 <link rel="stylesheet" href="css/styles.css" >
 
 <script type="text/javascript">
@@ -25,7 +26,6 @@
 	   }
 	
 	}
-
 </script>
 
 <div id="user_update_form" align="center">
@@ -33,8 +33,9 @@
 		<h2>부족 정보 수정</h2>
 	    <form id="usermodify" action="usermodify" method="post" name="formm">
 			<h4>${sessionScope.loginUser.name}(${sessionScope.loginUser.id})부족님 반갑습니다.</h4><br>
-	        					
-	  		<input type="hidden" name="id" value="${sessionScope.loginUser.id}">
+	        				
+          <input type="hidden" name="id" value="${users.id}">
+          <input type="hidden" name="email" id="id" value="${id}"> 
 	        
 	        <label>Password</label> 
 	        <input type="password"  name="password" id="password"><br>
@@ -49,8 +50,21 @@
 	        <input type="text" name="birth" maxlength="6" class="birth" value="${birth}"><span style="color: white;">-</span>
 			<input type="text" name="birth_gen" maxlength="1" class="birth_gen" value="${birth_gen}"><span id="spanRight" style="color: white;">●●●●●●</span><br> 
 	
-	        <label>E-Mail</label>
-	        <input type="text" name="email" value="${users.email}"><br>
+	      	<c:if test="${loginUser.status eq 'n'}">
+			      <label>E-mail</label>
+
+          <input type="text" name="email" id="email">
+          <input type="button" name="email" id="email" value="이메일 인증하기"
+				    class="dup" onclick="emailcheck2()">
+          <input type="hidden" name="id" id="id" value="${id}">
+          <input type="hidden" name="id" id="id" value="${users.id}">
+		</c:if>
+
+		<c:if test="${loginUser.status eq 'y'}">
+			<label>E-mail</label>
+			  <input type="text" name="email" id="email" value="${email}"
+				readOnly="readonly">
+		</c:if>
 	        
 	        <label>Phone Number</label> 
 	        <input  type="text" name="phone" value="${users.phone}"><br>
@@ -67,4 +81,4 @@
 </div>
 <%@ include file="../footer.jsp" %>
 
-  
+

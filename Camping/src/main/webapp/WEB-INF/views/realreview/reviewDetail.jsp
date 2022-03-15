@@ -28,7 +28,7 @@ function modi_review() {
 	var content = $("#detail tr:eq(2)>td:eq(0)").text();
 	var campingNm = $("#detail tr:eq(4)>td:eq(0)").text();  */
 	alert("내가쓴 리뷰를 수정합니다");
-	console.log(rseq)
+	console.log(rseq);
 
 	//location.href="modifyreview?resq="+resq+"&&title="+title+"&&content="+content+"&&campingNm="+campingNm;
 	//location.href="/modifyreview.jsp";

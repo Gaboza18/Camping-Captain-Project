@@ -18,5 +18,9 @@ public class UsersVO {
 	private String phone;
 	private Timestamp regdate;
 	private String status;
-	private int users_auth;
+	private String emailchk;
+	private String searchCondition;
+	private String searchkeyword;
+	private int useq;
+	private String blacklist;
 }

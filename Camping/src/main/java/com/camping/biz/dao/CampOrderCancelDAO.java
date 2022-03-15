@@ -23,6 +23,25 @@ public class CampOrderCancelDAO {
 		mybatis.insert("mappings.campOrderCancel-mapping.insertCancelMyOrder", vo);
 	}
 	
+	// 대기중인 취소목록 갯수 조회
+	public int  countMyNonCancelList(String usersid) {
+		return mybatis.selectOne("mappings.campOrderCancel-mapping.countMyNonCancelList", usersid);
+	}
+	
+	// 총 취소내역 현황 목록 갯수 조회
+	public int countMyCancelList(String usersid) {
+		return mybatis.selectOne("mappings.campOrderCancel-mapping.countMyCancelList", usersid);
+	}
+	
+	// 페이징 처리(1~10개씩 출력)
+	public List<CampOrderCancelVO> getMyListWithPaging(Criteria criteria, String usersid){
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("criteria", criteria);
+		map.put("usersid", usersid);
+
+		return mybatis.selectList("mappings.campOrderCancel-mapping.MylistWithPaging", map);
+	}
+	
 	
 	
 	/*

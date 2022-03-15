@@ -27,31 +27,23 @@ input[type=button], input[type=submit] {
 }
 </style>
 <script type="text/javascript">
-function emailok(){
-  opener.formm.email.value="${email}"; 
-  opener.formm.reemail.value="${email}";
-  self.close();
-}
+
 </script>
+
 </head>
 <body>
-<div id="wrap">
-  <h2>email등록</h2>
-  <form method=post name=formm id="theform" style="margin-right:0 "
-  		action="signUpConfirm" >
-    사용하는 이메일에서 인증링크를 눌러주세요<br>
+<div>
+<input type="hidden" name = "email" value="${users}">
+<input type="hidden" name = "email" value="${id}">
+<input type="hidden" name="status" id="status" value="${status}"> 
 
-     <input type=text name="email" value="${email}"> 
-            <input type=submit value="사용" class="submit" onclick="emailok()"><br>     
-    <div style="margin-top: 20px">   
-    
-        
-  
-       
-        </form>
-        </div>
-    
-  
+						<h2> 사용하시는 이메일에 인증링크를 보냈습니다. 인증링크를 클릭하시면 됩니다</h2>
+							<h2><p>${message}</p></h2>
+							
+					
+ 
+</div>  
+
 
 </body>
 </html>

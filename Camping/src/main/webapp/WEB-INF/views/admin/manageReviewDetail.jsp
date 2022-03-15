@@ -20,7 +20,7 @@
 function admin_delete() {
 	
     alert("관리자가 회원이 쓴 리뷰를 삭제되었습니다");
-    $("#delete2").attr('action','review_list_re').submit(); 
+    $("#delete3").attr('action','review_list_re').submit(); 
 
 }
 

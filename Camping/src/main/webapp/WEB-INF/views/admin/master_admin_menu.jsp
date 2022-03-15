@@ -17,6 +17,7 @@
 	      		<li><a href="admin_notice_list">관리자 게시판</a></li>
 	      		<li><a href="master_manage_notice_list">회원 게시판 관리</a></li>
 	      		<li><a href="adminReview">후기 관리</a></li>
+	      		<li><a href="users_list">회원 관리</a></li>
 	      		<li><a href="question_write_form">자주 묻는질문</a></li>
 	      	</ul>
 	      </li>

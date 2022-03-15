@@ -187,7 +187,7 @@ public class CampOrderController {
 				String netCancel= paramMap.get("netCancelUrl"); // 망취소 API url(수신 받은 값으로 설정, 임의 세팅 금지)
 				
 				/*
-				 *  2.signature 생성
+				 *  2.signature 생성(전자서명 알고리즘)
 				 */
 				SHA256 sha256 = new SHA256();
 				String sha = "authToken="+authToken+"&timestamp="+timestamp;

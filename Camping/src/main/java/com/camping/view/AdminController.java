@@ -462,6 +462,62 @@ public class AdminController {
 
 		return reviewlist;
 
+		
+	
+}
+	
+	@RequestMapping(value ="/users_list", method= RequestMethod.GET)
+	public String usersList(@RequestParam(value="key", defaultValue="") String id, Criteria criteria,
+			HttpSession session, Model model) {
+		
+		
+		
+		// 공지사항 목록 조회 - 공지사항 10개만 조회
+
+		List<UsersVO> usersList = adminService.getUsersListWithPaging(criteria, id);
+		
+		// 화면에 표시할 페이지 버튼 정보 설정
+		PageMaker pageMaker = new PageMaker();
+		int totalCount = adminService.countUserslist(id);
+
+		pageMaker.setCriteria(criteria); // 현재 페이지와 페이지당 항목 수 정보 설정
+		pageMaker.setTotalCount(totalCount); // 전체 공지사항 목록 갯수 설정 및 페이지 정보 초기화
+
+		model.addAttribute("usersList", usersList); // 변수, 값 순서임 왼쪽 변수는 reviewList에서 <for:each>의 변수와 동일함
+		model.addAttribute("usersListSize", usersList.size());
+		model.addAttribute("pageMaker", pageMaker);
+		
+	
+
+		return "admin/usersblacklist/usersblacklist";
+		
 	}
 
+
+	@RequestMapping(value = "changestatus", method = RequestMethod.GET)
+	public String statusChange( UsersVO vo,Criteria criteria, Model model
+			,@RequestParam(value="useq") int useq,String id) {
+
+		
+		System.out.println(useq);
+		adminService.statusChange(useq);
+		List<UsersVO> usersList = adminService.getUsersListWithPaging(criteria, id);
+		
+		// 화면에 표시할 페이지 버튼 정보 설정
+		PageMaker pageMaker = new PageMaker();
+		int totalCount = adminService.countUserslist(id);
+
+		pageMaker.setCriteria(criteria); // 현재 페이지와 페이지당 항목 수 정보 설정
+		pageMaker.setTotalCount(totalCount); // 전체 공지사항 목록 갯수 설정 및 페이지 정보 초기화
+
+		model.addAttribute("usersList", usersList); // 변수, 값 순서임 왼쪽 변수는 reviewList에서 <for:each>의 변수와 동일함
+		model.addAttribute("usersListSize", usersList.size());
+		model.addAttribute("pageMaker", pageMaker);
+
+		
+		
+		return "admin/usersblacklist/usersblacklist";
+		}
+	}
 }
+

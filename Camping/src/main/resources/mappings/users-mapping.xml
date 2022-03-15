@@ -15,9 +15,11 @@
 
 <!-- users등록  -->
 <insert id="insertUsers">
-INSERT INTO users(id,password,name,email,birthday,phone)
-VALUES(#{id}, #{password}, #{name}, #{email},#{birthday},#{phone})
+INSERT INTO users(useq,id,password,name,birthday,phone)
+VALUES(users_useq.NEXTVAL,#{id}, #{password}, #{name},#{birthday},#{phone})
 </insert>
+
+
 
 <!-- users 전체 목록 조회 -->
 			<select id="listUsers" resultType="users">
@@ -91,17 +93,23 @@ group by floor(age/10)
 </select>
 
 
-<update id="statuschange">
-	UPDATE USERS SET status='b' WHERE id=#{id}
+
+<!-- 인증키 생성하여 이메일 보내기  -->
+<update id="updateEmailchk">
+	Update Users SET emailchk =#{emailchk} WHERE id=#{id}
 </update>
 
-<insert id="createAuthKey">
-	insert into mp_users_auth values(#{usersemail}, #{authkey})
-</insert>
+<!-- 생성된 인증키,아이디 와 메일로 보낸 인증키 비교-->
+<select id = "emailchkOk" resultType="String">
+select emailchk FROM Users WHERE id=#{id}  
+</select>
 
-<update id="usersAuth">
-	<![CDATA[update users set users_auth = 1 where (select count(*) from mp_users_auth where usersemail = #{email}) > 0]]>
+<update id="updateEmail">
+UPDATE USERS SET email= #{email}, status='y' WHERE id=#{id} AND emailchk=#{emailchk}
+
 </update>
+
+
 
 
 </mapper>

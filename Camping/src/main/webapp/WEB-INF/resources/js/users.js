@@ -48,9 +48,24 @@ function emailcheck() {
 	   }
 
 	   // id가 입력이 되었으면 id 중복확인 윈도우 창 오픈(윈도우창 크기 및 사이즈 변경 여부)
-	   var url = "signUpConfirm?email=" + $("#email").val();
+	   var url = "signUpConfirm?email=" + $("#email").val()+"&id="+$("#id").val();
 	   window.open(url, "_blank_", "toolbar=no, menubar=no, scrollbars=no, resizable=yes, width=350, height=200");
 	}
+
+// 수정화면 이메일 보내는 js
+function emailcheck2() {
+
+	   if ($("#email").val() == "") { // id 입력하지 않았을떄
+	      alert("이메일을 입력해주세요");
+	      $("#email").focus();
+	      return false;
+	   }
+
+	   // id가 입력이 되었으면 id 중복확인 윈도우 창 오픈(윈도우창 크기 및 사이즈 변경 여부)
+	   var url = "signUpConfirm?email=" + $("#email").val()+"&id="+$("#id").val();
+	   window.open(url, "_blank_", "toolbar=no, menubar=no, scrollbars=no, resizable=yes, width=350, height=200");
+	}
+
 
 
 
@@ -66,7 +81,7 @@ function idok(){
  * 회원가입시, 필수입력 항목 확인
  */
 
-function go_save() {
+function go_save1() {
 
    if ($("#id").val() == "") {
       alert("아이디를 입력 하세요");
@@ -89,10 +104,36 @@ function go_save() {
       $("#name").focus();
       return false;
    } else {
-      $("#join").attr("action", "join").submit(); // 회원가입 요청
+      $("#join").attr("action", "join").submit(); // 1단계 회원가입 요청
    }
 
 }
+
+function go_save2() {
+
+	   if ($("#email").val() == "") {
+	      alert("사용하시는 이메일을 인증하지 않으면 캠핑장 예약과 비밀번호를 찾을 수 없습니다.");
+	      $("#email").focus();
+	      alert("원하지 않는경우 간편회원가입을 눌러주세요");
+	     return false;
+	     } else if ($("#status").val()=="n") {
+		   alert("아직 회원인증이 완료되지 않았습니다");
+		   $("#email").focus();
+		   return false;
+		   
+	   } else {
+		   alert("축하합니다! 이메일이 인증되었습니다. 다시 로그인을 해주세요. 감사합니다");
+		   		$("#join2").attr("action","finaljoin").submit();
+	    	  }
+	      }
+
+
+function go_save3() {
+	alert("간편 회원가입 상태입니다. 다시 로그인을 해주세요 감사합니다.");
+	$("#join2").attr("action","finaljoin").submit();
+
+}
+
 
 function go_out() {
 	if($("#passwordCheck").val() == ""){
