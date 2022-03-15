@@ -15,14 +15,43 @@
 	}
 </script>
 <style>
+
+	body {
+		background-color: #212529;
+		color: white;
+	}
+	
+	body h4 {
+		text-align: center;
+	}
+
+	table {
+		margin-left: 12.5%;
+	}
+	
 	table th {
 		width: 150px;
 		text-align: left;
 	}
 	
-	#button {
-		margin-top: 30px;
+	table td input {
+		border-radius: 12px;
+		padding: 3px 8px;
+		text-align: center;
 	}
+	
+	div#button button {
+		margin-top: 30px;
+		background-color: rgb(255, 200, 0);
+		border-radius: 12px;
+		padding: 1px 8px;
+		line-height: 1.7;
+	}
+	
+	div#button button:hover {
+		background-color:  rgb(230, 177, 0);
+	}
+	
 </style>
 </head>
 <body>

@@ -16,11 +16,11 @@
 
 
 <body>
-	<div align="center">
+	<div id="myreview_list_form" align="center">
 		<article>
 			<h2>MY Real Review !</h2>
-			<h3>내가 쓴 리뷰입니다</h3> 
-			<h3>내가쓴 리뷰를 확인해보세요!</h3>
+			<h4>내가 쓴 리뷰입니다</h4> 
+			<h4>내가쓴 리뷰를 확인해보세요!</h4>
 
 			<!-- 검색 파트 -->
 			<form name="frm" id="review_list1" method="get" action = "myreview_list">
@@ -33,17 +33,17 @@
 			  			</td>
 			  		</tr>
 			  	</table>
-			  </form>
+			</form>
 			<br>
 			<form name="myreview" method="get">
 				<table id="myreviewList"  border="1">
 					<tr>
 						<th width="40">번호</th>
-						<th width="200">제목</th>
+						<th width="250">제목</th>
 						<th width="100">작성자</th>
-						<th width="100">캠핑장지점이름</th>
+						<th width="130">캠핑장지점이름</th>
 						<th width="130">작성일</th>
-						<th width="50">조회수</th>
+						<th width="80">조회수</th>
 					</tr>
 					<c:choose>
 						<c:when test="${myreviewListSize<=0}">

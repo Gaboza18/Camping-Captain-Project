@@ -4,7 +4,6 @@
     	
     
   		<footer>  
-		    <hr>
 		    <div id="footer">
 				All contents Copyright 2022 CampingCaptain Inc. all rights reserved<br>
 			    Contact mail : CampingCaptain@CampingCaptain.com Tel: +82-2-123-4567 

@@ -44,6 +44,16 @@ public class CampOrderCancelServiceImpl implements CampOrderCancelService {
 	}
 
 	@Override
+	public int countAllOrderList() {
+		return cDao.countAllOrderList();
+	}
+
+	@Override
+	public List<CampOrderCancelVO> getAllListWithPaging(Criteria criteria) {
+		return cDao.getAllListWithPaging(criteria);
+	}
+
+	@Override
 	public CampOrderCancelVO getCancelOrder(int cseq) {
 		return cDao.getCancelOrder(cseq);
 	}

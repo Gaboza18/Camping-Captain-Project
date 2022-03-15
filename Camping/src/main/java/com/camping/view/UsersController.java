@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletResponse;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -33,6 +32,7 @@ import com.camping.biz.users.UsersService;
 @SessionAttributes("loginUser")
 
 public class UsersController {
+  
 	// 이메일 인증 이메일 보낼때 필요한 객체
 	@Autowired
 	private MailSendService mss;

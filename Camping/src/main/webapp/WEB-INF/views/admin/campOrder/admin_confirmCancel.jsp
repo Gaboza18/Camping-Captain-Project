@@ -17,7 +17,13 @@ function cancel_chk() {
 			data: $("#confirm_cancel_order").serialize()
 		}).done(function(){
 			alert("예약 취소가 확정되었습니다.");
-			opener.location.href="search_cancelList?campName="+$("#camp_Reid").val();
+
+			if($("#camp_Reid").val() == 0) {
+				opener.location.href="search_cancel";
+			} else {
+				opener.location.href="search_cancelList?campName="+$("#camp_Reid").val();
+			}
+			
 			self.close();
 		}).fail(function(error){
 			alert("에러");
@@ -26,14 +32,40 @@ function cancel_chk() {
 }
 </script>
 <style>
+
+	body {
+		background-color: #212529;
+		color: white;
+	}
+
+	table {
+		margin-top: 4%;
+		margin-left: 12.5%;
+	}
+	
 	table th {
 		width: 150px;
 		text-align: left;
 	}
 	
-	#button {
-		margin-top: 30px;
+	table td input {
+		border-radius: 12px;
+		padding: 3px 8px;
+		text-align: center;
 	}
+	
+	div#button button {
+		margin-top: 30px;
+		background-color: rgb(255, 200, 0);
+		border-radius: 12px;
+		padding: 1px 8px;
+		line-height: 1.7;
+	}
+	
+	div#button button:hover {
+		background-color:  rgb(230, 177, 0);
+	}
+	
 </style>
 </head>
 <body>

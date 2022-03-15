@@ -14,14 +14,40 @@
 	}
 </script>
 <style>
+
+	body {
+		background-color: #212529;
+		color: white;
+	}
+
+	table {
+		margin-top: 12.5%;
+		margin-left: 12.5%;
+	}
+	
 	table th {
 		width: 150px;
 		text-align: left;
 	}
 	
-	#button {
-		margin-top: 30px;
+	table td input {
+		border-radius: 12px;
+		padding: 3px 8px;
+		text-align: center;
 	}
+	
+	div#button button {
+		margin-top: 30px;
+		background-color: rgb(255, 200, 0);
+		border-radius: 12px;
+		padding: 1px 8px;
+		line-height: 1.7;
+	}
+	
+	div#button button:hover {
+		background-color:  rgb(230, 177, 0);
+	}
+	
 </style>
 </head>
 <body>
@@ -67,8 +93,8 @@
 	        <td><input type="text" name="total_price" id="total_price" value="${myOrderDetail.total_price}" readOnly="readonly">원 </td>
       	</tr>
 	</table>
-		<div id="button" align="center">
-			<button type="button" onclick="btnClose()" style="text-align: center;">닫기</button>
-		</div>
+	<div id="button" align="center">
+		<button type="button" onclick="btnClose()" style="text-align: center;">닫기</button>
+	</div>
 </body>
 </html>

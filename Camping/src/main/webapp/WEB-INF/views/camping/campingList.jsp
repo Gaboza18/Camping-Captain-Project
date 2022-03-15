@@ -7,9 +7,9 @@
 	<div id="images">
 		<c:choose>
 			<c:when test="${camp_id == 1}">
-				<h3>일반캠핑장</h3>
+				<h5>일반캠핑장</h5>
 				<img id="campImages" src="images/1/캠핑족장_강원도지점(일반).png" width="580" height="400">
-				<h3>차박캠핑장</h3>
+				<h5>차박캠핑장</h5>
 				<img id="campImages" src="images/1/캠핑족장_강원도지점(차박).png" width="580" height="400">
 			</c:when>
 			<c:when test="${camp_id == 2}">
@@ -45,11 +45,11 @@
 				<input name="outdate" type="hidden" id="outdate" value="${outdate}"/>
 				<table>
 					<tr>
-						<th colspan="2">${camping.camp_name}(${camping.camp_addr})</th>
+						<th colspan="2" width="520">${camping.camp_name}(${camping.camp_addr})</th>
 					</tr>
 			        <tr>
-			            <td rowspan="4" width="200"><img src="images/${camping.camp_id}/${camping.image}" width="170" height="100"></td>
-			            <td>${camping.camp_zone}구역</td>
+			            <td rowspan="4" width="220"><img src="images/${camping.camp_id}/${camping.image}" width="190" height="100"></td>
+			            <td width="180">${camping.camp_zone}구역</td>
 			        </tr>
 			        <tr>
 			            <td>기준 ${camping.base_people}인/최대 ${camping.max_people}인</td>

@@ -66,6 +66,27 @@
 		]]>
 	</select>
 	
+	<!-- 전체 예약취소현황 목록 갯수 조회 -->
+	<select id="countAllOrderList" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM campordercancel 
+	</select>
+	
+	<!-- 페이징 처리(1~10개씩 출력) /-->
+	<select id="AlllistWithPaging" parameterType="hashMap" resultType="cancel">
+		<![CDATA[
+		
+			SELECT cseq, oseq, usersid, camp_name, camp_zone, indate, outdate, order_name, order_people, order_phone, order_email, 
+					total_price, cancelprice, cancelnet, cancel_date, reason, status
+				FROM
+					(SELECT row_number() over(ORDER BY cancel_date DESC) rn, cseq, oseq, usersid, camp_name, camp_zone, indate, outdate, 
+											order_name, order_people, order_phone, order_email, total_price, cancelprice, cancelnet, cancel_date, reason, status
+						FROM campordercancel 
+					)
+					WHERE rn<=#{criteria.pageNum} * #{criteria.rowsPerPage}  
+						AND rn>=(#{criteria.pageNum}-1) * #{criteria.rowsPerPage}
+		]]>
+	</select>
+	
 	<!-- 취소내역 한건 조회 -->
 	<select id="getCancelOrder" parameterType="int" resultType="cancel">
 		SELECT*FROM campordercancel WHERE cseq=#{cseq}

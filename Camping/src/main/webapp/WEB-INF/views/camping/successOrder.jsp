@@ -5,22 +5,28 @@
 	/* 예약성공 멘트 페이지 설정*/
 	#successOrder{
 		text-align: center;
-		height: 410px;
+		height: 750px;
+		background-color: #212529;
+		background-image: url("../assets/img/map-image.png");
+		background-repeat: no-repeat;
+		background-position: center;
+		padding:250px 10px;
+		color: white;
 	}
 	
 	#success {
 		width: 500px;
-		border: 1px solid rgb(20, 92, 28);
+		border: 1px solid #c0c0c0;
 		border-radius: 10px;
 		padding: 20px;
 		margin: 20px auto;
 	}
 	
 	div#btn a{
-		border: 1px solid rgb(20, 92, 28);
+		border: 1px solid #c0c0c0;
 		border-radius: 10px;
 		text-decoration: none;
-		color: black;
+		color: white;
 		margin: 30px 20px;
 		padding: 10px;
 	}

@@ -53,12 +53,6 @@ public List<UsersRatio> getGenderRatio(); // 회원 통계(남,녀성비) 조회
 	//이메일 업데이트(인서트)추가
 	public void updateEmail(UsersVO vo);
 	
-
-
-	
-	
 //	public String statusChange(char status);
-	
-
 	
 }
