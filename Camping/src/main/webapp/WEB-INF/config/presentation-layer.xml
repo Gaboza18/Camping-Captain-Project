@@ -19,6 +19,7 @@
 	
 	<!-- 이미지 적용 -->
 	<mvc:resources location="/WEB-INF/resources/images/" mapping="/images/**"></mvc:resources>
+	<mvc:resources location="/WEB-INF/resources/assets/img/" mapping="/assets/img/**"></mvc:resources>
 	
 	<!-- JS 적용 -->
 	<mvc:resources location="/WEB-INF/resources/js/" mapping="/js/**"></mvc:resources>

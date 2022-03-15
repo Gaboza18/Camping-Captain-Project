@@ -287,7 +287,7 @@ public class AdminController {
 
 		return conditionMapYear;
 	}
-	
+
 	/*
 	 * 각 지점 연도별 정산(총관리자) - 서브메뉴 -> 연도/월 별 정산 조회 컨트롤러
 	 */
@@ -296,32 +296,30 @@ public class AdminController {
 	public String masterCalculateMonth() {
 		return "admin/calculate/admin_all_point_calculate_month";
 	}
-	
+
 	/*
 	 * 각 지점 연도/월별 정산(총관리자) - 조회할 년도 '시작년도/시작하는 월 ~ 끝나는 년도/끝나는 월'
 	 */
 
 	@RequestMapping(value = "/admin_master_calculate_yearmonth", method = RequestMethod.GET)
 	public String masterCalculateMonth(@RequestParam(value = "startYear") String startYear,
-			@RequestParam(value = "startMonth") String startMonth,
-			@RequestParam(value = "endYear") String endYear,
-			@RequestParam(value = "endMonth") String endMonth,
-			Model model) {
-		
+			@RequestParam(value = "startMonth") String startMonth, @RequestParam(value = "endYear") String endYear,
+			@RequestParam(value = "endMonth") String endMonth, Model model) {
+
 		String stYear = startYear; // 조회할 시작년도
 		String stMonth = startMonth; // 조회할 시작월
 		String edYear = endYear; // 조회할 끝나는 년도
 		String edMonth = endMonth; // 조회할 끝나는 월
-		
-		String stYearMonth = startYear+startMonth; // 조회할 시작년도+월
-		String edYearMonth = endYear+endMonth; // 조회할 끝나는년도+월
+
+		String stYearMonth = startYear + startMonth; // 조회할 시작년도+월
+		String edYearMonth = endYear + endMonth; // 조회할 끝나는년도+월
 
 		List<CampOrderVO> calculateList = calculateService.searchCalculateYearMonth(stYearMonth, edYearMonth);
 
 		model.addAttribute("calculateList", calculateList);
 		model.addAttribute("stYearMonth", stYearMonth);
 		model.addAttribute("edYearMonth", edYearMonth);
-		
+
 		model.addAttribute("stYear", stYear);
 		model.addAttribute("stMonth", stMonth);
 		model.addAttribute("edYear", edYear);
@@ -329,7 +327,7 @@ public class AdminController {
 
 		return "admin/calculate/admin_all_point_calculate_month";
 	}
-	
+
 	/*
 	 * 각 지점 연도/월 별 정산(총관리자) - 월 검색 선택박스 항목
 	 */
@@ -353,8 +351,6 @@ public class AdminController {
 		return conditionMapMonth;
 	}
 
-	
-	
 	@RequestMapping(value = "/adminReview", method = RequestMethod.GET)
 	public String reviewList(@RequestParam(value = "key", defaultValue = "") String title, Criteria criteria,
 			RealReviewVO vo, HttpSession session, Model model) {
@@ -463,20 +459,15 @@ public class AdminController {
 
 		return reviewlist;
 
-		
-	
-}
-	
-	@RequestMapping(value ="/users_list", method= RequestMethod.GET)
-	public String usersList(@RequestParam(value="key", defaultValue="") String id, Criteria criteria,
-			HttpSession session, Model model) {
-		
-		
-		
+	}
+
+	@RequestMapping(value = "/users_list", method = RequestMethod.GET)
+	public String usersList(@RequestParam(value = "key", defaultValue = "") String id, Criteria criteria, Model model) {
+
 		// 공지사항 목록 조회 - 공지사항 10개만 조회
 
 		List<UsersVO> usersList = adminService.getUsersListWithPaging(criteria, id);
-		
+
 		// 화면에 표시할 페이지 버튼 정보 설정
 		PageMaker pageMaker = new PageMaker();
 		int totalCount = adminService.countUserslist(id);
@@ -487,37 +478,46 @@ public class AdminController {
 		model.addAttribute("usersList", usersList); // 변수, 값 순서임 왼쪽 변수는 reviewList에서 <for:each>의 변수와 동일함
 		model.addAttribute("usersListSize", usersList.size());
 		model.addAttribute("pageMaker", pageMaker);
-		
-	
 
 		return "admin/usersblacklist/usersblacklist";
-		
+
 	}
 
+	@RequestMapping(value = "insertblacklist", method = RequestMethod.GET)
+	public String insertblacklist(UsersVO vo, Model model) {
+
+		UsersVO user = userService.getUsers(vo.getId());
+
+		String blackid = user.getId();
+		int blackuseq = user.getUseq();
+
+		System.out.println(blackid);
+		System.out.println(blackuseq);
+
+		model.addAttribute("blackid", blackid);
+		model.addAttribute("blackuseq", blackuseq);
+
+		return "admin/usersblacklist/inputblacklist";
+	}
 
 	@RequestMapping(value = "changestatus", method = RequestMethod.GET)
-	public String statusChange( UsersVO vo,Criteria criteria, Model model
-			,@RequestParam(value="useq") int useq,String id) {
+	public String statusChange(UsersVO vo, Criteria criteria, Model model, @RequestParam(value = "useq") int useq,
+			HttpSession session) {
 
-		
-		System.out.println(useq);
-		adminService.statusChange(useq);
-		List<UsersVO> usersList = adminService.getUsersListWithPaging(criteria, id);
-		
-		// 화면에 표시할 페이지 버튼 정보 설정
-		PageMaker pageMaker = new PageMaker();
-		int totalCount = adminService.countUserslist(id);
+		AdminVO loginAdmin = (AdminVO) session.getAttribute("loginAdmin");
 
-		pageMaker.setCriteria(criteria); // 현재 페이지와 페이지당 항목 수 정보 설정
-		pageMaker.setTotalCount(totalCount); // 전체 공지사항 목록 갯수 설정 및 페이지 정보 초기화
+		if (loginAdmin == null) {
+			return "admin/admin_login";
 
-		model.addAttribute("usersList", usersList); // 변수, 값 순서임 왼쪽 변수는 reviewList에서 <for:each>의 변수와 동일함
-		model.addAttribute("usersListSize", usersList.size());
-		model.addAttribute("pageMaker", pageMaker);
+		} else {
 
-		
-		
-		return "admin/usersblacklist/usersblacklist";
+			UsersVO users = new UsersVO();
+			users.setUseq(useq);
+			users.setBlackreason(vo.getBlackreason());
+
+			adminService.statusChange(users);
+
+			return "admin/usersblacklist/usersblacklist";
+		}
 	}
 }
-

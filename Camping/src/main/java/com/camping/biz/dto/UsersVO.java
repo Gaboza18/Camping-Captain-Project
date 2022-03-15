@@ -23,4 +23,5 @@ public class UsersVO {
 	private String searchkeyword;
 	private int useq;
 	private String blacklist;
+	private String blackreason;
 }

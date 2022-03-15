@@ -101,9 +101,9 @@ public RealReviewVO detailReviews(int rseq) {
 		}	
 		
 		// 블랙리스트 설정
-		public void statusChange(int useq) {
+		public void statusChange(UsersVO vo) {
 			
-			 mybatis.selectOne("mappings.admin-mapping.statuschange", useq);
+			 mybatis.selectOne("mappings.admin-mapping.statuschange", vo);
 		}
 
 }

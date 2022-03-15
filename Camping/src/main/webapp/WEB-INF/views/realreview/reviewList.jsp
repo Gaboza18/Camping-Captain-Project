@@ -75,6 +75,10 @@ $(document).ready(function(){
 	})
 });
 
+function black_nonwrite() {
+	alert("블랙리스트 회원은 리뷰작성을 할 수 없습니다.");
+}
+
 
 /*   $function() {
 $("#radio2").onClick(function(){
@@ -238,8 +242,15 @@ $("#delete3").onClick(function admin_delete() {
 						</c:otherwise>
 					</c:choose>
 				</table>
-			</div>																	
-			<input class="btn" type="button" name="btn_input" value="리얼 리뷰작성" onClick="location.href='review_write'">
+			</div>	
+			<c:choose>
+				<c:when test="${loginUser.blacklist eq 'y'}">																
+					<input class="btn" type="button" name="btn_input" value="리얼 리뷰작성" onClick="black_nonwrite()">
+				</c:when>
+				<c:otherwise>
+					<input class="btn" type="button" name="btn_input" value="리얼 리뷰작성" onClick="location.href='review_write'">
+				</c:otherwise>
+			</c:choose>
 		</form>  
 		<div class="pageArea">
 			<%@ include file="reviewpage_area.jsp"%>

@@ -11,7 +11,11 @@
 <link rel="stylesheet" href="css/camping.css">
 <title>캠핑족장 리얼리뷰</title>
 <script type="text/javascript" src="js/reviews.js"></script>
-
+<script type="text/javascript">
+function black_non_write() {
+	alert("블랙리스트 회원은 리뷰작성을 할 수 없습니다.");
+}
+</script>
 </head>
 
 
@@ -56,9 +60,9 @@
 							<c:forEach items="${myreviewList}" var="RealReviewVO">
 								<tr>  
 									<td height="23" align="center">${RealReviewVO.rseq}
-									 <a href="review_list${mypageMaker.makeQuery(mypageMaker.criteria.pageNum)}&rseq=${RealReviewVO.rseq}"></a>
+									 <a href="myreview_list${mypageMaker.makeQuery(mypageMaker.criteria.pageNum)}&rseq=${RealReviewVO.rseq}"></a>
 									 </td>    
-									<td><a href="${path}review_detail?rseq=${RealReviewVO.rseq}">${RealReviewVO.title}</a></td>
+									<td><a href="${path}myreview_detail?rseq=${RealReviewVO.rseq}">${RealReviewVO.title}</a></td>
 									
 									
 									<td>${RealReviewVO.id}</td>
@@ -75,8 +79,21 @@
 								</c:otherwise>
 								</c:choose>
 				</table>
+					
+			<c:choose>
+				<c:when test="${loginUser.blacklist eq 'y'}">																
+					<input class="btn" type="button" name="btn_input" value="새로운 리얼 리뷰작성" onClick="black_non_write()">
+				</c:when>
+				<c:otherwise>
+					<input class="btn" type="button" name="btn_input" value="새로운 리얼 리뷰작성" onClick="location.href='myreview_write'">
+				</c:otherwise>
+			</c:choose>
 				
-				<input class="btn" type="button" name="btn_input" value="새로운 리얼 리뷰작성" onClick="location.href='review_write'">
+				
+				
+				
+				
+				
 			</form>
 			<%@ include file="reviewpage_area.jsp"%>
 		</article>

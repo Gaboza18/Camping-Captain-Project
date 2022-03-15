@@ -17,11 +17,10 @@
 	      		<li><a href="admin_notice_list">관리자 게시판</a></li>
 	      		<li><a href="master_manage_notice_list">회원 게시판 관리</a></li>
 	      		<li><a href="adminReview">후기 관리</a></li>
-	      		<li><a href="users_list">회원 관리</a></li>
 	      		<li><a href="question_write_form">자주 묻는질문</a></li>
 	      	</ul>
 	      </li>
-	      <li><a href="#">회원관리</a></li> 
+	      <li><a href="users_list">회원관리</a></li> 
 	      <li><a href="admin_qna_list">1:1 문의 관리</a></li> 
 	      <li><a href="admin_notice_list">관리자 게시판 관리</a></li>
 	      <li><a href="go_admin_master_calculate_year">캠핑족장 - 연 정산</a></li>

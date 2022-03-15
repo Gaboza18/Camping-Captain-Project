@@ -104,7 +104,7 @@ function go_save1() {
       $("#name").focus();
       return false;
    } else {
-      $("#join").attr("action", "join").submit(); // 1단계 회원가입 요청
+      $("#join_Form").attr("action", "join").submit(); // 1단계 회원가입 요청
    }
 
 }

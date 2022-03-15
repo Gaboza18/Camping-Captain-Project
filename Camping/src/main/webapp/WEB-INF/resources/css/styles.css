@@ -13408,6 +13408,68 @@ div#admin_notice_update_form form[name=formm] button:hover {
 	background-color: #464f5;
 }
 
+/* 관리자 블랙리스트 관리  */
+div#black_list_form {
+	margin-left: 17.5%;
+	padding: 0;
+	min-height: 520px;
+}
+
+div#black_list_form article h2 {
+	color: #212529;
+}
+
+div#black_list_form article h4 {
+	margin: 2% auto;
+	color: rgb(255, 200, 0);
+}
+
+div#black_list_form article form#uesrs_list {
+	color: #212529;
+	margin: 20px auto;
+}
+
+div#black_list_form article form#uesrs_list table td {
+	border: none;
+}
+
+div#black_list_form article form#uesrs_list table td input#key {
+	border-radius: 10px;
+}
+
+div#black_list_form article form#uesrs_list table td input.btn {
+	border-radius: 10px;
+	color: white;
+	background-color: #212529;
+}
+
+div#black_list_form article form#filter {
+	color: #212529;
+	margin: 20px auto;
+}
+
+div#black_list_form article form#filter label {
+	color: #212529;	
+}
+
+div#black_list_form article form#statusfrm  div#users_content table#usersList {
+	color: #212529;	
+	text-align: center;
+	border: 1px solid #212529;
+}
+
+div#black_list_form article form#statusfrm  div#users_content table#usersList th {
+	border: 1px solid #212529;
+}
+
+div#black_list_form article form#statusfrm  div#users_content table#usersList td {
+	border: 1px solid #212529;
+}
+
+div#black_list_form article div#page_area a {
+	padding-top: 10px;
+}
+
 /* 관리자 페이지 footer */
 div#footer {
 	text-align: center;
@@ -13421,6 +13483,10 @@ div#page {
 	padding: 0;
 	margin: 0;
 	text-align: center;
+}
+
+div#page ul.pagination {
+	list-style: none;
 }
 
 div#page ul.pagination li {

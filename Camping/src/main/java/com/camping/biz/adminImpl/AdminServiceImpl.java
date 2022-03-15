@@ -82,9 +82,9 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public void statusChange(int useq) {
+	public void statusChange(UsersVO vo) {
 		
-		aDao.statusChange(useq);
+		aDao.statusChange(vo);
 		
 	}
 	

@@ -105,15 +105,10 @@
                         <div class="invalid-feedback" data-sb-feedback="birth_gen:required">주민번호 뒷자리 맨 앞글자를 입력해주세요</div>
                     </div>
                     
-                    <div class="form-group">
-                        <input class="form-control" id="email" type="text" name="email" placeholder="E-Mail *" data-sb-validations="required" />
-                        <input class="btn btn-primary btn-xl text-uppercase" id="emailChkBtn" type="button" value="이메일 인증" onclick="emailcheck()">
-                        <div class="invalid-feedback" data-sb-feedback="email:required">이메일을 입력해주세요.</div>
-                    </div>
                     
                     <div class="form-group">
                         <input class="form-control" id="phone" type="text" name="phone" placeholder="Phone Number *" data-sb-validations="required" />
-                        <div class="invalid-feedback" data-sb-feedback="phone:required">이메일을 입력해주세요.</div>
+                        <div class="invalid-feedback" data-sb-feedback="phone:required">전화번호를 입력해주세요.</div>
                     </div>
                 </div>
             </div>

@@ -4,7 +4,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ include file="admin_header.jsp"%>
-<%@ include file="manager_admin_menu.jsp"%>
+<c:choose>
+	<c:when test="${loginAdmin.status eq 1}">
+		<%@ include file="master_admin_menu.jsp" %>
+	</c:when>
+	
+	<c:when test="${loginAdmin.status eq 2}">
+		<%@ include file="manager_admin_menu.jsp" %>
+	</c:when>
+</c:choose> 
 
 <!DOCTYPE html>
 <html>
@@ -143,7 +151,7 @@ $("#delete3").onClick(function admin_delete() {
 
 function admin_delete2() {
 		 
-var rseq = $("#hidden_rseq");
+var rseq = $("#hidden_rseq").val();
 console.log(rseq);
 alert("관리자가 회원이 쓴 리뷰를 삭제되었습니다");
  $("#adminlist").attr('action','review_list_re').submit(); 
@@ -259,7 +267,7 @@ alert("관리자가 회원이 쓴 리뷰를 삭제되었습니다");
 				</table>																	
 				</div>
 			</form>  
-			
+			<%@ include file="reviewpage_area.jsp"%>
 		</article>
 	</div>
 </body>

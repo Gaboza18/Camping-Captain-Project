@@ -31,7 +31,7 @@ public int countReviewlist(String title);
 	public int countUserslist(String id);
 	
 	//블랙리스트 추가
-	public void statusChange(int useq);
+	public void statusChange(UsersVO vo);
 	
 	
 }

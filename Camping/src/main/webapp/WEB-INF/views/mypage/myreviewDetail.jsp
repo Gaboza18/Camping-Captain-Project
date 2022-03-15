@@ -32,11 +32,11 @@
 		</tr>
 		<tr>
 			<th>작성자</th>
-			<td>${id}</td>
+			<td>${userid}</td>
 		</tr>
 		<tr>
 			<th>캠핑장이름</th>
-			<td>${RealReviewVO.name}</td>
+			<td>${RealReviewVO.campingname}</td>
 		</tr>
 		<tr>
 			<th>작성일</th>
@@ -49,7 +49,7 @@
 
 	</table>
 		<!-- <input class="btn"  type="button" value="목록" onClick="go_list()"> -->
-		<input class="btn"  type="button" value="목록" onClick="location.href='review_list'">
+		<input class="btn"  type="button" value="목록" onClick="location.href='myreview'">
 	</form>
 	</div>
 </body>

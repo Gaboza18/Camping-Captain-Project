@@ -115,7 +115,7 @@
 								</c:when>
 							</c:choose> 
 							<c:if test="${not empty sessionScope.loginAdmin}">
-								<li><a href="logout">LOGOUT</a></li>
+								<li><a href="admin_logout">LOGOUT</a></li>
 		                	</c:if>
 		                </ul>
 		            </div>

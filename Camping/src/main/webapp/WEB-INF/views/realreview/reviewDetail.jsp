@@ -36,6 +36,10 @@ function modi_review() {
 	$("#detail").attr('action','modi').submit();
 } 
 
+function non_modi_review() {
+	alert("블랙리스트 회원은 리뷰 수정을 할 수 없습니다.");
+}
+
 </script>
 			      
 
@@ -87,9 +91,16 @@ function modi_review() {
 		<!-- <input class="btn"  type="button" value="목록" onClick="go_list()"> -->
 		<input class="btn" type="button" value="목록" onClick="location.href='review_list'">
 		
-		<c:if test="${userid eq RealReviewVO.id}">
-			<input class="btn" type="button" id="modi" value="수정" onClick="modi_review()">
-		</c:if><br><br>
+		<c:choose>
+			<c:when test="${loginUser.blacklist eq 'y'}">																
+				<input class="btn" type="button" id="modi" value="수정" onClick="non_modi_review()">
+			</c:when>
+			<c:otherwise>
+				<c:if test="${userid eq RealReviewVO.id}">
+					<input class="btn" type="button" id="modi" value="수정" onClick="modi_review()">
+				</c:if><br><br>
+			</c:otherwise>
+		</c:choose>
 		
 		<c:if test="${userid eq RealReviewVO.id}">
 			<button type="submit" form="detail" class="btn-success" id="delete" onClick="delete_reviews()">리뷰삭제</button>

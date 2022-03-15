@@ -144,7 +144,7 @@ public class CampOrderController {
 		/*
 		 * 결제 후 처리
 		 */
-		String retUrl = "index";
+		String retUrl = "NewFile";
 		
 		HttpSession hSession = request.getSession();
 		
@@ -261,7 +261,7 @@ public class CampOrderController {
 					
 					model.addAttribute("errorMsg", resultMap.get("resultMsg"));
 					
-					retUrl = "index";
+					retUrl = "NewFile";
 				} 
 			}
 		} catch(Exception e) {
