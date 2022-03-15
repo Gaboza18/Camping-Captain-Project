@@ -2,7 +2,7 @@ package com.camping.biz.usersImpl;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -18,15 +18,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.camping.biz.dao.UsersDAO;
 import com.camping.biz.dto.UsersAge;
 import com.camping.biz.dto.UsersRatio;
 import com.camping.biz.dto.UsersVO;
 
+import com.camping.biz.users.MailUtils;
 import com.camping.biz.users.UsersService;
 
+
 @Service("usersService")
+
 public class UsersServiceImpl implements UsersService {
 
 	@Inject
@@ -160,19 +164,35 @@ public class UsersServiceImpl implements UsersService {
 		return uDao.getAge();
 	}
 
-//	@Override
-//	public String statusChange(char status) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
+
+		
 	
 
-	//@Override
-//	public void updateemailchk(UsersVO vo) {
-//
-//		return uDao.
-//		
-//	}
+	@Override
+	public void updateemailchk(UsersVO vo) {
+		uDao.updateemailchk(vo);
+		
+	}
+
+	@Override
+	public String emailchkok(String id, String email) {
+		
+		return uDao.emailchkok(id, email);
+	}
+
+	@Override
+	public void updateEmail(UsersVO vo) {
+
+	 uDao.updateEmail(vo);
+	}
+
+	
+
+	
+
+	
+
+
 
 	
 

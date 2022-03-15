@@ -23,7 +23,7 @@
 				WHERE rseq=#{rseq}
 	</update>
 	
-	<!-- 총 공지사항 목록 갯수 조회 -->
+	<!-- 총 리스트 목록 갯수 조회 -->
 	<select id="countReviewlist" parameterType="String" resultType="int">
 		SELECT COUNT(*) FROM reviews
 		<if test='title !=null'>

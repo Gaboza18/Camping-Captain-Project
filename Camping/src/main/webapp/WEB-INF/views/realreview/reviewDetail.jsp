@@ -33,7 +33,7 @@ function modi_review() {
 	var content = $("#detail tr:eq(2)>td:eq(0)").text();
 	var campingNm = $("#detail tr:eq(4)>td:eq(0)").text();  */
 	alert("내가쓴 리뷰를 수정합니다");
-	console.log(rseq)
+	console.log(rseq);
 
 	//location.href="modifyreview?resq="+resq+"&&title="+title+"&&content="+content+"&&campingNm="+campingNm;
 	//location.href="/modifyreview.jsp";
@@ -97,6 +97,7 @@ function modi_review() {
 			
 			<!-- 단순히 admin으로 접속해서 review로 들어갔을 때 삭제버튼만 뜨게하기  -->
 			<c:if test="${loginAdmin1 != null}">
+			
 				<button type="submit" form="detail" class="btn-success" id="delete1" onClick="admin_delete()">리뷰삭제</button>
 			</c:if>
 			

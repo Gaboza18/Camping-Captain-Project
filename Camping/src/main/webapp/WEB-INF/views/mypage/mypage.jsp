@@ -27,8 +27,8 @@
 		      	</tr>
 			</table>
 			<div id="button">
-			<a href="usermodify" style="width: 110px;">회원정보수정</a>
-			<a href="deleteIdView" style="width: 110px;">회원탈퇴</a>
+			<a href="usermodify" style="wusersth: 110px;">회원정보수정</a>
+			<a href="deleteusersView" style="wusersth: 110px;">회원탈퇴</a>
 			</div>
 		</div>
 		

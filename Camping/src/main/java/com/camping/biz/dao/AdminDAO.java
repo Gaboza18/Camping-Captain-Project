@@ -2,6 +2,7 @@ package com.camping.biz.dao;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,9 +80,30 @@ public RealReviewVO detailReviews(int rseq) {
 		return mybatis.update("mappings.admin-mapping.countReviewlist",rseq);
 	}
 
+	// 블랙리스트 조회 및 페이징 처리
+	public List<UsersVO> listUsers(UsersVO vo) {
+		return mybatis.selectList("mappings.admin-mapping.listAllUsers", vo);
+	}
 	
-	
+	// 페이징 별 리뷰 조회
+		public List<UsersVO> getUsersListWithPaging(Criteria criteria, String id) {
+			
+			HashMap<String, Object> map = new HashMap<>();
+			map.put("criteria", criteria);
+			map.put("id", id);
+			
+			return mybatis.selectList("mappings.admin-mapping.listWithPaging",map);
 
 	}
+		
+		public int countUserslist(String id) {
+			return mybatis.selectOne("mappings.admin-mapping.countUserslist",id);
+		}	
+		
+		// 블랙리스트 설정
+		public void statusChange(int useq) {
+			
+			 mybatis.selectOne("mappings.admin-mapping.statuschange", useq);
+		}
 
-
+}

@@ -33,6 +33,9 @@
 	<c:if test="${loginUser.status eq 'b'}">
 		<h3 style="color: red;">죄송합니다. 블랙리스트 회원께서는 예약 프로그램을 이용하실 수 없습니다.</h3>
 	</c:if>
+	<c:if test="${loginUser.status eq 'n'}">
+		<h3 style="color: blue;">예약프로그램을 사용하기 위해서 이메일 인증을 해주세요</h3>
+	</c:if>
 	<c:forEach items="${campingList}" var="camping">
 		<div id="campZoneList">	
 			<form name="formm" id="theform" method="post" action="order_insert_form">
@@ -69,6 +72,9 @@
 					<c:choose>
 						<c:when test="${loginUser.status eq 'b'}">
 							<span style="color: gray">예약 불가능</span>
+						</c:when>
+						<c:when test="${loginUser.status eq 'n'}">
+							<span style="color: gray">이메일 인증을 해주세요 </span>
 						</c:when>
 						<c:otherwise>
 							<c:set var="flag" value="false"/>

@@ -141,12 +141,14 @@ $("#delete3").onClick(function admin_delete() {
 
 
 
-/*function admin_delete() {
-	
-    alert("관리자가 회원이 쓴 리뷰를 삭제되었습니다");
-    $("#adminlist").attr('action','adminReview').submit(); 
+function admin_delete2() {
+		 
+var rseq = $("#hidden_rseq");
+console.log(rseq);
+alert("관리자가 회원이 쓴 리뷰를 삭제되었습니다");
+ $("#adminlist").attr('action','review_list_re').submit(); 
 
-}*/
+		}
 	
 
 
@@ -244,7 +246,10 @@ $("#delete3").onClick(function admin_delete() {
 									
 									<td>${RealReviewVO.count}</td>
 									
-									<td><button type="submit" form="formm" class="btn-success" id="delete3" value="${RealReviewVO.rseq}" onClick="admin_delete()">리뷰삭제</button></td>
+									<td>
+										<input type="hidden" name="rseq" id="hidden_rseq" value="${RealReviewVO.rseq}">
+										<button type="submit" form="reviewList" class="btn-success" id="delete4" onClick="admin_delete2()">리뷰삭제</button>
+									</td>
 									
 								</tr>
 							</c:forEach>

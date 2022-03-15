@@ -95,6 +95,10 @@
 								${sessionScope.loginUser.name}(${sessionScope.loginUser.id}) 회원님
 							</li>
 					       	<li><a href="logout">LOGOUT</a></li>
+					        <li><c:if test="${loginUser.status eq 'n'}">
+						<h5 style="color: blue;">예약프로그램을 사용하기 위해서 이메일 인증을 해주세요 <a href="rejoin" >이메일 인증하기</a></h5>
+						
+								</c:if></li> 
 						</c:otherwise>
 					</c:choose>
 				</ul>
