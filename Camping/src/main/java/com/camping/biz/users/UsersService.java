@@ -47,6 +47,4 @@ public interface UsersService {
 	
 //	public String statusChange(char status);
 	
-	public List<UsersAge> getAge(); // �쉶�썝 �넻怨�(�뿰�졊蹂� �쉶�썝�닔) 議고쉶
-	
 }

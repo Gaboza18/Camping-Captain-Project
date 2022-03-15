@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<div>
+<div class="page" align="center">
 	<ul class="pagination">
 	
 		<c:if test="${pageMaker.prev}">
@@ -12,9 +12,11 @@
 		</c:if>
 				
 		<!-- [1][2][3]... 표시 부분 -->
-		<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="index">
-			<a href="admin_notice_list${pageMaker.makeQuery(index)}">[${index}]</a>
-		</c:forEach>
+		<li>
+			<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="index">
+				<a href="admin_notice_list${pageMaker.makeQuery(index)}">[${index}]</a>
+			</c:forEach>
+		</li>
 		
 		<c:if test="${pageMaker.next}">
 			<li class="paginate_button next">

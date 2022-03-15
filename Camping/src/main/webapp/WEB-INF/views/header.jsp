@@ -7,12 +7,26 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
 <title>Camping Captain</title>
-<link rel="stylesheet" href="css/camping.css" >
+<link rel="stylesheet" href="css/styles.css" >
 <script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="js/users.js"></script>
 <script type="text/javascript" src="js/camping.js"></script>
 <script type="text/javascript" src="js/admin_question.js"></script>
+<script type="text/javascript" src="js/scripts.js"></script>
+
+<!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" />
 
 <!-- 캘린더 설정구간 -->
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -63,22 +77,18 @@
 </script>
 
 </head>
-<body>
-	<section>
-		
-	</section>
-
+<body id="page-top">
 	<div id="wrap">
 		<!-- 헤더파일 시작 -->
 		<header>
 			<!-- 홈페이지메인 로고  들어가는 라인-->
-			<div id="logo">
+			<!-- <div id="logo">
 				<a href="index">
 					<img alt="camping" src="images/CampingCaptain.jpg" width="250" height="100">
 				</a>
-			</div>
+			</div> -->
 			
-			<!-- 로고 들어가는 라인 우측(로그인, 회원가입 버튼) -->
+			<!-- 로고 들어가는 라인 우측(로그인, 회원가입 버튼)
 			<nav id="users_login_join">
 				<ul>
 					<c:choose>
@@ -131,7 +141,56 @@
 			        </li>  
 		      	</ul>
 	    	</nav>
-	    	<hr>
+	    	<hr> -->
+	    	
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand" href="index"><img src="assets/img/main_logo.png" alt="..." /></a>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="intro">캠핑족장 소개</a></li>
+                    <li class="nav-item"><a class="nav-link" href="camp_list">예약하기</a></li>
+                    <li class="nav-item"><a class="nav-link" href="review_list">리얼후기</a></li>
+                    <li class="nav-item">
+                    	<a class="nav-link" href="#team">고객센터</a>
+                    	<ul class="header_submenu" id="header_submenu1">
+			          		<li><a href="notice_list">공지사항</a></li>
+			          		<li><a href="question_list">자주 묻는 질문</a></li>
+			          		<li><a href="qna_list">1:1 문의</a></li>
+			          	</ul>
+                    </li>
+                    <li class="nav-item">
+                    	<a class="nav-link" href="#">마이페이지</a>
+                    	<ul class="header_submenu" id="header_submenu2">
+			          		<li><a href="mypage">내 정보</a></li>
+			          		<li><a href="my_reservation">예약내역조회</a></li>
+			          		<li><a href="my_cancel">취소내역조회</a></li>
+			          		<li><a href="myreview">나의 후기</a></li>
+			          	</ul>
+                    </li>
+                    
+                    <c:choose>
+						<c:when test="${empty sessionScope.loginUser}">
+							<li class="nav-item">
+								<a class="nav-link" href="login">로그인</a>
+							</li>
+						</c:when>
+						<c:otherwise>
+							<li class="nav-item" id="userName">
+								${sessionScope.loginUser.name}(${sessionScope.loginUser.id}) 회원님
+							</li>
+					       	<li class="nav-item"><a class="nav-link" href="logout">LOGOUT</a></li>
+						</c:otherwise>
+					</c:choose>
+                </ul>
+            </div>
+        </div>
+    </nav>
+	    	
+	    	
+	    	
+	    	
+	    	
 	    <div class="clear"></div>
 		</header>
 		<!-- 헤더파일 종료 -->

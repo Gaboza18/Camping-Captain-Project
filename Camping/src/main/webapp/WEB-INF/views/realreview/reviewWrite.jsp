@@ -3,48 +3,36 @@
 <%@ include file="../header.jsp" %>	
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
- 
-<head>
 
-</head>
-
-
-<body>
-
-	<article>
-	    <h2> 리얼 리뷰 작성하기 </h2>
-	    <h3> 고객님의 소중한 후기에 부족들은 감사하고 있습니다.</h3>    
-		<form name="formm" method="post" action="insertReview">
-			<fieldset>	
-				<legend>Board Info</legend>		
-			    <label>Title</label>
-			    <input type="text" name="title" value="${RealReviewVO.title}"  size="20">
-			      
-  				<select name="campingname">
-  				 <option name="campingname value="${RealReviewVO.campingname}">강원도지점</option>
-  				<option name="campingname value="${RealReviewVO.campingname}">경기도지점</option>
-  				<option name="campingname value="${RealReviewVO.campingname}">충청도지점</option>
-  				<option name="campingname value="${RealReviewVO.campingname}">경상도지점</option>
-  				<option name="campingname value="${RealReviewVO.campingname}">전라도지점</option>
-  				<option name="campingname value="${RealReviewVO.campingname}">제주도지점</option>
-  				</select>
-  				<!-- 이렇게 하니 실행되었음 name이 중요함
-  				  <input type="text" name ="campingname" value="${RealReviewVO.campingname}">
-  				</input> -->
-  				<br>
-			 
-			 <input type="text" class="class" name="id" id="id" value="${UsersVO.id}" style="display:none">
-				<label value = "${RealReviewVO.content}">Content</label>
-			    <textarea rows="8" cols="65" name="content"></textarea><br>
-			</fieldset>   
+<div id="review_write_form" align="center">
+	<h2> 리얼 리뷰 작성하기 </h2>
+    <h5> 고객님의 소중한 후기에 부족들은 감사하고 있습니다.</h5>    
+	<form name="formm" method="post" action="insertReview">	
+	    <label>Title</label>
+	    <input type="text" name="title" value="${RealReviewVO.title}" size="45">
+	      
+		<select name="campingname" id="campingname">
+ 				<option name="campingname value="${RealReviewVO.campingname}">강원도지점</option>
+ 				<option name="campingname value="${RealReviewVO.campingname}">경기도지점</option>
+ 				<option name="campingname value="${RealReviewVO.campingname}">충청도지점</option>
+ 				<option name="campingname value="${RealReviewVO.campingname}">경상도지점</option>
+ 				<option name="campingname value="${RealReviewVO.campingname}">전라도지점</option>
+ 				<option name="campingname value="${RealReviewVO.campingname}">제주도지점</option>
+		</select>
+		
+			<!-- 이렇게 하니 실행되었음 name이 중요함
+			<input type="text" name ="campingname" value="${RealReviewVO.campingname}">-->
+	 	<br> 
+	 	<input type="text" class="class" name="id" id="id" value="${UsersVO.id}" style="display:none">
+		<label class="contentname">Content</label>
+	    <textarea rows="8" cols="65" name="content"></textarea>
 		<div class="clear"></div>
-		 <div id="buttons" style="float:right">
-			<input type="submit"  value="글쓰기"     class="submit"> 
-			<input type="reset"   value="취소"     class="cancel">
-				
-		  </div>
-		</form>
-	</article>
+	 	<div id="buttons">
+			<input type="submit" value="글쓰기" class="submit"> 
+			<input type="reset" value="취소" class="cancel">
+		</div>
+	</form>
+</div>
 	
 	<!-- 
 	 <article>
@@ -67,5 +55,4 @@
 		</form>
 	</article> 
 	 -->
-	</body>
 <%@ include file="../footer.jsp" %>

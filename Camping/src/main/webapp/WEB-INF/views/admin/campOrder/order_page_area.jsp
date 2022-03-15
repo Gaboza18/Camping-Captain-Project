@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<link rel="stylesheet" href="css/styles.css" >
 
-<div>
+<div class="page" align="center">
 	<ul class="pagination">
 	
 		<c:if test="${pageMaker.prev}">
@@ -12,9 +13,19 @@
 		</c:if>
 				
 		<!-- [1][2][3]... 표시 부분 -->
-		<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="index">
-			<a href="search_orderList${pageMaker.makeQuery(index)}&campName=${selected}">[${index}]</a>
-		</c:forEach>
+		<li>
+			<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="index">
+				<c:choose>
+					<c:when test="${selected == 0}">
+						<a href="search_order${pageMaker.makeQuery(index)}">[${index}]</a>
+					</c:when>
+					<c:otherwise>
+						<a href="search_orderList${pageMaker.makeQuery(index)}&campName=${selected}">[${index}]</a>
+					</c:otherwise>
+				</c:choose>
+				
+			</c:forEach>
+		</li>
 		
 		<c:if test="${pageMaker.next}">
 			<li class="paginate_button next">

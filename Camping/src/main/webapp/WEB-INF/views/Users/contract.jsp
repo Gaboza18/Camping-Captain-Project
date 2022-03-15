@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>  
 <%@ include file="../header.jsp" %>	 
 
-  <article>
+  <article class="join_contract">
     <h2>Join Us</h2>
     <form id="join" action="join_form" method="post" name="formm">
 		언제나 새로운 즐거움이 가득한 캠핑족장의 회원가입 페이지 입니다. <br>
@@ -187,7 +187,7 @@
       <input type="radio" name="okon1" class="agree" checked> 동의함 &nbsp; &nbsp; &nbsp;
       <input type="radio" name="okon1" class="agree" checked> 동의안함
       </div>
-      <input type="button" value="Next" class="submit"  onclick="go_next()" style="float: right;"> 
+      <input class="btn btn-primary btn-xl text-uppercase" type="button" id="next" value="Next" onclick="go_next()"> 
     </form>
   </article>
 <%@ include file="../footer.jsp" %> 

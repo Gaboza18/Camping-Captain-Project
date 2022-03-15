@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
+<div class="menu_area">
 	<nav id="#" class="admin_side_menu">
 	    <ul>    
 	      <li>
@@ -31,8 +32,7 @@
     </nav>
     <div id="master_main">
     	 <h2>${loginAdmin.name}님 환영합니다</h2>
-    	 
     </div>
-     
+</div>    
 
 

@@ -16,7 +16,8 @@
 	</c:when>
 </c:choose> 
 
-<article>
+<article id="admin_order_list_form">
+	<h4>예약 내역 조회</h4>
 	<form id="search_orderList" method="get" name="frm">
   		지점
   		<select name="campName" id="campName">
@@ -27,21 +28,21 @@
   		
   		<input id="btn" type="button" value="조회하기" onclick="chk()"/>
   	</form>
-  	<form>
+  	<form id="orderListForm">
   		<input type="hidden" id="camp_idRe" value="${selected}">
 		<table id="orderList"> 
 			<tr>
-				<th width="50">예약번호</th>
-				<th width="113">지점</th>
-				<th width="">구역</th>
-				<th width="">회원ID</th>
-				<th width="">예약자이름</th>
-				<th width="63">체크인</th>
-				<th width="63">체크아웃</th>
-				<th width="50">결제금액</th>
-				<th width="">예약자 전화번호</th>
-				<th width="">예약자 이메일</th>
-				<th width="117">예약 상태</th>
+				<th width="70">예약번호</th>
+				<th width="160">지점</th>
+				<th width="50">구역</th>
+				<th width="70">회원ID</th>
+				<th width="90">예약자이름</th>
+				<th width="100">체크인</th>
+				<th width="100">체크아웃</th>
+				<th width="70">결제금액</th>
+				<th width="130">예약자 전화번호</th>
+				<th width="140">예약자 이메일</th>
+				<th width="150">예약 상태</th>
 			</tr>
 			<c:forEach items="${orderList}" var="orderList">
 				<tr>

@@ -4,10 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<head>
-
-
-</head>
+<link rel="stylesheet" href="css/styles.css" >
 <script>
 
 function modify_reviews() {
@@ -16,63 +13,41 @@ function modify_reviews() {
     
     $("#modify").attr('action','modifyReview').submit(); 
 
-	 
 }
-
-
-
 </script>
 
-<body>
 
+<div id="modify_reivew_form" align="center">
+	<h2>리얼 리뷰 수정하기</h2>
+	<h5>고객님의 소중한 후기에 부족들은 감사하고 있습니다.</h5>
+	<form name="formm" id="modify" method="get" action="modifyReview">
+			<label>Title</label>
+			<input type="text" name="title" value="${RealReviewVO.title}" size="20">
 
-	<article>
-		<h2>리얼 리뷰 수정하기</h2>
-		<h3>고객님의 소중한 후기에 부족들은 감사하고 있습니다.</h3>
-		<form name="formm" id="modify" method="get" action="modifyReview">
-			<fieldset>
-				<legend>Board Info</legend>
+			<select name="campingname">
+				<option value="${RealReviewVO.campingname}">강원도지점</option>
+ 				<option value="${RealReviewVO.campingname}">경기도지점</option>
+ 				<option value="${RealReviewVO.campingname}">충청도지점</option>
+ 				<option value="${RealReviewVO.campingname}">경상도지점</option>
+ 				<option value="${RealReviewVO.campingname}">전라도지점</option>
+ 				<option value="${RealReviewVO.campingname}">제주도지점</option>
+			</select>
+			<!-- 이렇게 하니 실행되었음 name이 중요함
+ 			<input type="text" name ="campingname" value="${RealReviewVO.campingname}"> -->
+			<br> 
+			<input type="text" name="rseq" id="rseq" value="${RealReviewVO.rseq}" style="display: none">
+			<input type="text" class="class" name="id" id="id" value="${RealReviewVO.id}" style="display: none">
+			<textarea rows="8" cols="65" name="content">${RealReviewVO.content}</textarea>
+			<br> 
+			<input type="text" name="rseq" id="rseq" value="${RealReviewVO.content}" style="display: none">
+		
+		<div class="clear"></div>
+		
+		<div id="buttons">
+			<input type="submit" value="수정하기 " form="modify" id="modify1" class="submit" onClick="modify_reviews()"> 
+			<input type="reset" value="취소" class="cancel">
+		</div>
+	</form>
+</div>
 
-
-
-
-				<label>Title</label> <input type="text" name="title"
-					value="${RealReviewVO.title}" size="20">
-				<table border="1">
-
-
-				</table>
-
-
-				<select name="campingname">
-  				 <option name="campingname value="${RealReviewVO.campingname}">강원도지점</option>
-  				<option name="campingname value="${RealReviewVO.campingname}">경기도지점</option>
-  				<option name="campingname value="${RealReviewVO.campingname}">충청도지점</option>
-  				<option name="campingname value="${RealReviewVO.campingname}">경상도지점</option>
-  				<option name="campingname value="${RealReviewVO.campingname}">전라도지점</option>
-  				<option name="campingname value="${RealReviewVO.campingname}">제주도지점</option>
-  				</select>
-				<!-- 이렇게 하니 실행되었음 name이 중요함
-  				  <input type="text" name ="campingname" value="${RealReviewVO.campingname}">
-  				</input> -->
-				<br> <input type="text" name="rseq" id="rseq"
-					value="${RealReviewVO.rseq}" style="display: none"> <input
-					type="text" class="class" name="id" id="id"
-					value="${RealReviewVO.id}" style="display: none">
-				<textarea rows="8" cols="65" name="content">${RealReviewVO.content}</textarea>
-				<br> <input type="text" name="rseq" id="rseq"
-					value="${RealReviewVO.content}" style="display: none">
-			</fieldset>
-			<div class="clear"></div>
-			<div id="buttons" style="float: right">
-				<input type="submit" value="수정하기 " form="modify" id="modify1"
-					class="submit" onClick="modify_reviews()"> <input
-					type="reset" value="취소" class="cancel">
-
-			</div>
-		</form>
-	</article>
-
-
-</body>
 <%@ include file="../footer.jsp"%>

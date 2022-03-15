@@ -2,22 +2,22 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../header.jsp" %>
 
-<article>
+<article id="cancel_list_form">
 
-	<div>
-		<h1>취소 내역 확인</h1>
+	<div align="center">
+		<h2>취소 내역 확인</h2>
 		<form>
-			<div align="center">
+			<div>
 				<table id="cancelList" style="text-align: center;"> 
 					<tr>
-						<th width="50">예약번호</th>
-						<th width="">예약자이름</th>
-						<th width="113">지점</th>
-						<th width="">구역</th>
-						<th width="50">결제금액</th>
-						<th width="63">환불금액</th>
-						<th width="63">취소날짜</th>
-						<th width="200">취소 진행상태</th>
+						<th width="80">예약번호</th>
+						<th width="100">예약자이름</th>
+						<th width="150">지점</th>
+						<th width="50">구역</th>
+						<th width="70">결제금액</th>
+						<th width="70">환불금액</th>
+						<th width="85">취소날짜</th>
+						<th width="215">취소 진행상태</th>
 						<th width="120"></th>
 					</tr>
 					<c:forEach items="${cancelOrderList}" var="cancelOrderList">
@@ -49,7 +49,6 @@
 		</form>	
 	</div>
 	<%@ include file="myCancel_page_area.jsp"%>
-
 </article>
 
 <%@ include file="../footer.jsp" %>
