@@ -17,7 +17,12 @@ function confirm_chk() {
 			data: $("#confirm_order").serialize()
 		}).done(function(){
 			alert("예약이 확정되었습니다.");
-			opener.location.href="search_orderList?campName="+$("#camp_Reid").val();
+			
+			if($("#camp_Reid").val() == 0) {
+				opener.location.href="search_order";
+			} else {
+				opener.location.href="search_orderList?campName="+$("#camp_Reid").val();
+			}
 			self.close();
 		}).fail(function(error){
 			alert("에러");
@@ -26,14 +31,40 @@ function confirm_chk() {
 }
 </script>
 <style>
+
+	body {
+		background-color: #212529;
+		color: white;
+	}
+
+	table {
+		margin-top: 12.5%;
+		margin-left: 12.5%;
+	}
+	
 	table th {
 		width: 150px;
 		text-align: left;
 	}
 	
-	#button {
-		margin-top: 30px;
+	table td input {
+		border-radius: 12px;
+		padding: 3px 8px;
+		text-align: center;
 	}
+	
+	div#button button {
+		margin-top: 30px;
+		background-color: rgb(255, 200, 0);
+		border-radius: 12px;
+		padding: 1px 8px;
+		line-height: 1.7;
+	}
+	
+	div#button button:hover {
+		background-color:  rgb(230, 177, 0);
+	}
+	
 </style>
 </head>
 <body>

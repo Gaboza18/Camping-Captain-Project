@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Camping Captain</title>
-<link rel="stylesheet" href="css/camping.css" >
+<link rel="stylesheet" href="css/styles.css" >
 <script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="js/users.js"></script>
 <script type="text/javascript" src="js/camping.js"></script>
@@ -16,6 +16,7 @@
 <script type="text/javascript" src="js/notice.js"></script>
 <script type="text/javascript" src="js/admin_search_calculate.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript" src="js/scripts.js"></script>
 
 <!-- 캘린더 설정구간 -->
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -71,9 +72,9 @@
 
 	<div id="wrap">
 		<!-- 헤더파일 시작 -->
-		<header>
+		<header id="admin_header">
 			<!-- 홈페이지메인 로고  들어가는 라인-->
-			<div id="logo">
+			<!-- <div id="logo">
 				<a href="index">
 					<img alt="camping" src="images/CampingCaptain.jpg" width="250" height="100">
 				</a>
@@ -93,6 +94,38 @@
 				<a href="admin_logout">LOGOUT</a>
 			</nav>
 			<div class="clear"></div>
-			<hr>
+			<hr> -->
+			
+			
+			<nav id="admin_mainNav">
+		        <div class="main_container">
+		            <a class="main_logo" href="index"><img src="assets/img/main_logo.png" alt="..." /></a>
+		            <div id="header_main_menu">
+		                <ul id="main_menu">
+							<c:choose>
+								<c:when test="${loginAdmin.status eq 1}">
+				                    <li>
+										<b>${sessionScope.loginAdmin.name}</b> 님
+									</li>
+								</c:when>
+								<c:when test="${loginAdmin.status eq 2}">
+									<li>
+										<b>${sessionScope.loginAdmin.name}</b> 관리자님
+									</li>
+								</c:when>
+							</c:choose> 
+							<c:if test="${not empty sessionScope.loginAdmin}">
+								<li><a href="logout">LOGOUT</a></li>
+		                	</c:if>
+		                </ul>
+		            </div>
+		        </div>
+		    </nav>
+	    	
+	    	
+	    	
+	    	
+	    	
+	    <div class="clear"></div>
 		</header>
 		<!-- 헤더파일 종료 -->

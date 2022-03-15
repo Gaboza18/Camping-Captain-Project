@@ -24,7 +24,6 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -416,6 +415,7 @@ public class CampOrderController {
 		model.addAttribute("orderList", orderList);
 		model.addAttribute("pageMaker", pageMaker);
 		model.addAttribute("admin_name", loginAdmin.getName());
+		model.addAttribute("selected", 0);
 		
 		return "admin/campOrder/admin_orderList";
 	}
@@ -564,7 +564,26 @@ public class CampOrderController {
 	
 	// 예약 취소내역 조회 페이지로 이동
 	@RequestMapping(value="/search_cancel", method = RequestMethod.GET)
-	public String cancelOrderList(Model model) {
+	public String cancelOrderList(Model model, HttpSession session, Criteria criteria) {
+		
+		AdminVO loginAdmin = (AdminVO)session.getAttribute("loginAdmin");
+		
+		// 취소현황 10개 조회
+		List<CampOrderCancelVO> cancelList = campOrderCancelService.getAllListWithPaging(criteria);
+		
+		//화면에 표시할 페이지 버튼 정보 생성
+		PageMaker pageMaker = new PageMaker();
+		int totalCount = campOrderCancelService.countAllOrderList();
+		
+		pageMaker.setCriteria(criteria); // 현재 페이지와 페이지당 항목 수 정보 설정
+		pageMaker.setTotalCount(totalCount); // 전체 예약현황 목록 갯수 설정 및 페이지 정보 초기화
+		
+		model.addAttribute("cancelList", cancelList);
+		model.addAttribute("pageMaker", pageMaker);
+		model.addAttribute("admin_name", loginAdmin.getName());
+		model.addAttribute("selected", 0);
+		
+		
 		
 		return "admin/campOrder/admin_cancelList";
 	}

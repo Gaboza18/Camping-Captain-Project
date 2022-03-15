@@ -11,20 +11,33 @@
 <style type="text/css">
 body{   
 	text-align: center;
-	background-color:rgb(36, 204, 99);
+	background-color:#212529;
+	background-image: url("./assets/img/map-image.png");
+	background-repeat: no-repeat;
+	background-position: center;
 }
 
 #wrap{     
 	margin: 70px auto;
 }
 
+form {
+	color: yellow;
+}
+
 h1 {
 	font-size: 45px;
-	color: #CCC;
+	color: rgb(254, 209, 54);
 	font-weight: normal;
 }
 
 input[type=button], input[type=submit] {
+	background-color: rgb(255, 200, 0);
+	border-radius: 12px;
+}
+
+input[type=button]:hover, input[type=submit]:hover {
+	background-color:  rgb(230, 177, 0);
 }
 </style>
 <script type="text/javascript">

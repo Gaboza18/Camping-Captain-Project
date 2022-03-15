@@ -25,7 +25,7 @@ public class HomeController {
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String home(Model model) {
 		
-		return "index"; // index.jsp 화면을 호출
+		return "NewFile"; // index.jsp 화면을 호출
 	}
 	
 	@ModelAttribute("conditionMap")

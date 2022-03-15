@@ -4,83 +4,70 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ include file="../admin_header.jsp"%>
 <%@ include file="../master_admin_menu.jsp"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>캠핑족장 관리자 공지사항</title>
-<script>
-function go_insert(){
-	$("#admin_notice_insert").attr("action", "admin_notice_write_form").submit();
-}
-</script>
-<style type="text/css">
-table th {
-	text-align: left;
-}
-</style>
-</head>
-<body>
-	<div align="center">
-		<article>
-			<h3>캠핑족장 관리자 공지사항 입니다</h3>
 
-			<!-- 검색 파트 -->
-			<form name="frm" id="admin_notice_form" method="get">
-				<table>
-					<tr>
-						<td>제목 <input type="text" name="key" id="key"> <input
-							class="btn" type="button" name="btn_search" value="검색"
-							onClick="go_search()">
-						</td>
-					</tr>
-				</table>
-			</form>
-			<br>
-			<form name="formm" method="get">
-				<table id="noticeList">
-					<tr>
-						<th width="50">번호</th>
-						<th width="200">제목</th>
-						<th width="100">작성자</th>
-						<th width="130">작성일</th>
-						<th width="50">조회수</th>
-					</tr>
-					<c:choose>
-						<c:when test="${adminnoticeListSize<=0}">
+<script>
+	function go_insert(){
+		$("#admin_notice_insert").attr("action", "admin_notice_write_form").submit();
+	}
+</script>
+
+<div id="admin_notice_list_form" align="center">
+	<article>
+		<h4>캠핑족장 관리자 공지사항 입니다</h4>
+
+		<!-- 검색 파트 -->
+		<form name="frm" id="admin_notice_form" method="get">
+			<table>
+				<tr>
+					<td>제목
+						<input type="text" name="key" id="key"> 
+						<input class="btn" type="button" name="btn_search" value="검색" onClick="go_search()">
+					</td>
+				</tr>
+			</table>
+		</form>
+		<br>
+		<form name="formm" method="get">
+			<table id="noticeList">
+				<tr>
+					<th width="80">번호</th>
+					<th width="250">제목</th>
+					<th width="120">작성자</th>
+					<th width="140">작성일</th>
+					<th width="90">조회수</th>
+				</tr>
+				<c:choose>
+					<c:when test="${adminnoticeListSize<=0}">
+						<tr>
+							<td width="100%" colspan="7" align="center" height="23">
+								등록된 공지사항이 없습니다.</td>
+						</tr>
+					</c:when>
+					<c:otherwise>
+						<c:forEach items="${adminnoticeList}" var="adminnoticeVO">
 							<tr>
-								<td width="100%" colspan="7" align="center" height="23">
-									등록된 공지사항이 없습니다.</td>
+								<td height="23" align="center">${adminnoticeVO.aseq}<a
+									href="admin_notice_list${pageMaker.makeQuery(pageMaker.criteria.pageNum)}&aseq=${adminnoticeVO.aseq}"></a>
+								</td>
+								<td><a
+									href="${path}admin_notice_detail?aseq=${adminnoticeVO.aseq}">${adminnoticeVO.title}</a></td>
+								<td>${adminnoticeVO.admin_name}</td>
+								<td><fmt:formatDate value="${adminnoticeVO.indate}"
+										type="date" /></td>
+								<td>${adminnoticeVO.count}</td>
 							</tr>
-						</c:when>
-						<c:otherwise>
-							<c:forEach items="${adminnoticeList}" var="adminnoticeVO">
-								<tr>
-									<td height="23" align="center">${adminnoticeVO.aseq}<a
-										href="admin_notice_list${pageMaker.makeQuery(pageMaker.criteria.pageNum)}&aseq=${adminnoticeVO.aseq}"></a>
-									</td>
-									<td><a
-										href="${path}admin_notice_detail?aseq=${adminnoticeVO.aseq}">${adminnoticeVO.title}</a></td>
-									<td>${adminnoticeVO.admin_name}</td>
-									<td><fmt:formatDate value="${adminnoticeVO.indate}"
-											type="date" /></td>
-									<td>${adminnoticeVO.count}</td>
-								</tr>
-							</c:forEach>
-							<tr>
-								<td colspan="6" style="text-align: center;">${paging}</td>
-							</tr>
-						</c:otherwise>
-					</c:choose>
-				</table>
-			</form>
-			<%@ include file="page_area.jsp"%>
-			<form id="admin_notice_insert">
-				<input class="btn" type="button" name="btn_search" value="등록"
-					onClick="go_insert()">
-			</form>
-		</article>
-	</div>
-</body>
-</html>
+						</c:forEach>
+						<tr>
+							<td colspan="6" style="text-align: center;">${paging}</td>
+						</tr>
+					</c:otherwise>
+				</c:choose>
+			</table>
+		</form>
+		<%@ include file="page_area.jsp"%>
+		<form id="admin_notice_insert">
+			<input class="btn" type="button" name="btn_search" value="등록" onClick="go_insert()">
+		</form>
+	</article>
+</div>
 <%@ include file="../admin_footer.jsp"%>

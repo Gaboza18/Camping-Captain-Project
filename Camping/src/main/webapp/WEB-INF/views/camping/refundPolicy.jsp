@@ -6,9 +6,15 @@
 <meta charset="UTF-8">
 <title>환불 규정</title>
 <style>
+
+	body {
+		background-color: #212529;
+		color: white;
+	}
+
 	table {
 		margin-bottom: 30px;
-		outline: 1px solid #000;
+		outline: 1px solid #c0c0c0;
 		padding: 5px;
 		line-height: 25px;
 		text-align: center;
@@ -19,12 +25,17 @@
 	}
 	
 	a {
-		border: 1px solid #000;
+		background-color: rgb(255, 200, 0);
 		border-radius: 10px;
 		text-decoration:none;
     	color: #000;
     	padding: 5px 10px;
 	}
+	
+	a:hover {
+		background-color:  rgb(230, 177, 0);
+	}
+	
 </style>
 </head>
 <body>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+<div class="menu_area">
 	<nav id="#" class="admin_side_menu">
 	    <ul>    
 	      <li>
@@ -24,4 +25,7 @@
 	      <li><a href="branch_calculate_day?name=${loginAdmin.name}">일일 별 정산</a></li>    
 	    </ul>
     </nav>
-   <h2>${loginAdmin.name} 관리자님 환영합니다</h2> 
+    <div id="manager_main">
+		<h2>${loginAdmin.name} 관리자님 환영합니다</h2>
+	</div>
+</div>

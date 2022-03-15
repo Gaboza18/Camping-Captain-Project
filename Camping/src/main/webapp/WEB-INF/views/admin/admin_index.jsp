@@ -14,5 +14,7 @@
 	</c:when>
 </c:choose> 
 
+<div id="admin_index"></div>
+
 <%@ include file="admin_footer.jsp" %>
 

@@ -3,15 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ include file="../header.jsp"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>공지사항 상세보기</title>
-</head>
-<body>
-	<h2>공지사항 상세보기</h2>
-	<div align="center">
+
+<div id="notice_detail_form" align="center">
+	<h3>공지사항 상세보기</h3>
 	<form name="frm" id="detail_form" method="post">
 	<table>
 		<tr>
@@ -41,7 +35,5 @@
 	</table><br>
 		<input class="btn"  type="button" value="목록" onclick="history.go(-1);">
 	</form>
-	</div>
-</body>
-</html>
+</div>
 <%@ include file="../footer.jsp" %>

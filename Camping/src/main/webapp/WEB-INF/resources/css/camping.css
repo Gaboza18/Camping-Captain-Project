@@ -178,6 +178,7 @@ body{
 	padding: 0;
     line-height: 25px;
     background-color: white;
+	z-index: 1;
 }
 
 #header_menu ul li:hover ul.header_submenu{
@@ -320,6 +321,112 @@ table#cancelList tr td a{
 	color: blue;
 }
 
+/* 리뷰리스트 조회 페이지 설정 */
+#review_list td {
+	border: none;
+}
+
+#reviewList  {
+	border-collapse: collapse;
+	border-color: black;
+}
+
+#reviewList th {
+	border-color: black;
+}
+
+#reviewList td {
+	border-color: black;
+}
+
+#reviewList a {
+	text-decoration: none;
+}
+
+/* 리뷰 상세보기 페이지 */
+#detail {
+	border-collapse: collapse;
+	border-color: black;
+	margin: 10px;
+}
+
+#detail th {
+	border-color: black;
+}
+
+#detail td {
+	border-color: black;
+}
+
+/* 공지사항 리스트 페이지 설정 */
+#notice_form table td {
+	border: none;
+}
+
+#noticeList  {
+	border-collapse: collapse;
+	border-color: black;
+}
+
+#noticeList th {
+	border-color: black;
+}
+
+#noticeList td {
+	border-color: black;
+}
+
+#noticeList a {
+	text-decoration: none;
+}
+
+/* 자주 묻는 질문 페이지 설정 */
+#questionList {
+	border-collapse: collapse;
+}
+
+#questionList th {
+	border-color: black;
+}
+
+#questionList td {
+	border-color: black;
+}
+
+/* 1:1 문의 리스트 페이지 설정 */
+#qnaList {
+	border-collapse: collapse;
+	width: 500px;
+	text-align: center;
+}
+
+#qnaList th {
+	border-color: black;
+}
+
+#qnaList td {
+	border-color: black;
+}
+
+#qnaList a {
+	text-decoration: none;
+}
+
+/* 1:1 문의 상세보기 페이지 설정 */
+#qnaDetail {
+	border-collapse: collapse;
+	width: 500px;
+	text-align: center;
+}
+
+#qnaDetail th {
+	border-color: black;
+}
+
+#qnaDetail td {
+	border-color: black;
+}
+	
 /* 마이페이지 내정보 페이지 설정*/
 #userForm {
 	margin: 20px auto;
@@ -444,10 +551,69 @@ table#cancelList tr td a{
 }
 
 /* 마이페이지 예약현황 조회 페이지 설정*/
+
+#orderList th {
+	border: none;
+}
+
+#orderList td {
+	border: none;
+}
+
 table#orderList tr td a{
 	text-decoration: none;
 	color: blue;
 	float: right;
+}
+
+/* 내 취소 목록 조회 */
+table#orderList tr td button {
+	width: 100px;
+	margin: 0;
+}
+
+#cancelList th {
+	border: none;
+}
+
+#cancelList td {
+	border: none;
+}
+
+/* 마이페이지 나의 후기 조회 페이지 */
+#review_list1 table td {
+	border: none;
+}
+
+#myreviewList {
+	border-collapse: collapse;
+	text-align: center;
+}
+
+#myreviewList th {
+	border-color: black;
+}
+
+#myreviewList td {
+	border-color: black;
+}
+
+#myreviewList a {
+	text-decoration: none;
+}
+
+/* 나의 후기 상세보기 */
+#reviewdetail table {
+	border-collapse: collapse;
+	text-align: center;
+}
+
+#reviewdetail th {
+	border-color: black;
+}
+
+#reviewdetail td {
+	border-color: black;
 }
 
 /*

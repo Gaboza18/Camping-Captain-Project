@@ -31,6 +31,12 @@ public interface CampOrderCancelService {
 	// 취소 내역 페이징처리
 	public List<CampOrderCancelVO> getListWithPaging(Criteria criteria, String camp_name);
 	
+	// 전체 예약취소 현황 목록 갯수 조회
+	public int countAllOrderList();
+	
+	// 전체 취소 내역 페이징 처리
+	public List<CampOrderCancelVO> getAllListWithPaging(Criteria criteria);
+	
 	// 취소내역 한건 조회
 	public CampOrderCancelVO getCancelOrder(int cseq);
 	

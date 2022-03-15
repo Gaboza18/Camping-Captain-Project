@@ -1,32 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../admin_header.jsp"%>
-<%@ include file="../master_admin_menu.jsp"%>        
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>	
-	<div align="center">
+<%@ include file="../master_admin_menu.jsp"%>  
+
+	<div id="admin_notice_write_form" align="center">
 		<article>
-			<h2>관리자 공지사항 등록</h2>
-			<form name="form" method="get" id="admin_notice_write" action="admin_notice_write">
-				<fieldset>
-					<input type="hidden" value="${adminnoticeVO.aseq}">
-					<label>제목</label>
-					<input type="text" id="title" name="title" size="63" value="${adminnoticeVO.title}"><br>
-					<label>내용</label>
-					<textarea rows="8" cols="65" id="content" name="content">${adminnoticeVO.content}</textarea><br>
-					<input type="hidden" name="admin_name" size="63" value="총관리자"><br>
-					<input type="button" value="글쓰기" class="submit" onclick="admin_notice_chk()">
+			<h4>관리자 공지사항 등록</h4>
+			<form name="form" method="get" action="admin_notice_write">
+				<input type="hidden" value="${adminnoticeVO.aseq}">
+				<label>제목</label>
+				<input type="text" name="title" size="63" value="${adminnoticeVO.title}"><br>
+				<label id="content">내용</label>
+				<textarea rows="8" cols="65" name="content">${adminnoticeVO.content}</textarea><br>
+				<input type="hidden" name="admin_name" size="63" value="총관리자"><br>
+				
+				<div id="notice_btn">
+					<input type="submit" value="글쓰기" class="submit">
 					<input type="reset" value="다시쓰기" class="cancel">
 					<button type="button" value="목록" onclick="history.go(-1);">목록</button>
-				</fieldset>
+				</div>
 			</form>
 		</article>
 	</div>
-</body>
+	
 <%@ include file="../admin_footer.jsp"%>
-</html>

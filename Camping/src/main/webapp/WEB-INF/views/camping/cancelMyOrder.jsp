@@ -26,13 +26,38 @@ function deleteOrder() {
 }
 </script>
 <style>
+
+	body {
+		background-color: #212529;
+		color: white;
+	}
+
+	table {
+		margin-top: 12.5%;
+		margin-left: 12.5%;
+	}
+
 	table th {
 		width: 150px;
 		text-align: left;
 	}
 	
-	#button {
+	table td input {
+		border-radius: 12px;
+		padding: 2px 8px;
+		text-align: center;
+	}
+	
+	div#button button {
 		margin-top: 30px;
+		background-color: rgb(255, 200, 0);
+		border-radius: 12px;
+		padding: 1px 8px;
+		line-height: 1.7;
+	}
+	
+	div#button button:hover {
+		background-color:  rgb(230, 177, 0);
 	}
 </style>
 </head>

@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="../header.jsp"%>  
+<%@ include file="admin_header.jsp"%>  
 
 
 <article id="admin_loginForm">
-	<div style=center>
+	<div align="center">
     <form id="admin_login" method="post" action="admin_login">
 		<h3>관리자 로그인</h3>
 		<label>아이디</label>
