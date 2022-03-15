@@ -9,12 +9,12 @@
 
 	<div class="w3-content" style="max-width: 100%; position: relative">
 		
-		<img class="mySlides" src="images/camping-1.jpg" style="width: 100%">	
-		<img class="mySlides" src="images/camping-2.jpg" style="width: 100%">
-		<img class="mySlides" src="images/camping-3.jpg" style="width: 100%"> 
-		<img class="mySlides" src="images/camping-4.jpg" style="width: 100%">
-		<img class="mySlides" src="images/camping-5.jpg" style="width: 100%">
-		<img class="mySlides" src="images/camping-6.jpg" style="width: 100%"> 
+		<a href="branch_Gangwon_do"><img class="mySlides" src="images/camping-1.jpg" style="width: 100%"></a>	
+		<a href="branch_Gyeonggi_do"><img class="mySlides" src="images/camping-2.jpg" style="width: 100%"></a>
+		<a href="branch_Chungcheong_do"><img class="mySlides" src="images/camping-3.jpg" style="width: 100%"></a>
+		<a href="branch_Gyeongsang_do"><img class="mySlides" src="images/camping-4.jpg" style="width: 100%"></a>
+		<a href="branch_Jeolla_do"><img class="mySlides" src="images/camping-5.jpg" style="width: 100%"></a>
+		<a href="branch_Jeju-do"><img class="mySlides" src="images/camping-6.jpg" style="width: 100%"></a>
 		
 	</div><br><br><br>
 

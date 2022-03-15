@@ -1,5 +1,6 @@
+	
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ include file="../header.jsp" %>	 
@@ -7,6 +8,7 @@
 <script type="text/javascript">
 
 /* function getArea(area1) {
+
 	
 	$.ajax({
 		url: "review_list", //액션값 넣기
@@ -20,24 +22,25 @@
 		}
 		
 	});
+
 } */
 
 //document 는 html이 다 실행되었을때 버튼 누르면 작동되게 하는것
 function getFormatDate(date) {
-	var year = date.getFullYear();
-	var month = (1 + date.getMonth());
-	month = month>=10 ? month : '0'+month;
-	var day = date.getDate();
-	day = day>=10 ? day : '0'+day;
-	
-	return year+'.'+month+'.'+day;
+   var year = date.getFullYear();
+   var month = (1 + date.getMonth());
+   month = month>=10 ? month : '0'+month;
+   var day = date.getDate();
+   day = day>=10 ? day : '0'+day;
+   
+   return year+'.'+month+'.'+day;
 }
 
 $(document).ready(function(){
-	$("input[name='arealist']:radio").change(function(){
-	 var area=this.value; 
+   $("input[name='arealist']:radio").change(function(){
+    var area=this.value; 
 
-	 console.log("AREA="+area);
+    console.log("AREA="+area);
 
 	 $.ajax({
 			url: "arealist?campingname="+area, //radio name=arealist 액션값 넣기
@@ -74,11 +77,11 @@ $(document).ready(function(){
 });
 
 
-
 /*   $function() {
 $("#radio2").onClick(function(){
 alert("radio2 클릭");
 $.ajax({
+
 	url: "review_list", //액션값 넣기
 	type: "GET", //get or post방식 정하기
 	data: { 

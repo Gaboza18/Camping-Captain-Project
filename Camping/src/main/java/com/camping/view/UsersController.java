@@ -36,7 +36,6 @@ public class UsersController {
 	// 이메일 인증 이메일 보낼때 필요한 객체
 	@Autowired
 	private MailSendService mss;
-
 	@Autowired
 	private UsersService usersService;
 	@Autowired

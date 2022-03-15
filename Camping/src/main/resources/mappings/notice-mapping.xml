@@ -42,8 +42,24 @@
 				WHERE rn<=#{criteria.pageNum} * #{criteria.rowsPerPage}  
 					AND rn>=(#{criteria.pageNum}-1) * #{criteria.rowsPerPage}
 	]]>
-		
 	</select>
 	
+	<!-- 관리자 공지사항 등록하기: 지점관리자,총관리자 -->
+	<insert id="insertNotice">
+		INSERT INTO notice(nseq,title,content,admin_name)
+			VALUES(notice_seq.nextval,#{title},#{content},#{admin_name})
+	</insert>
+	
+	<!-- 관리자 공지사항 수정하기: 지점관리자,총관리자 -->
+	<update id="updateNotice">
+		UPDATE notice
+			SET title=#{title}, content=#{content}
+				where nseq=#{nseq}
+	</update>
+	
+	<!-- 관리자 공지사항 삭제하기: 지점관리자,총관리자 -->
+	<delete id="deleteNotice" parameterType="int">
+		DELETE FROM notice WHERE nseq=#{nseq}	
+	</delete>
 	
 </mapper>

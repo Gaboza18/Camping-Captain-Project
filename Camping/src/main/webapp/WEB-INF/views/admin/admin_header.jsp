@@ -13,6 +13,7 @@
 <script type="text/javascript" src="js/users.js"></script>
 <script type="text/javascript" src="js/camping.js"></script>
 <script type="text/javascript" src="js/admin.js"></script>
+<script type="text/javascript" src="js/notice.js"></script>
 <script type="text/javascript" src="js/admin_search_calculate.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript" src="js/scripts.js"></script>
