@@ -14,13 +14,6 @@
 	</c:when>
 </c:choose> 
 
-<!DOCTYPE html>
-<html>
-<head>
-
-<meta charset="UTF-8">
-<link rel="stylesheet" href="css/camping.css">
-<title>관리자 리얼리뷰 수정</title>
 
 <script type="text/javascript">
 
@@ -143,134 +136,108 @@ $("#delete3").onClick(function admin_delete() {
 	}); 
 	 */
 
-
-
-	
-
-
-
 function admin_delete2() {
 		 
-var rseq = $("#hidden_rseq").val();
-console.log(rseq);
-alert("관리자가 회원이 쓴 리뷰를 삭제되었습니다");
- $("#adminlist").attr('action','review_list_re').submit(); 
+	var rseq = $("#hidden_rseq").val();
+	console.log(rseq);
+	alert("관리자가 회원이 쓴 리뷰를 삭제되었습니다");
+	 $("#adminlist").attr('action','review_list_re').submit(); 
 
-		}
+}
 	
-
-
-
 </script>
 
-</head>
+<div id="manager_realreview" align="center">
+	<article>
+		<h4>캠핑족장 리뷰 관리 페이지입니다</h4> 
+		<h6>회원 리뷰는 삭제만 가능합니다</h6>
 
-
-<body>
-	<div id="container" align="center">
-		<article>
-			<h2>Real Review !</h2>
-			<h3>캠핑족장 리뷰 관리 페이지입니다</h3> 
-			<h3>삭제만 가능합니다</h3>
-
-			<!-- 검색 파트 액션 두개 사용 가능 -->
-			<form name="frm" id="review_list" method="get" action = "review_list">
-				<table>
-			  		<tr>
-  						<td>
-      						제목 
-      						<!-- @RequestParam의 네임이름 = key -->
-     					<input type="text" name="key" id="key">
-     					<input class="btn" type="button" name="btn_search" value="검색" onClick="go_search()">
-			  			</td>
-			  		</tr>
-			  	</table>
-			  </form>
-			<br>
-			
-			<form name="formm" id="adminlist" method="get" action= "review_list_re">
-			
+		<!-- 검색 파트 액션 두개 사용 가능 -->
+		<form name="frm" id="review_list" method="get" action = "review_list">
+			<table>
+		  		<tr>
+					<td>
+   						제목 
+   						<!-- @RequestParam의 네임이름 = key -->
+    					<input type="text" name="key" id="key">
+    					<input class="btn" type="button" name="btn_search" value="검색" onClick="go_search()">
+		  			</td>
+		  		</tr>
+			</table>
+		</form>
+		<br>
+		
+		<form name="formm" id="adminlist" method="get" action= "review_list_re">
+		
 			<ul class="arealist">
-			
-			<!-- 인자값(입력해서 요청보내는 값) -->
-			<input type="radio" id="radio1" name="arealist" value="전체보기 " checked onClick="location.href='adminReview'">전체보기
-
-			<input type="radio" id="radio2"name="arealist" value="강원도" ><label for="radio2">강원도</label> 
-			
-			<input type="radio" id="radio3"name="arealist" value="경기도" ><label for="radio3">경기도</label>
-			
-			
-			<input type="radio" id="radio4"name="arealist" value="충청도" ><label for="radio4">충청도</label>
-			
-			
-			<input type="radio" id="radio5"name="arealist" value="경상도" ><label for="radio5">경상도</label>
-			
-			
-			<input type="radio" id="radio6"  name="arealist" value="전라도" ><label for="radio6">전라도</label>
-			<input type="radio" id="radio7"  name="arealist" value="제주도" ><label for="radio6">제주도</label>
+				<!-- 인자값(입력해서 요청보내는 값) -->
+				<input type="radio" id="radio1" name="arealist" value="전체보기 " checked onClick="location.href='adminReview'">전체보기
+				<input type="radio" id="radio2" name="arealist" value="강원도" ><label for="radio2">강원도</label> 
+				<input type="radio" id="radio3" name="arealist" value="경기도" ><label for="radio3">경기도</label>
+				<input type="radio" id="radio4" name="arealist" value="충청도" ><label for="radio4">충청도</label>
+				<input type="radio" id="radio5" name="arealist" value="경상도" ><label for="radio5">경상도</label>
+				<input type="radio" id="radio6" name="arealist" value="전라도" ><label for="radio6">전라도</label>
+				<input type="radio" id="radio7" name="arealist" value="제주도" ><label for="radio6">제주도</label>
 			</ul>
 			
 			<br><br>
-			
-				<div id="review_content">
-				<table id="reviewList" border="1">
+		
+			<div id="review_content">
+				<table id="reviewList">
 					<tr>
-						<th width="40">번호</th>
-						<th width="200">제목</th>
-						<th width="100">작성자</th>
-						<th width="100">캠핑장지점이름</th>
+						<th width="80">번호</th>
+						<th width="250">제목</th>
+						<th width="130">작성자</th>
+						<th width="150">캠핑장지점이름</th>
 						<th width="130">작성일</th>
-						<th width="50">조회수</th>
-						<th width="50">삭제버튼</th>
+						<th width="90">조회수</th>
+						<th width="100">삭제버튼</th>
 					</tr>
-					
-					
 					
 					<c:choose>
 						<c:when test="${reviewListSize<=0}">
 							<tr>
 								<td width="100%" colspan="7" align="center" height="23">
-									등록된 리뷰가 없습니다.</td>
+									등록된 리뷰가 없습니다.
+								</td>
 							</tr>
 						</c:when>
 						<c:otherwise>
 							<c:forEach items="${reviewList}" var="RealReviewVO">
 								<tr>
-								
 									<!-- 리턴,반환값 -->
 									<td height="23" align="center" id="rseq">${RealReviewVO.rseq}
-						<a href="review_list${pageMaker.makeQuery(pageMaker.criteria.pageNum)}&rseq=${RealReviewVO.rseq}"></a></td>
-									     
-									<td><a href="${path}manage_review_detail?rseq=${RealReviewVO.rseq}">${RealReviewVO.title}</a></td>
-									
-									
-									<td>${RealReviewVO.id}</td>
-									<td>${RealReviewVO.campingname}</td>
-									
-									<td><fmt:formatDate value="${RealReviewVO.indate}" type="date" />
+										<a href="review_list${pageMaker.makeQuery(pageMaker.criteria.pageNum)}&rseq=${RealReviewVO.rseq}"></a>
 									</td>
-									
-									
-									
+									<td><a href="${path}manage_review_detail?rseq=${RealReviewVO.rseq}">${RealReviewVO.title}</a></td>
+									<td>
+										<c:choose>
+											<c:when test="${RealReviewVO.id == null}">
+												<span style="color: gray;">탈퇴회원</span>
+											</c:when>
+											<c:otherwise>
+												${RealReviewVO.id}
+											</c:otherwise>
+										</c:choose>
+									</td>
+									<td>${RealReviewVO.campingname}</td>
+									<td><fmt:formatDate value="${RealReviewVO.indate}" type="date" /></td>
 									<td>${RealReviewVO.count}</td>
-									
 									<td>
 										<input type="hidden" name="rseq" id="hidden_rseq" value="${RealReviewVO.rseq}">
 										<button type="submit" form="reviewList" class="btn-success" id="delete4" onClick="admin_delete2()">리뷰삭제</button>
 									</td>
-									
 								</tr>
 							</c:forEach>
-							<tr><td colspan="6" style="text-align: center;"> ${paging} </td></tr>
+							<tr>
+								<td colspan="6" style="text-align: center;"> ${paging} </td>
+							</tr>
 						</c:otherwise>
 					</c:choose>
 				</table>																	
-				</div>
-			</form>  
-			<%@ include file="reviewpage_area.jsp"%>
-		</article>
-	</div>
-</body>
+			</div>
+		</form>  
+		<%@ include file="reviewpage_area.jsp"%>
+	</article>
+</div>
 <%@ include file="admin_footer.jsp"%>
-
-</html>

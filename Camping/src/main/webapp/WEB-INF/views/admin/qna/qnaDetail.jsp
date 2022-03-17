@@ -18,14 +18,15 @@
 	}
 </script>
 
-<article>
-	<h1>Q&amp;A 게시판</h1>
-	<form name="frm" method="post">
-		<input type="hidden" name="qseq" value="${qnaVO.qseq}">
-		<div align="center">
+
+<div id="qnadetail_form" align="center">
+	<article>
+		<h4>Q&amp;A 게시판</h4>
+		<form name="frm" method="post">
+			<input type="hidden" name="qseq" value="${qnaVO.qseq}">
 			<table id="orderList">
 				<tr>
-					<th width="20%">제목</th>
+					<th>제목</th>
 					<td>${qnaVO.subject}${qnaVO.rep}</td>
 				</tr>
 				<tr>
@@ -39,17 +40,16 @@
 			</table>
 			<c:choose>
 				<c:when test='${qnaVO.rep=="1"}'>
-					<table id="orderList">
+					<table id="order_list">
 						<tr>
-							<td colspan="2"><textarea name="reply" rows="3" cols="50"></textarea>
-								<input type="button" class="btn" value="저장"
-								onClick="go_rep('${qnaVO.qseq}')"></td>
+							<th></th>
+							<td colspan="2"><textarea name="reply" rows="3" cols="50"></textarea></td>
 						</tr>
 					</table>
 					<br>
 				</c:when>
 				<c:otherwise>
-					<table id="orderList">
+					<table id="order_list">
 						<tr>
 							<th>댓글</th>
 							<td>${qnaVO.reply}</td>
@@ -58,9 +58,12 @@
 				</c:otherwise>
 			</c:choose>
 			<input type="button" class="btn" value="목록" onClick="go_list()">
-		</div>
-	</form>
-</article>
+			<c:if test='${qnaVO.rep=="1"}'>
+				<input type="button" class="btn" value="저장" onClick="go_rep('${qnaVO.qseq}')">
+			</c:if>
+		</form>
+	</article>
+</div>
 <%@ include file="../admin_footer.jsp"%>
 </body>
 </html>

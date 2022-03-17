@@ -51,7 +51,7 @@
 			<input type="text" name="birth_gen" maxlength="1" class="birth_gen" value="${birth_gen}"><span id="spanRight" style="color: white;">●●●●●●</span><br> 
 	
 	      	<c:if test="${loginUser.status eq 'n'}">
-			      <label>E-mail</label>
+			      <label id="email_label">E-mail</label>
 
 		          <input type="text" name="email" id="email">
 		          <input type="button" name="email" id="email" value="이메일 인증하기" class="dup" onclick="emailcheck2()"><br>

@@ -30,7 +30,7 @@
 	      <li><a href="admin_users_age_ratio">회원 연령 통계</a></li>
 	    </ul>
     </nav>
-    <div id="master_main">
+    <div id="master_main" align="center">
     	 <h2>${loginAdmin.name}님 환영합니다</h2>
     </div>
 </div>    

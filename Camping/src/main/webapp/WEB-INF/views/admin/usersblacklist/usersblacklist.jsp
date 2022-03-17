@@ -124,7 +124,7 @@ function userschange(useq, id) {
 
 			<form name="statusfrm" id="statusfrm" method="get" action="changestatus">
 				<div id="users_content">
-					<table id="usersList" border="1">
+					<table id="usersList">
 						<tr>
 							<th width="50">번호</th>
 							<th width="100">아이디</th>
