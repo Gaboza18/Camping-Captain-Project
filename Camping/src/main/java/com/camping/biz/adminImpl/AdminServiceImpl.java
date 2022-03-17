@@ -18,7 +18,7 @@ public class AdminServiceImpl implements AdminService {
 
 	@Autowired
 	private AdminDAO aDao;
-	
+
 	@Override
 	public AdminVO getAdmin(String id) {
 		return aDao.getAdmin(id);
@@ -33,12 +33,11 @@ public class AdminServiceImpl implements AdminService {
 	public int loginID(AdminVO vo) {
 		return aDao.loginID(vo);
 	}
-	
 
 	@Override
 	public void deletereview(int rseq) {
-		 aDao.deletereview(rseq);
-		
+		aDao.deletereview(rseq);
+
 	}
 
 	@Override
@@ -48,10 +47,8 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public int countReviewlist(String title) {
-		
-
-			return aDao.countReviewlist(title);
-		}
+		return aDao.countReviewlist(title);
+	}
 
 	@Override
 	public RealReviewVO detailReviews(int rseq) {
@@ -65,29 +62,47 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public List<UsersVO> listUsers(UsersVO vo) {
-		// TODO Auto-generated method stub
 		return aDao.listUsers(vo);
 	}
 
 	@Override
 	public List<UsersVO> getUsersListWithPaging(Criteria criteria, String id) {
-		
 		return aDao.getUsersListWithPaging(criteria, id);
 	}
 
 	@Override
 	public int countUserslist(String id) {
-		
 		return aDao.countUserslist(id);
 	}
 
 	@Override
 	public void statusChange(UsersVO vo) {
-		
 		aDao.statusChange(vo);
-		
 	}
-	
-	
+
+	@Override
+	public void statusCancelBlack(int useq) {
+		aDao.statusCancelBlack(useq);
+	}
+
+	@Override
+	public List<UsersVO> listGeneralUser(UsersVO vo) {
+		return aDao.listGeneralUser(vo);
+	}
+
+	@Override
+	public List<UsersVO> listBlackUser(UsersVO vo) {
+		return aDao.listBlackUser(vo);
+	}
+
+	@Override
+	public List<UsersVO> statusUserlistWithPaging(Criteria criteria, String id, String blacklist) {
+		return aDao.statusUserlistWithPaging(criteria, id, blacklist);
+	}
+
+	@Override
+	public int statusUserlist(UsersVO vo) {
+		return aDao.statusUserlist(vo);
+	}
 
 }

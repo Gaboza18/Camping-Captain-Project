@@ -29,16 +29,16 @@ th, td {
 			<select name="startYear" id="startYear">
 				<c:forEach items="${conditionMapYear}" var="option">
 					<option value="${option.value}"
-						<c:if test="${option.value == selected}">selected</c:if>>${option.key}</option>
+						<c:if test="${option.value == stYear}">selected</c:if>>${option.key}</option>
 				</c:forEach>
 			</select>
 			~ 
 			<select name="endYear" id="endYear">
 				<c:forEach items="${conditionMapYear}" var="option">
 					<option value="${option.value}"
-						<c:if test="${option.value == selected}">selected</c:if>>${option.key}</option>
+						<c:if test="${option.value == edYear}">selected</c:if>>${option.key}</option>
 				</c:forEach>
-			</select> <input id="btn" type="button" value="조회하기" onclick="admin_search_chk()" />
+			</select> <input id="btn" type="button" value="조회하기" onclick="admin_search_chk_year()" />
 		</div><br>
 	</form>
 	

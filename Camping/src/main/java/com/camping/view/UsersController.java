@@ -385,7 +385,7 @@ public class UsersController {
 	public Map<String, String> searchConditionMap() {
 		Map<String, String> conditionMap = new LinkedHashMap<>();
 
-		conditionMap.put("吏��젏�쓣 �꽑�깮�븯�꽭�슂", "0");
+		conditionMap.put("지점을 선택하세요", "0");
 		conditionMap.put("罹좏븨議깆옣-媛뺤썝�룄吏��젏", "1");
 		conditionMap.put("罹좏븨議깆옣-寃쎄린�룄吏��젏", "2");
 		conditionMap.put("罹좏븨議깆옣-異⑹껌�룄吏��젏", "3");
