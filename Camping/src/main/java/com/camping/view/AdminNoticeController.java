@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.camping.biz.adminnotice.AdminNoticeService;
 import com.camping.biz.dto.AdminNoticeVO;
+import com.camping.biz.dto.AdminVO;
 
 import utils.Criteria;
 import utils.PageMaker;
@@ -26,12 +27,12 @@ public class AdminNoticeController {
 	private AdminNoticeService adminNoticeService;
 	
 	/*
-	 * 관리자 공지사항 상세보기, 조회수 증가(총관리자)
+	 * 愿�由ъ옄 怨듭��궗�빆 �긽�꽭蹂닿린, 議고쉶�닔 利앷�(珥앷�由ъ옄)
 	 */
 	@RequestMapping(value = "/admin_notice_detail", method = RequestMethod.GET)
 	public String adminNoticeDetail(HttpSession session, AdminNoticeVO vo, Model model, int aseq) {
 
-		adminNoticeService.updateViewCount(vo.getAseq()); // 조회수 증가
+		adminNoticeService.updateViewCount(vo.getAseq()); // 議고쉶�닔 利앷�
 
 		AdminNoticeVO AdminNoticeDetail = adminNoticeService.detailNotice(aseq);
 		model.addAttribute("adminnoticeVO", AdminNoticeDetail);
@@ -40,60 +41,60 @@ public class AdminNoticeController {
 	}
 	
 	/*
-	 * 관리자 공지사항(페이징 처리) 조회(총관리자)
+	 * 愿�由ъ옄 怨듭��궗�빆(�럹�씠吏� 泥섎━) 議고쉶(珥앷�由ъ옄)
 	 */
 	@RequestMapping(value = "/admin_notice_list", method = RequestMethod.GET)
 	public String adminnoticeList(@RequestParam(value = "key", defaultValue = "") String title, Criteria criteria,
 			HttpSession session, Model model) {
 
-		// 공지사항 목록 조회 - 공지사항 10개만 조회
+		// 怨듭��궗�빆 紐⑸줉 議고쉶 - 怨듭��궗�빆 10媛쒕쭔 議고쉶
 		List<AdminNoticeVO> AdminNoticeList = adminNoticeService.getListWithPaging(criteria, title);
 
-		// 화면에 표시할 페이지 버튼 정보 설정
+		// �솕硫댁뿉 �몴�떆�븷 �럹�씠吏� 踰꾪듉 �젙蹂� �꽕�젙
 		PageMaker pageMaker = new PageMaker();
 		int totalCount = adminNoticeService.countNoticeList(title);
 
-		pageMaker.setCriteria(criteria); // 현재 페이지와 페이지당 항목 수 정보 설정
-		pageMaker.setTotalCount(totalCount); // 전체 공지사항 목록 갯수 설정 및 페이지 정보 초기화
+		pageMaker.setCriteria(criteria); // �쁽�옱 �럹�씠吏��� �럹�씠吏��떦 �빆紐� �닔 �젙蹂� �꽕�젙
+		pageMaker.setTotalCount(totalCount); // �쟾泥� 怨듭��궗�빆 紐⑸줉 媛��닔 �꽕�젙 諛� �럹�씠吏� �젙蹂� 珥덇린�솕
 
-		model.addAttribute("adminnoticeList", AdminNoticeList); // ${noticeList} 속성값에 담고 화면에 호출한다
+		model.addAttribute("adminnoticeList", AdminNoticeList); // ${noticeList} �냽�꽦媛믪뿉 �떞怨� �솕硫댁뿉 �샇異쒗븳�떎
 		model.addAttribute("adminnoticeListSize", AdminNoticeList.size());
 		model.addAttribute("pageMaker", pageMaker);
 
-		return "admin/adminnotice/admin_notice_list"; // 공지사항 리스트 화면으로 전송
+		return "admin/adminnotice/admin_notice_list"; // 怨듭��궗�빆 由ъ뒪�듃 �솕硫댁쑝濡� �쟾�넚
 	}
 	
 	/*
-	 *  관리자 공지사항 조회(지점관리자)
+	 *  愿�由ъ옄 怨듭��궗�빆 議고쉶(吏��젏愿�由ъ옄)
 	 */
 	@RequestMapping(value = "/manager_admin_notice_list", method = RequestMethod.GET)
 	public String managerAdminNoticeList(@RequestParam(value = "key", defaultValue = "") String title, Criteria criteria,
 			HttpSession session, Model model) {
 
-		// 공지사항 목록 조회 - 공지사항 10개만 조회
+		// 怨듭��궗�빆 紐⑸줉 議고쉶 - 怨듭��궗�빆 10媛쒕쭔 議고쉶
 		List<AdminNoticeVO> AdminNoticeList = adminNoticeService.getListWithPaging(criteria, title);
 
-		// 화면에 표시할 페이지 버튼 정보 설정
+		// �솕硫댁뿉 �몴�떆�븷 �럹�씠吏� 踰꾪듉 �젙蹂� �꽕�젙
 		PageMaker pageMaker = new PageMaker();
 		int totalCount = adminNoticeService.countNoticeList(title);
 
-		pageMaker.setCriteria(criteria); // 현재 페이지와 페이지당 항목 수 정보 설정
-		pageMaker.setTotalCount(totalCount); // 전체 공지사항 목록 갯수 설정 및 페이지 정보 초기화
+		pageMaker.setCriteria(criteria); // �쁽�옱 �럹�씠吏��� �럹�씠吏��떦 �빆紐� �닔 �젙蹂� �꽕�젙
+		pageMaker.setTotalCount(totalCount); // �쟾泥� 怨듭��궗�빆 紐⑸줉 媛��닔 �꽕�젙 諛� �럹�씠吏� �젙蹂� 珥덇린�솕
 
-		model.addAttribute("adminnoticeList", AdminNoticeList); // ${noticeList} 속성값에 담고 화면에 호출한다
+		model.addAttribute("adminnoticeList", AdminNoticeList); // ${noticeList} �냽�꽦媛믪뿉 �떞怨� �솕硫댁뿉 �샇異쒗븳�떎
 		model.addAttribute("adminnoticeListSize", AdminNoticeList.size());
 		model.addAttribute("pageMaker", pageMaker);
 
-		return "admin/adminnotice/manager_admin_notice_list"; // 공지사항 리스트 화면으로 전송
+		return "admin/adminnotice/manager_admin_notice_list"; // 怨듭��궗�빆 由ъ뒪�듃 �솕硫댁쑝濡� �쟾�넚
 	}
 	
 	/*
-	 * 관리자 공지사항 상세보기(지점 관리자)
+	 * 愿�由ъ옄 怨듭��궗�빆 �긽�꽭蹂닿린(吏��젏 愿�由ъ옄)
 	 */
 	@RequestMapping(value = "/manager_admin_notice_detail", method = RequestMethod.GET)
 	public String managerAdminNoticeDetail(HttpSession session, AdminNoticeVO vo, Model model, int aseq) {
-
-		adminNoticeService.updateViewCount(vo.getAseq()); // 조회수 증가
+		
+		adminNoticeService.updateViewCount(vo.getAseq()); // 議고쉶�닔 利앷�
 
 		AdminNoticeVO AdminNoticeDetail = adminNoticeService.detailNotice(aseq);
 		model.addAttribute("adminnoticeVO", AdminNoticeDetail);
@@ -102,7 +103,7 @@ public class AdminNoticeController {
 	}
 	
 	/*
-	 * 관리자 공지사항 등록 페이지 이동(총관리자)
+	 * 愿�由ъ옄 怨듭��궗�빆 �벑濡� �럹�씠吏� �씠�룞(珥앷�由ъ옄)
 	 */
 	@RequestMapping(value="/admin_notice_write_form", method=RequestMethod.GET)
 	public String adminNoitceWriteForm(HttpSession session, AdminNoticeVO vo) {
@@ -110,7 +111,7 @@ public class AdminNoticeController {
 	}
 	
 	/*
-	 * 관리자 공지사항 등록(총관리자)
+	 * 愿�由ъ옄 怨듭��궗�빆 �벑濡�(珥앷�由ъ옄)
 	 */
 	@RequestMapping(value="/admin_notice_write", method=RequestMethod.GET)
 	public String adminNoticeWrite(HttpSession session, AdminNoticeVO vo) {
@@ -120,7 +121,7 @@ public class AdminNoticeController {
 	}
 	
 	/*
-	 * 관리자 공지사항 수정 페이지 이동(총관리자)
+	 * 愿�由ъ옄 怨듭��궗�빆 �닔�젙 �럹�씠吏� �씠�룞(珥앷�由ъ옄)
 	 */
 	@RequestMapping(value = "/admin_notice_update_form", method = RequestMethod.GET)
 	public String adminQuestionUpdateForm(@RequestParam("aseq") int aseq, Model model) {
@@ -132,7 +133,7 @@ public class AdminNoticeController {
 	}
 	
 	/*
-	 * 관리자 공지사항 수정(총관리자)
+	 * 愿�由ъ옄 怨듭��궗�빆 �닔�젙(珥앷�由ъ옄)
 	 */
 	@RequestMapping(value="/admin_notice_update", method=RequestMethod.GET)
 	public String adminNoticeUpdate(HttpSession session, AdminNoticeVO vo) {
@@ -142,7 +143,7 @@ public class AdminNoticeController {
 	}
 	
 	/*
-	 * 관리자 공지사항 삭제(총관리자)
+	 * 愿�由ъ옄 怨듭��궗�빆 �궘�젣(珥앷�由ъ옄)
 	 */
 	@RequestMapping(value = "/admin_notice_delete", method = RequestMethod.GET)
 	public String adminQuestionDelete(HttpSession session, AdminNoticeVO vo, int aseq) {

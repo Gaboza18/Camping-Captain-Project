@@ -2,30 +2,63 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="../admin_header.jsp"%>
 <%@ include file="../master_admin_menu.jsp"%>
+
 <style>
-table#calculateList {
-	border-collapse: collapse; /* border 사이의 간격 없앰 */
-	border-top: 2px solid #333;
-	border-bottom: 1px solid #333;
-	width: 60%; /* 전체 테이블 길이 설정 */
-	margin-left: 100px;
-	margin-bottom: 20px;
-}
+	div#admin_all_calculate_year {
+		margin-left: 17.5%;
+		padding: 0;
+		min-height: 520px;
+	}
 
-th, td {
-	padding: 8px 5px;
-}
+	div#admin_all_calculate_year h4 {
+		margin: 2% auto;
+		color: rgb(255, 200, 0);
+	}
+	
+	div#admin_all_calculate_year form#camp_order_year_search {
+		color: #212529;
+	}
+	
+	div#admin_all_calculate_year form#camp_order_year_search div {
+		margin-bottom: 2%;
+	}
+	
+	div#admin_all_calculate_year form#camp_order_year_search div select {
+		border-radius: 10px;
+	}
+	
+	div#admin_all_calculate_year form#camp_order_year_search div input#btn {
+		margin-left: 1%;
+		border-radius: 10px;
+		background-color: #212529;
+		color: white;;
+	}
+	
+	div#admin_all_calculate_year form#camp_order_year_search div input#btn:hover {
+		background-color: #464f57;
+	}
 
-#calculateList td { /* 테이블의 th 와 td 마진과 패딩 지정 */
-	padding-right: 40px;
-	text-align: right;
-}
+	div#admin_all_calculate_year form[name=formm] article table#calculateList {
+		border: none;
+		color: #212529;
+		text-align: center;
+	}
+	
+	div#admin_all_calculate_year form[name=formm] article table#calculateList th {
+		border: none; 
+		border-bottom: 1px solid #212529;
+	}
+
+	div#admin_all_calculate_year form[name=formm] article table#calculateList td {
+		border: none;
+	}
 </style>
-<div align="center">
-	<h1>캠핑족장 - 연 정산</h1>
+
+<div id="admin_all_calculate_year" align="center">
+	<h4>캠핑족장 - 연 정산</h4>
 	<form id="camp_order_year_search" action="admin_master_calculate_year" method="get">
 		<div>
-			<h4>연도 선택</h4>
+			<h5>연도 선택</h5>
 			<select name="startYear" id="startYear">
 				<c:forEach items="${conditionMapYear}" var="option">
 					<option value="${option.value}"
@@ -38,23 +71,23 @@ th, td {
 					<option value="${option.value}"
 						<c:if test="${option.value == edYear}">selected</c:if>>${option.key}</option>
 				</c:forEach>
-			</select> <input id="btn" type="button" value="조회하기" onclick="admin_search_chk_year()" />
-		</div><br>
+			</select> 
+			<input id="btn" type="button" value="조회하기" onclick="admin_search_chk_year()" />
+		</div>
 	</form>
 	
-	<form>
+	<form name="formm">
 		<article>
 			<table id="calculateList">
 				<tr>
-					<th>년 도</th>
-					<th>지점이름</th>
-					<th>총합</th>
+					<th width="150">년 도</th>
+					<th width="300">지점이름</th> 
+					<th width="170">총합</th>
 				</tr>
 				<c:forEach items="${calculateList}" var="calculateList">
 					<tr>
-						<td height="23" align="center">${calculateList.indate}</td>
-						<td
-							style="text-align: left; padding-left: 50px; padding-right: 0px;">${calculateList.camp_name }</td>
+						<td>${calculateList.indate}</td>
+						<td>${calculateList.camp_name }</td>
 						<td>${calculateList.total_price}원</td>
 					</tr>
 				</c:forEach>
@@ -64,5 +97,3 @@ th, td {
 </div>
 
 <%@ include file="../admin_footer.jsp"%>
-</body>
-</html>

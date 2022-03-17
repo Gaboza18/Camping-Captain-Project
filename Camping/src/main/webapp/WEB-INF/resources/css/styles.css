@@ -11488,6 +11488,7 @@ nav#mainNav ul.navbar-nav li.nav-item ul.header_submenu li {
 	text-align: left;
 	font-size: 12px;
 	padding: 5px;
+	margin-left: 10px;
 }
 
 nav#mainNav ul.navbar-nav li.nav-item ul.header_submenu li a {
@@ -11522,11 +11523,13 @@ section#login form#loginForm .form-group {
 }
 
 section#login form#loginForm .form-group input{
-	padding: 1.25rem;
+	margin: auto;
 }
 
 section#login form#loginForm .form-group input.form-control {
 	height: auto;
+	padding: 3%;
+	width: 60%;
 }
 
 section#login form#loginForm p.help-block {
@@ -11539,7 +11542,7 @@ section#login form#loginForm .form-control:focus {
 }
 
 section#login form#loginForm input[type=button] {
-	border-radius: 12px;;
+	border-radius: 12px;
 }
 
 section#login form#loginForm ::-webkit-input-placeholder {
@@ -12561,6 +12564,7 @@ div#mypage_view_form article#mypage form#mypage_form div table td {
 
 div#mypage_view_form article#mypage form#mypage_form div table td input {
 	color: white;
+	width: 100%;
 	background-color: #212529;
 	text-align: center;
 }
@@ -12602,10 +12606,24 @@ div#user_update_form article#userUpdate label {
 	font-size: 20px;
 }
 
+div#user_update_form article#userUpdate label#email_label {
+	margin-left: 13%;
+}
+
 div#user_update_form article#userUpdate input {
 	width: 300px;
 	border-radius: 12px;
 	text-align: center;
+}
+
+div#user_update_form article#userUpdate input.dup {
+	width: 150px;
+	background-color: rgb(255, 200, 0);
+	border-radius: 12px;
+}
+
+div#user_update_form article#userUpdate input.dup:hover {
+	background-color:  rgb(230, 177, 0);
 }
 
 div#user_update_form article#userUpdate input.birth {
@@ -12633,6 +12651,71 @@ div#user_update_form article#userUpdate div#btn input[type=reset] {
 }
 
 div#user_update_form article#userUpdate div#btn input:hover {
+	background-color:  rgb(230, 177, 0);
+}
+
+/* 이메일 인증 페이지 */
+div#join_form {
+	background-color: #212529;
+	background-image: url("../assets/img/map-image.png");
+	background-repeat: no-repeat;
+	background-position: center;
+	padding: 10%;
+	min-height: 520px;
+}  
+
+div#join_form article h2 {
+	color: white;
+}
+
+div#join_form article h4 {
+	color: rgb(254, 209, 54);
+}
+
+div#join_form article form#join2 table {
+	border: none;
+	margin: 20px auto;
+	text-align: center;
+}
+
+div#join_form article form#join2 table th {
+	border: none;
+	width: 15%;
+}
+
+div#join_form article form#join2 table td {
+	border: none;
+	text-align: left;
+}
+
+div#join_form article form#join2 table td input {
+	width: 300px;
+	border-radius: 10px;
+	text-align: center;
+}
+
+div#join_form article form#join2 table td input.dup {
+	width: 110px;
+	border-radius: 10px;
+	text-align: center;
+	background-color: rgb(255, 200, 0);
+}
+
+div#join_form article form#join2 table td input.dup:hover {
+	background-color:  rgb(230, 177, 0);
+}
+
+div#join_form article form#join2 table td a {
+	padding-left: 10px;
+	text-decoration: none;
+}
+
+div#join_form article form#join2 div#buttons input {
+	border-radius: 12px;
+	background-color: rgb(255, 200, 0);
+}
+
+div#join_form article form#join2 div#buttons input:hover {
 	background-color:  rgb(230, 177, 0);
 }
 
@@ -13035,17 +13118,17 @@ div.menu_area nav.admin_side_menu ul li ul.header_submenu li:hover {
 
 div.menu_area div#manager_main h2 {
 	padding-top: 0.5%;
-	margin-left: 43%;
+	margin-left: 18.3%;
 	color: #212529;
 }
 
 div.menu_area div#master_main h2 {
 	padding-top: 0.5%;
-	margin-left: 48%;
+	margin-left: 17.5%;
 	color: #212529;
 }
 
-/* 관리자 indes 페이지 */
+/* 관리자 index 페이지 */
 div#admin_index {
 	min-height: 520px;
 }
@@ -13076,6 +13159,11 @@ article#admin_order_list_form form#search_orderList input#btn {
 	border-radius: 10px;
 	color: white;
 	background-color: #212529;
+	padding: 0 7px;
+}
+
+article#admin_order_list_form form#search_orderList input#btn:hover {
+	background-color: #464f57;
 }
 
 article#admin_order_list_form form#orderListForm {
@@ -13100,6 +13188,7 @@ article#admin_order_list_form form#orderListForm table#orderList td input[type=b
 	border-radius: 10px;
 	color: white;
 	background-color: #212529;
+	padding: 0 7px;
 }
 
 article#admin_order_list_form form#orderListForm table#orderList td input[type=button]:hover {
@@ -13132,6 +13221,11 @@ article#admin_cancel_list_form form#search_cancelList input#btn {
 	border-radius: 10px;
 	color: white;
 	background-color: #212529;
+	padding: 0 7px;
+}
+
+article#admin_cancel_list_form form#search_cancelList input#btn:hover {
+	background-color: #464f57;
 }
 
 article#admin_cancel_list_form form#cancelListForm {
@@ -13152,17 +13246,22 @@ article#admin_cancel_list_form form#cancelListForm table#cancelList td {
 	border: none;
 }
 
+article#admin_cancel_list_form form#cancelListForm table#cancelList td a {
+	text-decoration: none;
+}
+
 article#admin_cancel_list_form form#cancelListForm table#cancelList td input[type=button] {
 	border-radius: 10px;
 	color: white;
 	background-color: #212529;
+	padding: 0 7px;
 }
 
 article#admin_cancel_list_form form#cancelListForm table#cancelList td input[type=button]:hover {
 	background-color: #464f57;
 }
 
-/* 관리자 공지사항 리스트 조회 페이지  */
+/* 총관리자 관리자용공지사항 리스트 조회 페이지  */
 div#admin_notice_list_form {
 	margin-left: 17.5%;
 	padding: 0;
@@ -13170,7 +13269,7 @@ div#admin_notice_list_form {
 }
 
 div#admin_notice_list_form article h4 {
-	margin-top: 2%;
+	margin: 2% auto;
 	color: rgb(255, 200, 0);
 }
 
@@ -13192,6 +13291,8 @@ div#admin_notice_list_form article form#admin_notice_form table td input[name=bt
 	border-radius: 10px;
 	color: white;
 	padding: 1px 7px;
+	position: relative;
+	top: -3px;
 }
 
 div#admin_notice_list_form article form#admin_notice_form table td input[name=btn_search]:hover {
@@ -13231,7 +13332,7 @@ div#admin_notice_list_form article form#admin_notice_insert input.btn:hover {
 	background-color: #464f57;
 }
 
-/* 관리지 공지사항 상세보기 페이지 */
+/* 총관리자 관리자용공지사항 상세보기 페이지 */
 div#admin_notice_detail_form {
 	margin-left: 17.5%;
 	padding: 0;
@@ -13290,7 +13391,7 @@ div#admin_notice_detail_form form#admin_detail_form a input:hover {
 	background-color: #464f57;
 }
 
-/* 관리자 공지사항 등록 페이지 */
+/* 총관리자 관리자용공지사항 등록 페이지 */
 div#admin_notice_write_form {
 	margin-left: 17.5%;
 	padding: 0;
@@ -13349,7 +13450,7 @@ div#admin_notice_write_form article form[name=form] div#notice_btn button:hover 
 	background-color: #464f57;
 }
 
-/* 관리자 공지사항 수정 페이지 */
+/* 총관리자 관리자용공지사항 수정 페이지 */
 div#admin_notice_update_form {
 	margin-left: 17.5%;
 	padding: 0;
@@ -13408,6 +13509,508 @@ div#admin_notice_update_form form[name=formm] button:hover {
 	background-color: #464f5;
 }
 
+/* 지점관리자 관리자용 공지사항 조회 페이지 */
+div#manager_admin_notice_list {
+	margin-left: 17.5%;
+	padding: 0;
+	min-height: 520px;
+}
+
+div#manager_admin_notice_list article h4 {
+	margin: 2% auto;
+	color: rgb(255, 200, 0);
+}
+
+div#manager_admin_notice_list article form#admin_notice_form {
+	margin: auto;
+}
+
+div#manager_admin_notice_list article form#admin_notice_form table td {
+	border: none;
+	color: #212529;
+	width: 280px;
+}
+
+div#manager_admin_notice_list article form#admin_notice_form table td input#key {
+	border-radius: 12px;
+}
+
+div#manager_admin_notice_list article form#admin_notice_form table td input.btn {
+	border-radius: 10px;
+	color: white;
+	background-color: #212529;
+	padding: 0.5% 2%;
+	position: relative;
+	top: -3px;
+}
+
+div#manager_admin_notice_list article form#admin_notice_form table td input.btn:hover {
+	background-color: #464f57;
+}
+
+div#manager_admin_notice_list article form[name=formm] {
+	margin: auto;
+}
+
+div#manager_admin_notice_list article form[name=formm] table#noticeList {
+	color: #212529;
+	text-align: center;
+}
+
+div#manager_admin_notice_list article form[name=formm] table#noticeList th {
+	border: none;
+	border-bottom: 1px solid #212529;
+}
+
+div#manager_admin_notice_list article form[name=formm] table#noticeList td {
+	border: none;
+}
+
+div#manager_admin_notice_list article form[name=formm] table#noticeList td a {
+	text-decoration: none;
+}
+
+/* 지점관리자 관리자용공지사항 상세보기 페이지 */
+div#manager_admin_notice_detail {
+	margin-left: 17.5%;
+	padding: 0;
+	min-height: 520px;
+}
+
+div#manager_admin_notice_detail h4 {
+	margin: 2% auto;
+	color: rgb(255, 200, 0);
+}
+
+div#manager_admin_notice_detail form#manager_detail_form {
+	margin: auto;
+	color: #212529;
+}
+
+div#manager_admin_notice_detail form#manager_detail_form table {
+	text-align: center;
+	border: none;
+}
+
+div#manager_admin_notice_detail form#manager_detail_form table th {
+	border: none;
+	border-bottom: 1px solid #c0c0c0;
+	last-child: none;
+}
+
+div#manager_admin_notice_detail form#manager_detail_form table td {
+	width: 350px;
+	border: none;
+	border-bottom: 1px solid #c0c0c0;
+	last-child: none;
+	text-align: left;
+}
+
+div#manager_admin_notice_detail form#manager_detail_form input.btn {
+	background-color: #212529;
+	border-radius: 10px;
+	color: white;
+	padding: 1px 7px;	
+	position: relative;
+	top: -2px;
+}
+
+div#manager_admin_notice_detail form#manager_detail_form input.btn:hover {
+	background-color: #464f57;
+}
+
+div#manager_admin_notice_detail form#manager_detail_form a input[type=button] {
+	background-color: #212529; 
+	border-radius: 10px;
+	color: white;
+	padding: 1px 7px;	
+}
+
+div#manager_admin_notice_detail form#manager_detail_form a input[type=button]:hover {
+	background-color: #464f57;
+}
+
+/* 관리자 회원게시판 관리 페이지 */
+div#master_manager_notice_list {
+	margin-left: 17.5%;
+	padding: 0;
+	min-height: 520px;
+}
+
+div#master_manager_notice_list article h4 {
+	margin: 2% auto;
+	color: rgb(255, 200, 0);
+}
+
+div#master_manager_notice_list article form#notice_form {
+	margin: auto;
+}
+
+div#master_manager_notice_list article form#notice_form table td {
+	border: none;
+	color: #212529;
+}
+
+div#master_manager_notice_list article form#notice_form table td input#key {
+	border-radius: 12px;
+}
+
+div#master_manager_notice_list article form#notice_form table td input.btn {
+	border-radius: 10px;
+	color: white;
+	background-color: #212529;
+	padding: 0.5% 2%;
+	position: relative;
+	top: -3px;
+}
+
+div#master_manager_notice_list article form#notice_form table td input.btn:hover {
+	background-color: #464f57;
+}
+
+div#master_manager_notice_list article form[name=formm] {
+	margin: auto;
+}
+
+div#master_manager_notice_list article form[name=formm] table#noticeList {
+	color: #212529;
+	text-align: center;
+}
+
+div#master_manager_notice_list article form[name=formm] table#noticeList th {
+	border: none;
+	border-bottom: 1px solid #212529;
+}
+
+div#master_manager_notice_list article form[name=formm] table#noticeList td {
+	border: none;
+}
+
+div#master_manager_notice_list article form[name=formm] table#noticeList td a {
+	text-decoration: none;
+}
+
+div#master_manager_notice_list article form#master_manage_notice_insert input {
+	background-color: #212529;
+	border-radius: 10px;
+	color: white;
+	padding: 1px 7px;	
+}
+
+div#master_manager_notice_list article form#master_manage_notice_insert input:hover {
+	background-color: #464f57;
+}
+
+/* 관리자 회원공지사항 상세보기 페이지 */
+div#master_notice_detail_form {
+	margin-left: 17.5%;
+	padding: 0;
+	min-height: 520px;
+}
+
+div#master_notice_detail_form h4 {
+	margin: 2% auto;
+	color: rgb(255, 200, 0);
+}
+
+div#master_notice_detail_form form#detail_form {
+	margin: auto;
+	color: #212529;
+}
+
+div#master_notice_detail_form form#detail_form table {
+	text-align: center;
+	border: none;
+}
+
+div#master_notice_detail_form form#detail_form table th {
+	border: none;
+	border-bottom: 1px solid #c0c0c0;
+	last-child: none;
+}
+
+div#master_notice_detail_form form#detail_form table td {
+	width: 350px;
+	border: none;
+	border-bottom: 1px solid #c0c0c0;
+	last-child: none;
+	text-align: left;
+}
+
+div#master_notice_detail_form form#detail_form input.btn {
+	background-color: #212529;
+	border-radius: 10px;
+	color: white;
+	padding: 1px 7px;	
+	position: relative;
+	top: -2px;
+}
+
+div#master_notice_detail_form form#detail_form input.btn:hover {
+	background-color: #464f57;
+}
+
+div#master_notice_detail_form form#detail_form a input[type=button] {
+	background-color: #212529; 
+	border-radius: 10px;
+	color: white;
+	padding: 1px 7px;	
+}
+
+div#master_notice_detail_form form#detail_form a input[type=button]:hover {
+	background-color: #464f57;
+}
+
+/* 관리자 회원공지사항 수정 페이지 */
+div#master_notice_update_form {
+	margin-left: 17.5%;
+	padding: 0;
+	min-height: 520px;
+}
+
+div#master_notice_update_form article h4 {
+	margin: 2% auto;
+	color: rgb(255, 200, 0);
+}
+
+div#master_notice_update_form article form[name=formm] {
+	margin: 20px auto;
+}
+
+div#master_notice_update_form article form[name=formm] label {
+	color: #212529;
+	margin-bottom: 10px;
+}
+
+div#master_notice_update_form article form[name=formm] label#content {
+	position: relative;
+	top: -160px;
+}
+
+div#master_notice_update_form article form[name=formm] input[name=title] {
+	border-radius: 10px;
+	padding: 1px 5px;
+}
+
+div#master_notice_update_form article form[name=formm] textarea[name=content] {
+	border-radius: 10px;
+	padding: 5px;	
+    resize: none;
+}
+
+div#master_notice_update_form article form[name=formm] input[type=button] {
+	background-color: #212529;
+	border-radius: 10px;
+	color: white;
+	padding: 1px 7px;	
+}
+
+div#master_notice_update_form article form[name=formm] input[type=button]:hover {
+	background-color: #464f57;
+}
+
+/* 관리자 회원공지사항 등록 페이지 */
+div#master_motice_manager_form {
+	margin-left: 17.5%;
+	padding: 0;
+	min-height: 520px;
+}
+
+div#master_motice_manager_form article h4 {
+	margin: 2% auto;
+	color: rgb(255, 200, 0);
+}
+
+div#master_motice_manager_form article form[name=form] {
+	margin: 20px auto;
+}
+
+div#master_motice_manager_form article form[name=form] label {
+	color: #212529;
+	margin-bottom: 10px;
+}
+
+div#master_motice_manager_form article form[name=form] label#content_label {
+	position: relative;
+	top: -160px;
+}
+
+div#master_motice_manager_form article form[name=form] input[name=title] {
+	border-radius: 10px;
+	padding: 1px 5px;
+}
+
+div#master_motice_manager_form article form[name=form] textarea[name=content] {
+	border-radius: 10px;
+	padding: 5px;	
+    resize: none;
+}
+
+div#master_motice_manager_form article form[name=form] input[type=button] {
+	background-color: #212529;
+	border-radius: 10px;
+	color: white;
+	padding: 1px 7px;	
+}
+
+div#master_motice_manager_form article form[name=form] input[type=button]:hover {
+	background-color: #464f57;
+}
+
+div#master_motice_manager_form article form[name=form] input[type=reset] {
+	background-color: #212529;
+	border-radius: 10px;
+	color: white;
+	padding: 1px 7px;	
+}
+
+div#master_motice_manager_form article form[name=form] input[type=reset]:hover {
+	background-color: #464f57;
+}
+
+/* 관리자 리얼리뷰 관리 */
+div#manager_realreview {
+	margin-left: 17.5%;
+	padding: 0;
+	min-height: 520px;
+}
+
+div#manager_realreview article h4 {
+	margin: auto;
+	color: rgb(255, 200, 0);
+	padding-top: 2%;
+}
+
+div#manager_realreview article h6 {
+	margin: auto;
+	color: #212529;
+	padding-bottom: 2%;
+}
+
+div#manager_realreview article form#review_list {
+	color: #212529;
+}
+
+div#manager_realreview article form#review_list table td {
+	border: none;
+}
+
+div#manager_realreview article form#review_list table td input#key {
+	border-radius: 12px;
+}
+
+div#manager_realreview article form#review_list table td input.btn {
+	border-radius: 10px;
+	color: white;
+	background-color: #212529;
+	padding: 1px 7px;
+	position: relative;
+	top: -3px;
+}
+
+div#manager_realreview article form#review_list table td input.btn:hover {
+	background-color: #464f57;
+}
+
+div#manager_realreview article form#adminlist {
+	color: #212529;
+}
+
+div#manager_realreview article form#adminlist ul label {
+	color: #212529;
+}
+
+div#manager_realreview article form#adminlist div#review_content table {
+	text-align: center;
+}
+
+div#manager_realreview article form#adminlist div#review_content table th {
+	border: none;
+	border-bottom: 1px solid #212529;
+}
+
+div#manager_realreview article form#adminlist div#review_content table td {
+	border: none;
+}
+
+div#manager_realreview article form#adminlist div#review_content table td a {
+	text-decoration: none;
+}
+
+div#manager_realreview article form#adminlist div#review_content table td button#delete4 {
+	border-radius: 10px;
+	color: white;
+	background-color: #212529;
+}
+
+div#manager_realreview article form#adminlist div#review_content table td button#delete4:hover {
+	background-color: #464f57;
+}
+
+/* 관리자 회원리뷰 상세보기 페이지 */
+div#manager_realreview_detail {
+	margin-left: 17.5%;
+	padding: 0;
+	min-height: 520px;
+}
+
+div#manager_realreview_detail h4 {
+	margin: 2% auto;
+	color: rgb(255, 200, 0);
+	padding-top: 2%;
+}
+
+div#manager_realreview_detail form#admindetail {
+	margin: auto;
+	color: #212529;
+}
+
+div#manager_realreview_detail form#admindetail table#detail {
+	text-align: center;
+	border: none;
+	margin-bottom: 20px;
+}
+
+div#manager_realreview_detail form#admindetail table#detail th {
+	border: none;
+	border-bottom: 1px solid #c0c0c0;
+	last-child: none;
+}
+
+div#manager_realreview_detail form#admindetail table#detail td {
+	width: 350px;
+	border: none;
+	border-bottom: 1px solid #c0c0c0;
+	last-child: none;
+	text-align: left;
+}
+
+div#manager_realreview_detail form#admindetail input.btn {
+	background-color: #212529;
+	border-radius: 10px;
+	color: white;
+	padding: 1px 7px;	
+	position: relative;
+	top: -4px;
+}
+
+div#manager_realreview_detail form#admindetail input.btn:hover {
+	background-color: #464f57;
+}
+
+div#manager_realreview_detail form#admindetail button.submit {
+	background-color: #212529;
+	border-radius: 10px;
+	color: white;
+	padding: 1px 7px;	
+	position: relative;
+	top: -2px;
+}
+
+div#manager_realreview_detail form#admindetail button.submit:hover {
+	background-color: #464f57;
+}
+
 /* 관리자 블랙리스트 관리  */
 div#black_list_form {
 	margin-left: 17.5%;
@@ -13426,7 +14029,7 @@ div#black_list_form article h4 {
 
 div#black_list_form article form#uesrs_list {
 	color: #212529;
-	margin: 20px auto;
+	margin: auto;
 }
 
 div#black_list_form article form#uesrs_list table td {
@@ -13441,33 +14044,180 @@ div#black_list_form article form#uesrs_list table td input.btn {
 	border-radius: 10px;
 	color: white;
 	background-color: #212529;
+	padding: 1px 7px;
+	position: relative;
+	top: -3px;
+}
+
+div#black_list_form article form#uesrs_list table td input.btn:hover {
+	background-color: #464f57;
 }
 
 div#black_list_form article form#filter {
 	color: #212529;
-	margin: 20px auto;
+	margin: 10px auto;
 }
 
 div#black_list_form article form#filter label {
 	color: #212529;	
 }
 
-div#black_list_form article form#statusfrm  div#users_content table#usersList {
+div#black_list_form article form#statusfrm div#users_content table#usersList {
 	color: #212529;	
 	text-align: center;
-	border: 1px solid #212529;
+	border: none;
 }
 
 div#black_list_form article form#statusfrm  div#users_content table#usersList th {
-	border: 1px solid #212529;
+	border: none;
+	border-bottom: 1px solid #212529;
 }
 
 div#black_list_form article form#statusfrm  div#users_content table#usersList td {
+	border: none;
+}
+
+div#black_list_form article form#statusfrm  div#users_content table#usersList td input {
+	color: white;
 	border: 1px solid #212529;
+	background-color: #212529;
+	border-radius: 10px;
+}
+
+div#black_list_form article form#statusfrm  div#users_content table#usersList td input:hover {
+	background-color: #464f57;
 }
 
 div#black_list_form article div#page_area a {
 	padding-top: 10px;
+}
+
+/*관리자 1:1 문의 리스트 조회 */
+div#qnalist_form {
+	margin-left: 17.5%;
+	padding: 0;
+	min-height: 520px;
+}
+
+div#qnalist_form article h4 {
+	color: rgb(255, 200, 0);
+}
+
+div#qnalist_form article form[name=frm]{
+	color: #212529;
+}
+
+div#qnalist_form article form[name=frm] table#orderList {
+	text-align: center;
+	border: none;
+}
+
+div#qnalist_form article form[name=frm] table#orderList th {
+	border: none;
+	border-bottom: 1px solid #212529;
+}
+
+div#qnalist_form article form[name=frm] table#orderList td {
+	border: none;
+}
+
+div#qnalist_form article form[name=frm] table#orderList td a {
+	text-decoration: none;
+}
+
+/* 관리자 1:1 문의 상세보기 페이지 */
+div#qnadetail_form {
+	margin-left: 17.5%;
+	padding: 0;
+	min-height: 520px;
+}
+
+div#qnadetail_form article h4 {
+	color: rgb(255, 200, 0);
+}
+
+div#qnadetail_form article form[name=frm] {
+	color: #212529;
+}
+
+div#qnadetail_form article form[name=frm] table#orderList {
+	text-align: center;
+	border: none;
+}
+
+div#qnadetail_form article form[name=frm] table#orderList th {
+	width: 80px;
+	border: none;
+	border-bottom: 1px solid #212529;
+	last-child: none;
+}
+
+div#qnadetail_form article form[name=frm] table#orderList td {
+	width: 400px;
+	border: none;
+	border-bottom: 1px solid #212529;
+	last-child: none;
+}
+
+div#qnadetail_form article form[name=frm] table#orderList td a {
+	text-decration: none;
+}
+
+div#qnadetail_form article form[name=frm] table#order_list {
+	text-align: center;
+	border: none;
+}
+
+div#qnadetail_form article form[name=frm] table#order_list th {
+	width: 80px;
+	border: none;
+}
+
+div#qnadetail_form article form[name=frm] table#order_list td {
+	width: 400px;
+	border: none;
+}
+
+div#qnadetail_form article form[name=frm] table#order_list td textarea {
+	border-radius: 10px;
+	resize: none;
+}
+
+div#qnadetail_form article form[name=frm] input.btn {
+	margin-top: 20px;
+	color: white;
+	border: 1px solid #212529;
+	background-color: #212529;
+	border-radius: 10px;
+	padding: 2px 8px;
+}
+
+div#qnadetail_form article form[name=frm] input.btn:hover {
+	background-color: #464f57;
+}
+
+/* 관리자 성별 통계 페이지  */
+div#gender_ratio {
+		margin-left: 17.5%;
+		padding: 0;
+		min-height: 520px;
+	}
+
+div#gender_ratio h4 {
+	margin: 2% auto;
+	color: rgb(255, 200, 0);
+}
+
+/* 관리자 연령 통계 페이지  */
+div#age_ratio {
+		margin-left: 17.5%;
+		padding: 0;
+		min-height: 520px;
+	}
+
+div#age_ratio h4 {
+	margin: 2% auto;
+	color: rgb(255, 200, 0);
 }
 
 /* 관리자 페이지 footer */

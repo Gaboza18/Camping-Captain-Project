@@ -63,7 +63,7 @@ function emailcheck2() {
 
 	   // id가 입력이 되었으면 id 중복확인 윈도우 창 오픈(윈도우창 크기 및 사이즈 변경 여부)
 	   var url = "signUpConfirm?email=" + $("#email").val()+"&id="+$("#id").val();
-	   window.open(url, "_blank_", "toolbar=no, menubar=no, scrollbars=no, resizable=yes, width=350, height=200");
+	   window.open(url, "_blank_", "toolbar=no, menubar=no, scrollbars=no, resizable=yes, width=550, height=200");
 	}
 
 

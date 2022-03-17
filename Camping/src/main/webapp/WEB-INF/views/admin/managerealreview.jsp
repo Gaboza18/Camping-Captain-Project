@@ -14,13 +14,6 @@
 	</c:when>
 </c:choose> 
 
-<!DOCTYPE html>
-<html>
-<head>
-
-<meta charset="UTF-8">
-<link rel="stylesheet" href="css/camping.css">
-<title>관리자 리얼리뷰 수정</title>
 
 <script type="text/javascript">
 
@@ -85,9 +78,8 @@ $(document).ready(function(){
 
 	}
 </script>
-</head>
-<body>
-	<div id="container" align="center">
+
+	<div id="manager_realreview" align="center">
 		<article>
 			<h2>Real Review !</h2>
 			<h3>캠핑족장 리뷰 관리 페이지입니다</h3> 
@@ -124,49 +116,59 @@ $(document).ready(function(){
 				<div id="review_content">
 					<table id="reviewList" border="1">
 						<tr>
-							<th width="40">번호</th>
-							<th width="200">제목</th>
-							<th width="100">작성자</th>
-							<th width="100">캠핑장지점이름</th>
-							<th width="130">작성일</th>
-							<th width="50">조회수</th>
-							<th width="50">삭제버튼</th>
+              <th width="80">번호</th>
+              <th width="250">제목</th>
+              <th width="130">작성자</th>
+              <th width="150">캠핑장지점이름</th>
+              <th width="130">작성일</th>
+              <th width="90">조회수</th>
+              <th width="100">삭제버튼</th>
 						</tr>
+
 					<c:choose>
 						<c:when test="${reviewListSize<=0}">
 							<tr>
 								<td width="100%" colspan="7" align="center" height="23">
-									등록된 리뷰가 없습니다.</td>
+									등록된 리뷰가 없습니다.
+								</td>
 							</tr>
 						</c:when>
-							<c:otherwise>
-								<c:forEach items="${reviewList}" var="RealReviewVO">
-									<tr>
+						<c:otherwise>
+							<c:forEach items="${reviewList}" var="RealReviewVO">
+								<tr>
 									<!-- 리턴,반환값 -->
-										<td height="23" align="center" id="rseq">${RealReviewVO.rseq}
-										<a href="review_list${pageMaker.makeQuery(pageMaker.criteria.pageNum)}&rseq=${RealReviewVO.rseq}"></a></td>  
-										<td><a href="${path}manage_review_detail?rseq=${RealReviewVO.rseq}">${RealReviewVO.title}</a></td>
-										<td>${RealReviewVO.id}</td>
-										<td>${RealReviewVO.campingname}</td>
-										<td><fmt:formatDate value="${RealReviewVO.indate}" type="date" /></td>
-										<td>${RealReviewVO.count}</td>
-										<td>
-											<input type="hidden" name="rseq" id="hidden_rseq" value="${RealReviewVO.rseq}">
-											<button type="submit" form="reviewList" class="btn-success" id="delete4" onClick="admin_delete2()">리뷰삭제</button>
-										</td>
-									</tr>
+									<td height="23" align="center" id="rseq">${RealReviewVO.rseq}
+										<a href="review_list${pageMaker.makeQuery(pageMaker.criteria.pageNum)}&rseq=${RealReviewVO.rseq}"></a>
+									</td>
+									<td><a href="${path}manage_review_detail?rseq=${RealReviewVO.rseq}">${RealReviewVO.title}</a></td>
+									<td>
+										<c:choose>
+											<c:when test="${RealReviewVO.id == null}">
+												<span style="color: gray;">탈퇴회원</span>
+											</c:when>
+											<c:otherwise>
+												${RealReviewVO.id}
+											</c:otherwise>
+										</c:choose>
+									</td>
+									<td>${RealReviewVO.campingname}</td>
+									<td><fmt:formatDate value="${RealReviewVO.indate}" type="date" /></td>
+									<td>${RealReviewVO.count}</td>
+									<td>
+										<input type="hidden" name="rseq" id="hidden_rseq" value="${RealReviewVO.rseq}">
+										<button type="submit" form="reviewList" class="btn-success" id="delete4" onClick="admin_delete2()">리뷰삭제</button>
+									</td>
+								</tr>
 							</c:forEach>
-									<tr>
-										<td colspan="6" style="text-align: center;"> ${paging}</td>
-									</tr>
-							</c:otherwise>
-						</c:choose>
-					</table>																	
-				</div>
-			</form>  
-			<%@ include file="reviewpage_area.jsp"%>
-		</article>
-	</div>
-</body>
+							<tr>
+								<td colspan="6" style="text-align: center;"> ${paging} </td>
+							</tr>
+						</c:otherwise>
+					</c:choose>
+				</table>																	
+			</div>
+		</form>  
+		<%@ include file="reviewpage_area.jsp"%>
+	</article>
+</div>
 <%@ include file="admin_footer.jsp"%>
-</html>

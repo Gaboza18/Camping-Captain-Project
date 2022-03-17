@@ -64,7 +64,7 @@ function non_modi_review() {
 				<td>
 					<c:choose>
 						<c:when test="${RealReviewVO.id == null}">
-							<span style="color: gray;">탈퇴회원</span>
+							<span style="color: gray;">탈퇴회원이 작성한 리뷰입니다.</span>
 						</c:when>
 						<c:otherwise>
 							${RealReviewVO.id}

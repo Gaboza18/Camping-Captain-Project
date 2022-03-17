@@ -50,8 +50,8 @@ $(document).ready(function(){
 	 			alert(area+"지점 리뷰를 선택하였습니다");
 	 		
 	 	
-	 			var htmlOut = '<table id="reviewlist" style="border: 1px solid #c0c0c0; background-color: #212529; text-align: center; font-size: 15px;">';
-	 			htmlOut += '<tr><th style="border: 1px solid #c0c0c0;" width="40">번호</th><th style="border: 1px solid #c0c0c0;" width="200">제목</th><th style="border: 1px solid #c0c0c0;" width="100">작성자</th><th style="border: 1px solid #c0c0c0;" width="130">캠핑장지점이름</th><th style="border: 1px solid #c0c0c0;" width="130">작성일</th><th style="border: 1px solid #c0c0c0;" width="50">조회수</th></tr>';
+	 			var htmlOut = '<table id="reviewlist" style="border: 1px solid #c0c0c0; background-color: #212529; text-align: center;">';
+	 			htmlOut += '<tr><th style="border: 1px solid #c0c0c0;" width="70">번호</th><th style="border: 1px solid #c0c0c0;" width="250">제목</th><th style="border: 1px solid #c0c0c0;" width="100">작성자</th><th style="border: 1px solid #c0c0c0;" width="130">캠핑장지점이름</th><th style="border: 1px solid #c0c0c0;" width="130">작성일</th><th style="border: 1px solid #c0c0c0;" width="70">조회수</th></tr>';
 		 		$.each(data, function() {
 		 			var conv_date = getFormatDate(new Date(this.indate));
 		 			//var conv_rseq = Int(new rseq(this.rseq));

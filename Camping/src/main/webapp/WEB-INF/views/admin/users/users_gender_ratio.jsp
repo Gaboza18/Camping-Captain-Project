@@ -77,8 +77,9 @@ $(document).ready(function() {
 			barchart.draw(data, barchart_options);
 		}
 </script>
-<div align="center">
-	<h1>성별통계</h1>
+
+<div id="gender_ratio" align="center">
+	<h4>성별통계</h4>
 	<table>
 		<tr>
 			<td><div id="piechart_div" style="boarder: 1px solid #cc"></div></td>
@@ -87,5 +88,5 @@ $(document).ready(function() {
 
 	</table>
 </div>
-</body>
+
 <%@ include file="../admin_footer.jsp" %>

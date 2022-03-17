@@ -13,8 +13,8 @@
 				<b>${sessionScope.loginUser.name}</b> 님 환영합니다! <br><br> 
 				<table id="userForm">
 			      	<tr>
-				        <th width="80">아이디</th>
-				        <td width="120"><input type="text" name="id" id="id" value="${users.id}" readOnly="readonly"></td>
+				        <th width="100">아이디</th>
+				        <td width="250"><input type="text" name="id" id="id" value="${users.id}" readOnly="readonly"></td>
 			      	</tr>
 			      	<tr>
 						<th>이름</th>

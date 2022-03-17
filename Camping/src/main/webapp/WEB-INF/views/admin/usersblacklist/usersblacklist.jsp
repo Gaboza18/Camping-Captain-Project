@@ -10,7 +10,6 @@
 		return false;
 	}*/
 </script>
-
 <div id="black_list_form" align="center">
 	<article>
 		<h2>회원 조회 </h2>
