@@ -16,94 +16,124 @@ import utils.Criteria;
 
 @Repository
 public class AdminDAO {
-	
+
 	@Autowired
 	private SqlSessionTemplate mybatis;
-	
+
 	public AdminVO getAdmin(String id) {
 		return mybatis.selectOne("mappings.admin-mapping.getAdmin", id);
 	}
-	
+
 	public int confirmID(String id) {
-		String password = mybatis.selectOne("mappings.admin-mapping.confirmID",id);
-		
+		String password = mybatis.selectOne("mappings.admin-mapping.confirmID", id);
+
 		if (password != null) {
 			return 1;
 		} else {
 			return -1;
 		}
 	}
-	
+
 	public int loginID(AdminVO vo) {
 		int result = -1;
-		
+
 		String pwd_in_db = mybatis.selectOne("mappings.admin-mapping.confirmID", vo.getId());
-		
+
 		if (pwd_in_db == null) {
 			result = -1;
-		} else if(vo.getPassword().equals(pwd_in_db)) {
+		} else if (vo.getPassword().equals(pwd_in_db)) {
 			result = 1;
 		} else {
 			result = 0;
 		}
-		
+
 		return result;
 	}
 
-	//ÆäÀÌÂ¡Ã³¸®
-	
-public List<RealReviewVO> getListWithPaging(Criteria criteria, String title) {
-		
+	// ï¿½ï¿½ï¿½ï¿½Â¡Ã³ï¿½ï¿½
+
+	public List<RealReviewVO> getListWithPaging(Criteria criteria, String title) {
+
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("criteria", criteria);
 		map.put("title", title);
-		
-		return mybatis.selectList("mappings.admin-mapping.listWithPaging",map);
-		
-	}
-// count¸®ºä¸®½ºÆ® 
-public int countReviewlist(String title) {
-	return mybatis.selectOne("mappings.admin-mapping.countReviewlist",title);
-}
 
-public RealReviewVO detailReviews(int rseq) {
-	return mybatis.selectOne("mappings.admin-mapping.detailReviews", rseq);
-	
-}
-	
-	
+		return mybatis.selectList("mappings.admin-mapping.listWithPaging", map);
+
+	}
+
+// countï¿½ï¿½ï¿½ä¸®ï¿½ï¿½Æ® 
+	public int countReviewlist(String title) {
+		return mybatis.selectOne("mappings.admin-mapping.countReviewlist", title);
+	}
+
+	public RealReviewVO detailReviews(int rseq) {
+		return mybatis.selectOne("mappings.admin-mapping.detailReviews", rseq);
+
+	}
+
 	public void deletereview(int rseq) {
-		mybatis.delete("mappings.admin-mapping.deleteRiviews",rseq);
-	}
-	
-	public int updateViewCount(int rseq) {
-		return mybatis.update("mappings.admin-mapping.countReviewlist",rseq);
+		mybatis.delete("mappings.admin-mapping.deleteRiviews", rseq);
 	}
 
-	// ºí·¢¸®½ºÆ® Á¶È¸ ¹× ÆäÀÌÂ¡ Ã³¸®
+	public int updateViewCount(int rseq) {
+		return mybatis.update("mappings.admin-mapping.countReviewlist", rseq);
+	}
+
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½È¸ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Â¡ Ã³ï¿½ï¿½
 	public List<UsersVO> listUsers(UsersVO vo) {
 		return mybatis.selectList("mappings.admin-mapping.listAllUsers", vo);
 	}
-	
-	// ÆäÀÌÂ¡ º° ¸®ºä Á¶È¸
-		public List<UsersVO> getUsersListWithPaging(Criteria criteria, String id) {
-			
-			HashMap<String, Object> map = new HashMap<>();
-			map.put("criteria", criteria);
-			map.put("id", id);
-			
-			return mybatis.selectList("mappings.admin-mapping.listWithPaging",map);
+
+	// ï¿½ï¿½ï¿½ï¿½Â¡ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸
+	public List<UsersVO> getUsersListWithPaging(Criteria criteria, String id) {
+
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("criteria", criteria);
+		map.put("id", id);
+
+		return mybatis.selectList("mappings.admin-mapping.listWithPaging", map);
 
 	}
-		
-		public int countUserslist(String id) {
-			return mybatis.selectOne("mappings.admin-mapping.countUserslist",id);
-		}	
-		
-		// ºí·¢¸®½ºÆ® ¼³Á¤
-		public void statusChange(UsersVO vo) {
-			
-			 mybatis.selectOne("mappings.admin-mapping.statuschange", vo);
-		}
+
+	public int countUserslist(String id) {
+		return mybatis.selectOne("mappings.admin-mapping.countUserslist", id);
+	}
+
+	// ë¸”ë™ ë¦¬ìŠ¤íŠ¸ ë“±ë¡
+	public void statusChange(UsersVO vo) {
+		mybatis.selectOne("mappings.admin-mapping.statuschange", vo);
+	}
+
+	// ë¸”ë™ ë¦¬ìŠ¤íŠ¸ í•´ì œ
+	public void statusCancelBlack(int useq) {
+		mybatis.selectOne("mappings.admin-mapping.cancelBlack", useq);
+	}
+
+	// ì¼ë°˜ íšŒì› ì¡°íšŒ
+	public List<UsersVO> listGeneralUser(UsersVO vo) {
+		return mybatis.selectList("mappings.admin-mapping.listGeneralUser", vo);
+	}
+
+	// ë¸”ë™ë¦¬ìŠ¤íŠ¸ íšŒì› ì¡°íšŒ
+	public List<UsersVO> listBlackUser(UsersVO vo) {
+		return mybatis.selectList("mappings.admin-mapping.listBlack", vo);
+	}
+
+	// ë¸”ë™ë¦¬ìŠ¤íŠ¸ íšŒì› í˜ì´ì§• ì²˜ë¦¬ ì¡°íšŒ
+	public List<UsersVO> statusUserlistWithPaging(Criteria criteria, String id, String blacklist) {
+
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("criteria", criteria);
+		map.put("blacklist", blacklist);
+		map.put("id", id);
+
+		return mybatis.selectList("mappings.admin-mapping.statusUserlistWithPaging", map);
+	}
+
+	// ë¸”ë™ë¦¬ìŠ¤íŠ¸ íšŒì›ìˆ˜ ë¦¬ìŠ¤íŠ¸ ëª©ë¡ ê°œìˆ˜ ì¡°íšŒ
+	public int statusUserlist(UsersVO vo) {
+		return mybatis.selectOne("mappings.admin-mapping.statusUserlist", vo);
+	}
 
 }
