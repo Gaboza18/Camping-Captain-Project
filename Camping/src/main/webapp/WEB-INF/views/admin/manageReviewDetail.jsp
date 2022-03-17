@@ -70,17 +70,15 @@
 			</tr>
 			
 		</table>
-		
-		<!--위의 td 옆에 input 값주고 readonly로 바꿔줘도 됨  -->
-		<input type="text" name="rseq" id="rseq" value="${RealReviewVO.rseq}" style="display:none">
-		<!-- <input class="btn"  type="button" value="목록" onClick="go_list()"> -->
-		<input class="btn" type="button" value="목록" onClick="location.href='review_list'">
-		
-		
-		<!-- 단순히 admin으로 접속해서 review로 들어갔을 때 삭제버튼만 뜨게하기  -->
-		<button type="submit" form="admindetail" class="submit" id="delete3" onClick="admin_delete()">리뷰삭제</button>
-	
-	</form>
-</div>
+
+
+			<!--위의 td 옆에 input 값주고 readonly로 바꿔줘도 됨  -->
+			<input type="text" name="rseq" id="rseq" value="${RealReviewVO.rseq}" style="display:none">
+			<!-- <input class="btn"  type="button" value="목록" onClick="go_list()"> -->
+			<input class="btn" type="button" value="목록" onClick="location.href='adminReview'">
+			<!-- 단순히 admin으로 접속해서 review로 들어갔을 때 삭제버튼만 뜨게하기  -->
+			<button type="submit" form="admindetail" class="submit" id="delete3" onClick="admin_delete()">리뷰삭제</button>
+		</form>
+	</div>
 
 <%@ include file="admin_footer.jsp"%>

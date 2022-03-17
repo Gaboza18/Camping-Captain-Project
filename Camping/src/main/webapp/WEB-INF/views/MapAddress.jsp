@@ -7,16 +7,8 @@
 <title>주소로 장소 표시하기</title>
 </head>
 <body>
-	<h1>위치정보</h1>
-	<div style="float:right; padding-right:80px; padding-top:30px;" align="left" >
-		<h3>강원도 지점 - 강원도 동해시 촛대바위길 6</h3>
-		<h3>경기도 지점 - 경기도 의왕시 월암동 543-3</h3>
-		<h3>충청도 지점 - 충청북도 괴산군 불정면 세평리</h3>
-		<h3>경상도 지점 - 강동면 호명리 18번지 경주시 경상북도 KR</h3>
-		<h3>전라도 지점 - 전라남도 무안군 현경면 해운리 910-5</h3>
-		<h3>제주도 지점 - 제주특별자치도 제주시 애월읍 소길리</h3>
-	</div>
-	<div id="map" style="width:400px; height:300px; margin:0px 0px 0px 100px;"></div><br>
+	<h1>위치정보</h1><br>
+	<div id="map" style="width:1310px; height:700px; margin:0px 130px 0px 130px;"></div>
 
 	<script type="text/javascript"
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8c5e7f9c5315c5a75571e95627a0686e&libraries=services">

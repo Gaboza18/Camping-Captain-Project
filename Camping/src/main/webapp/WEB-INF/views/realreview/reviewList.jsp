@@ -70,7 +70,6 @@ $(document).ready(function(){
 						"message:"+request.responseText+"\n"+
 						"error:"+error);
 			}
-	 		
 		});
 	})
 });
@@ -129,12 +128,6 @@ $("#delete3").onClick(function admin_delete() {
 	})
 	}); 
 	 */
-
-
-
-	
-
-
 
 /*function admin_delete() {
 	

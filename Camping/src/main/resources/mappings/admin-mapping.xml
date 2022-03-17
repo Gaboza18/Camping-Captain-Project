@@ -1,57 +1,103 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mappings.admin-mapping">
-	
+
 	<select id="getAdmin" resultType="admin">
-		SELECT * FROM admin WHERE id=#{id}
-	</select>
-	
-	<select id="confirmID" resultType="String">
-		SELECT password FROM admin WHERE id=#{id}
+		SELECT * FROM admin WHERE
+		id=#{id}
 	</select>
 
-<!-- 전체 회원 조회 -->
+	<select id="confirmID" resultType="String">
+		SELECT password FROM admin
+		WHERE id=#{id}
+	</select>
+
+	<!-- 전체 회원 조회 -->
 	<select id="listAllUsers" resultType="users">
 		SELECT * FROM users
-			ORDER BY useq DESC
+		ORDER BY useq DESC
 	</select>
 	
-<!-- 총 회원 리스트 목록 갯수 조회 -->
-	<select id="countUserslist" parameterType="String" resultType="int">
+	<!-- 일반 회원 조회 -->
+	<select id="listGeneralUser"  resultType="users">
+		select useq,id,name,email,regdate,blacklist
+    		from users
+        		where blacklist='n'
+           		 	ORDER BY useq DESC
+	</select>
+	
+	<!-- 블랙리스트 회원 조회 -->
+	<select id="listBlack" resultType="users">
+		select useq,id,name,email,regdate,blacklist,blackreason
+    		from users
+        		where blacklist=#{blacklist}
+            		ORDER BY useq DESC;
+	</select>
+	
+	<!-- 블랙리스트 회원수 리스트 목록 개수 조회 -->
+	<select id="statusUserlist" parameterType="String" resultType="int">
 		SELECT COUNT(*) FROM users
+			where blacklist=#{blacklist}
 		<if test='id !=null'>
-			WHERE id LIKE '%'||#{id}||'%'
+			and id LIKE '%'||#{id}||'%'
 		</if>
 	</select>
 	
-	<!-- 페이징 처리(1~10개씩 출력) / 게시물 id로 검색기능-->
-	<select id="listWithPaging" parameterType="hashMap" resultType="users">
+	<!-- 블랙리스트 회원 페이징 처리 조회 -->
+	<select id="statusUserlistWithPaging" parameterType="hashMap" resultType="users">
+		SELECT useq,id,name,email,regdate,blacklist,blackreason
+		FROM
+		(												<!-- rn= order by indate desc의 변수 -->
+			SELECT row_number() over(ORDER BY regdate DESC) AS un,useq,id,name,email,regdate,blacklist,blackreason
+				FROM users
+					where blacklist=#{blacklist}
+		<if test='id !=null'>
+			and id LIKE '%'||#{id}||'%'
+		</if>
+		)
+		<![CDATA[
+			WHERE un<=#{criteria.pageNum} * #{criteria.rowsPerPage}  
+				AND un>=(#{criteria.pageNum}-1) * #{criteria.rowsPerPage}
+					ORDER BY useq DESC
+		]]>
+	</select>
+	
+	<!-- 총 회원 리스트 목록 갯수 조회 -->
+	<select id="countUserslist" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM users
+			<if test='id !=null'>
+				WHERE id LIKE '%'||#{id}||'%'
+			</if>
+	</select>
 
+	<!-- 페이징 처리(1~10개씩 출력) / 게시물 id로 검색기능 -->
+	<select id="listWithPaging" parameterType="hashMap" resultType="users">
 		SELECT useq,id,name,email,regdate,blacklist,blackreason
 			FROM
-				(												<!-- rn= order by indate desc의 변수 -->
-				SELECT row_number() over(ORDER BY regdate DESC) AS un,useq,id,name,email,regdate,blacklist,blackreason
-					FROM users
+			(												<!-- rn= order by indate desc의 변수 -->
+			  SELECT row_number() over(ORDER BY regdate DESC) AS un,useq,id,name,email,regdate,blacklist,blackreason
+				FROM users
 					<if test='id !=null'>
 						WHERE id LIKE '%'||#{id}||'%'
 					</if>
-							
-				)
-	<![CDATA[
-				WHERE un<=#{criteria.pageNum} * #{criteria.rowsPerPage}  
-					AND un>=(#{criteria.pageNum}-1) * #{criteria.rowsPerPage}
+			)
+		<![CDATA[
+			WHERE un<=#{criteria.pageNum} * #{criteria.rowsPerPage}  
+				AND un>=(#{criteria.pageNum}-1) * #{criteria.rowsPerPage}
 					ORDER BY useq DESC
-	]]>
-		
+		]]>
 	</select>
 	
+	<!-- 블랙리스트 등록 -->
 	<update id="statuschange">
-     UPDATE users SET blacklist='y', blackreason=#{blackreason}
-      WHERE useq=#{useq}
-</update>
-
-
-
-
+		UPDATE users SET blacklist='y', blackreason=#{blackreason}
+			WHERE useq=#{useq}
+	</update>
+	
+	<!-- 블랙리스트 해제 -->
+	<update id="cancelBlack">
+		UPDATE users SET blacklist='n', blackreason=''
+			WHERE useq=#{useq}
+	</update>
 
 </mapper>

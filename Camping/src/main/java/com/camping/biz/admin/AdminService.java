@@ -11,27 +11,42 @@ import utils.Criteria;
 public interface AdminService {
 
 	public AdminVO getAdmin(String id);
-	
+
 	public int confirmID(String id);
-	
+
 	public int loginID(AdminVO vo);
-	
-public int countReviewlist(String title);
-	
+
+	public int countReviewlist(String title);
+
 	public void deletereview(int rseq);
+
 	public List<RealReviewVO> getListWithPaging(Criteria criteria, String title);
-	
-	
+
 	public RealReviewVO detailReviews(int rseq);
-	
-	//ÆäÀÌÂ¡Ã³¸® ¹× ÆäÀÌÂ¡Ã³¸®·Î users°ü¸®
+
+	// ï¿½ï¿½ï¿½ï¿½Â¡Ã³ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Â¡Ã³ï¿½ï¿½ï¿½ï¿½ usersï¿½ï¿½ï¿½ï¿½
 	public int updateViewCount(int rseq);
+
 	public List<UsersVO> listUsers(UsersVO vo);
+
 	public List<UsersVO> getUsersListWithPaging(Criteria criteria, String id);
+
 	public int countUserslist(String id);
-	
-	//ºí·¢¸®½ºÆ® Ãß°¡
+
+	// ë¸”ë™ë¦¬ìŠ¤íŠ¸ ë“±ë¡
 	public void statusChange(UsersVO vo);
 	
+	// ë¸”ë™ë¦¬ìŠ¤íŠ¸ í•´ì œ
+	public void statusCancelBlack(int useq);
+	
+	// ì¼ë°˜ íšŒì› ì¡°íšŒ
+	public List<UsersVO> listGeneralUser(UsersVO vo);
+	
+	// ë¸”ë™ë¦¬ìŠ¤íŠ¸ íšŒì› ì¡°íšŒ
+	public List<UsersVO> listBlackUser(UsersVO vo);
+	
+	public List<UsersVO> statusUserlistWithPaging(Criteria criteria, String id, String blacklist);
+	
+	public int statusUserlist(UsersVO vo);
 	
 }

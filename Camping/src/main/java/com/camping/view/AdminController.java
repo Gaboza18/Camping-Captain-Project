@@ -357,6 +357,7 @@ public class AdminController {
 
 		// realreviewVo에 디테일 볼 수 있는 로직을 썼는데, 세션에 저장이 안되었을가봐 list볼때에도 if 문으로 login문 구현
 		AdminVO loginAdmin = (AdminVO) session.getAttribute("loginAdmin");
+		
 		if (loginAdmin == null) {
 			return "admin/admin_login";
 
@@ -382,7 +383,6 @@ public class AdminController {
 
 			return "admin/managerealreview";
 		}
-
 	}
 
 	@RequestMapping(value = "manage_review_detail", method = RequestMethod.GET)
@@ -392,7 +392,6 @@ public class AdminController {
 
 		if (loginAdmin == null) {
 			return "admin/admin_login";
-
 		} else {
 			// admin 로그인시 리뷰상세보기
 			reviewsService.updateViewCount(vo.getRseq()); // 조회수 증가
@@ -405,45 +404,9 @@ public class AdminController {
 		}
 	}
 
-	// 밑의 코드는 관리자 리뷰 삭제 페이지에서 삭제할때 돌아가지 않음
-
-	/*
-	 * @RequestMapping(value="/manage_review_list", method = RequestMethod.GET)
-	 * public String deletereviews(@RequestParam(value="rseq") int rseq, HttpSession
-	 * session, Model model,Criteria criteria, String title, RealReviewVO vo) throws
-	 * Exception { AdminVO loginAdmin = (AdminVO)
-	 * session.getAttribute("loginAdmin");
-	 * 
-	 * if (loginAdmin == null) { return "admin/admin_login";
-	 * 
-	 * }else {
-	 * 
-	 * vo.setRseq(vo.getRseq());
-	 * 
-	 * 
-	 * //model.addAllAttributes(reviewsService.listReview(vo));
-	 * reviewsService.deletereviews(rseq); // 공지사항 목록 조회 - 공지사항 10개만 조회
-	 * 
-	 * List<RealReviewVO> reviewList = reviewsService.getListWithPaging(criteria,
-	 * title); // 화면에 표시할 페이지 버튼 정보 설정 PageMaker pageMaker = new PageMaker(); int
-	 * totalCount = reviewsService.countReviewlist(title);
-	 * 
-	 * pageMaker.setCriteria(criteria); // 현재 페이지와 페이지당 항목 수 정보 설정
-	 * pageMaker.setTotalCount(totalCount); // 전체 공지사항 목록 갯수 설정 및 페이지 정보 초기화
-	 * 
-	 * model.addAttribute("reviewList", reviewList); // 변수, 값 순서임 왼쪽 변수는
-	 * reviewList에서 <for:each>의 변수와 동일함 model.addAttribute("reviewListSize",
-	 * reviewList.size()); model.addAttribute("pageMaker", pageMaker);
-	 * 
-	 * return "admin/managerealreview"; }
-	 * 
-	 * }
-	 */
-
 	// 지점별 리뷰 필터링(지점별 선택시 필터링됨)
 	@RequestMapping(value = "/arealist", method = RequestMethod.GET)
 	@ResponseBody
-
 	public List<RealReviewVO> areaList(@RequestParam(value = "campingname") String campingname, RealReviewVO vo,
 			Model model) {
 
@@ -482,7 +445,42 @@ public class AdminController {
 		return "admin/usersblacklist/usersblacklist";
 
 	}
+	
+	/*
+	 *  회원 전체 조회(일반회원, 블랙리스트 회원)
+	 */
+	@RequestMapping(value = "/users_status_list", method = RequestMethod.GET)
+	public String usersList(@RequestParam(value = "key", defaultValue = "") String id,
+			@RequestParam(value = "searchUserlist", defaultValue = "") String searchUserlist, Criteria criteria,
+			Model model) {
+		UsersVO user = new UsersVO();
 
+		System.out.println(searchUserlist);
+
+		user.setId(id);
+		user.setBlacklist(searchUserlist);
+
+		List<UsersVO> usersList = adminService.statusUserlistWithPaging(criteria, id, searchUserlist);
+
+		// 화면에 표시할 페이지 버튼 정보 설정
+		PageMaker pageMaker = new PageMaker();
+		int totalCount = adminService.statusUserlist(user);
+
+		pageMaker.setCriteria(criteria); // 현재 페이지와 페이지당 항목 수 정보 설정
+		pageMaker.setTotalCount(totalCount); // 전체 공지사항 목록 갯수 설정 및 페이지 정보 초기화
+
+		model.addAttribute("usersList", usersList); // 변수, 값 순서임 왼쪽 변수는 reviewList에서 <for:each>의 변수와 동일함
+		model.addAttribute("usersListSize", usersList.size());
+		model.addAttribute("pageMaker", pageMaker);
+		model.addAttribute("searchUserlist", searchUserlist);
+
+		return "admin/usersblacklist/usersblacklist";
+
+	}
+	
+	/*
+	 *  블랙리스트 등록창 열기
+	 */
 	@RequestMapping(value = "insertblacklist", method = RequestMethod.GET)
 	public String insertblacklist(UsersVO vo, Model model) {
 
@@ -499,7 +497,10 @@ public class AdminController {
 
 		return "admin/usersblacklist/inputblacklist";
 	}
-
+	
+	/*
+	 * 회원 테이블 블랙리스트 회원 등록
+	 */
 	@RequestMapping(value = "changestatus", method = RequestMethod.GET)
 	public String statusChange(UsersVO vo, Criteria criteria, Model model, @RequestParam(value = "useq") int useq,
 			HttpSession session) {
@@ -508,14 +509,52 @@ public class AdminController {
 
 		if (loginAdmin == null) {
 			return "admin/admin_login";
-
 		} else {
-
 			UsersVO users = new UsersVO();
 			users.setUseq(useq);
 			users.setBlackreason(vo.getBlackreason());
 
 			adminService.statusChange(users);
+
+			return "admin/usersblacklist/usersblacklist";
+		}
+	}
+	
+	/*
+	 * 블랙리스트 취소
+	 */
+	@RequestMapping(value = "/cancelBlack", method = RequestMethod.GET)
+	public String cancelBlack(@RequestParam(value = "key", defaultValue = "") String id, UsersVO vo, Criteria criteria,
+			Model model, @RequestParam(value = "useq") int useq, HttpSession session) {
+
+		AdminVO loginAdmin = (AdminVO) session.getAttribute("loginAdmin");
+
+		if (loginAdmin == null) {
+			return "admin/admin_login";
+		} else {
+
+			adminService.statusCancelBlack(useq);
+
+			UsersVO user = new UsersVO();
+			String searchUserlist = "y";
+			System.out.println(searchUserlist);
+
+			user.setId(id);
+			user.setBlacklist(searchUserlist);
+
+			List<UsersVO> usersList = adminService.statusUserlistWithPaging(criteria, id, searchUserlist);
+
+			// 화면에 표시할 페이지 버튼 정보 설정
+			PageMaker pageMaker = new PageMaker();
+			int totalCount = adminService.statusUserlist(user);
+
+			pageMaker.setCriteria(criteria); 
+			pageMaker.setTotalCount(totalCount);
+
+			model.addAttribute("usersList", usersList); 
+			model.addAttribute("usersListSize", usersList.size());
+			model.addAttribute("pageMaker", pageMaker);
+			model.addAttribute("searchUserlist", searchUserlist);
 
 			return "admin/usersblacklist/usersblacklist";
 		}
