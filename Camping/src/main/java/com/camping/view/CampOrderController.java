@@ -457,6 +457,8 @@ public class CampOrderController {
 	@GetMapping(value = "/insert_cancel_reason")
 	public String insertReasonView(@RequestParam(value = "camp_idRe") int camp_id, CampOrderVO vo, Model model) {
 		CampOrderVO campOrder = campOrderService.getCampOrder(vo.getOseq());
+		
+		System.out.println(camp_id);
 
 		model.addAttribute("campOrder", campOrder);
 		model.addAttribute("selected", camp_id);

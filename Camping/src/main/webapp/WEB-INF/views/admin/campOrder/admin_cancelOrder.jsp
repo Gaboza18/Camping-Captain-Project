@@ -26,8 +26,6 @@
 				} else {
 					opener.location.href="search_orderList?campName="+$("#camp_Reid").val();
 				}
-				
-				opener.location.href="search_orderList?campName="+$("#camp_Reid").val();
 				self.close();
 			}).fail(function(error){
 				alert("에러");

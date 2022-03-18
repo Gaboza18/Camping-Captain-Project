@@ -92,7 +92,7 @@
 													</c:when>
 													<c:when test="${orderList.order_status == 'n'}">
 														<input type="button" value="예약완료" onclick="confirm_order(${orderList.oseq})">
-														<input type="button" value="취소" onclick="cancel_order(${orderList.oseq})">
+														<input type="button" value="취소" onclick="cancel_order(${orderList.oseq}, ${selected})">
 													</c:when>
 												</c:choose>
 											</c:when>
