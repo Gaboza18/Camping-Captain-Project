@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class IntroController {
+	
 	/*
-	 *  ¸ŞÀÎÈ­¸é¿¡¼­ "Ä·ÇÎÁ·Àå ¼Ò°³" ¸Ş´º Å¬¸¯ ½Ã ¼Ò°³ÆäÀÌÁö·Î ÀÌµ¿
+	 *  ë©”ì¸í™”ë©´ì—ì„œ "ìº í•‘ì¡±ì¥ ì†Œê°œ" ë©”ë‰´ í´ë¦­ ì‹œ ì†Œê°œí˜ì´ì§€ë¡œ ì´ë™
 	 */
 	@RequestMapping(value = "/intro", method = RequestMethod.GET)
 	public String introview(Model model) {
-		
 		return "intro";
 	}
 }

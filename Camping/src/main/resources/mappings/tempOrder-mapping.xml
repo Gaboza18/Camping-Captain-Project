@@ -19,4 +19,4 @@
 		DELETE FROM temp_order WHERE temp_id=#{temp_id}
 	</delete>
 	
-</mapper>
+</mapper> 

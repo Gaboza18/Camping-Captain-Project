@@ -26,16 +26,13 @@
 
 </head>
 <body>
-
-<div>
-	<input type="hidden" name = "email" value="${users}">
-	<input type="hidden" name = "email" value="${id}">
-	<input type="hidden" name="status" id="status" value="${status}"> 
-
-	<h2> 사용하시는 이메일에 인증링크를 보냈습니다.<br>인증링크를 클릭하시면 됩니다</h2>
-	<h2><p>${message}</p></h2>
-</div>  
-
-
+	<div>
+		<input type="hidden" name = "email" value="${users}">
+		<input type="hidden" name = "email" value="${id}">
+		<input type="hidden" name="status" id="status" value="${status}"> 
+	
+		<h2> 사용하시는 이메일에 인증링크를 보냈습니다.<br>인증링크를 클릭하시면 됩니다</h2>
+		<h2>${message}</h2>
+	</div>  
 </body>
 </html>

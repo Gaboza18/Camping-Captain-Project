@@ -1,6 +1,5 @@
 package com.camping.view;
 
-
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -10,37 +9,32 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-/**
- * Handles requests for the application home page.
- */
 @Controller
 public class HomeController {
-	
-	
-	
+
 	/**
-	 * index.html¿¡¼­ ¸ŞÀÎÈ­¸é Ç¥½Ã¸¦ À§ÇÑ index URL ¿äÃ»Ã³¸®
+	 * index.htmlì—ì„œ ë©”ì¸í™”ë©´ í‘œì‹œë¥¼ ìœ„í•œ index URL ìš”ì²­ì²˜ë¦¬
 	 */
 	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String home(Model model) {
 		
-		return "NewFile"; // index.jsp È­¸éÀ» È£Ãâ
+		return "NewFile"; // index.jsp í™”ë©´ì„ í˜¸ì¶œ
 	}
 	
 	@ModelAttribute("conditionMap")
 	public Map<String, String> searchConditionMap() {
 		Map<String, String> conditionMap = new LinkedHashMap<>();
 
-		conditionMap.put("ÁöÁ¡À» ¼±ÅÃÇÏ¼¼¿ä", "0");
-		conditionMap.put("Ä·ÇÎÁ·Àå-°­¿øµµÁöÁ¡", "1");
-		conditionMap.put("Ä·ÇÎÁ·Àå-°æ±âµµÁöÁ¡", "2");
-		conditionMap.put("Ä·ÇÎÁ·Àå-ÃæÃ»µµÁöÁ¡", "3");
-		conditionMap.put("Ä·ÇÎÁ·Àå-°æ»óµµÁöÁ¡", "4");
-		conditionMap.put("Ä·ÇÎÁ·Àå-Àü¶óµµÁöÁ¡", "5");
-		conditionMap.put("Ä·ÇÎÁ·Àå-Á¦ÁÖµµÁöÁ¡", "6");
+		conditionMap.put("ì§€ì ì„ ì„ íƒí•˜ì„¸ìš”", "0");
+		conditionMap.put("ìº í•‘ì¡±ì¥-ê°•ì›ë„ì§€ì ", "1");
+		conditionMap.put("ìº í•‘ì¡±ì¥-ê²½ê¸°ë„ì§€ì ", "2");
+		conditionMap.put("ìº í•‘ì¡±ì¥-ì¶©ì²­ë„ì§€ì ", "3");
+		conditionMap.put("ìº í•‘ì¡±ì¥-ê²½ìƒë„ì§€ì ", "4");
+		conditionMap.put("ìº í•‘ì¡±ì¥-ì „ë¼ë„ì§€ì ", "5");
+		conditionMap.put("ìº í•‘ì¡±ì¥-ì œì£¼ë„ì§€ì ", "6");
 
 		return conditionMap;
 	}
-	
+
 }

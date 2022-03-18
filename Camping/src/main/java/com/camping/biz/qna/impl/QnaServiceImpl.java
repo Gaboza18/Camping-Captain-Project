@@ -13,7 +13,7 @@ import com.camping.biz.qna.QnaService;
 public class QnaServiceImpl implements QnaService {
 	
 	@Autowired
-	private QnaDAO qnaDao;
+	private QnaDAO qnaDao; 
 	
 	@Override
 	public List<QnaVO> listQna(String id) {

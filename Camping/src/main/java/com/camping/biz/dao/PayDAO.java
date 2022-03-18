@@ -12,18 +12,19 @@ public class PayDAO {
 	@Autowired
 	private SqlSessionTemplate mybatis;
 	
-	// ½Ç°áÁ¦ Å×ÀÌºí insert
+	// ì‹¤ê²°ì œ í…Œì´ë¸” insert
 	public void insertPay(PayVO vo) {
 		mybatis.insert("mappings.pay-mapping.insertPay", vo);
 	}
 	
-	// ½Ç°áÁ¦ ÇÑ°Ç Á¶È¸
+	// ì‹¤ê²°ì œ í•œê±´ ì¡°íšŒ
 	public PayVO getPay(PayVO vo) {
 		return mybatis.selectOne("mappings.pay-mapping.getPay", vo);
 	}
 	
-	// °áÁ¦ Ãë¼Ò½Ã ½Ç°áÁ¦ Á¤º¸ »èÁ¦
+	// ê²°ì œ ì·¨ì†Œì‹œ ì‹¤ê²°ì œ ì •ë³´ ì‚­ì œ
 	public void deletePay(String tid) {
 		mybatis.delete("mappings.pay-mapping.deletePay", tid);
 	}
+	
 }

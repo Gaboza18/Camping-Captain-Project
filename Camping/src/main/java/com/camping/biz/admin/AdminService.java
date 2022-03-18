@@ -24,7 +24,7 @@ public interface AdminService {
 
 	public RealReviewVO detailReviews(int rseq);
 
-	// ����¡ó�� �� ����¡ó���� users����
+	// 페이징처리 및 페이징처리로 users관리
 	public int updateViewCount(int rseq);
 
 	public List<UsersVO> listUsers(UsersVO vo);

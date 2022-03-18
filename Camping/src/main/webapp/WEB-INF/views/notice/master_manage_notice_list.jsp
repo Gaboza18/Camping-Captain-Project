@@ -25,13 +25,13 @@
 		<h4>캠핑족장 공지사항 관리</h4>
 
 		<!-- 검색 파트 -->
-		<form name="frm" id="notice_form" method="get">
+		<form name="frm" id="notice_form" method="get" action="master_manage_notice_list">
 			<table>
 		  		<tr>
  					<td width="300">
      					제목 
     					<input type="text" name="key" id="key">
-    					<input class="btn" type="button" name="btn_search" value="검색" onClick="go_search()">
+    					<input class="btn" type="button" name="btn_search" value="검색" onClick="go_search_user_notice()">
 		  			</td>
 		  		</tr>
 		  	</table>
@@ -66,12 +66,11 @@
 								<td>${noticeVO.count}</td>
 							</tr>
 						</c:forEach>
-						<tr><td colspan="6" style="text-align: center;"> ${paging} </td></tr>
 					</c:otherwise>
 				</c:choose>
 			</table>
 		</form>
-		<%@ include file="page_area.jsp"%>
+		<%@ include file="master_page_area.jsp"%>
 		<form id="master_manage_notice_insert">
 			<input class="btn" type="button" name="btn_search" value="등록" onClick="go_insert()">
 		</form>

@@ -52,7 +52,7 @@ import utils.SHA256;
 @Controller
 @SessionAttributes("loginUser")
 public class CampOrderController {
-	
+
 	@Autowired
 	private CampOrderService campOrderService;
 	@Autowired
@@ -65,77 +65,71 @@ public class CampOrderController {
 	private UsersService usersService;
 	@Autowired
 	private PayService payService;
-	
-	@RequestMapping(value = "/index_reload", method = RequestMethod.GET)
-	public String home_reload(Model model) {
-		
-		return "NewFile"; // index.jsp È­¸éÀ» È£Ãâ
-	}
-	
+
 	/*
-	 *  Ä·ÇÎÀå ¿¹¾àÇÏ±â
+	 * ìº í•‘ì¥ ì˜ˆì•½í•˜ê¸°
 	 */
-	@RequestMapping(value="go_payForm", method=RequestMethod.POST)
+	@RequestMapping(value = "go_payForm", method = RequestMethod.POST)
 	public String goPayFormView(TempOrderVO vo, Model model, HttpSession session) {
-		UsersVO loginUser =(UsersVO)session.getAttribute("loginUser");
-		
-		if(loginUser == null) {
+		UsersVO loginUser = (UsersVO) session.getAttribute("loginUser");
+
+		if (loginUser == null) {
 			return "Users/login";
 		} else {
 			SHA256 sha256 = new SHA256();
-			
+
 			vo.setUser_id(loginUser.getId());
-			// ³¯Â¥ ¹®ÀÚ¿­ ¼³Á¤.
+			// ë‚ ì§œ ë¬¸ìì—´ ì„¤ì •.
 			Date now = new Date();
 			SimpleDateFormat formmat = new SimpleDateFormat("yyyyMMddHHmmss");
 			String today = formmat.format(now);
-			// vo¿¡ setTempId
+			// voì— setTempId
 			vo.setTemp_id(today);
-			
+
 			tempOrderService.insertTempOrder(vo);
-			
+
 			/*
-			 * INIpay ¸ğµâ ¼¼ÆÃ ½ÃÀÛ
+			 * INIpay ëª¨ë“ˆ ì„¸íŒ… ì‹œì‘
 			 * 
-			 *  À§º¯Á¶ ¹æÁö Ã¼Å©¸¦ À§ÇØ signature »ı¼º 
-			 *  	-> signature : oid, price, timestamp 3°³ÀÇ Å°¿Í °ªÀ» "key=value" Çü½ÄÀ¸·Î ÇÏ¿© '&'À¸·Î ¿¬°áÇÏ°í SHA-256À¸·Î ¾ÏÈ£È­ÇÑ °ª
-			 *  	-> key¸¦ ±âÁØÀ¸·Î ¾ËÆÄºª ¼ø¼­´ë·Î Á¤·ÄÇÏ´Â °ÍÀÓ.
-			 *  	-> timestamp´Â ¹İµå½Ã signature »ı¼º¿¡ »ç¿ëÇÑ °ªÀ» ±×´ë·Î timestamp input¿¡ »ç¿ëÇÏ¿©¾ß ÇÔ.
-			 *  
+			 * ìœ„ë³€ì¡° ë°©ì§€ ì²´í¬ë¥¼ ìœ„í•´ signature ìƒì„± -> signature : oid, price, timestamp 3ê°œì˜ í‚¤ì™€ ê°’ì„
+			 * "key=value" í˜•ì‹ìœ¼ë¡œ í•˜ì—¬ '&'ìœ¼ë¡œ ì—°ê²°í•˜ê³  SHA-256ìœ¼ë¡œ ì•”í˜¸í™”í•œ ê°’ -> keyë¥¼ ê¸°ì¤€ìœ¼ë¡œ ì•ŒíŒŒë²³ ìˆœì„œëŒ€ë¡œ ì •ë ¬í•˜ëŠ”
+			 * ê²ƒì„. -> timestampëŠ” ë°˜ë“œì‹œ signature ìƒì„±ì— ì‚¬ìš©í•œ ê°’ì„ ê·¸ëŒ€ë¡œ timestamp inputì— ì‚¬ìš©í•˜ì—¬ì•¼ í•¨.
+			 * 
 			 */
-			
-			
-			// 1. Àü¹® ÇÊµå°ª ¼³Á¤(°¡¸ÍÁ¡ °³¹ß¼öÁ¤)
-			String mid = "INIpayTest";  // °¡¸ÍÁ¡ Id(¹ß±Ş ÇÊ¿ä, ÇöÀç´Â Å×½ºÆ®¿ë)
-			String mKey = "3a9503069192f207491d4b19bd743fc249a761ed94246c8c42fed06c3cd15a33"; // Å×½ºÆ®¿ë
-			String oid = vo.getTemp_id();  // ÀÓ½Ã ÁÖ¹®¹øÈ£
-			Long timestamp = System.currentTimeMillis();  // °ËÁõ¿ë ½Ã°£°ª
-			String sha = "oid="+oid+"&price="+vo.getTotal_price()+"&timestamp="+timestamp;
+
+			// 1. ì „ë¬¸ í•„ë“œê°’ ì„¤ì •(ê°€ë§¹ì  ê°œë°œìˆ˜ì •)
+			String mid = "INIpayTest"; // ê°€ë§¹ì  Id(ë°œê¸‰ í•„ìš”, í˜„ì¬ëŠ” í…ŒìŠ¤íŠ¸ìš©)
+			String mKey = "3a9503069192f207491d4b19bd743fc249a761ed94246c8c42fed06c3cd15a33"; // í…ŒìŠ¤íŠ¸ìš©
+			String oid = vo.getTemp_id(); // ì„ì‹œ ì£¼ë¬¸ë²ˆí˜¸
+			Long timestamp = System.currentTimeMillis(); // ê²€ì¦ìš© ì‹œê°„ê°’
+			String sha = "oid=" + oid + "&price=" + vo.getTotal_price() + "&timestamp=" + timestamp;
 			String signature = "";
-			// SAH 256 À» ÀÌ¿ëÇØ signature µ¥ÀÌÅÍ »ı¼º(¸ğµâ¿¡¼­ ÀÚµ¿À¸·Î signParamÀ» ¾ËÆÄºª¼øÀ¸·Î Á¤·Ä ÈÄ NVP ¹æ½ÄÀ¸·Î ³ª¿­ÇØ hash
+			// SAH 256 ì„ ì´ìš©í•´ signature ë°ì´í„° ìƒì„±(ëª¨ë“ˆì—ì„œ ìë™ìœ¼ë¡œ signParamì„ ì•ŒíŒŒë²³ìˆœìœ¼ë¡œ ì •ë ¬ í›„ NVP ë°©ì‹ìœ¼ë¡œ ë‚˜ì—´í•´
+			// hash
 			try {
 				signature = sha256.encrypt(sha);
 			} catch (NoSuchAlgorithmException e) {
 				e.printStackTrace();
-			} 
-				
+			}
+
 			model.addAttribute("tempOrder", vo);
 			model.addAttribute("mid", mid);
 			model.addAttribute("mKey", mKey);
 			model.addAttribute("oid", oid);
 			model.addAttribute("timestamp", timestamp);
 			model.addAttribute("signature", signature);
-			
+
 			return "camping/inicis";
 		}
 	}
-	
-	@RequestMapping(value="/order_insert", method=RequestMethod.POST)
-	public String campingOrderAction(String temp_id, CampOrderVO vo, ModelMap modelMap, HttpServletRequest request, HttpServletResponse response, HttpSession session, Criteria criteria, Model model) {
-		
+
+	@RequestMapping(value = "/order_insert", method = RequestMethod.POST)
+	public String campingOrderAction(String temp_id, CampOrderVO vo, ModelMap modelMap, HttpServletRequest request,
+			HttpServletResponse response, HttpSession session, Criteria criteria, Model model) {
+
 		TempOrderVO tVo = tempOrderService.getTempOrder(temp_id);
 		UsersVO loginUser = usersService.getUsers(tVo.getUser_id());
-		
+
 		vo.setCamp_name(tVo.getCamp_name());
 		vo.setCamp_zone(tVo.getCamp_zone());
 		vo.setIndate(tVo.getIndate());
@@ -146,595 +140,571 @@ public class CampOrderController {
 		vo.setOrder_phone(tVo.getOrder_phone());
 		vo.setOrder_email(tVo.getOrder_email());
 		vo.setTotal_price(tVo.getTotal_price());
-		
+
 		/*
-		 * °áÁ¦ ÈÄ Ã³¸®
+		 * ê²°ì œ í›„ ì²˜ë¦¬
 		 */
-		String retUrl = "redirect:index_reload";
-		
+		String retUrl = "NewFile";
+
 		HttpSession hSession = request.getSession();
-		
-		try{
+
+		try {
 			/*
-			 *  ÀÎÁõ°á°ú ÆÄ¶ó¹ÌÅÍ ÀÏ°ı ¼ö½Å
+			 * ì¸ì¦ê²°ê³¼ íŒŒë¼ë¯¸í„° ì¼ê´„ ìˆ˜ì‹ 
 			 */
 			request.setCharacterEncoding("UTF-8");
-			Map<String,String> paramMap = new Hashtable<String,String>();
+			Map<String, String> paramMap = new Hashtable<String, String>();
 			Enumeration elems = request.getParameterNames();
-			
+
 			String temp = "";
-			
-			while(elems.hasMoreElements()) {
+
+			while (elems.hasMoreElements()) {
 				temp = (String) elems.nextElement();
 				paramMap.put(temp, request.getParameter(temp));
 			}
-			
-			System.out.println("paramMap : "+ paramMap.toString());
-	
-			
-			// ÀÎÁõ°á°ú°¡ ¼º°øÀÏ °æ¿ì, Àü´Ş¹ŞÀº ÀÎÁõ°á°ú·Î ¾Æ·¡ ½ÂÀÎ¿äÃ» ÁøÇà
-			
+
+			System.out.println("paramMap : " + paramMap.toString());
+
+			// ì¸ì¦ê²°ê³¼ê°€ ì„±ê³µì¼ ê²½ìš°, ì „ë‹¬ë°›ì€ ì¸ì¦ê²°ê³¼ë¡œ ì•„ë˜ ìŠ¹ì¸ìš”ì²­ ì§„í–‰
+
 			/*
-			 *  ÀÎÁõÀÌ ¼º°øÀÏ °æ¿ì¸¸
+			 * ì¸ì¦ì´ ì„±ê³µì¼ ê²½ìš°ë§Œ
 			 */
-			if("0000".equals(paramMap.get("resultCode"))){
-				// 1. Àü¹® ÇÊµå °ª ¼³Á¤(*** °¡¸ÍÁ¡ °³¹ß¼öÁ¤ ***)
-			
-				System.out.println("## ÀÎÁõµ¥ÀÌÅÍ ÀÏ°ı¼ö½Å ##");
-				System.out.println("<p>"+paramMap.toString()+"</p>");
-				
-				String mKey = "3a9503069192f207491d4b19bd743fc249a761ed94246c8c42fed06c3cd15a33"; // Å×½ºÆ®¿ë
-				String mid = paramMap.get("mid");               // °¡¸ÍÁ¡ ID ¼ö½Å ¹ŞÀº µ¥ÀÌÅÍ·Î ¼³Á¤
-				Long timestamp= System.currentTimeMillis();     // util¿¡ ÀÇÇØ¼­ ÀÚµ¿»ı¼º
-				String charset = "UTF-8";                       // ¸®ÅÏÇü½Ä[UTF-8,EUC-KR](°¡¸ÍÁ¡ ¼öÁ¤ÈÄ °íÁ¤)
-				String format = "JSON";                         // ¸®ÅÏÇü½Ä[XML,JSON,NVP](°¡¸ÍÁ¡ ¼öÁ¤ÈÄ °íÁ¤)
-				String authToken= paramMap.get("authToken");    // Ãë¼Ò ¿äÃ» tid¿¡ µû¶ó¼­ À¯µ¿Àû(°¡¸ÍÁ¡ ¼öÁ¤ÈÄ °íÁ¤)
-				String authUrl= paramMap.get("authUrl");        // ½ÂÀÎ¿äÃ» API url(¼ö½Å ¹ŞÀº °ªÀ¸·Î ¼³Á¤, ÀÓÀÇ ¼¼ÆÃ ±İÁö)
-				String netCancel= paramMap.get("netCancelUrl"); // ¸ÁÃë¼Ò API url(¼ö½Å ¹ŞÀº °ªÀ¸·Î ¼³Á¤, ÀÓÀÇ ¼¼ÆÃ ±İÁö)
-				
+			if ("0000".equals(paramMap.get("resultCode"))) {
+				// 1. ì „ë¬¸ í•„ë“œ ê°’ ì„¤ì •(*** ê°€ë§¹ì  ê°œë°œìˆ˜ì • ***)
+
+				System.out.println("## ì¸ì¦ë°ì´í„° ì¼ê´„ìˆ˜ì‹  ##");
+				System.out.println("<p>" + paramMap.toString() + "</p>");
+
+				String mKey = "3a9503069192f207491d4b19bd743fc249a761ed94246c8c42fed06c3cd15a33"; // í…ŒìŠ¤íŠ¸ìš©
+				String mid = paramMap.get("mid"); // ê°€ë§¹ì  ID ìˆ˜ì‹  ë°›ì€ ë°ì´í„°ë¡œ ì„¤ì •
+				Long timestamp = System.currentTimeMillis(); // utilì— ì˜í•´ì„œ ìë™ìƒì„±
+				String charset = "UTF-8"; // ë¦¬í„´í˜•ì‹[UTF-8,EUC-KR](ê°€ë§¹ì  ìˆ˜ì •í›„ ê³ ì •)
+				String format = "JSON"; // ë¦¬í„´í˜•ì‹[XML,JSON,NVP](ê°€ë§¹ì  ìˆ˜ì •í›„ ê³ ì •)
+				String authToken = paramMap.get("authToken"); // ì·¨ì†Œ ìš”ì²­ tidì— ë”°ë¼ì„œ ìœ ë™ì (ê°€ë§¹ì  ìˆ˜ì •í›„ ê³ ì •)
+				String authUrl = paramMap.get("authUrl"); // ìŠ¹ì¸ìš”ì²­ API url(ìˆ˜ì‹  ë°›ì€ ê°’ìœ¼ë¡œ ì„¤ì •, ì„ì˜ ì„¸íŒ… ê¸ˆì§€)
+				String netCancel = paramMap.get("netCancelUrl"); // ë§ì·¨ì†Œ API url(ìˆ˜ì‹  ë°›ì€ ê°’ìœ¼ë¡œ ì„¤ì •, ì„ì˜ ì„¸íŒ… ê¸ˆì§€)
+
 				/*
-				 *  2.signature »ı¼º(ÀüÀÚ¼­¸í ¾Ë°í¸®Áò)
+				 * 2.signature ìƒì„±(ì „ìì„œëª… ì•Œê³ ë¦¬ì¦˜)
 				 */
 				SHA256 sha256 = new SHA256();
-				String sha = "authToken="+authToken+"&timestamp="+timestamp;
+				String sha = "authToken=" + authToken + "&timestamp=" + timestamp;
 				String signature = "";
-				// SAH 256 À» ÀÌ¿ëÇØ signature µ¥ÀÌÅÍ »ı¼º(¸ğµâ¿¡¼­ ÀÚµ¿À¸·Î signParamÀ» ¾ËÆÄºª¼øÀ¸·Î Á¤·Ä ÈÄ NVP ¹æ½ÄÀ¸·Î ³ª¿­ÇØ hash
+				// SAH 256 ì„ ì´ìš©í•´ signature ë°ì´í„° ìƒì„±(ëª¨ë“ˆì—ì„œ ìë™ìœ¼ë¡œ signParamì„ ì•ŒíŒŒë²³ìˆœìœ¼ë¡œ ì •ë ¬ í›„ NVP ë°©ì‹ìœ¼ë¡œ ë‚˜ì—´í•´
+				// hash
 				try {
 					signature = sha256.encrypt(sha);
 				} catch (NoSuchAlgorithmException e) {
 					e.printStackTrace();
 				}
-				
+
 				/*
-				 *  3.API ¿äÃ» Àü¹® »ı¼º
+				 * 3.API ìš”ì²­ ì „ë¬¸ ìƒì„±
 				 */
 				List<NameValuePair> param = new ArrayList<NameValuePair>();
-				
-				// BasicNameValuePairÀÇ Key = inputÅÂ±×ÀÇ name,
-				// BasicNameValuePairÀÇ value = inputÅÂ±×ÀÇ value
-				param.add(new BasicNameValuePair("mid",mid));
-				param.add(new BasicNameValuePair("authToken",authToken));
-				param.add(new BasicNameValuePair("signature",signature));
-				param.add(new BasicNameValuePair("timestamp",timestamp.toString()));
-				param.add(new BasicNameValuePair("charset",charset));
-				param.add(new BasicNameValuePair("format",format));
-				
-				            
-				System.out.println("##½ÂÀÎ¿äÃ» API ¿äÃ»##");
-				
-				
+
+				// BasicNameValuePairì˜ Key = inputíƒœê·¸ì˜ name,
+				// BasicNameValuePairì˜ value = inputíƒœê·¸ì˜ value
+				param.add(new BasicNameValuePair("mid", mid));
+				param.add(new BasicNameValuePair("authToken", authToken));
+				param.add(new BasicNameValuePair("signature", signature));
+				param.add(new BasicNameValuePair("timestamp", timestamp.toString()));
+				param.add(new BasicNameValuePair("charset", charset));
+				param.add(new BasicNameValuePair("format", format));
+
+				System.out.println("##ìŠ¹ì¸ìš”ì²­ API ìš”ì²­##");
+
 				/*
-				 *  4.API Åë½Å ½ÃÀÛ
+				 * 4.API í†µì‹  ì‹œì‘
 				 */
 				HttpUtil httpUtil = new HttpUtil();
 				String result = httpUtil.sendRequest(authUrl, param);
-				
-				// result¸¦ map ÇüÅÂ·Î º¯È¯ parse String to map ÇÒ°Í.
-				ObjectMapper mapper = new ObjectMapper();
-	
-				Map<String, String> resultMap =  new HashMap<String, String>();
-				
-			    try{
-			    	resultMap  = mapper.readValue(result, new TypeReference<Map<String, String>>() {});
 
-	
-			    } catch (IOException e){
-			        e.printStackTrace();
-			    }
-				
-				 
-				//  ¼º°ø ½ÇÆĞ ÆÇ´ÜÇÏ´Â º¯¼ö¸¦ map.get(Å°)·Î °¡Á®¿Í¼­ ¼º°ø ½ÇÆĞ ÆÇ´Ü resultCode = 0000
-				if("0000".equals(resultMap.get("resultCode"))) {
-					// ¼º°øÀÏ ¶§, ½Ç°áÁ¦Å×ÀÌºí insert
+				// resultë¥¼ map í˜•íƒœë¡œ ë³€í™˜ parse String to map í• ê²ƒ.
+				ObjectMapper mapper = new ObjectMapper();
+
+				Map<String, String> resultMap = new HashMap<String, String>();
+
+				try {
+					resultMap = mapper.readValue(result, new TypeReference<Map<String, String>>() {
+					});
+
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
+				// ì„±ê³µ ì‹¤íŒ¨ íŒë‹¨í•˜ëŠ” ë³€ìˆ˜ë¥¼ map.get(í‚¤)ë¡œ ê°€ì ¸ì™€ì„œ ì„±ê³µ ì‹¤íŒ¨ íŒë‹¨ resultCode = 0000
+				if ("0000".equals(resultMap.get("resultCode"))) {
+					// ì„±ê³µì¼ ë•Œ, ì‹¤ê²°ì œí…Œì´ë¸” insert
 					PayVO pVo = new PayVO();
-					
+
 					pVo.setTid(resultMap.get("tid"));
 					pVo.setTotPrice(resultMap.get("TotPrice"));
 					pVo.setUser_id(tVo.getUser_id());
 					pVo.setCamp_zone(tVo.getCamp_zone());
 					pVo.setIndate(tVo.getIndate());
-					
+
 					payService.insertPay(pVo);
-					
+
 					campOrderService.insertCampOrder(vo);
-					
+
 					retUrl = "camping/successOrder";
 				} else {
-				    // ÀÎÁõ ½ÇÆĞ½Ã
+					// ì¸ì¦ ì‹¤íŒ¨ì‹œ
 					System.out.println("<br/>");
-					System.out.println("####ÀÎÁõ½ÇÆĞ####");
-					System.out.println("<p>"+paramMap.toString()+"</p>");
-					
+					System.out.println("####ì¸ì¦ì‹¤íŒ¨####");
+					System.out.println("<p>" + paramMap.toString() + "</p>");
+
 					model.addAttribute("errorMsg", resultMap.get("resultMsg"));
-					
+
 					retUrl = "NewFile";
-				} 
+				}
 			}
-		} catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		tempOrderService.deleteTempOrder(tVo.getTemp_id());
-		
+
 		session.setAttribute("loginUser", loginUser);
-		
+
 		return retUrl;
 	}
-	
-	
+
 	/*
-	 *  ³» ¿¹¾àÇöÈ² º¸±â
+	 * ë‚´ ì˜ˆì•½í˜„í™© ë³´ê¸°
 	 */
-	
+
 	@RequestMapping(value = "/my_reservation", method = RequestMethod.GET)
 	public String my_reservation(HttpSession session, Criteria criteria, Model model) {
-		
-		// ·Î±×ÀÎÇÑ Á¤º¸¸¦ °´Ã¼¿¡ ´ã¾Æ °¡Á®¿Â´Ù
+
+		// ë¡œê·¸ì¸í•œ ì •ë³´ë¥¼ ê°ì²´ì— ë‹´ì•„ ê°€ì ¸ì˜¨ë‹¤
 		UsersVO loginUser = (UsersVO) session.getAttribute("loginUser");
-		
-		// ·Î±×ÀÎÀÌ À¯,¹« È®ÀÎÈÄ ·Î±×ÀÎÀÌ µÇ¾îÀÖÁö ¾ÊÀ¸¸é ·Î±×ÀÎ ÆäÀÌÁö·Î ¼¼¼Ç Àü´Ş
+
+		// ë¡œê·¸ì¸ì´ ìœ ,ë¬´ í™•ì¸í›„ ë¡œê·¸ì¸ì´ ë˜ì–´ìˆì§€ ì•Šìœ¼ë©´ ë¡œê·¸ì¸ í˜ì´ì§€ë¡œ ì„¸ì…˜ ì „ë‹¬
 		if (loginUser == null) {
 			return "Users/login";
 		} else {
-			// ¿¹¾à ¸ñ·Ï 10°³ Á¶È¸
+			// ì˜ˆì•½ ëª©ë¡ 10ê°œ ì¡°íšŒ
 			List<CampOrderVO> campOrderList = campOrderService.getMyListWithPaging(criteria, loginUser.getId());
-			
-			// È­¸é¿¡ Ç¥½ÃÇÒ ÆäÀÌÁö ¹öÆ°Á¤º¸ »ı¼º
+
+			// í™”ë©´ì— í‘œì‹œí•  í˜ì´ì§€ ë²„íŠ¼ì •ë³´ ìƒì„±
 			PageMaker pageMaker = new PageMaker();
 			int totalCount = campOrderService.countMyOrderList(loginUser.getId());
-		
-			pageMaker.setCriteria(criteria); // ÇöÀç ÆäÀÌÁö¿Í ÆäÀÌÁö´ç Ç×¸ñ ¼ö Á¤º¸ ¼³Á¤
-			pageMaker.setTotalCount(totalCount); // ÀüÃ¼ ¿¹¾àÇöÈ² ¸ñ·Ï °¹¼ö ¼³Á¤ ¹× ÆäÀÌÁö Á¤º¸ ÃÊ±âÈ­
-			
+
+			pageMaker.setCriteria(criteria); // í˜„ì¬ í˜ì´ì§€ì™€ í˜ì´ì§€ë‹¹ í•­ëª© ìˆ˜ ì •ë³´ ì„¤ì •
+			pageMaker.setTotalCount(totalCount); // ì „ì²´ ì˜ˆì•½í˜„í™© ëª©ë¡ ê°¯ìˆ˜ ì„¤ì • ë° í˜ì´ì§€ ì •ë³´ ì´ˆê¸°í™”
+
 			Date date = new Date();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			String today = sdf.format(date);
-		
+
 			model.addAttribute("today", today);
 			model.addAttribute("campOrderList", campOrderList);
 			model.addAttribute("pageMaker", pageMaker);
-			
+
 			return "camping/campOrderList";
 		}
 	}
-	
-	// ³» ¿¹¾à¸ñ·Ï¿¡¼­ »ó¼¼Á¤º¸ º¸±â
-	@GetMapping(value="/myOrder_detail")
+
+	// ë‚´ ì˜ˆì•½ëª©ë¡ì—ì„œ ìƒì„¸ì •ë³´ ë³´ê¸°
+	@GetMapping(value = "/myOrder_detail")
 	public String myOrderDetailView(CampOrderVO vo, Model model) {
 		CampOrderVO myOrderDetail = campOrderService.getMyCampOrder(vo.getOseq());
-		
+
 		model.addAttribute("myOrderDetail", myOrderDetail);
-		
+
 		return "camping/myOrderDetail";
 	}
-	
-	// Ãë¼Ò³»¿ª Á¶È¸ÇÏ±â
+
+	// ì·¨ì†Œë‚´ì—­ ì¡°íšŒí•˜ê¸°
 	@RequestMapping(value = "/my_cancel", method = RequestMethod.GET)
 	public String my_cnacel(HttpSession session, Criteria criteria, Model model) {
-		// ·Î±×ÀÎÇÑ Á¤º¸¸¦ °´Ã¼¿¡ ´ã¾Æ °¡Á®¿Â´Ù
+		// ë¡œê·¸ì¸í•œ ì •ë³´ë¥¼ ê°ì²´ì— ë‹´ì•„ ê°€ì ¸ì˜¨ë‹¤
 		UsersVO loginUser = (UsersVO) session.getAttribute("loginUser");
-		
-		// ·Î±×ÀÎÀÌ À¯,¹« È®ÀÎÈÄ ·Î±×ÀÎÀÌ µÇ¾îÀÖÁö ¾ÊÀ¸¸é ·Î±×ÀÎ ÆäÀÌÁö·Î ¼¼¼Ç Àü´Ş
+
+		// ë¡œê·¸ì¸ì´ ìœ ,ë¬´ í™•ì¸í›„ ë¡œê·¸ì¸ì´ ë˜ì–´ìˆì§€ ì•Šìœ¼ë©´ ë¡œê·¸ì¸ í˜ì´ì§€ë¡œ ì„¸ì…˜ ì „ë‹¬
 		if (loginUser == null) {
 			return "Users/login";
 		} else {
-			// ¿¹¾à ¸ñ·Ï 10°³ Á¶È¸
-			List<CampOrderCancelVO> cancelOrderList = campOrderCancelService.getMyListWithPaging(criteria, loginUser.getId());
-			
-			// È­¸é¿¡ Ç¥½ÃÇÒ ÆäÀÌÁö ¹öÆ°Á¤º¸ »ı¼º
+			// ì˜ˆì•½ ëª©ë¡ 10ê°œ ì¡°íšŒ
+			List<CampOrderCancelVO> cancelOrderList = campOrderCancelService.getMyListWithPaging(criteria,
+					loginUser.getId());
+
+			// í™”ë©´ì— í‘œì‹œí•  í˜ì´ì§€ ë²„íŠ¼ì •ë³´ ìƒì„±
 			PageMaker pageMaker = new PageMaker();
 			int totalCount = campOrderCancelService.countMyCancelList(loginUser.getId());
-			
-			pageMaker.setCriteria(criteria); // ÇöÀç ÆäÀÌÁö¿Í ÆäÀÌÁö´ç Ç×¸ñ ¼ö Á¤º¸ ¼³Á¤
-			pageMaker.setTotalCount(totalCount); // ÀüÃ¼ ¿¹¾àÇöÈ² ¸ñ·Ï °¹¼ö ¼³Á¤ ¹× ÆäÀÌÁö Á¤º¸ ÃÊ±âÈ­
-		
+
+			pageMaker.setCriteria(criteria); // í˜„ì¬ í˜ì´ì§€ì™€ í˜ì´ì§€ë‹¹ í•­ëª© ìˆ˜ ì •ë³´ ì„¤ì •
+			pageMaker.setTotalCount(totalCount); // ì „ì²´ ì˜ˆì•½í˜„í™© ëª©ë¡ ê°¯ìˆ˜ ì„¤ì • ë° í˜ì´ì§€ ì •ë³´ ì´ˆê¸°í™”
+
 			model.addAttribute("cancelOrderList", cancelOrderList);
 			model.addAttribute("pageMaker", pageMaker);
-			
+
 			return "camping/cancelOrderList";
 		}
 	}
-	
-	// ³» Ãë¼Ò¸ñ·Ï¿¡¼­ »ó¼¼Á¤º¸ º¸±â
-	@GetMapping(value="/myCancel_detail")
+
+	// ë‚´ ì·¨ì†Œëª©ë¡ì—ì„œ ìƒì„¸ì •ë³´ ë³´ê¸°
+	@GetMapping(value = "/myCancel_detail")
 	public String myCancelDetailView(CampOrderCancelVO vo, Model model) {
 		CampOrderCancelVO myCancelDetail = campOrderCancelService.getCancelOrder(vo.getCseq());
-		
+
 		model.addAttribute("myCancelDetail", myCancelDetail);
-		
+
 		return "camping/myCancelDetail";
 	}
-	
-	// ³» ¿¹¾à Ãë¼ÒÇÏ±âÆË¾÷Ã¢ ¿ÀÇÂ (Ãë¼ÒÈ¯ºÒ ±ÔÁ¤ °øÁö È­¸é)
-	@GetMapping(value="/go_myOrder_cancel")
+
+	// ë‚´ ì˜ˆì•½ ì·¨ì†Œí•˜ê¸°íŒì—…ì°½ ì˜¤í”ˆ (ì·¨ì†Œí™˜ë¶ˆ ê·œì • ê³µì§€ í™”ë©´)
+	@GetMapping(value = "/go_myOrder_cancel")
 	public String gotMyorderCancelView(CampOrderVO vo, Model model) {
-		
+
 		model.addAttribute("oseq", vo.getOseq());
-		
+
 		return "camping/refundPolicy";
 	}
-	
-	// È¯ºÒ ±ÔÁ¤ È®ÀÎÈÄ ¹öÆ°Å¬¸¯ÇÏ¸é Ãë¼ÒÈ­¸éÀ¸·Î ³Ñ¾î°¨
-	@GetMapping(value="/insert_myOrder_cancel")
+
+	// í™˜ë¶ˆ ê·œì • í™•ì¸í›„ ë²„íŠ¼í´ë¦­í•˜ë©´ ì·¨ì†Œí™”ë©´ìœ¼ë¡œ ë„˜ì–´ê°
+	@GetMapping(value = "/insert_myOrder_cancel")
 	public String insertMyorderCancelView(CampOrderVO vo, Model model) {
 		CampOrderVO campOrder = campOrderService.getCampOrder(vo.getOseq());
-		
+
 		Date date = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		String today = sdf.format(date);
-		
+
 		model.addAttribute("today", today);
 		model.addAttribute("campOrder", campOrder);
-		
+
 		return "camping/cancelMyOrder";
 	}
-	
-	// ÆË¾÷Ã¢¿¡¼­ 'Ãë¼Ò' ¹öÆ° Å¬¸¯ ½Ã ³» ¿¹¾àÃë¼Ò ½ÇÇà(Ãë¼Ò Å×ÀÌºí·Î ÀÌµ¿) + ¿¹¾àÅ×ÀÌºí¿¡¼­ »èÁ¦
-	@RequestMapping(value="/cancel_myOrder", method=RequestMethod.GET)
+
+	// íŒì—…ì°½ì—ì„œ 'ì·¨ì†Œ' ë²„íŠ¼ í´ë¦­ ì‹œ ë‚´ ì˜ˆì•½ì·¨ì†Œ ì‹¤í–‰(ì·¨ì†Œ í…Œì´ë¸”ë¡œ ì´ë™) + ì˜ˆì•½í…Œì´ë¸”ì—ì„œ ì‚­ì œ
+	@RequestMapping(value = "/cancel_myOrder", method = RequestMethod.GET)
 	public String cancelMyOrderAction(CampOrderCancelVO vo) {
-		
+
 		campOrderCancelService.insertCancelMyOrder(vo);
 		campOrderService.deleteOrderByOseq(vo.getOseq());
-		
+
 		return "camping/campOrderList";
 	}
-	
-	
+
 	/*
-	 * °ü¸®ÀÚ ±â´É
+	 * ê´€ë¦¬ì ê¸°ëŠ¥
 	 */
-	// ¿¹¾à ÇöÈ² Á¶È¸ ÆäÀÌÁö·Î ÀÌµ¿
-	@RequestMapping(value="/search_order", method = RequestMethod.GET)
-	public String orderList(Model model,HttpSession session, Criteria criteria) {
-		AdminVO loginAdmin = (AdminVO)session.getAttribute("loginAdmin");
-		
-		// ¿¹¾àÇöÈ² 10°³ Á¶È¸
+	// ì˜ˆì•½ í˜„í™© ì¡°íšŒ í˜ì´ì§€ë¡œ ì´ë™
+	@RequestMapping(value = "/search_order", method = RequestMethod.GET)
+	public String orderList(Model model, HttpSession session, Criteria criteria) {
+		AdminVO loginAdmin = (AdminVO) session.getAttribute("loginAdmin");
+
+		// ì˜ˆì•½í˜„í™© 10ê°œ ì¡°íšŒ
 		List<CampOrderVO> orderList = campOrderService.getAllListWithPaging(criteria);
-		
-		//È­¸é¿¡ Ç¥½ÃÇÒ ÆäÀÌÁö ¹öÆ° Á¤º¸ »ı¼º
+
+		// í™”ë©´ì— í‘œì‹œí•  í˜ì´ì§€ ë²„íŠ¼ ì •ë³´ ìƒì„±
 		PageMaker pageMaker = new PageMaker();
 		int totalCount = campOrderService.countAllOrderList();
-		
-		pageMaker.setCriteria(criteria); // ÇöÀç ÆäÀÌÁö¿Í ÆäÀÌÁö´ç Ç×¸ñ ¼ö Á¤º¸ ¼³Á¤
-		pageMaker.setTotalCount(totalCount); // ÀüÃ¼ ¿¹¾àÇöÈ² ¸ñ·Ï °¹¼ö ¼³Á¤ ¹× ÆäÀÌÁö Á¤º¸ ÃÊ±âÈ­
-		
+
+		pageMaker.setCriteria(criteria); // í˜„ì¬ í˜ì´ì§€ì™€ í˜ì´ì§€ë‹¹ í•­ëª© ìˆ˜ ì •ë³´ ì„¤ì •
+		pageMaker.setTotalCount(totalCount); // ì „ì²´ ì˜ˆì•½í˜„í™© ëª©ë¡ ê°¯ìˆ˜ ì„¤ì • ë° í˜ì´ì§€ ì •ë³´ ì´ˆê¸°í™”
+
 		model.addAttribute("orderList", orderList);
 		model.addAttribute("pageMaker", pageMaker);
 		model.addAttribute("admin_name", loginAdmin.getName());
 		model.addAttribute("selected", 0);
-		
+
 		return "admin/campOrder/admin_orderList";
 	}
-	
-	//  ¿¹¾à ÇöÈ² Á¶È¸ÆäÀÌÁö¿¡¼­ ÁöÁ¡ ¼±ÅÃ½Ã ÁöÁ¡º° ¿¹¾àÇöÈ² ¸®½ºÆ® Á¶È¸
-	@RequestMapping(value="/search_orderList", method = RequestMethod.GET)
-	public String orderList(@RequestParam(value = "campName") int camp_id, Criteria criteria,
-							HttpSession session, Model model) {
-			
+
+	// ì˜ˆì•½ í˜„í™© ì¡°íšŒí˜ì´ì§€ì—ì„œ ì§€ì  ì„ íƒì‹œ ì§€ì ë³„ ì˜ˆì•½í˜„í™© ë¦¬ìŠ¤íŠ¸ ì¡°íšŒ
+	@RequestMapping(value = "/search_orderList", method = RequestMethod.GET)
+	public String orderList(@RequestParam(value = "campName") int camp_id, Criteria criteria, HttpSession session,
+			Model model) {
+
+		AdminVO loginAdmin = (AdminVO) session.getAttribute("loginAdmin");
 		String camp_name = campingService.getCampName(camp_id);
-		
-		// ¿¹¾àÇöÈ² 10°³ Á¶È¸
+
+		// ì˜ˆì•½í˜„í™© 10ê°œ ì¡°íšŒ
 		List<CampOrderVO> orderList = campOrderService.getListWithPaging(criteria, camp_name);
-		
-		// È­¸é¿¡ Ç¥½ÃÇÒ ÆäÀÌÁö ¹öÆ° Á¤º¸ »ı¼º
+
+		// í™”ë©´ì— í‘œì‹œí•  í˜ì´ì§€ ë²„íŠ¼ ì •ë³´ ìƒì„±
 		PageMaker pageMaker = new PageMaker();
 		int totalCount = campOrderService.countOrderList(camp_name);
-		
-		pageMaker.setCriteria(criteria); // ÇöÀç ÆäÀÌÁö¿Í ÆäÀÌÁö´ç Ç×¸ñ ¼ö Á¤º¸ ¼³Á¤
-		pageMaker.setTotalCount(totalCount); // ÀüÃ¼ ¿¹¾àÇöÈ² ¸ñ·Ï °¹¼ö ¼³Á¤ ¹× ÆäÀÌÁö Á¤º¸ ÃÊ±âÈ­
-		
+
+		pageMaker.setCriteria(criteria); // í˜„ì¬ í˜ì´ì§€ì™€ í˜ì´ì§€ë‹¹ í•­ëª© ìˆ˜ ì •ë³´ ì„¤ì •
+		pageMaker.setTotalCount(totalCount); // ì „ì²´ ì˜ˆì•½í˜„í™© ëª©ë¡ ê°¯ìˆ˜ ì„¤ì • ë° í˜ì´ì§€ ì •ë³´ ì´ˆê¸°í™”
+
 		Date date = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		String today = sdf.format(date);
-	
+
 		model.addAttribute("today", today);
 		model.addAttribute("orderList", orderList);
 		model.addAttribute("pageMaker", pageMaker);
+		model.addAttribute("admin_name", loginAdmin.getName());
 		model.addAttribute("selected", camp_id);
-		
+
 		return "admin/campOrder/admin_orderList";
 	}
-	
-	// ¿¹¾à ÇöÈ² ¸®½ºÆ®¿¡¼­ 'Ãë¼Ò'¹öÆ° Å¬¸¯ ½Ã »çÀ¯ ÀÔ·ÂÇÏ´Â ÆäÀÌÁö ¿ÀÇÂ
-	@GetMapping(value="/insert_cancel_reason")
+
+	// ì˜ˆì•½ í˜„í™© ë¦¬ìŠ¤íŠ¸ì—ì„œ 'ì·¨ì†Œ'ë²„íŠ¼ í´ë¦­ ì‹œ ì‚¬ìœ  ì…ë ¥í•˜ëŠ” í˜ì´ì§€ ì˜¤í”ˆ
+	@GetMapping(value = "/insert_cancel_reason")
 	public String insertReasonView(@RequestParam(value = "camp_idRe") int camp_id, CampOrderVO vo, Model model) {
 		CampOrderVO campOrder = campOrderService.getCampOrder(vo.getOseq());
-		
+
 		model.addAttribute("campOrder", campOrder);
 		model.addAttribute("selected", camp_id);
-		
+
 		return "admin/campOrder/admin_cancelOrder";
 	}
-	
-	// ÆË¾÷Ã¢¿¡¼­ 'Ãë¼Ò' ¹öÆ° Å¬¸¯ ½Ã  °áÁ¦ Ãë¼Ò ½ÇÇà
-	@RequestMapping(value="/go_cancel", method=RequestMethod.GET)
-	public String cancelOrder(CampOrderCancelVO vo, Model model, HttpServletRequest request) throws NoSuchAlgorithmException {
+
+	// íŒì—…ì°½ì—ì„œ 'ì·¨ì†Œ' ë²„íŠ¼ í´ë¦­ ì‹œ ê²°ì œ ì·¨ì†Œ ì‹¤í–‰
+	@RequestMapping(value = "/go_cancel", method = RequestMethod.GET)
+	public String cancelOrder(CampOrderCancelVO vo, Model model, HttpServletRequest request)
+			throws NoSuchAlgorithmException {
 		PayVO pVo = new PayVO();
 		pVo.setUser_id(vo.getUsersid());
 		pVo.setCamp_zone(vo.getCamp_zone());
 		pVo.setIndate(vo.getIndate());
-		
-		PayVO pay = payService.getPay(pVo);
-		
-		Date now = new Date();
-		SimpleDateFormat formmat = new SimpleDateFormat("yyyyMMddHHmmss"); 
-		
-		
-	    //step1. ¿äÃ»À» À§ÇÑ ÆÄ¶ó¹ÌÅÍ ¼³Á¤
-	    String mid="INIpayTest";
-	    String Key="ItEQKi3rY7uvDS8l"; // INIpayTest ÀÇ INIAPI key
-	    String type="Refund";          // "Refund" °íÁ¤
-	    String paymethod="Card";
-	    String timestamp = formmat.format(now);  // °ËÁõ¿ë ½Ã°£°ª
-	    String clientIp="127.0.0.1";
-	    String tid=pay.getTid();      // 40byte ½ÂÀÎ TID ÀÔ·Â
-	    String msg="°Å·¡Ãë¼Ò¿äÃ»";
-	    
-	    System.out.println(timestamp);
-	    System.out.println(tid);
-	    
-	    //Hash ¾ÏÈ£È­
-	    String data_hash=Key+type+paymethod+timestamp+clientIp+mid+tid;
-	    SHA256 sha256 = new SHA256();
-	    String hashData = sha256.getSHA512(data_hash); // SHA_512_Util À» ÀÌ¿ëÇÏ¿© hash¾ÏÈ£È­(ÇØ´ç LIB´Â Á÷Á¢±¸Çö ÇÊ¿ä)
-	    
-	    System.out.println(hashData);
-	         
-	    // Àü¼Û URL
-	    String APIURL="https://iniapi.inicis.com/api/v1/refund"; // Àü¼Û URL
-	    
-	    List<NameValuePair> param = new ArrayList<NameValuePair>();
-	    
-		// BasicNameValuePairÀÇ Key = inputÅÂ±×ÀÇ name,
-		// BasicNameValuePairÀÇ value = inputÅÂ±×ÀÇ value
-		param.add(new BasicNameValuePair("type",type));
-		param.add(new BasicNameValuePair("paymethod",paymethod));
-		param.add(new BasicNameValuePair("timestamp",timestamp));
-		param.add(new BasicNameValuePair("clientIp",clientIp));
-		param.add(new BasicNameValuePair("mid",mid));
-		param.add(new BasicNameValuePair("tid",tid));
-		param.add(new BasicNameValuePair("msg",msg));
-		param.add(new BasicNameValuePair("hashData",hashData));
-		
-		
-	     //step2. key=value ·Î post ¿äÃ»
 
-	    HttpUtil httpUtil=new HttpUtil();
-	    
-	    try{
-		     String authResultString = "";
-		     authResultString = httpUtil.sendRequest(APIURL , param);
-		     System.out.println(authResultString);
-		    
-		    //step3. ¿äÃ» °á°ú
-		     System.out.println("<h1>"+authResultString+"</h2>");
-		     
-	    }catch (Exception ex) {
-	    	ex.printStackTrace();
-	    }
+		PayVO pay = payService.getPay(pVo);
+
+		Date now = new Date();
+		SimpleDateFormat formmat = new SimpleDateFormat("yyyyMMddHHmmss");
+
+		// step1. ìš”ì²­ì„ ìœ„í•œ íŒŒë¼ë¯¸í„° ì„¤ì •
+		String mid = "INIpayTest";
+		String Key = "ItEQKi3rY7uvDS8l"; // INIpayTest ì˜ INIAPI key
+		String type = "Refund"; // "Refund" ê³ ì •
+		String paymethod = "Card";
+		String timestamp = formmat.format(now); // ê²€ì¦ìš© ì‹œê°„ê°’
+		String clientIp = "127.0.0.1";
+		String tid = pay.getTid(); // 40byte ìŠ¹ì¸ TID ì…ë ¥
+		String msg = "ê±°ë˜ì·¨ì†Œìš”ì²­";
+
+		System.out.println(timestamp);
+		System.out.println(tid);
+
+		// Hash ì•”í˜¸í™”
+		String data_hash = Key + type + paymethod + timestamp + clientIp + mid + tid;
+		SHA256 sha256 = new SHA256();
+		String hashData = sha256.getSHA512(data_hash); // SHA_512_Util ì„ ì´ìš©í•˜ì—¬ hashì•”í˜¸í™”(í•´ë‹¹ LIBëŠ” ì§ì ‘êµ¬í˜„ í•„ìš”)
+
+		System.out.println(hashData);
+
+		// ì „ì†¡ URL
+		String APIURL = "https://iniapi.inicis.com/api/v1/refund"; // ì „ì†¡ URL
+
+		List<NameValuePair> param = new ArrayList<NameValuePair>();
+
+		// BasicNameValuePairì˜ Key = inputíƒœê·¸ì˜ name,
+		// BasicNameValuePairì˜ value = inputíƒœê·¸ì˜ value
+		param.add(new BasicNameValuePair("type", type));
+		param.add(new BasicNameValuePair("paymethod", paymethod));
+		param.add(new BasicNameValuePair("timestamp", timestamp));
+		param.add(new BasicNameValuePair("clientIp", clientIp));
+		param.add(new BasicNameValuePair("mid", mid));
+		param.add(new BasicNameValuePair("tid", tid));
+		param.add(new BasicNameValuePair("msg", msg));
+		param.add(new BasicNameValuePair("hashData", hashData));
+
+		// step2. key=value ë¡œ post ìš”ì²­
+
+		HttpUtil httpUtil = new HttpUtil();
+
+		try {
+			String authResultString = "";
+			authResultString = httpUtil.sendRequest(APIURL, param);
+			System.out.println(authResultString);
+
+			// step3. ìš”ì²­ ê²°ê³¼
+			System.out.println("<h1>" + authResultString + "</h2>");
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
 
 		campOrderCancelService.insertOrderCancel(vo);
 		campOrderService.deleteOrderByOseq(vo.getOseq());
 		payService.deletePay(pay.getTid());
-	    
-	    return "admin/campOrder/admin_orderList";
-	}
-	
-	// °áÁ¦ Ãë¼Ò ¿Ï·áµÈ ÈÄ ¿¹¾àÃë¼Ò ½ÇÇà(Ãë¼Ò Å×ÀÌºí·Î ÀÌµ¿) + ¿¹¾àÅ×ÀÌºí¿¡¼­ »èÁ¦
-//	@RequestMapping(value="/cancel_order", method=RequestMethod.GET)
-//	public String cancelOrderAction(CampOrderCancelVO vo) {
-//		campOrderCancelService.insertOrderCancel(vo);
-//		campOrderService.deleteOrderByOseq(vo.getOseq());
-//		
-//		return "admin/admin_orderList";
-//	}
-	
-	// ¿¹¾à ÇöÈ² ¸®½ºÆ®¿¡¼­ '¿¹¾à¿Ï·á' ¹öÆ° Å¬¸¯ ½Ã ¿¹¾à »ó¼¼³»¿ëÈ®ÀÎÀ» À§ÇÑ ÆË¾÷Ã¢ ¿ÀÇÂ
-	@GetMapping(value="/confirm_order_check")
-	public String confirmOrderView(@RequestParam(value = "camp_idRe") int camp_id, CampOrderVO vo, Model model) {
-		CampOrderVO campOrder = campOrderService.getCampOrder(vo.getOseq());
-		
-		model.addAttribute("campOrder", campOrder);
-		model.addAttribute("selected", camp_id);
-		
-		return "admin/campOrder/admin_confirmOrder";
-	}
-	
-	// ¿¹¾à »ó¼¼³»¿ë ÆË¾÷Ã¢¿¡¼­ '¿¹¾àÈ®Á¤'¹öÆ° Å¬¸¯ ½Ã ½ÇÇà
-	@RequestMapping(value="/confirm_order", method=RequestMethod.GET)
-	public String confirmOrderAction(CampOrderVO vo) {
-		campOrderService.updateOrderStatus(vo.getOseq());
-		
+
 		return "admin/campOrder/admin_orderList";
 	}
-	
-	// ¿¹¾à Ãë¼Ò³»¿ª Á¶È¸ ÆäÀÌÁö·Î ÀÌµ¿
-	@RequestMapping(value="/search_cancel", method = RequestMethod.GET)
+
+	// ì˜ˆì•½ í˜„í™© ë¦¬ìŠ¤íŠ¸ì—ì„œ 'ì˜ˆì•½ì™„ë£Œ' ë²„íŠ¼ í´ë¦­ ì‹œ ì˜ˆì•½ ìƒì„¸ë‚´ìš©í™•ì¸ì„ ìœ„í•œ íŒì—…ì°½ ì˜¤í”ˆ
+	@GetMapping(value = "/confirm_order_check")
+	public String confirmOrderView(@RequestParam(value = "camp_idRe") int camp_id, CampOrderVO vo, Model model) {
+		CampOrderVO campOrder = campOrderService.getCampOrder(vo.getOseq());
+
+		model.addAttribute("campOrder", campOrder);
+		model.addAttribute("selected", camp_id);
+
+		return "admin/campOrder/admin_confirmOrder";
+	}
+
+	// ì˜ˆì•½ ìƒì„¸ë‚´ìš© íŒì—…ì°½ì—ì„œ 'ì˜ˆì•½í™•ì •'ë²„íŠ¼ í´ë¦­ ì‹œ ì‹¤í–‰
+	@RequestMapping(value = "/confirm_order", method = RequestMethod.GET)
+	public String confirmOrderAction(CampOrderVO vo) {
+		campOrderService.updateOrderStatus(vo.getOseq());
+
+		return "admin/campOrder/admin_orderList";
+	}
+
+	// ì˜ˆì•½ ì·¨ì†Œë‚´ì—­ ì¡°íšŒ í˜ì´ì§€ë¡œ ì´ë™
+	@RequestMapping(value = "/search_cancel", method = RequestMethod.GET)
 	public String cancelOrderList(Model model, HttpSession session, Criteria criteria) {
-		
-		AdminVO loginAdmin = (AdminVO)session.getAttribute("loginAdmin");
-		
-		// Ãë¼ÒÇöÈ² 10°³ Á¶È¸
+
+		AdminVO loginAdmin = (AdminVO) session.getAttribute("loginAdmin");
+
+		// ì·¨ì†Œí˜„í™© 10ê°œ ì¡°íšŒ
 		List<CampOrderCancelVO> cancelList = campOrderCancelService.getAllListWithPaging(criteria);
-		
-		//È­¸é¿¡ Ç¥½ÃÇÒ ÆäÀÌÁö ¹öÆ° Á¤º¸ »ı¼º
+
+		// í™”ë©´ì— í‘œì‹œí•  í˜ì´ì§€ ë²„íŠ¼ ì •ë³´ ìƒì„±
 		PageMaker pageMaker = new PageMaker();
 		int totalCount = campOrderCancelService.countAllOrderList();
-		
-		pageMaker.setCriteria(criteria); // ÇöÀç ÆäÀÌÁö¿Í ÆäÀÌÁö´ç Ç×¸ñ ¼ö Á¤º¸ ¼³Á¤
-		pageMaker.setTotalCount(totalCount); // ÀüÃ¼ ¿¹¾àÇöÈ² ¸ñ·Ï °¹¼ö ¼³Á¤ ¹× ÆäÀÌÁö Á¤º¸ ÃÊ±âÈ­
-		
+
+		pageMaker.setCriteria(criteria); // í˜„ì¬ í˜ì´ì§€ì™€ í˜ì´ì§€ë‹¹ í•­ëª© ìˆ˜ ì •ë³´ ì„¤ì •
+		pageMaker.setTotalCount(totalCount); // ì „ì²´ ì˜ˆì•½í˜„í™© ëª©ë¡ ê°¯ìˆ˜ ì„¤ì • ë° í˜ì´ì§€ ì •ë³´ ì´ˆê¸°í™”
+
 		model.addAttribute("cancelList", cancelList);
 		model.addAttribute("pageMaker", pageMaker);
 		model.addAttribute("admin_name", loginAdmin.getName());
 		model.addAttribute("selected", 0);
-		
-		
-		
+
 		return "admin/campOrder/admin_cancelList";
 	}
-	
-	// ¿¹¾à Ãë¼ÒÇöÈ² Á¶È¸ÆäÀÌÁö¿¡¼­ ÁöÁ¡ ¼±ÅÃ½Ã ÁöÁ¡º° Ãë¼ÒÇöÈ² ¸®½ºÆ® Á¶È¸
-	@RequestMapping(value="/search_cancelList", method = RequestMethod.GET)
-	public String cancelList(@RequestParam(value = "campName") int camp_id, Criteria criteria,
-							HttpSession session, Model model) {
-			
+
+	// ì˜ˆì•½ ì·¨ì†Œí˜„í™© ì¡°íšŒí˜ì´ì§€ì—ì„œ ì§€ì  ì„ íƒì‹œ ì§€ì ë³„ ì·¨ì†Œí˜„í™© ë¦¬ìŠ¤íŠ¸ ì¡°íšŒ
+	@RequestMapping(value = "/search_cancelList", method = RequestMethod.GET)
+	public String cancelList(@RequestParam(value = "campName") int camp_id, Criteria criteria, HttpSession session,
+			Model model) {
+
+		AdminVO loginAdmin = (AdminVO) session.getAttribute("loginAdmin");
 		String camp_name = campingService.getCampName(camp_id);
-		
-		// ¿¹¾à Ãë¼Ò ÇöÈ² 10°³ Á¶È¸
+
+		// ì˜ˆì•½ ì·¨ì†Œ í˜„í™© 10ê°œ ì¡°íšŒ
 		List<CampOrderCancelVO> cancelList = campOrderCancelService.getListWithPaging(criteria, camp_name);
-		
-		// È­¸é¿¡ Ç¥½ÃÇÒ ÆäÀÌÁö ¹öÆ° Á¤º¸ »ı¼º
+
+		// í™”ë©´ì— í‘œì‹œí•  í˜ì´ì§€ ë²„íŠ¼ ì •ë³´ ìƒì„±
 		PageMaker pageMaker = new PageMaker();
 		int totalCount = campOrderCancelService.countOrderList(camp_name);
-		
-		pageMaker.setCriteria(criteria); // ÇöÀç ÆäÀÌÁö¿Í ÆäÀÌÁö´ç Ç×¸ñ ¼ö Á¤º¸ ¼³Á¤
-		pageMaker.setTotalCount(totalCount); // ÀüÃ¼ ¿¹¾àÇöÈ² ¸ñ·Ï °¹¼ö ¼³Á¤ ¹× ÆäÀÌÁö Á¤º¸ ÃÊ±âÈ­
-	
+
+		pageMaker.setCriteria(criteria); // í˜„ì¬ í˜ì´ì§€ì™€ í˜ì´ì§€ë‹¹ í•­ëª© ìˆ˜ ì •ë³´ ì„¤ì •
+		pageMaker.setTotalCount(totalCount); // ì „ì²´ ì˜ˆì•½í˜„í™© ëª©ë¡ ê°¯ìˆ˜ ì„¤ì • ë° í˜ì´ì§€ ì •ë³´ ì´ˆê¸°í™”
+
 		model.addAttribute("cancelList", cancelList);
 		model.addAttribute("pageMaker", pageMaker);
+		model.addAttribute("admin_name", loginAdmin.getName());
 		model.addAttribute("selected", camp_id);
-		
+
 		return "admin/campOrder/admin_cancelList";
 	}
-	
-	// ÀüÃ¼ Ãë¼Ò³»¿ª ¸®½ºÆ®¿¡¼­ 'Ãë¼ÒÇÏ±â' ¹öÆ° Å¬¸¯½Ã Ãë¼Ò ½ÅÃ»ÀÌ µé¾î¿Â ¿¹¾à³»¿ªÀÌ ´ã±ä ÆË¾÷Ã¢ ¿ÀÇÂ
-	@GetMapping(value="/confirm_cancel_check")
+
+	// ì „ì²´ ì·¨ì†Œë‚´ì—­ ë¦¬ìŠ¤íŠ¸ì—ì„œ 'ì·¨ì†Œí•˜ê¸°' ë²„íŠ¼ í´ë¦­ì‹œ ì·¨ì†Œ ì‹ ì²­ì´ ë“¤ì–´ì˜¨ ì˜ˆì•½ë‚´ì—­ì´ ë‹´ê¸´ íŒì—…ì°½ ì˜¤í”ˆ
+	@GetMapping(value = "/confirm_cancel_check")
 	public String confirmCancelView(@RequestParam(value = "camp_idRe") int camp_id, CampOrderCancelVO vo, Model model) {
 		CampOrderCancelVO cancelOrder = campOrderCancelService.getCancelOrder(vo.getCseq());
-		
+
 		model.addAttribute("cancelOrder", cancelOrder);
 		model.addAttribute("selected", camp_id);
-		
+
 		return "admin/campOrder/admin_confirmCancel";
 	}
-	
-	// Ãë¼Ò È®Á¤ÇÏ´Â ÆË¾÷Ã¢¿¡¼­ 'Ãë¼ÒÇÏ±â'¹öÆ° Å¬¸¯ ½Ã Ãë¼Ò È®Á¤ ¿Ï·á
-	@RequestMapping(value="/confirm_cancel_order", method=RequestMethod.GET)
-	public String confirmCancelOrderAction(CampOrderCancelVO vo, HttpServletRequest request) throws NoSuchAlgorithmException {
+
+	// ì·¨ì†Œ í™•ì •í•˜ëŠ” íŒì—…ì°½ì—ì„œ 'ì·¨ì†Œí•˜ê¸°'ë²„íŠ¼ í´ë¦­ ì‹œ ì·¨ì†Œ í™•ì • ì™„ë£Œ
+	@RequestMapping(value = "/confirm_cancel_order", method = RequestMethod.GET)
+	public String confirmCancelOrderAction(CampOrderCancelVO vo, HttpServletRequest request)
+			throws NoSuchAlgorithmException {
 		PayVO pVo = new PayVO();
 		pVo.setUser_id(vo.getUsersid());
 		pVo.setCamp_zone(vo.getCamp_zone());
 		pVo.setIndate(vo.getIndate());
-		
-		PayVO pay = payService.getPay(pVo);
-		
-		Date now = new Date();
-		SimpleDateFormat formmat = new SimpleDateFormat("yyyyMMddHHmmss"); 
-		
-		
-	    //step1. ¿äÃ»À» À§ÇÑ ÆÄ¶ó¹ÌÅÍ ¼³Á¤
-	    String mid="INIpayTest";
-	    String Key="ItEQKi3rY7uvDS8l"; // INIpayTest ÀÇ INIAPI key
-	    String type="Refund";          // "Refund" °íÁ¤
-	    String paymethod="Card";
-	    String timestamp = formmat.format(now);  // °ËÁõ¿ë ½Ã°£°ª
-	    String clientIp="127.0.0.1";
-	    String tid=pay.getTid();      // 40byte ½ÂÀÎ TID ÀÔ·Â
-	    String msg="°Å·¡Ãë¼Ò¿äÃ»";
-	    
-	    System.out.println(timestamp);
-	    System.out.println(tid);
-	    
-	    //Hash ¾ÏÈ£È­
-	    String data_hash=Key+type+paymethod+timestamp+clientIp+mid+tid;
-	    SHA256 sha256 = new SHA256();
-	    String hashData = sha256.getSHA512(data_hash); // SHA_512_Util À» ÀÌ¿ëÇÏ¿© hash¾ÏÈ£È­(ÇØ´ç LIB´Â Á÷Á¢±¸Çö ÇÊ¿ä)
-	    
-	    System.out.println(hashData);
-	         
-	    // Àü¼Û URL
-	    String APIURL="https://iniapi.inicis.com/api/v1/refund"; // Àü¼Û URL
-	    
-	    List<NameValuePair> param = new ArrayList<NameValuePair>();
-	    
-		// BasicNameValuePairÀÇ Key = inputÅÂ±×ÀÇ name,
-		// BasicNameValuePairÀÇ value = inputÅÂ±×ÀÇ value
-		param.add(new BasicNameValuePair("type",type));
-		param.add(new BasicNameValuePair("paymethod",paymethod));
-		param.add(new BasicNameValuePair("timestamp",timestamp));
-		param.add(new BasicNameValuePair("clientIp",clientIp));
-		param.add(new BasicNameValuePair("mid",mid));
-		param.add(new BasicNameValuePair("tid",tid));
-		param.add(new BasicNameValuePair("msg",msg));
-		param.add(new BasicNameValuePair("hashData",hashData));
-		
-		
-	     //step2. key=value ·Î post ¿äÃ»
 
-	    HttpUtil httpUtil=new HttpUtil();
-	    
-	    try{
-		     String authResultString = "";
-		     authResultString = httpUtil.sendRequest(APIURL , param);
-		     System.out.println(authResultString);
-		    
-		    //step3. ¿äÃ» °á°ú
-		     System.out.println("<h1>"+authResultString+"</h2>");
-		     
-	    }catch (Exception ex) {
-	    	ex.printStackTrace();
-	    }
+		PayVO pay = payService.getPay(pVo);
+
+		Date now = new Date();
+		SimpleDateFormat formmat = new SimpleDateFormat("yyyyMMddHHmmss");
+
+		// step1. ìš”ì²­ì„ ìœ„í•œ íŒŒë¼ë¯¸í„° ì„¤ì •
+		String mid = "INIpayTest";
+		String Key = "ItEQKi3rY7uvDS8l"; // INIpayTest ì˜ INIAPI key
+		String type = "Refund"; // "Refund" ê³ ì •
+		String paymethod = "Card";
+		String timestamp = formmat.format(now); // ê²€ì¦ìš© ì‹œê°„ê°’
+		String clientIp = "127.0.0.1";
+		String tid = pay.getTid(); // 40byte ìŠ¹ì¸ TID ì…ë ¥
+		String msg = "ê±°ë˜ì·¨ì†Œìš”ì²­";
+
+		System.out.println(timestamp);
+		System.out.println(tid);
+
+		// Hash ì•”í˜¸í™”
+		String data_hash = Key + type + paymethod + timestamp + clientIp + mid + tid;
+		SHA256 sha256 = new SHA256();
+		String hashData = sha256.getSHA512(data_hash); // SHA_512_Util ì„ ì´ìš©í•˜ì—¬ hashì•”í˜¸í™”(í•´ë‹¹ LIBëŠ” ì§ì ‘êµ¬í˜„ í•„ìš”)
+
+		System.out.println(hashData);
+
+		// ì „ì†¡ URL
+		String APIURL = "https://iniapi.inicis.com/api/v1/refund"; // ì „ì†¡ URL
+
+		List<NameValuePair> param = new ArrayList<NameValuePair>();
+
+		// BasicNameValuePairì˜ Key = inputíƒœê·¸ì˜ name,
+		// BasicNameValuePairì˜ value = inputíƒœê·¸ì˜ value
+		param.add(new BasicNameValuePair("type", type));
+		param.add(new BasicNameValuePair("paymethod", paymethod));
+		param.add(new BasicNameValuePair("timestamp", timestamp));
+		param.add(new BasicNameValuePair("clientIp", clientIp));
+		param.add(new BasicNameValuePair("mid", mid));
+		param.add(new BasicNameValuePair("tid", tid));
+		param.add(new BasicNameValuePair("msg", msg));
+		param.add(new BasicNameValuePair("hashData", hashData));
+
+		// step2. key=value ë¡œ post ìš”ì²­
+
+		HttpUtil httpUtil = new HttpUtil();
+
+		try {
+			String authResultString = "";
+			authResultString = httpUtil.sendRequest(APIURL, param);
+			System.out.println(authResultString);
+
+			// step3. ìš”ì²­ ê²°ê³¼
+			System.out.println("<h1>" + authResultString + "</h2>");
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
 
 		campOrderCancelService.updateCancelStatus(vo.getCseq());
 		payService.deletePay(pay.getTid());
-		
+
 		return "admin/campOrder/admin_cancelList";
 	}
-	
-	// Ãë¼Ò³»¿ë »ó¼¼º¸±â
-	@GetMapping(value="/cancel_detail")
+
+	// ì·¨ì†Œë‚´ìš© ìƒì„¸ë³´ê¸°
+	@GetMapping(value = "/cancel_detail")
 	public String cancelDetailView(CampOrderCancelVO vo, Model model) {
 		CampOrderCancelVO cancelDetail = campOrderCancelService.getCancelOrder(vo.getCseq());
-		
+
 		model.addAttribute("cancelDetail", cancelDetail);
-		
+
 		return "admin/campOrder/admin_cancelDetail";
 	}
-	
+
 	@ModelAttribute("conditionMap")
 	public Map<String, String> searchConditionMap() {
 		Map<String, String> conditionMap = new LinkedHashMap<>();
 
-		conditionMap.put("ÁöÁ¡À» ¼±ÅÃÇÏ¼¼¿ä", "0");
-		conditionMap.put("Ä·ÇÎÁ·Àå-°­¿øµµÁöÁ¡", "1");
-		conditionMap.put("Ä·ÇÎÁ·Àå-°æ±âµµÁöÁ¡", "2");
-		conditionMap.put("Ä·ÇÎÁ·Àå-ÃæÃ»µµÁöÁ¡", "3");
-		conditionMap.put("Ä·ÇÎÁ·Àå-°æ»óµµÁöÁ¡", "4");
-		conditionMap.put("Ä·ÇÎÁ·Àå-Àü¶óµµÁöÁ¡", "5");
-		conditionMap.put("Ä·ÇÎÁ·Àå-Á¦ÁÖµµÁöÁ¡", "6");
+		conditionMap.put("ì§€ì ì„ ì„ íƒí•˜ì„¸ìš”", "0");
+		conditionMap.put("ìº í•‘ì¡±ì¥-ê°•ì›ë„ì§€ì ", "1");
+		conditionMap.put("ìº í•‘ì¡±ì¥-ê²½ê¸°ë„ì§€ì ", "2");
+		conditionMap.put("ìº í•‘ì¡±ì¥-ì¶©ì²­ë„ì§€ì ", "3");
+		conditionMap.put("ìº í•‘ì¡±ì¥-ê²½ìƒë„ì§€ì ", "4");
+		conditionMap.put("ìº í•‘ì¡±ì¥-ì „ë¼ë„ì§€ì ", "5");
+		conditionMap.put("ìº í•‘ì¡±ì¥-ì œì£¼ë„ì§€ì ", "6");
 
 		return conditionMap;
-	}
-	
-	@ModelAttribute("searchMap")
-	public Map<String, String> searchMap() {
-		Map<String, String> searchMap = new LinkedHashMap<>();
-		
-		searchMap.put("Ã¼Å©ÀÎ", "INDATE");
-		searchMap.put("È¸¿øID", "USER_ID");
-		searchMap.put("¿¹¾àÀÚ¸í", "ORDER_NAME");
-		
-		return searchMap;
 	}
 }

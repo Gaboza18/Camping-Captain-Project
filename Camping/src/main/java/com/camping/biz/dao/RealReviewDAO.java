@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.camping.biz.dto.RealReviewVO;
-import com.camping.biz.dto.UsersVO;
 
 import utils.Criteria;
 
@@ -17,72 +16,79 @@ public class RealReviewDAO {
 
 	@Autowired
 	private SqlSessionTemplate mybatis;
-	
-	//ÀüÃ¼ ¸®ºä Á¶È¸(¿ø·¡ title ¾ø¾ú¾úÀ½. 2022-02-16)--- title Àû¾îÁà¾ßÇÏ³ª
+
+	// ì „ì²´ ë¦¬ë·° ì¡°íšŒ
 	public List<RealReviewVO> listReview(RealReviewVO vo) {
-		return mybatis.selectList("mappings.review-mapping.listAllReviews" ,vo);
+		return mybatis.selectList("mappings.review-mapping.listAllReviews", vo);
 	}
-	
-	// ¸®ºä »ó¼¼º¸±â
+
+	// ë¦¬ë·° ìƒì„¸ë³´ê¸°
 	public RealReviewVO detailReviews(int rseq) {
 		return mybatis.selectOne("mappings.review-mapping.detailReviews", rseq);
-		
 	}
-	// ¸®¾ó¸®ºä Á¶È¸¼ö Áõ°¡
+
+	// ë¦¬ì–¼ë¦¬ë·° ì¡°íšŒìˆ˜ ì¦ê°€
 	public int updateViewCount(int rseq) {
-		return mybatis.update("mappings.review-mapping.updateViewCount",rseq);
+		return mybatis.update("mappings.review-mapping.updateViewCount", rseq);
 	}
-	
-	// ÀüÃ¼ ¸®ºä °¹¼ö Á¶È¸
+
+	// ì „ì²´ ë¦¬ë·° ê°¯ìˆ˜ ì¡°íšŒ
 	public int countReviewlist(String title) {
-		return mybatis.selectOne("mappings.review-mapping.countReviewlist",title);
+		return mybatis.selectOne("mappings.review-mapping.countReviewlist", title);
 	}
-	
-	// ÆäÀÌÂ¡ º° ¸®ºä Á¶È¸
+
+	// í˜ì´ì§• ë³„ ë¦¬ë·° ì¡°íšŒ
 	public List<RealReviewVO> getListWithPaging(Criteria criteria, String title) {
-		
+
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("criteria", criteria);
 		map.put("title", title);
-		
-		return mybatis.selectList("mappings.review-mapping.listWithPaging",map);
-		
+
+		return mybatis.selectList("mappings.review-mapping.listWithPaging", map);
+
+	}
+
+	public void insertReview(RealReviewVO vo) {
+		mybatis.insert("mappings.review-mapping.insertReview", vo);
+	}
+
+	public void deletereviews(int rseq) {
+		mybatis.delete("mappings.review-mapping.deleteRiviews", rseq);
+	}
+
+	// ë¦¬ë·° ìˆ˜ì •í•˜ê¸°
+	public void modifyreviews(RealReviewVO vo) {
+		mybatis.update("mappings.review-mapping.modifyReviews", vo);
 	}
 	
-	//¸®½ºÆ® ÆäÀÌÂ¡Ã³¸® 2
+	// ë¼ë””ì˜¤ë²„íŠ¼ìœ¼ë¡œ ì§€ì ì„ íƒí•´ì„œ ì§€ì ë³„ ë¦¬ë·° ë³´ê¸°
+	public List<RealReviewVO> areaList(RealReviewVO vo) {
+		return mybatis.selectList("mappings.review-mapping.areaList", vo);
+	}
 	
-public List<RealReviewVO> getListWithPaging2(Criteria criteria, String id) {
-		
+	/*
+	 * ë‚˜ì˜ í›„ê¸°
+	 */
+
+	// ë‚˜ì˜ í›„ê¸° ëª©ë¡ ê°¯ìˆ˜ ì¡°íšŒ
+	public int countReviewlist2(RealReviewVO vo) {
+		return mybatis.selectOne("mappings.review-mapping.countReviewlist2", vo);
+	}
+
+	// ë¦¬ìŠ¤íŠ¸ í˜ì´ì§•ì²˜ë¦¬(ë‚˜ì˜ í›„ê¸° ë¦¬ìŠ¤íŠ¸ í˜ì´ì§• ì²˜ë¦¬)
+	public List<RealReviewVO> getListWithPaging2(Criteria criteria, String id, String title) {
+
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("criteria", criteria);
 		map.put("id", id);
-		
-		return mybatis.selectList("mappings.review-mapping.listWithPaging2",map);
-}
+		map.put("title", title);
 
-//ÀüÃ¼ ¸®ºä °¹¼ö Á¶È¸
-	public int countReviewlist2(String id) {
-		return mybatis.selectOne("mappings.review-mapping.countReviewlist",id);
-	}
-
-
-	public void insertReview(RealReviewVO vo) {
-		mybatis.insert("mappings.review-mapping.insertReview",vo);
+		return mybatis.selectList("mappings.review-mapping.listWithPaging2", map);
 	}
 	
+	// ë‚˜ì˜í›„ê¸° ìƒì„¸ë³´ê¸°
 	public List<RealReviewVO> seemyreview(RealReviewVO vo) {
-		return mybatis.selectList("mappings.review-mapping.myreview", vo); 
+		return mybatis.selectList("mappings.review-mapping.myreview", vo);
 	}
-	
-	public void deletereviews(int rseq) {
-		mybatis.delete("mappings.review-mapping.deleteRiviews",rseq);
-	}
-	
-	//modifyRiviews
-	public void  modifyreviews(RealReviewVO vo) {
-		 mybatis.update("mappings.review-mapping.modifyRiviews",vo);
-}
-	public List<RealReviewVO> areaList(RealReviewVO vo) {
-		return mybatis.selectList("mappings.review-mapping.areaList",vo);
-	}
+
 }

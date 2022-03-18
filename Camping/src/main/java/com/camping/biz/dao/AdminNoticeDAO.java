@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.camping.biz.dto.AdminNoticeVO;
 
-import utils.Criteria;
+import utils.Criteria; 
 
 @Repository
 public class AdminNoticeDAO {

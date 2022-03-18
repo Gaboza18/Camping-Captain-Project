@@ -14,28 +14,29 @@ public class QnaDAO {
 	@Autowired
 	private SqlSessionTemplate mybatis;
 	
-	// ÀüÃ¼ QnA ¸ñ·Ï Á¶È¸
+	// ì „ì²´ QnA ëª©ë¡ ì¡°íšŒ
 	public List<QnaVO> listQna(String id){
 		return mybatis.selectList("mappings.qna-mapping.listQna", id);
 	}
 	
-	// QnA ¸ñ·Ï¹øÈ£·Î ÇÑ°Ç Á¶È¸
+	// QnA ëª©ë¡ë²ˆí˜¸ë¡œ í•œê±´ ì¡°íšŒ
 	public QnaVO getQna(int qseq) {
 		return mybatis.selectOne("mappings.qna-mapping.getQna", qseq);
 	}
 	
-	// QnA µî·ÏÇÏ±â
+	// QnA ë“±ë¡í•˜ê¸°
 	public void insertQna(QnaVO vo) {
 		mybatis.insert("mappings.qna-mapping.insertQna", vo);
 	}
 	
-	// QnA ÀüÃ¼ Á¶È¸(ÃÑ°ü¸®ÀÚ)
+	// QnA ì „ì²´ ì¡°íšŒ(ì´ê´€ë¦¬ì)
 	public List<QnaVO> listAllQna() {
 		return mybatis.selectList("mappings.qna-mapping.listAllQna");
 	}
 
-	// QnA ´äº¯Ã³¸®(ÃÑ°ü¸®ÀÚ)
+	// QnA ë‹µë³€ì²˜ë¦¬(ì´ê´€ë¦¬ì)
 	public void updateQna(QnaVO vo) {
 		mybatis.update("mappings.qna-mapping.updateQna", vo);
 	}
+	
 }

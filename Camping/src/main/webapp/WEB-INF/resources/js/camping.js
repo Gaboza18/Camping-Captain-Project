@@ -1,7 +1,3 @@
-/**
- * 
- */
-
 // 조회하기 버튼 클릭 시 필터 적용
 function search_chk() {
 	if($("#search_camp_name").val() == "0"){
@@ -17,8 +13,8 @@ function search_chk() {
 
 // 캠핑장 예약 시 인원 선택 (버튼 클릭 시 증가/감소)
 function minus(){
-	var base = $("#base").val();
-	var people = $("#people").val();
+	var base = parseInt($("#base").val());
+	var people = parseInt($("#people").val());
 	var price = parseInt($("#total_price").val());
 	var add_price = 10000;
 	
@@ -31,8 +27,8 @@ function minus(){
 }
 
 function plus(){
-	var max = $("#max").val();
-	var people = $("#people").val();
+	var max = parseInt($("#max").val());
+	var people = parseInt($("#people").val());
 	var price = parseInt($("#total_price").val());
 	var add_price = 10000;
 	
@@ -44,14 +40,8 @@ function plus(){
 	} 
 }
 
-// 예약 완료시 출력
-//function complete() {
-//	alert("예약이 완료되었습니다.");
-//}
-
 // 예약취소 버튼 클릭 시 팝업창 오픈
 function myCancel(oseq) {
-var url = "go_myOrder_cancel?oseq="+oseq;
-	
+	var url = "go_myOrder_cancel?oseq="+oseq;
 	window.open(url, "_blank_", "toolbar=no, menubar=no, scrollbars=no, resizable=yes, width=500, height=550");
 }

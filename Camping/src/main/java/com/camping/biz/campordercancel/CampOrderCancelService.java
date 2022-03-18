@@ -3,46 +3,45 @@ package com.camping.biz.campordercancel;
 import java.util.List;
 
 import com.camping.biz.dto.CampOrderCancelVO;
-import com.camping.biz.dto.CampOrderVO;
 
 import utils.Criteria;
 
 public interface CampOrderCancelService {
 	
-	// ¸¶ÀÌÆäÀÌÁö¿¡¼­ ¿¹¾àÁ¶È¸ ÈÄ Ãë¼Ò ½ÅÃ» ½Ã Ãë¼ÒÅ×ÀÌºí¿¡ insert
+	// ë§ˆì´í˜ì´ì§€ì—ì„œ ì˜ˆì•½ì¡°íšŒ í›„ ì·¨ì†Œ ì‹ ì²­ ì‹œ ì·¨ì†Œí…Œì´ë¸”ì— insert
 	public void insertCancelMyOrder(CampOrderCancelVO vo);
 	
-	// ´ë±âÁßÀÎ Ãë¼Ò¸ñ·Ï °¹¼ö Á¶È¸
+	// ëŒ€ê¸°ì¤‘ì¸ ì·¨ì†Œëª©ë¡ ê°¯ìˆ˜ ì¡°íšŒ
 	public int  countMyNonCancelList(String usersid);
 	
-	// ¸¶ÀÌÆäÀÌÁö¿¡¼­ ³» Ãë¼Ò³»¿ª Á¶È¸ ½Ã Ãë¼ÒÇöÈ² °¹¼ö Á¶È¸
+	// ë§ˆì´í˜ì´ì§€ì—ì„œ ë‚´ ì·¨ì†Œë‚´ì—­ ì¡°íšŒ ì‹œ ì·¨ì†Œí˜„í™© ê°¯ìˆ˜ ì¡°íšŒ
 	public int countMyCancelList(String usersid);
 	
-	// ³» Ãë¼Ò³»¿ª ÆäÀÌÂ¡ Ã³¸®
+	// ë‚´ ì·¨ì†Œë‚´ì—­ í˜ì´ì§• ì²˜ë¦¬
 	public List<CampOrderCancelVO> getMyListWithPaging(Criteria criteria, String usersid);
 	
-	
 	/*
-	 * °ü¸®ÀÚ ±â´É
+	 * ê´€ë¦¬ì ê¸°ëŠ¥
 	 */
-	// º»ÀÎ ÁöÁ¡ ÀüÃ¼ ¿¹¾à Ãë¼Ò ÇöÈ² °¹¼ö Á¶È¸
+	// ë³¸ì¸ ì§€ì  ì „ì²´ ì˜ˆì•½ ì·¨ì†Œ í˜„í™© ê°¯ìˆ˜ ì¡°íšŒ
 	public int countOrderList(String camp_name);
 	
-	// Ãë¼Ò ³»¿ª ÆäÀÌÂ¡Ã³¸®
+	// ì·¨ì†Œ ë‚´ì—­ í˜ì´ì§•ì²˜ë¦¬
 	public List<CampOrderCancelVO> getListWithPaging(Criteria criteria, String camp_name);
 	
-	// ÀüÃ¼ ¿¹¾àÃë¼Ò ÇöÈ² ¸ñ·Ï °¹¼ö Á¶È¸
+	// ì „ì²´ ì˜ˆì•½ì·¨ì†Œ í˜„í™© ëª©ë¡ ê°¯ìˆ˜ ì¡°íšŒ
 	public int countAllOrderList();
 	
-	// ÀüÃ¼ Ãë¼Ò ³»¿ª ÆäÀÌÂ¡ Ã³¸®
+	// ì „ì²´ ì·¨ì†Œ ë‚´ì—­ í˜ì´ì§• ì²˜ë¦¬
 	public List<CampOrderCancelVO> getAllListWithPaging(Criteria criteria);
 	
-	// Ãë¼Ò³»¿ª ÇÑ°Ç Á¶È¸
+	// ì·¨ì†Œë‚´ì—­ í•œê±´ ì¡°íšŒ
 	public CampOrderCancelVO getCancelOrder(int cseq);
 	
-	// °ü¸®ÀÚ°¡ ¿¹¾à Ãë¼Ò ½Ã Ãë¼Ò Å×ÀÌºí¿¡ insert
+	// ê´€ë¦¬ìê°€ ì˜ˆì•½ ì·¨ì†Œ ì‹œ ì·¨ì†Œ í…Œì´ë¸”ì— insert
 	public void insertOrderCancel(CampOrderCancelVO vo);
 	
-	// Ãë¼ÒÁøÇà»óÅÂ º¯°æ
+	// ì·¨ì†Œì§„í–‰ìƒíƒœ ë³€ê²½
 	public void updateCancelStatus(int cseq);
+	
 }

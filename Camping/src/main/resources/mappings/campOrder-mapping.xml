@@ -10,7 +10,7 @@
 		
 	<!-- 예약정보 조회 -->
 	<select id="getCampOrderList" resultType="campOrder">
-		SELECT * FROM camp_order WHERE indate=#{indate}
+		SELECT * FROM camp_order WHERE indate=#{indate} 
 	</select>
 
 	<!-- 예약번호로 예약내역 한건 조회 -->
@@ -21,7 +21,7 @@
 	<!-- 회원 id를 기준으로 총 예약 목록 갯수 조회 -->
 	<select id="countMyOrderList" parameterType="String" resultType="int">
 		SELECT COUNT(*) FROM camp_order 
-		 WHERE user_id=#{user_id}
+			WHERE user_id=#{user_id}
 	</select>
 	
 	<!-- 페이징 처리(1~10개씩 출력) / 지점 선택 기능 -->
@@ -40,16 +40,12 @@
 	]]>
 	</select>
 	
-	
-	
-	
-	
 	<!--  관리자 기능    -->
 	<!-- 본인 지점 예약 현황 -->
 	<!-- 총 예약현황 목록 갯수 조회 -->
 	<select id="countOrderList" parameterType="String" resultType="int">
 		SELECT COUNT(*) FROM camp_order 
-		 WHERE camp_name=#{camp_name}
+			WHERE camp_name=#{camp_name}
 	</select>
 	
 	<!-- 페이징 처리(1~10개씩 출력) / 지점 선택 기능 -->

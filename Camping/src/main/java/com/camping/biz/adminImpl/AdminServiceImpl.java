@@ -37,7 +37,6 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public void deletereview(int rseq) {
 		aDao.deletereview(rseq);
-
 	}
 
 	@Override

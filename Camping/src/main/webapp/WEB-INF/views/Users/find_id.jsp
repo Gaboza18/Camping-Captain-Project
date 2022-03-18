@@ -40,7 +40,7 @@
 				</p>	
 				<div>
 					<input class="btn btn-lg btn-secondary btn-block text-uppercase" type="submit" value="check">&nbsp;&nbsp;
-					<button class="btn btn-lg btn-secondary btn-block text-uppercase" type="button" onclick="history.go(-1);">로그인으로</button>					
+					<button class="btn btn-lg btn-secondary btn-block text-uppercase" type="button" onclick="location.href='login'">로그인으로</button>					
 				</div><br><br>
 		
 				<!-- 이름과 전화번호가 일치하지 않을 때-->

@@ -80,12 +80,12 @@ public class AdminDAO {
 		return mybatis.update("mappings.admin-mapping.countReviewlist", rseq);
 	}
 
-	// ������Ʈ ��ȸ �� ����¡ ó��
+	// 블랙리스트 조회 및 페이징 처리
 	public List<UsersVO> listUsers(UsersVO vo) {
 		return mybatis.selectList("mappings.admin-mapping.listAllUsers", vo);
 	}
 
-	// ����¡ �� ���� ��ȸ
+	// 페이징 별 리뷰 조회
 	public List<UsersVO> getUsersListWithPaging(Criteria criteria, String id) {
 
 		HashMap<String, Object> map = new HashMap<>();

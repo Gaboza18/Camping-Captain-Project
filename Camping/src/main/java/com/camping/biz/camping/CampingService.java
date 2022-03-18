@@ -5,13 +5,14 @@ import java.util.List;
 import com.camping.biz.dto.CampingVO;
 
 public interface CampingService {
-	
-	// Ä·ÇÎ ÁöÁ¡ ÀÌ¸§  Á¶È¸ 
+
+	// ìº í•‘ ì§€ì  ì´ë¦„  ì¡°íšŒ 
 	public String getCampName(int camp_id);
 	
-	//¿¹¾à°¡´ÉÇÑ ±¸¿ª ¿¹¾àÀ» À§ÇÑ Á¤º¸
+	//ì˜ˆì•½ê°€ëŠ¥í•œ êµ¬ì—­ ì˜ˆì•½ì„ ìœ„í•œ ì •ë³´
 	public CampingVO getCamping(String camp_zone);
 	
-	// ¿¹¾à°¡´ÉÇÑ Ä·ÇÎÀå ¸®½ºÆ® Á¶È¸
+	// ì˜ˆì•½ê°€ëŠ¥í•œ ìº í•‘ì¥ ë¦¬ìŠ¤íŠ¸ ì¡°íšŒ
 	public List<CampingVO> campingList(int camp_id);
+	
 }

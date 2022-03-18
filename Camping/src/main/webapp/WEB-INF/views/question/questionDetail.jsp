@@ -5,7 +5,6 @@
 <%@ include file="../header.jsp"%>    
 <link rel="stylesheet" href="css/styles.css" >
 
-	
 <div id="question_detail_form" align="center">
 	<h2>자주묻는질문 상세보기</h2>
 

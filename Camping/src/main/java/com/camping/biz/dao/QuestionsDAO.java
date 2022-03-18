@@ -14,12 +14,12 @@ public class QuestionsDAO {
 	@Autowired
 	private SqlSessionTemplate mybatis;
 
-	// ��ü ���ֹ������� ��ȸ
+	// 자주묻는 질문 리스트 조회
 	public List<QuestionsVO> listQuestion() {
 		return mybatis.selectList("mappings.question-mapping.listAllQuestion");
 	}
 
-	// ���ֹ������� �� ����
+	// 자주 묻는 질문 상세보기
 	public QuestionsVO detailQuestion(int qseq) {
 		return mybatis.selectOne("mappings.question-mapping.detailQuestion", qseq);
 	}
@@ -38,4 +38,5 @@ public class QuestionsDAO {
 	public void deleteQuestion(int qseq) {
 		mybatis.delete("mappings.question-mapping.deleteQuestion", qseq);
 	}
+	
 }

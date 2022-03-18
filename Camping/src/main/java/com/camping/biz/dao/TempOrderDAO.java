@@ -1,7 +1,5 @@
 package com.camping.biz.dao;
 
-
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -14,18 +12,19 @@ public class TempOrderDAO {
 	@Autowired
 	private SqlSessionTemplate mybatis;
 	
-	// ÀÓ½Ã ¿¹¾àÁ¤º¸ insert
+	// ì„ì‹œ ì˜ˆì•½ì •ë³´ insert
 	public void insertTempOrder(TempOrderVO vo) {
 		mybatis.insert("mappings.tempOrder-mapping.insertTempOrder", vo);
 	}
 	
-	// ÀÓ½Ã ¿¹¾à¹øÈ£¸¦ ±âÁØÀ¸·Î ÇÑ°Ç Á¶È¸
+	// ì„ì‹œ ì˜ˆì•½ë²ˆí˜¸ë¥¼ ê¸°ì¤€ìœ¼ë¡œ í•œê±´ ì¡°íšŒ
 	public TempOrderVO getTempOrder(String temp_id) {
 		return mybatis.selectOne("mappings.tempOrder-mapping.getTempOrder", temp_id);
 	}
 	
-	// ½Ç°áÁ¦ ¼º°ø ½Ã ÀÓ½ÃÅ×ÀÌºí »èÁ¦
+	// ì‹¤ê²°ì œ ì„±ê³µ ì‹œ ì„ì‹œí…Œì´ë¸” ì‚­ì œ
 	public void deleteTempOrder(String temp_id) {
 		mybatis.delete("mappings.tempOrder-mapping.deleteTempOrder", temp_id);
 	}
+	
 }

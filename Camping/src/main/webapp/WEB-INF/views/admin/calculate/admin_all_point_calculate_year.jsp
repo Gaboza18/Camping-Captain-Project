@@ -96,4 +96,4 @@
 	</form>
 </div>
 
-<%@ include file="../admin_footer.jsp"%>
+<%@ include file="../admin_footer.jsp"%> 

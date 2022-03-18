@@ -32,5 +32,5 @@
 	<delete id="deleteQuestion" parameterType="int">
 		DELETE FROM questions WHERE qseq=#{qseq}	
 	</delete>
-	
+	 
 </mapper>

@@ -28,116 +28,121 @@ import com.camping.biz.users.UsersService;
 
 @Controller
 public class CampingController {
-	
+
 	@Autowired
 	private CampingService campingService;
 	@Autowired
 	private CampOrderService campOrderService;
 	@Autowired
 	private UsersService usersService;
-	
+
 	/*
-	 *  ¿¹¾à°¡´ÉÇÑ Ä·ÇÎÀå ±¸¿ª ¸®½ºÆ® Á¶È¸
+	 * ì˜ˆì•½ê°€ëŠ¥í•œ ìº í•‘ì¥ êµ¬ì—­ ë¦¬ìŠ¤íŠ¸ ì¡°íšŒ
 	 */
-	@RequestMapping(value="/camp_list", method=RequestMethod.GET)
+	@RequestMapping(value = "/camp_list", method = RequestMethod.GET)
 	public String campingListView() {
 		return "camping/campingList";
 	}
-	
-	@RequestMapping(value="/camp_search", method=RequestMethod.GET)
-	public String campingList(@RequestParam(value="checkin_date") String checkin_date,
-								@RequestParam(value="checkout_date") String checkout_date, 
-								@RequestParam(value = "search_camp_name") int camp_id, Model model) {
+
+	/*
+	 * ë¦¬ìŠ¤íŠ¸í˜ì´ì§€ì—ì„œ ì§€ì  ì„ íƒí•˜ì—¬ ì¡°íšŒ ì‹œ ì´ë™
+	 */
+	@RequestMapping(value = "/camp_search", method = RequestMethod.GET)
+	public String campingList(@RequestParam(value = "checkin_date") String checkin_date,
+			@RequestParam(value = "checkout_date") String checkout_date,
+			@RequestParam(value = "search_camp_name") int camp_id, Model model) {
 		String indate = checkin_date;
 		String outdate = checkout_date;
 		int search_camp_name = camp_id;
 		List<CampingVO> campingList = campingService.campingList(camp_id);
-		
+
 		List<CampOrderVO> orderList = campOrderService.getCampOrderList(indate);
-		
+
 		model.addAttribute("campingList", campingList);
 		model.addAttribute("indate", indate);
 		model.addAttribute("outdate", outdate);
 		model.addAttribute("selected", search_camp_name);
 		model.addAttribute("order", orderList);
 		model.addAttribute("camp_id", camp_id);
-		
+
 		return "camping/campingList";
 	}
-	
+
 	@ModelAttribute("conditionMap")
 	public Map<String, String> searchConditionMap() {
 		Map<String, String> conditionMap = new LinkedHashMap<>();
 
-		conditionMap.put("ÁöÁ¡À» ¼±ÅÃÇÏ¼¼¿ä", "0");
-		conditionMap.put("Ä·ÇÎÁ·Àå-°­¿øµµÁöÁ¡", "1");
-		conditionMap.put("Ä·ÇÎÁ·Àå-°æ±âµµÁöÁ¡", "2");
-		conditionMap.put("Ä·ÇÎÁ·Àå-ÃæÃ»µµÁöÁ¡", "3");
-		conditionMap.put("Ä·ÇÎÁ·Àå-°æ»óµµÁöÁ¡", "4");
-		conditionMap.put("Ä·ÇÎÁ·Àå-Àü¶óµµÁöÁ¡", "5");
-		conditionMap.put("Ä·ÇÎÁ·Àå-Á¦ÁÖµµÁöÁ¡", "6");
+		conditionMap.put("ì§€ì ì„ ì„ íƒí•˜ì„¸ìš”", "0");
+		conditionMap.put("ìº í•‘ì¡±ì¥-ê°•ì›ë„ì§€ì ", "1");
+		conditionMap.put("ìº í•‘ì¡±ì¥-ê²½ê¸°ë„ì§€ì ", "2");
+		conditionMap.put("ìº í•‘ì¡±ì¥-ì¶©ì²­ë„ì§€ì ", "3");
+		conditionMap.put("ìº í•‘ì¡±ì¥-ê²½ìƒë„ì§€ì ", "4");
+		conditionMap.put("ìº í•‘ì¡±ì¥-ì „ë¼ë„ì§€ì ", "5");
+		conditionMap.put("ìº í•‘ì¡±ì¥-ì œì£¼ë„ì§€ì ", "6");
 
 		return conditionMap;
 	}
-	
+
 	/*
-	 * ¿¹¾àÆäÀÌÁö·Î ÀÌµ¿
+	 * ì˜ˆì•½í˜ì´ì§€ë¡œ ì´ë™
 	 */
-	@RequestMapping(value="/order_insert_form", method=RequestMethod.POST)
-	public String campingOrderView(String camp_zone, String indate, String outdate, Model model, HttpSession session) throws ParseException {
-		UsersVO loginUser =(UsersVO)session.getAttribute("loginUser");
-		
-		if(loginUser == null) {   
+	@RequestMapping(value = "/order_insert_form", method = RequestMethod.POST)
+	public String campingOrderView(String camp_zone, String indate, String outdate, Model model, HttpSession session)
+			throws ParseException {
+		UsersVO loginUser = (UsersVO) session.getAttribute("loginUser");
+
+		if (loginUser == null) {
 			return "Users/login";
-		} else { 
+		} else {
 			UsersVO uVo = usersService.getUsers(loginUser.getId());
-			
+
 			CampingVO camp = new CampingVO();
 			camp = campingService.getCamping(camp_zone);
 			
+			// ì˜ˆì•½í˜ì´ì§€ë¡œ ì´ë™í•  ë•Œ ê°€ê²©ì— ì£¼ì¤‘/ì£¼ë§ ìë™ìœ¼ë¡œ ë„˜ì–´ê°€ë„ë¡ ì„¤ì •
 			String day = "";
-			String inputDate= indate;
+			String inputDate = indate;
 			DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 			Date date = df.parse(inputDate);
-			
+
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(date);
-			    
+
 			int dayNum = cal.get(Calendar.DAY_OF_WEEK);
-		        
-		    switch(dayNum){
-			    case 1:
-			    	day = "ÀÏ";
-			        break;
-			    case 2:
-			        day = "¿ù";
-			        break;
-			    case 3:
-			        day = "È­";
-			        break;
-			    case 4:
-			        day = "¼ö";
-			        break;
-			    case 5:
-			        day = "¸ñ";
-			        break;
-		 	    case 6:
-			        day = "±İ";
-			        break;
-			    case 7:
-			        day = "Åä";
-			        break;
-		    }
-			
+
+			switch (dayNum) {
+			case 1:
+				day = "ì¼";
+				break;
+			case 2:
+				day = "ì›”";
+				break;
+			case 3:
+				day = "í™”";
+				break;
+			case 4:
+				day = "ìˆ˜";
+				break;
+			case 5:
+				day = "ëª©";
+				break;
+			case 6:
+				day = "ê¸ˆ";
+				break;
+			case 7:
+				day = "í† ";
+				break;
+			}
+
+			System.out.println(camp);
+
 			model.addAttribute("camp", camp);
 			model.addAttribute("users", uVo);
 			model.addAttribute("indate", indate);
 			model.addAttribute("outdate", outdate);
 			model.addAttribute("day", day);
-			
+
 			return "camping/campOrder";
 		}
 	}
 }
-
-

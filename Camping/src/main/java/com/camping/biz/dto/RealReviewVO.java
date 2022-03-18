@@ -11,7 +11,7 @@ import lombok.ToString;
 @ToString
 public class RealReviewVO {
 
-	private int rseq;
+	private int rseq; 
 	private String title;
 	private int area;
 	private String campingname;

@@ -1,21 +1,21 @@
 package utils;
 
 /*
- * ÇöÀç ÆäÀÌÁö¿Í °ü·ÃÇÑ Á¤º¸¸¦ ÀúÀåÇÏ´Â Å¬·¡½º
- *  - ÇöÀç ÆäÀÌÁö ¹øÈ£
- *  - ÆäÀÌÁö ´ç Ãâ·Â Ç×¸ñ
- *  - °¢ ÆäÀÌÁöÀÇ ½ÃÀÛ °Ô½Ã±Û ¹øÈ£
+ * í˜„ì¬ í˜ì´ì§€ì™€ ê´€ë ¨í•œ ì •ë³´ë¥¼ ì €ì¥í•˜ëŠ” í´ë˜ìŠ¤
+ *  - í˜„ì¬ í˜ì´ì§€ ë²ˆí˜¸
+ *  - í˜ì´ì§€ ë‹¹ ì¶œë ¥ í•­ëª©
+ *  - ê° í˜ì´ì§€ì˜ ì‹œì‘ ê²Œì‹œê¸€ ë²ˆí˜¸
  */
 
 public class Criteria {
 
-	private int pageNum; // ÇöÀç ÆäÀÌÁö ¹øÈ£
-	private int rowsPerPage; // ÆäÀÌÁö´ç Ãâ·ÂÇàÀÇ °¹¼ö
-	private String keyword; // °Ë»ö Å°¿öµå
+	private int pageNum; // í˜„ì¬ í˜ì´ì§€ ë²ˆí˜¸
+	private int rowsPerPage; // í˜ì´ì§€ë‹¹ ì¶œë ¥í–‰ì˜ ê°¯ìˆ˜
+	private String keyword; // ê²€ìƒ‰ í‚¤ì›Œë“œ
 
-	// »ı¼ºÀÚ
+	// ìƒì„±ì
 	public Criteria() {
-		// ±âº»°ª: ÆäÀÌÁö ¹øÈ£: 1, ÆäÀÌÁö´ç Ç×¸ñ¼ö: 10
+		// ê¸°ë³¸ê°’: í˜ì´ì§€ ë²ˆí˜¸: 1, í˜ì´ì§€ë‹¹ í•­ëª©ìˆ˜: 10
 		this(1, 10);
 	}
 
@@ -31,7 +31,7 @@ public class Criteria {
 	public void setPageNum(int pageNum) {
 
 		if (pageNum <= 0) {
-			this.pageNum = 1; // ÆäÀÌÁö °ªÀÌ À½¼öÀÏ °æ¿ì
+			this.pageNum = 1; // í˜ì´ì§€ ê°’ì´ ìŒìˆ˜ì¼ ê²½ìš°
 		} else {
 			this.pageNum = pageNum;
 		}
@@ -41,7 +41,7 @@ public class Criteria {
 		return rowsPerPage;
 	}
 
-	// ÆäÀÌÁö´ç Ç×¸ñÀÇ ¼ö¸¦ Á¦ÇÑ
+	// í˜ì´ì§€ë‹¹ í•­ëª©ì˜ ìˆ˜ë¥¼ ì œí•œ
 	public void setRowsPerPage(int rowsPerPage) {
 
 		if (rowsPerPage <= 0 || rowsPerPage > 20) {
@@ -52,7 +52,7 @@ public class Criteria {
 	}
 
 	/*
-	 * °¢ ÆäÀÌÁö¿¡¼­ ½ÃÀÛÇÏ´Â Ç×¸ñ¹øÈ£¸¦ ¹İÈ¯ ex) 1ÆäÀÌÁö - 1,2,3,4...10 2ÆäÀÌÁö - 11,12,13,14....20
+	 * ê° í˜ì´ì§€ì—ì„œ ì‹œì‘í•˜ëŠ” í•­ëª©ë²ˆí˜¸ë¥¼ ë°˜í™˜ ex) 1í˜ì´ì§€ - 1,2,3,4...10 2í˜ì´ì§€ - 11,12,13,14....20
 	 */
 	public int getPageStart() {
 		return (pageNum - 1) * rowsPerPage + 1;

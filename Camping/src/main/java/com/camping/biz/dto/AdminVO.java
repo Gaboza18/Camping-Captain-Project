@@ -1,6 +1,6 @@
 package com.camping.biz.dto;
 
-import lombok.*;
+import lombok.*; 
 
 @Getter
 @Setter

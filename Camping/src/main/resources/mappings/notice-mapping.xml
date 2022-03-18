@@ -61,5 +61,5 @@
 	<delete id="deleteNotice" parameterType="int">
 		DELETE FROM notice WHERE nseq=#{nseq}	
 	</delete>
-	
+	 
 </mapper>

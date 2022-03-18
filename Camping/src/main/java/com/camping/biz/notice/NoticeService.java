@@ -3,7 +3,7 @@ package com.camping.biz.notice;
 import java.util.List;
 import com.camping.biz.dto.NoticeVO;
 
-import utils.Criteria;
+import utils.Criteria; 
 
 public interface NoticeService {
 	

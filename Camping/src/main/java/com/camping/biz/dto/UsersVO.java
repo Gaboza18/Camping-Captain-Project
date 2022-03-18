@@ -10,6 +10,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class UsersVO {
+	
 	private String id;
 	private String password;
 	private String name;
@@ -24,4 +25,5 @@ public class UsersVO {
 	private int useq;
 	private String blacklist;
 	private String blackreason;
+	
 }

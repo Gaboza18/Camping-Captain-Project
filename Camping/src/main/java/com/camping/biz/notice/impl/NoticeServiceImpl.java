@@ -15,7 +15,7 @@ import utils.Criteria;
 public class NoticeServiceImpl implements NoticeService {
 
 	@Autowired
-	private NoticeDAO noticeDao;
+	private NoticeDAO noticeDao; 
 
 	@Override
 	public List<NoticeVO> listNotice() {

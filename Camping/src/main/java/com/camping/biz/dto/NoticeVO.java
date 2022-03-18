@@ -10,6 +10,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class NoticeVO {
+	
 	private int nseq;
 	private String title;
 	private String content;
@@ -18,4 +19,5 @@ public class NoticeVO {
 	private int count;
 	private String searchCondition;
 	private String searchKeyword;
+	
 }

@@ -9,7 +9,7 @@ import lombok.ToString;
 @ToString
 public class QuestionsVO {
 	
-	private int qseq;
+	private int qseq; 
 	private String question;
 	private String reply;
 	

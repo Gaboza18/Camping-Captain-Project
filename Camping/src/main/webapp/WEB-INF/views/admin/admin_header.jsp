@@ -69,34 +69,9 @@
 </head>
 <body>
 
-
 	<div id="wrap">
 		<!-- 헤더파일 시작 -->
 		<header id="admin_header">
-			<!-- 홈페이지메인 로고  들어가는 라인-->
-			<!-- <div id="logo">
-				<a href="index">
-					<img alt="camping" src="images/CampingCaptain.jpg" width="250" height="100">
-				</a>
-			</div>
-			<div>
-				<input type="hidden" name="name" value="${loginAdmin.name}">
-			</div>
-			<nav id="admin_logout">
-				<c:choose>
-					<c:when test="${loginAdmin.status eq 1}">
-						<b>${sessionScope.loginAdmin.name}</b> 님
-					</c:when>
-					<c:when test="${loginAdmin.status eq 2}">
-						<b>${sessionScope.loginAdmin.name}</b> 관리자님
-					</c:when>
-				</c:choose> 
-				<a href="admin_logout">LOGOUT</a>
-			</nav>
-			<div class="clear"></div>
-			<hr> -->
-			
-			
 			<nav id="admin_mainNav">
 		        <div class="main_container">
 		            <a class="main_logo" href="index"><img src="assets/img/main_logo.png" alt="..." /></a>
@@ -121,11 +96,7 @@
 		            </div>
 		        </div>
 		    </nav>
-	    	
-	    	
-	    	
-	    	
-	    	
-	    <div class="clear"></div>
+		    
+	    	<div class="clear"></div>
 		</header>
 		<!-- 헤더파일 종료 -->

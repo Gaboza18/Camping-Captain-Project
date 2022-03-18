@@ -7,7 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.camping.biz.dto.CampOrderVO;
+import com.camping.biz.dto.CampOrderVO; 
 
 @Repository
 public class CalculateDAO {

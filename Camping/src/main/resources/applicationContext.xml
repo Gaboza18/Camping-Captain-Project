@@ -40,7 +40,7 @@
 		<constructor-arg ref="sessionFactory"></constructor-arg>
 	</bean>
 	
-	<!-- 메일 발송 Bean 설정-->
+	<!-- 메일 발송 Bean 설정--> 
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="smtp.gmail.com"/>
 		<property name="port" value="587"/> <!-- 구글 메일 포트 번호 -->

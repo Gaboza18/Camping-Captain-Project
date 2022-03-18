@@ -44,7 +44,7 @@
 				<td>${noticeVO.count}</td>
 			</tr>
 		</table><br>
-		<input class="btn"  type="button" value="목록" onclick="history.go(-1);">
+		<input class="btn"  type="button" value="목록" onclick="location.href='master_manage_notice_list'">
 		<c:set var="admin_name" value="${noticeVO.admin_name}"/>
 		<c:set var="admin" value="${admin}"/>
 		<c:choose>

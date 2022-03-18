@@ -8,10 +8,12 @@ import lombok.*;
 @Setter
 @ToString
 public class PayVO {
-    private String tid;        // ½ÂÀÎ Id
-    private String TotPrice;   // °áÁ¦±İ¾×
-    private Date regdate;      // °áÁ¦ÀÏ
-    private String user_id;    // °í°´ID
-    private String camp_zone;  // Ä·ÇÎÀå ±¸¿ª
-    private Date indate; 	   // ÀÔ½Ç ³¯Â¥
+	
+    private String tid;        // ìŠ¹ì¸ Id
+    private String TotPrice;   // ê²°ì œê¸ˆì•¡
+    private Date regdate;      // ê²°ì œì¼
+    private String user_id;    // ê³ ê°ID
+    private String camp_zone;  // ìº í•‘ì¥ êµ¬ì—­
+    private Date indate; 	   // ì…ì‹¤ ë‚ ì§œ
+    
 }

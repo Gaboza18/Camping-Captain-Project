@@ -38,15 +38,15 @@
 				<tr>
 					<th width="150">년 도</th> <th width="300">지점이름</th> <th width="170">총합</th>
 				</tr>
-			<c:forEach items="${GwcalculateList}" var="GwcalculateList">
-				<tr>
-					<td>${GwcalculateList.indate }</td>
-					<td>${GwcalculateList.camp_name }</td>
-					<td>${GwcalculateList.total_price } 원</td>
-				</tr>	
-			</c:forEach>	
+				<c:forEach items="${GwcalculateList}" var="GwcalculateList">
+					<tr>
+						<td>${GwcalculateList.indate }</td>
+						<td>${GwcalculateList.camp_name }</td>
+						<td>${GwcalculateList.total_price } 원</td>
+					</tr>	
+				</c:forEach>	
 			</table>
 		</article>
 	</div>
 	
-<%@ include file="../admin_footer.jsp"%>
+<%@ include file="../admin_footer.jsp"%> 

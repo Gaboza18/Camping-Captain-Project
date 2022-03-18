@@ -10,6 +10,7 @@
 window.addEventListener('DOMContentLoaded', event => {
 
     // Navbar shrink function
+
     var navbarShrink = function () {
         const navbarCollapsible = document.body.querySelector('#mainNav');
         if (!navbarCollapsible) {
@@ -22,7 +23,7 @@ window.addEventListener('DOMContentLoaded', event => {
         }
 
     };
-    
+   
     const header1 = document.querySelector("#header_submenu1");
     const headerHeight1 = header1.getBoundingClientRect().height;
      

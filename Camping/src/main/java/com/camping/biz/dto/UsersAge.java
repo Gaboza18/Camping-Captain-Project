@@ -8,6 +8,8 @@ import lombok.ToString;
 @Setter
 @ToString
 public class UsersAge {
-	private String age; // ¿¬·É
-	private int count; // n¿¬·É È¸¿ø ¼ö
+	
+	private String age; // ì—°ë ¹
+	private int count; // nì—°ë ¹ íšŒì› ìˆ˜(10,20,30,40ëŒ€...íšŒì› ìˆ˜)
+	
 }

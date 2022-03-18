@@ -17,27 +17,27 @@ public class NoticeDAO {
 	@Autowired
 	private SqlSessionTemplate mybatis;
 
-	// ÀüÃ¼ °øÁö»çÇ× Á¶È¸
+	// ì „ì²´ ê³µì§€ì‚¬í•­ ì¡°íšŒ
 	public List<NoticeVO> listNotice() {
 		return mybatis.selectList("mappings.notice-mapping.listAllNotice");
 	}
 
-	// °øÁö»çÇ× »ó¼¼ º¸±â
+	// ê³µì§€ì‚¬í•­ ìƒì„¸ ë³´ê¸°
 	public NoticeVO detailNotice(int nseq) {
 		return mybatis.selectOne("mappings.notice-mapping.detailNotice", nseq);
 	}
 
-	// °øÁö»çÇ× Á¶È¸¼ö Áõ°¡
+	// ê³µì§€ì‚¬í•­ ì¡°íšŒìˆ˜ ì¦ê°€
 	public int updateViewCount(int nseq) {
 		return mybatis.update("mappings.notice-mapping.updateViewCount", nseq);
 	}
 
-	// ÀüÃ¼ °øÁö»çÇ× °¹¼ö Á¶È¸
+	// ì „ì²´ ê³µì§€ì‚¬í•­ ê°¯ìˆ˜ ì¡°íšŒ
 	public int countNoticeList(String title) {
 		return mybatis.selectOne("mappings.notice-mapping.countNoticelist", title);
 	}
 
-	// ÆäÀÌÁöº° °øÁö»çÇ× Á¶È¸
+	// í˜ì´ì§€ë³„ ê³µì§€ì‚¬í•­ ì¡°íšŒ
 	public List<NoticeVO> getListWithPaging(Criteria criteria, String title) {
 
 		HashMap<String, Object> map = new HashMap<>();
@@ -47,17 +47,17 @@ public class NoticeDAO {
 		return mybatis.selectList("mappings.notice-mapping.listWithPaging", map);
 	}
 	
-	// È¸¿ø °øÁö»çÇ× µî·Ï(ÁöÁ¡°ü¸®ÀÚ,ÃÑ°ü¸®ÀÚ)
+	// íšŒì› ê³µì§€ì‚¬í•­ ë“±ë¡(ì§€ì ê´€ë¦¬ì,ì´ê´€ë¦¬ì)
 	public void insertNotice(NoticeVO vo) {
 		mybatis.insert("mappings.notice-mapping.insertNotice",vo);
 	}
 	
-	// È¸¿ø °øÁö»çÇ× ¼öÁ¤(ÁöÁ¡°ü¸®ÀÚ,ÃÑ°ü¸®ÀÚ)
+	// íšŒì› ê³µì§€ì‚¬í•­ ìˆ˜ì •(ì§€ì ê´€ë¦¬ì,ì´ê´€ë¦¬ì)
 	public void updateNotice(NoticeVO vo) {
 		mybatis.update("mappings.notice-mapping.updateNotice",vo);
 	}
 	
-	// È¸¿ø °øÁö»çÇ× »èÁ¦(ÁöÁ¡°ü¸®ÀÚ,ÃÑ°ü¸®ÀÚ)
+	// íšŒì› ê³µì§€ì‚¬í•­ ì‚­ì œ(ì§€ì ê´€ë¦¬ì,ì´ê´€ë¦¬ì)
 	public void deleteNotice(int nseq) {
 		mybatis.delete("mappings.notice-mapping.deleteNotice", nseq);
 	}

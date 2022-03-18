@@ -11,12 +11,12 @@ import lombok.ToString;
 @ToString
 public class QnaVO {
 	
-	private int qseq; // 1´ë1 Áú¹® ¹øÈ£
-	private String subject; // Á¦¸ñ
-	private String content; // ¹®ÀÇ ³»¿ë
-	private String reply; // ´äº¯³»¿ë
-	private String id; // ÀÛ¼ºÀÚ ¾ÆÀÌµğ
-	private String rep; // ´äº¯ À¯¹«
-	private Timestamp indate; // ÀÛ¼ºÀÏ 
+	private int qseq; // 1ëŒ€1 ì§ˆë¬¸ ë²ˆí˜¸
+	private String subject; // ì œëª©
+	private String content; // ë¬¸ì˜ ë‚´ìš©
+	private String reply; // ë‹µë³€ë‚´ìš©
+	private String id; // ì‘ì„±ì ì•„ì´ë””
+	private String rep; // ë‹µë³€ ìœ ë¬´
+	private Timestamp indate; // ì‘ì„±ì¼ 
 	
 }

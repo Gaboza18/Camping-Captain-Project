@@ -4,12 +4,13 @@ import com.camping.biz.dto.PayVO;
 
 public interface PayService {
 	
-	// ½Ç°áÁ¦ Å×ÀÌºí insert
+	// ì‹¤ê²°ì œ í…Œì´ë¸” insert
 	public void insertPay(PayVO vo);
 	
-	// ½Ç°áÁ¦ ÇÑ°Ç Á¶È¸
+	// ì‹¤ê²°ì œ í•œê±´ ì¡°íšŒ
 	public PayVO getPay(PayVO vo);
 	
-	// °áÁ¦ Ãë¼Ò½Ã ½Ç°áÁ¦ Á¤º¸ »èÁ¦
+	// ê²°ì œ ì·¨ì†Œì‹œ ì‹¤ê²°ì œ ì •ë³´ ì‚­ì œ
 	public void deletePay(String tid);
+	
 }

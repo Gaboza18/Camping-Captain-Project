@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
     	<div class="clear"></div>
     	
-    
   		<footer>  
 		    <div id="footer">
 				All contents Copyright 2022 CampingCaptain Inc. all rights reserved<br>

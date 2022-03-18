@@ -1,7 +1,3 @@
-/**
- * 
- */
-
 function chk() {
 	if($("#campName").val() == "0"){
 		alert("지점을 선택해주세요.");
@@ -18,7 +14,7 @@ function check() {
 	}
 }
 
-// 전체 예약 현황 리스트에서 예약완료 버튼 클릭 시 상세내용확인을 위한 팝업창 오픈
+// 전체 예약 현황 리스트에서 예약완료 버튼 클릭 시 상세내용확인을 위한 팝업창 오픈 
 function confirm_order(oseq){
 	var confirm_url = "confirm_order_check?oseq="+oseq+"&camp_idRe="+$("#camp_idRe").val();
 	

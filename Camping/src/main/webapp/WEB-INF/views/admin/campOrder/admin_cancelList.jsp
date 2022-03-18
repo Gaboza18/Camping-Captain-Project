@@ -81,17 +81,18 @@
 								</c:choose>
 							</c:when>
 						</c:choose>
-						
-					
-						
 					</td>
-					<td><a href="cancel_detail?cseq=${cancelList.cseq}" onclick="window.open(this.href, '_blank', 'toolbar=no, menubar=no, scrollbars=no, resizable=yes, width=500, height=500'); return false;">취소내용보기</a></td>
+					<td>
+						<a href="cancel_detail?cseq=${cancelList.cseq}" onclick="window.open(this.href, '_blank', 'toolbar=no, menubar=no, scrollbars=no, resizable=yes, width=500, height=500'); return false;">취소내용보기</a>
+					</td>
 				</tr>
 			</c:forEach>
-			<!-- <tr><td colspan="6" style="text-align: center;"> ${paging} </td></tr> -->
 		</table>
 	</form>
+	
 	<%@ include file="cancel_page_area.jsp"%>
+	
 </article>
+
 <%@ include file="../admin_footer.jsp" %>
 

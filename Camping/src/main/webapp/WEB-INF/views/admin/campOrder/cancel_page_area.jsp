@@ -20,7 +20,7 @@
 						<a href="search_cancel${pageMaker.makeQuery(index)}">[${index}]</a>
 					</c:when>
 					<c:otherwise>
-						<a href="search_orderList${pageMaker.makeQuery(index)}&campName=${selected}">[${index}]</a>
+						<a href="search_cancelList${pageMaker.makeQuery(index)}&campName=${selected}">[${index}]</a>
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
@@ -34,7 +34,3 @@
 			
 	</ul>
 </div>
-
-
-
-

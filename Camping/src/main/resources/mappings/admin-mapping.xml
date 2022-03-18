@@ -3,19 +3,19 @@
 <mapper namespace="mappings.admin-mapping">
 
 	<select id="getAdmin" resultType="admin">
-		SELECT * FROM admin WHERE
-		id=#{id}
+		SELECT * FROM admin 
+			WHERE id=#{id}
 	</select>
 
 	<select id="confirmID" resultType="String">
 		SELECT password FROM admin
-		WHERE id=#{id}
+			WHERE id=#{id}
 	</select>
 
 	<!-- 전체 회원 조회 -->
 	<select id="listAllUsers" resultType="users">
 		SELECT * FROM users
-		ORDER BY useq DESC
+			ORDER BY useq DESC
 	</select>
 	
 	<!-- 일반 회원 조회 -->
@@ -38,9 +38,9 @@
 	<select id="statusUserlist" parameterType="String" resultType="int">
 		SELECT COUNT(*) FROM users
 			where blacklist=#{blacklist}
-		<if test='id !=null'>
-			and id LIKE '%'||#{id}||'%'
-		</if>
+				<if test='id !=null'>
+					and id LIKE '%'||#{id}||'%'
+				</if>
 	</select>
 	
 	<!-- 블랙리스트 회원 페이징 처리 조회 -->

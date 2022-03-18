@@ -13,7 +13,7 @@ import com.camping.biz.dto.CampOrderVO;
 public class CalculateServiceImpl implements CalculateService {
 	
 	@Autowired
-	private CalculateDAO calDao;
+	private CalculateDAO calDao; 
 	
 	@Override
 	public List<CampOrderVO> calculateDay() {	

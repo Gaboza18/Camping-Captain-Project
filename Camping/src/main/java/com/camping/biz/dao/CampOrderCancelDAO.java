@@ -8,51 +8,49 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.camping.biz.dto.CampOrderCancelVO;
-import com.camping.biz.dto.CampOrderVO;
 
 import utils.Criteria;
 
 @Repository
 public class CampOrderCancelDAO {
-	
+
 	@Autowired
 	private SqlSessionTemplate mybatis;
-	
-	// ¸¶ÀÌÆäÀÌÁö¿¡¼­ ¿¹¾àÁ¶È¸ ÈÄ Ãë¼Ò ½ÅÃ» ½Ã Ãë¼ÒÅ×ÀÌºí¿¡ insert
+
+	// ë§ˆì´í˜ì´ì§€ì—ì„œ ì˜ˆì•½ì¡°íšŒ í›„ ì·¨ì†Œ ì‹ ì²­ ì‹œ ì·¨ì†Œí…Œì´ë¸”ì— insert
 	public void insertCancelMyOrder(CampOrderCancelVO vo) {
 		mybatis.insert("mappings.campOrderCancel-mapping.insertCancelMyOrder", vo);
 	}
-	
-	// ´ë±âÁßÀÎ Ãë¼Ò¸ñ·Ï °¹¼ö Á¶È¸
-	public int  countMyNonCancelList(String usersid) {
+
+	// ëŒ€ê¸°ì¤‘ì¸ ì·¨ì†Œëª©ë¡ ê°¯ìˆ˜ ì¡°íšŒ
+	public int countMyNonCancelList(String usersid) {
 		return mybatis.selectOne("mappings.campOrderCancel-mapping.countMyNonCancelList", usersid);
 	}
-	
-	// ÃÑ Ãë¼Ò³»¿ª ÇöÈ² ¸ñ·Ï °¹¼ö Á¶È¸
+
+	// ì´ ì·¨ì†Œë‚´ì—­ í˜„í™© ëª©ë¡ ê°¯ìˆ˜ ì¡°íšŒ
 	public int countMyCancelList(String usersid) {
 		return mybatis.selectOne("mappings.campOrderCancel-mapping.countMyCancelList", usersid);
 	}
-	
-	// ÆäÀÌÂ¡ Ã³¸®(1~10°³¾¿ Ãâ·Â)
-	public List<CampOrderCancelVO> getMyListWithPaging(Criteria criteria, String usersid){
+
+	// í˜ì´ì§• ì²˜ë¦¬(1~10ê°œì”© ì¶œë ¥)
+	public List<CampOrderCancelVO> getMyListWithPaging(Criteria criteria, String usersid) {
+		
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("criteria", criteria);
 		map.put("usersid", usersid);
 
 		return mybatis.selectList("mappings.campOrderCancel-mapping.MylistWithPaging", map);
 	}
-	
-	
-	
+
 	/*
-	 * °ü¸®ÀÚ ±â´É
+	 * ê´€ë¦¬ì ê¸°ëŠ¥
 	 */
-	// º»ÀÎ ÁöÁ¡ ÀüÃ¼ ¿¹¾à Ãë¼Ò ÇöÈ² °¹¼ö Á¶È¸
+	// ë³¸ì¸ ì§€ì  ì „ì²´ ì˜ˆì•½ ì·¨ì†Œ í˜„í™© ê°¯ìˆ˜ ì¡°íšŒ
 	public int countOrderList(String camp_name) {
 		return mybatis.selectOne("mappings.campOrderCancel-mapping.countOrderList", camp_name);
 	}
-	
-	// Ãë¼Ò ³»¿ª ÆäÀÌÂ¡Ã³¸®
+
+	// ì·¨ì†Œ ë‚´ì—­ í˜ì´ì§•ì²˜ë¦¬
 	public List<CampOrderCancelVO> getListWithPaging(Criteria criteria, String camp_name) {
 
 		HashMap<String, Object> map = new HashMap<>();
@@ -61,13 +59,13 @@ public class CampOrderCancelDAO {
 
 		return mybatis.selectList("mappings.campOrderCancel-mapping.listWithPaging", map);
 	}
-	
-	// ÀüÃ¼ ¿¹¾àÃë¼Ò ÇöÈ² ¸ñ·Ï °¹¼ö Á¶È¸
+
+	// ì „ì²´ ì˜ˆì•½ì·¨ì†Œ í˜„í™© ëª©ë¡ ê°¯ìˆ˜ ì¡°íšŒ
 	public int countAllOrderList() {
 		return mybatis.selectOne("mappings.campOrderCancel-mapping.countAllOrderList");
 	}
-	
-	// ÀüÃ¼ Ãë¼Ò ³»¿ª ÆäÀÌÂ¡ Ã³¸®
+
+	// ì „ì²´ ì·¨ì†Œ ë‚´ì—­ í˜ì´ì§• ì²˜ë¦¬
 	public List<CampOrderCancelVO> getAllListWithPaging(Criteria criteria) {
 
 		HashMap<String, Object> map = new HashMap<>();
@@ -75,20 +73,20 @@ public class CampOrderCancelDAO {
 
 		return mybatis.selectList("mappings.campOrderCancel-mapping.AlllistWithPaging", map);
 	}
-	
-	
-	// Ãë¼Ò³»¿ª ÇÑ°Ç Á¶È¸
+
+	// ì·¨ì†Œë‚´ì—­ í•œê±´ ì¡°íšŒ
 	public CampOrderCancelVO getCancelOrder(int cseq) {
 		return mybatis.selectOne("mappings.campOrderCancel-mapping.getCancelOrder", cseq);
 	}
-	
-	// °ü¸®ÀÚ°¡ ¿¹¾à Ãë¼Ò ½Ã Ãë¼Ò Å×ÀÌºí¿¡ insert
+
+	// ê´€ë¦¬ìê°€ ì˜ˆì•½ ì·¨ì†Œ ì‹œ ì·¨ì†Œ í…Œì´ë¸”ì— insert
 	public void insertOrderCancel(CampOrderCancelVO vo) {
 		mybatis.insert("mappings.campOrderCancel-mapping.insertOrderCancel", vo);
 	}
-	
-	// Ãë¼ÒÁøÇà»óÅÂ º¯°æ
+
+	// ì·¨ì†Œì§„í–‰ìƒíƒœ ë³€ê²½
 	public void updateCancelStatus(int cseq) {
 		mybatis.update("mappings.campOrderCancel-mapping.updateCancelStatus", cseq);
 	}
+	
 }

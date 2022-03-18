@@ -10,21 +10,23 @@ import com.camping.biz.dto.CampingVO;
 
 @Repository
 public class CampingDAO {
+	
 	@Autowired
 	private SqlSessionTemplate mybatis;
 	
-	// Ä·ÇÎ ÁöÁ¡ ÀÌ¸§  Á¶È¸ 
+	// ìº í•‘ ì§€ì  ì´ë¦„  ì¡°íšŒ 
 	public String getCampName(int camp_id) {
 		return mybatis.selectOne("mappings.camping-mapping.getCampName",camp_id);
 	}
 	
-	//¿¹¾à°¡´ÉÇÑ ±¸¿ª ¿¹¾àÀ» À§ÇÑ Á¤º¸
+	//ì˜ˆì•½ê°€ëŠ¥í•œ êµ¬ì—­ ì˜ˆì•½ì„ ìœ„í•œ ì •ë³´
 	public CampingVO getCamping(String camp_zone) {
 		return mybatis.selectOne("mappings.camping-mapping.getCamping",camp_zone);
 	}
 	
-	// ¿¹¾à°¡´ÉÇÑ Ä·ÇÎÀå ¸®½ºÆ® Á¶È¸
+	// ì˜ˆì•½ê°€ëŠ¥í•œ ìº í•‘ì¥ ë¦¬ìŠ¤íŠ¸ ì¡°íšŒ
 	public List<CampingVO> campingList(int camp_id) {
 		return mybatis.selectList("mappings.camping-mapping.campingList", camp_id);
 	}
+	
 }

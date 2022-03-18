@@ -5,23 +5,18 @@
 <%@ include file="../admin_header.jsp"%>
 <%@ include file="../master_admin_menu.jsp"%>
 
-<script>
-	function go_insert(){
-		$("#admin_notice_insert").attr("action", "admin_notice_write_form").submit();
-	}
-</script>
 
 <div id="admin_notice_list_form" align="center">
 	<article>
 		<h4>캠핑족장 관리자 공지사항 입니다</h4>
 
 		<!-- 검색 파트 -->
-		<form name="frm" id="admin_notice_form" method="get">
+		<form name="frm" id="admin_notice_form" method="get" action="admin_notice_list">
 			<table>
 				<tr>
 					<td>제목
 						<input type="text" name="key" id="key"> 
-						<input class="btn" type="button" name="btn_search" value="검색" onClick="go_search()">
+						<input class="btn" type="button" name="btn_search" value="검색" onClick="go_search_admin()">
 					</td>
 				</tr>
 			</table>
@@ -40,7 +35,8 @@
 					<c:when test="${adminnoticeListSize<=0}">
 						<tr>
 							<td width="100%" colspan="7" align="center" height="23">
-								등록된 공지사항이 없습니다.</td>
+								등록된 공지사항이 없습니다.
+							</td>
 						</tr>
 					</c:when>
 					<c:otherwise>
@@ -49,22 +45,21 @@
 								<td height="23" align="center">${adminnoticeVO.aseq}<a
 									href="admin_notice_list${pageMaker.makeQuery(pageMaker.criteria.pageNum)}&aseq=${adminnoticeVO.aseq}"></a>
 								</td>
-								<td><a
-									href="${path}admin_notice_detail?aseq=${adminnoticeVO.aseq}">${adminnoticeVO.title}</a></td>
+								<td>
+									<a href="${path}admin_notice_detail?aseq=${adminnoticeVO.aseq}">${adminnoticeVO.title}</a>
+								</td>
 								<td>${adminnoticeVO.admin_name}</td>
-								<td><fmt:formatDate value="${adminnoticeVO.indate}"
-										type="date" /></td>
+								<td><fmt:formatDate value="${adminnoticeVO.indate}" type="date" /></td>
 								<td>${adminnoticeVO.count}</td>
 							</tr>
 						</c:forEach>
-						<tr>
-							<td colspan="6" style="text-align: center;">${paging}</td>
-						</tr>
 					</c:otherwise>
 				</c:choose>
 			</table>
 		</form>
-		<%@ include file="page_area.jsp"%>
+		
+		<%@ include file="master_page_area.jsp"%>
+		
 		<form id="admin_notice_insert">
 			<input class="btn" type="button" name="btn_search" value="등록" onClick="go_insert()">
 		</form>

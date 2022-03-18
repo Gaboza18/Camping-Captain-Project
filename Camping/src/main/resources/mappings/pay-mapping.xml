@@ -16,4 +16,5 @@
 	<delete id="deletePay">
 		DELETE FROM pay WHERE tid=#{tid}
 	</delete>
+	
 </mapper>

@@ -5,26 +5,26 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /*
- * SHA : ÀÓÀÇ ±æÀÌÀÇ Á¤º¸¸¦ ÀÔ·Â¹Ş¾Æ °íÁ¤µÈ ±æÀÌÀÇ ¾ÏÈ£¹®(Hash°ª)À» Ãâ·ÂÇÏ´Â ¾ÏÈ£±â¼ú
- * 		 ÀÔ·Â°ªÀ» ÅëÇØ ÇØ½Ã°ªÀ» ¸¸µé ¼ö´Â ÀÖÁö¸¸, ÇØ½Ã°ªÀ¸·Î ÀÔ·Â°ªÀ» ¾Ë ¼ö´Â ¾øÀ½
+ * SHA : ì„ì˜ ê¸¸ì´ì˜ ì •ë³´ë¥¼ ì…ë ¥ë°›ì•„ ê³ ì •ëœ ê¸¸ì´ì˜ ì•”í˜¸ë¬¸(Hashê°’)ì„ ì¶œë ¥í•˜ëŠ” ì•”í˜¸ê¸°ìˆ 
+ * 		 ì…ë ¥ê°’ì„ í†µí•´ í•´ì‹œê°’ì„ ë§Œë“¤ ìˆ˜ëŠ” ìˆì§€ë§Œ, í•´ì‹œê°’ìœ¼ë¡œ ì…ë ¥ê°’ì„ ì•Œ ìˆ˜ëŠ” ì—†ìŒ
  */
 
 public class SHA256 {
 	
 	/*
-	 *  SHA-256 : SHA Áß¿¡ Å©±â°¡ 256ÀÎ SHA ¾Ë°í¸®Áò(SHA-2 °è¿­ Áß ÇÏ³ª)
-	 *  		    ¾î¶² ±æÀÌÀÇ °ªÀ» ÀÔ·ÂÇØµµ 256ºñÆ®ÀÇ °íÁ¤µÈ °á°ú°ªÀ» Ãâ·Â
+	 *  SHA-256 : SHA ì¤‘ì— í¬ê¸°ê°€ 256ì¸ SHA ì•Œê³ ë¦¬ì¦˜(SHA-2 ê³„ì—´ ì¤‘ í•˜ë‚˜)
+	 *  		    ì–´ë–¤ ê¸¸ì´ì˜ ê°’ì„ ì…ë ¥í•´ë„ 256ë¹„íŠ¸ì˜ ê³ ì •ëœ ê²°ê³¼ê°’ì„ ì¶œë ¥
 	 */
     public String encrypt(String text) throws NoSuchAlgorithmException {
-    	// ÀÚ¹Ù ±âº»Å¬·¡½ºÀÎ MessageDigest °´Ã¼ »ı¼º
+    	// ìë°” ê¸°ë³¸í´ë˜ìŠ¤ì¸ MessageDigest ê°ì²´ ìƒì„±
         MessageDigest md = MessageDigest.getInstance("SHA-256");
-        // hash°ª ¾÷µ¥ÀÌÆ®(ÁöÁ¤µÈ ¹ÙÀÌÆ® µ¥ÀÌÅÍ¸¦ »ç¿ëÇØ digest¸¦ °»½Å
+        // hashê°’ ì—…ë°ì´íŠ¸(ì§€ì •ëœ ë°”ì´íŠ¸ ë°ì´í„°ë¥¼ ì‚¬ìš©í•´ digestë¥¼ ê°±ì‹ 
         md.update(text.getBytes());
 
-        return bytesToHex(md.digest()); // byte¸¦ Çí»ç°ªÀ¸·Î º¯È¯(SHA-256Àº ¸®ÅÏÀ» byte[] ·Î ¹Ş±â ¶§¹®¿¡ StringÀ¸·Î º¯È¯ÀÌ ÇÊ¿äÇÔ)
+        return bytesToHex(md.digest()); // byteë¥¼ í—¥ì‚¬ê°’ìœ¼ë¡œ ë³€í™˜(SHA-256ì€ ë¦¬í„´ì„ byte[] ë¡œ ë°›ê¸° ë•Œë¬¸ì— Stringìœ¼ë¡œ ë³€í™˜ì´ í•„ìš”í•¨)
     }
     
-    // byte¸¦ Çí»ç°ªÀ¸·Î º¯È¯
+    // byteë¥¼ í—¥ì‚¬ê°’ìœ¼ë¡œ ë³€í™˜
     private String bytesToHex(byte[] bytes) {
         StringBuilder builder = new StringBuilder();
         for (byte b : bytes) {
@@ -34,8 +34,8 @@ public class SHA256 {
     }
     
     /*
-     *  SHA-512 : SHA-2ÀÇ 512bit ¹öÀüÀ» ÁÙ¿© ºÎ¸£´Â °Í
-     *  	-> "Collision attack" °ø°İ¿¡ 46~80 ¶ó¿îµå¸¦ Åë°úÇØ¾ß °ø°İÀ¸·ÎºÎÅÍ ¾ÈÀüÇÑ °ÍÀ¸·Î ÆÇ´Ü
+     *  SHA-512 : SHA-2ì˜ 512bit ë²„ì „ì„ ì¤„ì—¬ ë¶€ë¥´ëŠ” ê²ƒ
+     *  	-> "Collision attack" ê³µê²©ì— 46~80 ë¼ìš´ë“œë¥¼ í†µê³¼í•´ì•¼ ê³µê²©ìœ¼ë¡œë¶€í„° ì•ˆì „í•œ ê²ƒìœ¼ë¡œ íŒë‹¨
      */
     
     public String getSHA512(String input) {

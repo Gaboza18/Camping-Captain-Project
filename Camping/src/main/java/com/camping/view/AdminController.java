@@ -291,7 +291,6 @@ public class AdminController {
 	/*
 	 * 각 지점 연도별 정산(총관리자) - 서브메뉴 -> 연도/월 별 정산 조회 컨트롤러
 	 */
-
 	@RequestMapping(value = "/go_admin_master_calculate_month", method = RequestMethod.GET)
 	public String masterCalculateMonth() {
 		return "admin/calculate/admin_all_point_calculate_month";
@@ -300,7 +299,6 @@ public class AdminController {
 	/*
 	 * 각 지점 연도/월별 정산(총관리자) - 조회할 년도 '시작년도/시작하는 월 ~ 끝나는 년도/끝나는 월'
 	 */
-
 	@RequestMapping(value = "/admin_master_calculate_yearmonth", method = RequestMethod.GET)
 	public String masterCalculateMonth(@RequestParam(value = "startYear") String startYear,
 			@RequestParam(value = "startMonth") String startMonth, @RequestParam(value = "endYear") String endYear,
@@ -351,20 +349,21 @@ public class AdminController {
 		return conditionMapMonth;
 	}
 
+	/*
+	 * 관리자 - 리얼후기 관리 페이지로 이동
+	 */
 	@RequestMapping(value = "/adminReview", method = RequestMethod.GET)
 	public String reviewList(@RequestParam(value = "key", defaultValue = "") String title, Criteria criteria,
 			RealReviewVO vo, HttpSession session, Model model) {
 
 		// realreviewVo에 디테일 볼 수 있는 로직을 썼는데, 세션에 저장이 안되었을가봐 list볼때에도 if 문으로 login문 구현
 		AdminVO loginAdmin = (AdminVO) session.getAttribute("loginAdmin");
-		
+
 		if (loginAdmin == null) {
 			return "admin/admin_login";
 
 		} else {
 			vo.setRseq(vo.getRseq());
-
-			// 공지사항 목록 조회 - 공지사항 10개만 조회
 
 			List<RealReviewVO> reviewList = reviewsService.getListWithPaging(criteria, title);
 
@@ -373,18 +372,20 @@ public class AdminController {
 			int totalCount = reviewsService.countReviewlist(title);
 
 			pageMaker.setCriteria(criteria); // 현재 페이지와 페이지당 항목 수 정보 설정
-			pageMaker.setTotalCount(totalCount); // 전체 공지사항 목록 갯수 설정 및 페이지 정보 초기화
-			// 리뷰 삭제
-			reviewsService.deletereviews(vo.getRseq());
-
+			pageMaker.setTotalCount(totalCount); // 전체 리얼후기 목록 갯수 설정 및 페이지 정보 초기화
+			
 			model.addAttribute("reviewList", reviewList); // 변수, 값 순서임 왼쪽 변수는 reviewList에서 <for:each>의 변수와 동일함
 			model.addAttribute("reviewListSize", reviewList.size());
 			model.addAttribute("pageMaker", pageMaker);
+			model.addAttribute("admin", loginAdmin.getName());
 
 			return "admin/managerealreview";
 		}
 	}
 
+	/*
+	 * 관리자 - 리얼후기 상세보기 페이지로 이동
+	 */
 	@RequestMapping(value = "manage_review_detail", method = RequestMethod.GET)
 	public String reviewDetail(HttpSession session, RealReviewVO vo, Model model, int rseq) {
 
@@ -395,12 +396,15 @@ public class AdminController {
 		} else {
 			// admin 로그인시 리뷰상세보기
 			reviewsService.updateViewCount(vo.getRseq()); // 조회수 증가
+			
 			String loginadmin = loginAdmin.getId();
 			RealReviewVO reviewsDetail = reviewsService.detailReviews(rseq);
+			
 			model.addAttribute("RealReviewVO", reviewsDetail);
 			model.addAttribute("loginAdmin1", loginadmin);
+			model.addAttribute("admin", loginAdmin.getName());
+			
 			return "admin/manageReviewDetail";
-
 		}
 	}
 
@@ -418,17 +422,15 @@ public class AdminController {
 		for (RealReviewVO review : reviewlist) {
 			System.out.println(review);
 		}
-		// model.addAttribute("reviewList", reviewlist);
-
 		return reviewlist;
-
 	}
 
+	/*
+	 * 회원관리 페이지로 이동
+	 */
 	@RequestMapping(value = "/users_list", method = RequestMethod.GET)
 	public String usersList(@RequestParam(value = "key", defaultValue = "") String id, Criteria criteria, Model model) {
-
-		// 공지사항 목록 조회 - 공지사항 10개만 조회
-
+		
 		List<UsersVO> usersList = adminService.getUsersListWithPaging(criteria, id);
 
 		// 화면에 표시할 페이지 버튼 정보 설정
@@ -436,7 +438,7 @@ public class AdminController {
 		int totalCount = adminService.countUserslist(id);
 
 		pageMaker.setCriteria(criteria); // 현재 페이지와 페이지당 항목 수 정보 설정
-		pageMaker.setTotalCount(totalCount); // 전체 공지사항 목록 갯수 설정 및 페이지 정보 초기화
+		pageMaker.setTotalCount(totalCount); // 전체 회원관리 목록 갯수 설정 및 페이지 정보 초기화
 
 		model.addAttribute("usersList", usersList); // 변수, 값 순서임 왼쪽 변수는 reviewList에서 <for:each>의 변수와 동일함
 		model.addAttribute("usersListSize", usersList.size());
@@ -445,9 +447,9 @@ public class AdminController {
 		return "admin/usersblacklist/usersblacklist";
 
 	}
-	
+
 	/*
-	 *  회원 전체 조회(일반회원, 블랙리스트 회원)
+	 * 회원 전체 조회(일반회원, 블랙리스트 회원)
 	 */
 	@RequestMapping(value = "/users_status_list", method = RequestMethod.GET)
 	public String usersList(@RequestParam(value = "key", defaultValue = "") String id,
@@ -467,7 +469,7 @@ public class AdminController {
 		int totalCount = adminService.statusUserlist(user);
 
 		pageMaker.setCriteria(criteria); // 현재 페이지와 페이지당 항목 수 정보 설정
-		pageMaker.setTotalCount(totalCount); // 전체 공지사항 목록 갯수 설정 및 페이지 정보 초기화
+		pageMaker.setTotalCount(totalCount); // 전체 회원관리 목록 갯수 설정 및 페이지 정보 초기화
 
 		model.addAttribute("usersList", usersList); // 변수, 값 순서임 왼쪽 변수는 reviewList에서 <for:each>의 변수와 동일함
 		model.addAttribute("usersListSize", usersList.size());
@@ -477,9 +479,9 @@ public class AdminController {
 		return "admin/usersblacklist/usersblacklist";
 
 	}
-	
+
 	/*
-	 *  블랙리스트 등록창 열기
+	 * 블랙리스트 등록창 열기
 	 */
 	@RequestMapping(value = "insertblacklist", method = RequestMethod.GET)
 	public String insertblacklist(UsersVO vo, Model model) {
@@ -497,7 +499,7 @@ public class AdminController {
 
 		return "admin/usersblacklist/inputblacklist";
 	}
-	
+
 	/*
 	 * 회원 테이블 블랙리스트 회원 등록
 	 */
@@ -519,7 +521,7 @@ public class AdminController {
 			return "admin/usersblacklist/usersblacklist";
 		}
 	}
-	
+
 	/*
 	 * 블랙리스트 취소
 	 */
@@ -548,10 +550,10 @@ public class AdminController {
 			PageMaker pageMaker = new PageMaker();
 			int totalCount = adminService.statusUserlist(user);
 
-			pageMaker.setCriteria(criteria); 
+			pageMaker.setCriteria(criteria);
 			pageMaker.setTotalCount(totalCount);
 
-			model.addAttribute("usersList", usersList); 
+			model.addAttribute("usersList", usersList);
 			model.addAttribute("usersListSize", usersList.size());
 			model.addAttribute("pageMaker", pageMaker);
 			model.addAttribute("searchUserlist", searchUserlist);

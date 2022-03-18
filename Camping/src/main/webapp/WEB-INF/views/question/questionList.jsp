@@ -9,7 +9,7 @@
 	<article>
 		<h2>자주묻는질문</h2>
 		<p>고객님들 께서 자주 질문해신 내용을 정리해 놓은 게시판 입니다</p>
-	  <br>
+	  	<br>
 		<form name="formm" method="get">
 			<table id="questionList">
 				<tr>

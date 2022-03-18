@@ -3,12 +3,10 @@
 <%@ include file="../header.jsp" %>	 
 <link rel="stylesheet" href="css/styles.css" >
 
-
 <div id="mypage_view_form" align="center">
 	<article id="mypage">
 		<h2>My Page</h2>
 		<form id="mypage_form" method="post" action="mypage">
-	
 			<div>
 				<b>${sessionScope.loginUser.name}</b> 님 환영합니다! <br><br> 
 				<table id="userForm">

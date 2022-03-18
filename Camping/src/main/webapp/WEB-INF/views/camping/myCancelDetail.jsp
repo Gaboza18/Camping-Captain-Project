@@ -9,9 +9,7 @@
 <script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 	function btnClose() {
-	
 		self.close();
-			
 	}
 </script>
 <style>
@@ -127,8 +125,8 @@
       		</tr>
       	</c:if>
 	</table>
-		<div id="button" align="center">
-			<button type="button" onclick="btnClose()" style="text-align: center;">닫기</button>
-		</div>
+	<div id="button" align="center">
+		<button type="button" onclick="btnClose()" style="text-align: center;">닫기</button>
+	</div>
 </body>
 </html>

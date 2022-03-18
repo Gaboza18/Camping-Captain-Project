@@ -18,14 +18,16 @@
 <script type="text/javascript" src="js/qna.js"></script>
 <script type="text/javascript" src="js/admin_question.js"></script>
 <script type="text/javascript" src="js/scripts.js"></script>
+<script type="text/javascript" src="js/notice.js"></script>
+<script type="text/javascript" src="js/reviews.js"></script>
 
 <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-    <!-- Font Awesome icons (free version)-->
-    <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
-    <!-- Google fonts-->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
-    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+<!-- Font Awesome icons (free version)-->
+<script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
+<!-- Google fonts-->
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+<link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
 
 <!-- 캘린더 설정구간 -->
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -80,121 +82,50 @@
 	<div id="wrap">
 		<!-- 헤더파일 시작 -->
 		<header>
-			<!-- 홈페이지메인 로고  들어가는 라인-->
-			<!-- <div id="logo">
-				<a href="index">
-					<img alt="camping" src="images/CampingCaptain.jpg" width="250" height="100">
-				</a>
-			</div> -->
-			
-			<!-- 로고 들어가는 라인 우측(로그인, 회원가입 버튼)
-			<nav id="users_login_join">
-				<ul>
-					<c:choose>
-						<c:when test="${empty sessionScope.loginUser}">
-							<li>
-								<a href="login"  style="width:110px;">로그인</a>
-							</li>
-							<li>
-								<a href="contract"  style="width:110px;">회원가입</a>
-							</li>
-						</c:when>
-						<c:otherwise>
-							<li>
-								${sessionScope.loginUser.name}(${sessionScope.loginUser.id}) 회원님
-							</li>
-					       	<li><a href="logout">LOGOUT</a></li>
-					        <li><c:if test="${loginUser.status eq 'n'}">
-						<h5 style="color: blue;">예약프로그램을 사용하기 위해서 이메일 인증을 해주세요 <a href="rejoin" >이메일 인증하기</a></h5>
-						
-								</c:if></li> 
-						</c:otherwise>
-					</c:choose>
-				</ul>
-			</nav>
-			<div class="clear"></div>
-			<hr>
-			<nav id="header_menu">
-		      	<ul>
-			        <li>
-			          	<a href="intro">캠핑족장 소개</a>
-			        </li>
-			        <li>
-			          	<a href="camp_list">예약하기</a>
-			        </li>  
-			        <li>
-			          	<a href="review_list">리얼 후기</a>
-			        </li> 
-			        <li>
-			          	<a href="#">고객센터</a>
-			          	<ul class="header_submenu">
-			          		<li><a href="notice_list">공지사항</a></li>
-			          		<li><a href="question_list">자주 묻는 질문</a></li>
-			          		<li><a href="qna_list">1:1 문의</a></li>
-			          	</ul>
-			        </li> 
-			        <li>
-			          	<a href="#">마이페이지</a>
-			          	<ul class="header_submenu">
-			          		<li><a href="mypage">내 정보</a></li>
-			          		<li><a href="my_reservation">예약내역조회</a></li>
-			          		<li><a href="my_cancel">취소내역조회</a></li>
-			          		<li><a href="myreview">나의 후기</a></li>
-			          	</ul>
-			        </li>  
-		      	</ul>
-	    	</nav>
-	    	<hr> -->
-	    	
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-        <div class="container">
-            <a class="navbar-brand" href="index"><img src="assets/img/main_logo.png" alt="..." /></a>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-                    <li class="nav-item"><a class="nav-link" href="intro">캠핑족장 소개</a></li>
-                    <li class="nav-item"><a class="nav-link" href="camp_list">예약하기</a></li>
-                    <li class="nav-item"><a class="nav-link" href="review_list">리얼후기</a></li>
-                    <li class="nav-item">
-                    	<a class="nav-link" href="#team">고객센터</a>
-                    	<ul class="header_submenu" id="header_submenu1">
-			          		<li><a href="notice_list">공지사항</a></li>
-			          		<li><a href="question_list">자주 묻는 질문</a></li>
-			          		<li><a href="qna_list">1:1 문의</a></li>
-			          	</ul>
-                    </li>
-                    <li class="nav-item">
-                    	<a class="nav-link" href="#">마이페이지</a>
-                    	<ul class="header_submenu" id="header_submenu2">
-			          		<li><a href="mypage">내 정보</a></li>
-			          		<li><a href="my_reservation">예약내역조회</a></li>
-			          		<li><a href="my_cancel">취소내역조회</a></li>
-			          		<li><a href="myreview">나의 후기</a></li>
-			          	</ul>
-                    </li>
-                    
-                    <c:choose>
-						<c:when test="${empty sessionScope.loginUser}">
-							<li class="nav-item">
-								<a class="nav-link" href="login">로그인</a>
-							</li>
-						</c:when>
-						<c:otherwise>
-							<li class="nav-item" id="userName">
-								${sessionScope.loginUser.name}(${sessionScope.loginUser.id}) 회원님
-							</li>
-					       	<li class="nav-item"><a class="nav-link" href="logout">LOGOUT</a></li>
-						</c:otherwise>
-					</c:choose>
-                </ul>
-            </div>
-        </div>
-    </nav>
-	    	
-	    	
-	    	
-	    	
-	    	
-	    <div class="clear"></div>
+
+		    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+		        <div class="container">
+		            <a class="navbar-brand" href="index"><img src="assets/img/main_logo.png" alt="..." /></a>
+		            <div class="collapse navbar-collapse" id="navbarResponsive">
+		                <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+		                    <li class="nav-item"><a class="nav-link" href="intro">캠핑족장 소개</a></li>
+		                    <li class="nav-item"><a class="nav-link" href="camp_list">예약하기</a></li>
+		                    <li class="nav-item"><a class="nav-link" href="review_list">리얼후기</a></li>
+		                    <li class="nav-item">
+		                    	<a class="nav-link" href="#team">고객센터</a>
+		                    	<ul class="header_submenu" id="header_submenu1">
+					          		<li><a href="notice_list">공지사항</a></li>
+					          		<li><a href="question_list">자주 묻는 질문</a></li>
+					          		<li><a href="qna_list">1:1 문의</a></li>
+					          	</ul>
+		                    </li>
+		                    <li class="nav-item">
+		                    	<a class="nav-link" href="#">마이페이지</a>
+		                    	<ul class="header_submenu" id="header_submenu2">
+					          		<li><a href="mypage">내 정보</a></li>
+					          		<li><a href="my_reservation">예약내역조회</a></li>
+					          		<li><a href="my_cancel">취소내역조회</a></li>
+					          		<li><a href="myreview">나의 후기</a></li>
+					          	</ul>
+		                    </li>
+		                    
+		                    <c:choose>
+								<c:when test="${empty sessionScope.loginUser}">
+									<li class="nav-item">
+										<a class="nav-link" href="login">로그인</a>
+									</li>
+								</c:when>
+								<c:otherwise>
+									<li class="nav-item" id="userName">
+										${sessionScope.loginUser.name}(${sessionScope.loginUser.id}) 회원님
+									</li>
+							       	<li class="nav-item"><a class="nav-link" href="logout">LOGOUT</a></li>
+								</c:otherwise>
+							</c:choose>
+		                </ul>
+		            </div>
+		        </div>
+		    </nav>
+		   <div class="clear"></div>
 		</header>
 		<!-- 헤더파일 종료 -->
-	

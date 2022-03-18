@@ -8,32 +8,32 @@
 <!-- <script type="text/javascript" src="js/admin.js"></script> -->
 <script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
-function reason_chk() {
-	if($("#can_reason").val() == ""){
-		alert("취소사유는 반드시 입력해야합니다.");
-	} else {
-		$.ajax({
-			type: "GET",
-			url: "go_cancel",
-			dataType: "html",
-			contentType:  "application/json; charset=UTF-8",
-			data: $("#cancel_order").serialize()
-		}).done(function(){
-			alert("예약이 취소되었습니다.");
-
-			if($("#camp_Reid").val() == 0) {
-				opener.location.href="search_order";
-			} else {
+	function reason_chk() {
+		if($("#can_reason").val() == ""){
+			alert("취소사유는 반드시 입력해야합니다.");
+		} else {
+			$.ajax({
+				type: "GET",
+				url: "go_cancel",
+				dataType: "html",
+				contentType:  "application/json; charset=UTF-8",
+				data: $("#cancel_order").serialize()
+			}).done(function(){
+				alert("예약이 취소되었습니다.");
+	
+				if($("#camp_Reid").val() == 0) {
+					opener.location.href="search_order";
+				} else {
+					opener.location.href="search_orderList?campName="+$("#camp_Reid").val();
+				}
+				
 				opener.location.href="search_orderList?campName="+$("#camp_Reid").val();
-			}
-			
-			opener.location.href="search_orderList?campName="+$("#camp_Reid").val();
-			self.close();
-		}).fail(function(error){
-			alert("에러");
-		});
+				self.close();
+			}).fail(function(error){
+				alert("에러");
+			});
+		}
 	}
-}
 </script>
 <style>
 
@@ -138,4 +138,4 @@ function reason_chk() {
 		</div>
 	</form>
 </body>
-</html>
+</html>  

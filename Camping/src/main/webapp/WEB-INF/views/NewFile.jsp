@@ -16,15 +16,7 @@
 		<%@ include file="camping_search.jsp"%>
 		<div class="clear"></div>
     </section>
-    
-    
-    
-    
-    
-    
-    
-    
-    <!-- Portfolio Grid-->
+
     <section class="page-section bg-light" id="portfolio">
         <div class="container">
             <div class="text-center">
@@ -33,7 +25,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-4 col-sm-6 mb-4">
-                    <!-- Portfolio item 1-->
+                 
                     <div class="portfolio-item">
                         <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal1">
                             <div class="portfolio-hover">
@@ -48,7 +40,6 @@
                     </div>
                 </div>
                 <div class="col-lg-4 col-sm-6 mb-4">
-                    <!-- Portfolio item 2-->
                     <div class="portfolio-item">
                         <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal2">
                             <div class="portfolio-hover">
@@ -63,7 +54,6 @@
                     </div>
                 </div>
                 <div class="col-lg-4 col-sm-6 mb-4">
-                    <!-- Portfolio item 3-->
                     <div class="portfolio-item">
                         <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal3">
                             <div class="portfolio-hover">
@@ -78,7 +68,6 @@
                     </div>
                 </div>
                 <div class="col-lg-4 col-sm-6 mb-4 mb-lg-0">
-                    <!-- Portfolio item 4-->
                     <div class="portfolio-item">
                         <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal4">
                             <div class="portfolio-hover">
@@ -93,7 +82,7 @@
                     </div>
                 </div>
                 <div class="col-lg-4 col-sm-6 mb-4 mb-sm-0">
-                    <!-- Portfolio item 5-->
+            
                     <div class="portfolio-item">
                         <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal5">
                             <div class="portfolio-hover">
@@ -108,7 +97,7 @@
                     </div>
                 </div>
                 <div class="col-lg-4 col-sm-6">
-                    <!-- Portfolio item 6-->
+             
                     <div class="portfolio-item">
                         <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal6">
                             <div class="portfolio-hover">
@@ -125,12 +114,15 @@
             </div>
         </div>
     </section>
-    <section>
-    		<div align="center">
-    			<%@ include file="MapAddress.jsp" %>
-    		</div>
-     </section>
-    <!-- About-->
+    
+    <!-- 지도 -->
+	<section>
+		<div align="center">
+   			<%@ include file="MapAddress.jsp" %>
+   		</div>
+	</section>
+
+	<!-- 캠핑족장 이용 안내 -->
     <section class="page-section" id="about">
         <div class="container">
             <div class="text-center">
@@ -192,15 +184,8 @@
             </ul>
         </div>
     </section>
-    <!-- Team-->
-
-
-    <!-- Contact-->
-
-    <!-- Footer-->
-
-    <!-- Portfolio Modals-->
-    <!-- Portfolio item 1 modal popup-->
+    
+    <!-- 지점 선택시 소개페이지 오픈 -->
     <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -209,7 +194,6 @@
                     <div class="row justify-content-center">
                         <div class="col-lg-8">
                             <div class="modal-body">
-                                <!-- Project details-->
                                 <h2 class="text-uppercase">캠핑족장 강원도지점</h2>
                                 <p class="item-intro text-muted">강원도 동해시 촛대바위길 6</p>
                                 <img class="img-fluid d-block mx-auto" src="images/camping-1.jpg" alt="..." />
@@ -237,7 +221,7 @@
             </div>
         </div>
     </div>
-    <!-- Portfolio item 2 modal popup-->
+
     <div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -246,7 +230,6 @@
                     <div class="row justify-content-center">
                         <div class="col-lg-8">
                             <div class="modal-body">
-                                <!-- Project details-->
                                 <h2 class="text-uppercase">캠핑족장 경기도지점</h2>
                                 <p class="item-intro text-muted">경기도 의왕시 월암동 543-3</p>
                                 <img class="img-fluid d-block mx-auto" src="images/camping-2.jpg" alt="..." />
@@ -273,7 +256,7 @@
             </div>
         </div>
     </div>
-    <!-- Portfolio item 3 modal popup-->
+
     <div class="portfolio-modal modal fade" id="portfolioModal3" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -282,7 +265,6 @@
                     <div class="row justify-content-center">
                         <div class="col-lg-8">
                             <div class="modal-body">
-                                <!-- Project details-->
                                 <h2 class="text-uppercase">캠핑족장 충청도지점</h2>
                                 <p class="item-intro text-muted">충청북도 괴산군 불정면 세평리</p>
                                 <img class="img-fluid d-block mx-auto" src="images/camping-3.jpg" alt="..." />
@@ -310,7 +292,7 @@
             </div>
         </div>
     </div>
-    <!-- Portfolio item 4 modal popup-->
+
     <div class="portfolio-modal modal fade" id="portfolioModal4" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -319,7 +301,6 @@
                     <div class="row justify-content-center">
                         <div class="col-lg-8">
                             <div class="modal-body">
-                                <!-- Project details-->
                                 <h2 class="text-uppercase">캠핑족장 경상도지점</h2>
                                 <p class="item-intro text-muted">경상북도 경주시 강동면 호명리 18번지</p>
                                 <img class="img-fluid d-block mx-auto" src="images/camping-4.jpg" alt="..." />
@@ -348,7 +329,7 @@
             </div>
         </div>
     </div>
-    <!-- Portfolio item 5 modal popup-->
+
     <div class="portfolio-modal modal fade" id="portfolioModal5" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -357,7 +338,6 @@
                     <div class="row justify-content-center">
                         <div class="col-lg-8">
                             <div class="modal-body">
-                                <!-- Project details-->
                                 <h2 class="text-uppercase">캠핑족장 전라도지점</h2>
                                 <p class="item-intro text-muted">전라남도 무안군 현경면 해운리 910-5</p>
                                 <img class="img-fluid d-block mx-auto" src="images/camping-5.jpg" alt="..." />
@@ -383,7 +363,7 @@
             </div>
         </div>
     </div>
-    <!-- Portfolio item 6 modal popup-->
+
     <div class="portfolio-modal modal fade" id="portfolioModal6" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -392,7 +372,6 @@
                     <div class="row justify-content-center">
                         <div class="col-lg-8">
                             <div class="modal-body">
-                                <!-- Project details-->
                                 <h2 class="text-uppercase">캠핑족장 제주도지점</h2>
                                 <p class="item-intro text-muted">제주특별자치도 제주시 애월읍 소길리</p>
                                 <img class="img-fluid d-block mx-auto" src="images/camping-6.jpg" alt="..." />
@@ -419,14 +398,13 @@
             </div>
         </div>
     </div>
+    
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
     <script src="js/scripts.js"></script>
-    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-    <!-- * *                               SB Forms JS                               * *-->
-    <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
-    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+    <!-- SB Forms JS -->
+    <!-- Activate your form at https://startbootstrap.com/solution/contact-forms -->
     <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
 
 <%@ include file="footer.jsp"%>

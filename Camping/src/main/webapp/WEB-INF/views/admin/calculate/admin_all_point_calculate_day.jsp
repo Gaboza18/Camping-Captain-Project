@@ -55,5 +55,3 @@
 	</div>
 	
 <%@ include file="../admin_footer.jsp"%>
-</body>
-</html>

@@ -3,7 +3,6 @@
 <%@ include file="../header.jsp"%>
 <link rel="stylesheet" href="css/styles.css" >
     
-
 <div id="qna_view_form" align="center">
 	<article>
 		<h2> 1:1 고객 게시판 </h2>

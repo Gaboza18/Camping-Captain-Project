@@ -1,7 +1,6 @@
 package utils;
 
 import java.util.List;
-import java.util.Map;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -16,20 +15,20 @@ public class HttpUtil {
 
 	/**
 	 * HttpRequest
-	 * @param targetURL JSPÀÇ action¿¡ ÇØ´çÇÏ´Â url
-	 * @param parameters JSPÀÇ form ³»ºÎ¿¡ µé¾î°¡´Â input ÆÄ¶ó¹ÌÅÍµé
+	 * @param targetURL JSPì˜ actionì— í•´ë‹¹í•˜ëŠ” url
+	 * @param parameters JSPì˜ form ë‚´ë¶€ì— ë“¤ì–´ê°€ëŠ” input íŒŒë¼ë¯¸í„°ë“¤
 	 * @return
 	 */
 	public String sendRequest(String targetURL, List<NameValuePair> parameters) {
 		  String strResponse ="";
 		  try {
-			  HttpClient httpClient = HttpClients.createDefault(); // °´Ã¼»ı¼º
-			  HttpPost post = new HttpPost(targetURL); // post Method ¼³Á¤
-			  post.setEntity(new UrlEncodedFormEntity(parameters, "UTF-8")); // Request form ¼³Á¤
+			  HttpClient httpClient = HttpClients.createDefault(); // ê°ì²´ìƒì„±
+			  HttpPost post = new HttpPost(targetURL); // post Method ì„¤ì •
+			  post.setEntity(new UrlEncodedFormEntity(parameters, "UTF-8")); // Request form ì„¤ì •
 			  
 			  HttpResponse response = httpClient.execute(post); // submit
-			  HttpEntity entity = response.getEntity();  // ÀÀ´ä °á°ú¸¦ HttpEntity °´Ã¼ÀÇ ÇüÅÂ·Î ¹Ş±â
-			  strResponse = EntityUtils.toString(entity, "UTF-8"); // HttpEntity¸¦ StringÇüÅÂ·Î º¯È¯
+			  HttpEntity entity = response.getEntity();  // ì‘ë‹µ ê²°ê³¼ë¥¼ HttpEntity ê°ì²´ì˜ í˜•íƒœë¡œ ë°›ê¸°
+			  strResponse = EntityUtils.toString(entity, "UTF-8"); // HttpEntityë¥¼ Stringí˜•íƒœë¡œ ë³€í™˜
 		    //Create connection
 		  }
 		  catch(Exception ex) {

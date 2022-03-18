@@ -21,30 +21,29 @@ public class QnaController {
 	QnaService qnaService;
 
 	/*
-	 * È¸¿ø ID¸¦ Á¶°ÇÀ¸·Î ÀÛ¼ºÇÑ ¸ğµç QnA Á¶È¸
+	 * íšŒì› IDë¥¼ ì¡°ê±´ìœ¼ë¡œ ì‘ì„±í•œ ëª¨ë“  QnA ì¡°íšŒ
 	 */
 	@GetMapping(value = "/qna_list")
 	public String qnaList(HttpSession session, Model model) {
 
-		// ·Î±×ÀÎÇÑ Á¤º¸¸¦ °´Ã¼¿¡ ´ã¾Æ °¡Á®¿Â´Ù
+		// ë¡œê·¸ì¸í•œ ì •ë³´ë¥¼ ê°ì²´ì— ë‹´ì•„ ê°€ì ¸ì˜¨ë‹¤
 		UsersVO loginUser = (UsersVO) session.getAttribute("loginUser");
 
-		// ·Î±×ÀÎÀÌ À¯,¹« È®ÀÎÈÄ ·Î±×ÀÎÀÌ µÇ¾îÀÖÁö ¾ÊÀ¸¸é ·Î±×ÀÎ ÆäÀÌÁö·Î ¼¼¼Ç Àü´Ş
+		// ë¡œê·¸ì¸ì´ ìœ ,ë¬´ í™•ì¸í›„ ë¡œê·¸ì¸ì´ ë˜ì–´ìˆì§€ ì•Šìœ¼ë©´ ë¡œê·¸ì¸ í˜ì´ì§€ë¡œ ì„¸ì…˜ ì „ë‹¬
 		if (loginUser == null) {
 			return "Users/login";
 		} else {
-			List<QnaVO> qnaList = qnaService.listQna(loginUser.getId()); // ·Î±×ÀÎÇÑ È¸¿øÀÇ ¾ÆÀÌµğ°ªÀ» °¡Á®¿Í °Ô½Ã±Û ÀüÃ¼ Á¶È¸ÇÑ´Ù
+			List<QnaVO> qnaList = qnaService.listQna(loginUser.getId()); // ë¡œê·¸ì¸í•œ íšŒì›ì˜ ì•„ì´ë””ê°’ì„ ê°€ì ¸ì™€ ê²Œì‹œê¸€ ì „ì²´ ì¡°íšŒí•œë‹¤
 
-			model.addAttribute("qnaList", qnaList); // °Ô½Ã±Û ¸ñ·ÏÀ» È­¸é¿¡ Àü¼ÛÇÑ´Ù
+			model.addAttribute("qnaList", qnaList); // ê²Œì‹œê¸€ ëª©ë¡ì„ í™”ë©´ì— ì „ì†¡í•œë‹¤
 
-			return "qna/qnaList"; // °Ô½ÃÆÇ ¸ñ·ÏÀ¸·Î ÀÌµ¿ÇÑ´Ù
+			return "qna/qnaList"; // ê²Œì‹œíŒ ëª©ë¡ìœ¼ë¡œ ì´ë™í•œë‹¤
 		}
 	}
 
 	/*
-	 * °Ô½ÃÆÇ ±Û¾²±â ºÒ·¯¿À±â
+	 * ê²Œì‹œíŒ ê¸€ì“°ê¸° ë¶ˆëŸ¬ì˜¤ê¸°
 	 */
-
 	@GetMapping(value = "/qna_write_form")
 	public String qnaWriteView(HttpSession session) {
 
@@ -58,7 +57,7 @@ public class QnaController {
 	}
 
 	/*
-	 * QnA °Ô½ÃÆÇ ±Ûµî·Ï
+	 * QnA ê²Œì‹œíŒ ê¸€ë“±ë¡
 	 */
 	@PostMapping(value = "/qna_write")
 	public String qnaWrite(HttpSession session, QnaVO vo) {
@@ -69,15 +68,15 @@ public class QnaController {
 			return "Users/login";
 		} else {
 
-			vo.setId(loginUser.getId()); // È­¸é¿¡¼­ ÀĞ¾î¿Â ÆÄ¶ó¹ÌÅÍ(subject, content) »ç¿ëÀÚ ¾ÆÀÌµğ Á¤º¸ QnaVO °´Ã¼ ÀúÀå
-			qnaService.insertQna(vo); // qnaService °´Ã¼¿¡¼­ insertQna(qnaVO id) È£Ãâ °Ô½Ã±Û ÀúÀå
+			vo.setId(loginUser.getId()); // í™”ë©´ì—ì„œ ì½ì–´ì˜¨ íŒŒë¼ë¯¸í„°(subject, content) ì‚¬ìš©ì ì•„ì´ë”” ì •ë³´ QnaVO ê°ì²´ ì €ì¥
+			qnaService.insertQna(vo); // qnaService ê°ì²´ì—ì„œ insertQna(qnaVO id) í˜¸ì¶œ ê²Œì‹œê¸€ ì €ì¥
 
 			return "redirect:qna_list";
 		}
 	}
 
 	/*
-	 * QnA °Ô½ÃÆÇ »ó¼¼º¸±â
+	 * QnA ê²Œì‹œíŒ ìƒì„¸ë³´ê¸°
 	 */
 	@GetMapping(value = "/qna_view")
 	public String qnaView(HttpSession session, QnaVO vo, Model model) {
@@ -90,7 +89,7 @@ public class QnaController {
 
 			vo.setId(loginUser.getId());
 
-			QnaVO qna = qnaService.getQna(vo.getQseq()); // qnaService °´Ã¼¿¡¼­ getQna() ½ÇÇàÇÏ¿© Á¶È¸ÇÑ °á°ú qnaVO Å°·Î model °´Ã¼¿¡ ÀúÀå
+			QnaVO qna = qnaService.getQna(vo.getQseq()); // qnaService ê°ì²´ì—ì„œ getQna() ì‹¤í–‰í•˜ì—¬ ì¡°íšŒí•œ ê²°ê³¼ qnaVO í‚¤ë¡œ model ê°ì²´ì— ì €ì¥
 			model.addAttribute("qnaVO", qna);
 
 			return "qna/qnaView";

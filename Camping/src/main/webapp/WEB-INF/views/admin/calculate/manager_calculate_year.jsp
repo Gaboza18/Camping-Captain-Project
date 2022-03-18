@@ -31,7 +31,6 @@
 	}
 </style>
 
-
 	<div id="manager_calculate_year" align="center">
 		<article>
 			<h4>${loginAdmin.name} - 연도 별 정산</h4>
@@ -39,13 +38,13 @@
 				<tr>
 					<th width="150">년 도</th> <th width="300">지점이름</th> <th width="170">총합</th>
 				</tr>
-			<c:forEach items="${GwcalculateList}" var="GwcalculateList">
-				<tr>
-					<td>${GwcalculateList.indate }</td>
-					<td>${GwcalculateList.camp_name }</td>
-					<td>${GwcalculateList.total_price } 원</td>
-				</tr>	
-			</c:forEach>	
+				<c:forEach items="${GwcalculateList}" var="GwcalculateList">
+					<tr>
+						<td>${GwcalculateList.indate }</td>
+						<td>${GwcalculateList.camp_name }</td>
+						<td>${GwcalculateList.total_price } 원</td>
+					</tr>	
+				</c:forEach>	
 			</table>
 		</article>
 	</div>

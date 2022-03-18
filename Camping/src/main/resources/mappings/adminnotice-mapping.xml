@@ -59,7 +59,8 @@
 	
 	<!-- 관리자 공지사항 삭제하기: 총관리자 -->
 	<delete id="deleteAdminNotice" parameterType="int">
-		DELETE FROM adminnotice WHERE aseq=#{aseq}	
+		DELETE FROM adminnotice 
+			WHERE aseq=#{aseq}	
 	</delete>
 
 </mapper>

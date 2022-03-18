@@ -7,42 +7,30 @@
 <link rel="stylesheet" href="css/styles.css" >
 <script type="text/javascript" src="js/reviews.js"></script>
 
-
 <script type="text/javascript">
-function delete_reviews() {
-			
-	alert("내가 쓴 리뷰가 삭제되었습니다");
-	$("#delete").attr('action','review_list_re').submit(); 
-			 
-}
-function admin_delete() {
+
+	function delete_reviews() {
+		alert("내가 쓴 리뷰가 삭제되었습니다");
+		$("#delete").attr('action','review_list_re').submit(); 
+	}
 	
-    alert("회원이쓴 리뷰가 삭제되었습니다");
-    $("#delete1").attr('action','review_list_re').submit(); 
-
-}
-
-function modi_review() {
-/* 	var resq = $("#detail tr:eq(0)>td:eq(0)").text();
-	var title = $("#detail tr:eq(1)>td:eq(0)").text();
-	var content = $("#detail tr:eq(2)>td:eq(0)").text();
-	var campingNm = $("#detail tr:eq(4)>td:eq(0)").text();  */
-	alert("내가쓴 리뷰를 수정합니다");
-	console.log(rseq);
-
-	//location.href="modifyreview?resq="+resq+"&&title="+title+"&&content="+content+"&&campingNm="+campingNm;
-	//location.href="/modifyreview.jsp";
-	//location.href='modi'; 
-	$("#detail").attr('action','modi').submit();
-} 
-
-function non_modi_review() {
-	alert("블랙리스트 회원은 리뷰 수정을 할 수 없습니다.");
-}
+	function admin_delete() {
+	    alert("회원이쓴 리뷰가 삭제되었습니다");
+	    $("#delete1").attr('action','review_list_re').submit(); 
+	}
+	
+	function modi_review() {
+		alert("내가쓴 리뷰를 수정합니다");
+		console.log(rseq);
+		$("#detail").attr('action','modi').submit();
+	} 
+	
+	function non_modi_review() {
+		alert("블랙리스트 회원은 리뷰 수정을 할 수 없습니다.");
+	}
 
 </script>
 			      
-
 <div align="center" id="review_detail_form">
 	<h2>리얼리뷰! 상세보기</h2>
 	<form name="frm" id="detail" method="get" action="review_list_re">
@@ -86,9 +74,9 @@ function non_modi_review() {
 			</tr>
 		</table>
 			
-		<!--위의 td 옆에 input 값주고 readonly로 바꿔줘도 됨  -->
+		<input type="text" name="campingname" id="campingname" value="${RealReviewVO.campingname}" style="display:none">
 		<input type="text" name="rseq" id="rseq" value="${RealReviewVO.rseq}" style="display:none">
-		<!-- <input class="btn"  type="button" value="목록" onClick="go_list()"> -->
+
 		<input class="btn" type="button" value="목록" onClick="location.href='review_list'">
 		
 		<c:choose>
@@ -104,11 +92,6 @@ function non_modi_review() {
 		
 		<c:if test="${userid eq RealReviewVO.id}">
 			<button type="submit" form="detail" class="btn-success" id="delete" onClick="delete_reviews()">리뷰삭제</button>
-		</c:if>
-		
-		<!-- 단순히 admin으로 접속해서 review로 들어갔을 때 삭제버튼만 뜨게하기  -->
-		<c:if test="${loginAdmin1 != null}">
-			<button type="submit" form="detail" class="btn-success" id="delete1" onClick="admin_delete()">리뷰삭제</button>
 		</c:if>
 	</form>
 </div>

@@ -6,18 +6,19 @@ import com.camping.biz.dto.QnaVO;
 
 public interface QnaService {
 	
-	// QnA ¸ñ·Ï Á¶È¸
+	// QnA ëª©ë¡ ì¡°íšŒ
 	List<QnaVO> listQna(String id);
 	
-	// QnA ¹øÈ£·Î ÇÑ°Ç Á¶È¸
+	// QnA ë²ˆí˜¸ë¡œ í•œê±´ ì¡°íšŒ
 	QnaVO getQna(int qseq);
 	
-	// QnA µî·Ï
+	// QnA ë“±ë¡
 	void insertQna(QnaVO vo);
 	
-	// QnA Á¶È¸(ÃÑ°ü¸®ÀÚ)
+	// QnA ì¡°íšŒ(ì´ê´€ë¦¬ì)
 	public List<QnaVO> listAllQna();
 	
-	// QnA ´äº¯Ã³¸®(ÃÑ°ü¸®ÀÚ)
+	// QnA ë‹µë³€ì²˜ë¦¬(ì´ê´€ë¦¬ì)
 	public void updateQna(QnaVO vo);
+	
 }

@@ -12029,11 +12029,13 @@ div#review_detail_form form#detail table#review_detail {
 div#review_detail_form form#detail table#review_detail th {
 	width: 100px;
 	border: 1px solid #c0c0c0;
+	
 }
 
 div#review_detail_form form#detail table#review_detail td {
 	width: 300px;
 	border: 1px solid #c0c0c0;
+	padding: 2px 10px;
 }
 
 div#review_detail_form form#detail input.btn {
@@ -12086,7 +12088,8 @@ div#modify_reivew_form form#modify input[name=title] {
 	padding-left: 10px;
 }
 
-div#modify_reivew_form form#modify select {
+div#modify_reivew_form form#modify input[name=campingname] {
+	text-align: center;
 	border-radius: 12px;
 }
 
@@ -12944,6 +12947,50 @@ div#myreview_list_form article form[name=myreview] input.btn:hover {
 	background-color:  rgb(230, 177, 0);
 }
 
+/* 마이페이지 내 리뷰 상세보기 */
+div#myreview_detail_form {
+	background-color: #212529;
+	background-image: url("../assets/img/map-image.png");
+	background-repeat: no-repeat;
+	background-position: center;
+	padding: 10%;
+	min-height: 520px;
+}
+
+div#myreview_detail_form h2 {
+	color: rgb(254, 209, 54);
+}
+
+div#myreview_detail_form form#reviewdetail table {
+	margin: 40px auto;
+	text-align: center;	
+	border-collapse: collapse;
+	border: 1px solid #c0c0c0;
+	background-color: #212529;
+}
+
+div#myreview_detail_form form#reviewdetail table th {
+	width: 100px;
+	border: 1px solid #c0c0c0;
+}
+
+div#myreview_detail_form form#reviewdetail table td {
+	width: 300px;
+	border: 1px solid #c0c0c0;
+	padding: 2px 10px;
+}
+
+div#myreview_detail_form form#reviewdetail input.btn {
+	padding: 3px 10px;
+	background-color: rgb(255, 200, 0);
+	border-radius: 12px;
+	margin-bottom: 20px;
+}
+
+div#myreview_detail_form form#reviewdetail input.btn:hover {
+	background-color:  rgb(230, 177, 0);
+}
+
 /* 예약 정보 입력 페이지 인원선택 칸 */
 .form-control_people {
 	width: 89%;
@@ -13782,7 +13829,7 @@ div#master_notice_update_form article form[name=formm] label {
 	margin-bottom: 10px;
 }
 
-div#master_notice_update_form article form[name=formm] label#content {
+div#master_notice_update_form article form[name=formm] label#content_label {
 	position: relative;
 	top: -160px;
 }
@@ -13916,6 +13963,10 @@ div#manager_realreview article form#adminlist {
 	color: #212529;
 }
 
+div#manager_realreview article form#adminlist ul {
+	list-style: none;
+}
+
 div#manager_realreview article form#adminlist ul label {
 	color: #212529;
 }
@@ -14032,6 +14083,10 @@ div#black_list_form article form#uesrs_list {
 	margin: auto;
 }
 
+div#black_list_form article ul.userslist {
+	list-style: none;
+}
+
 div#black_list_form article form#uesrs_list table td {
 	border: none;
 }
@@ -14051,15 +14106,6 @@ div#black_list_form article form#uesrs_list table td input.btn {
 
 div#black_list_form article form#uesrs_list table td input.btn:hover {
 	background-color: #464f57;
-}
-
-div#black_list_form article form#filter {
-	color: #212529;
-	margin: 10px auto;
-}
-
-div#black_list_form article form#filter label {
-	color: #212529;	
 }
 
 div#black_list_form article form#statusfrm div#users_content table#usersList {
@@ -14181,6 +14227,7 @@ div#qnadetail_form article form[name=frm] table#order_list td {
 div#qnadetail_form article form[name=frm] table#order_list td textarea {
 	border-radius: 10px;
 	resize: none;
+	margin-top: 10px;
 }
 
 div#qnadetail_form article form[name=frm] input.btn {
@@ -14196,12 +14243,226 @@ div#qnadetail_form article form[name=frm] input.btn:hover {
 	background-color: #464f57;
 }
 
+/* 관리자 자주묻는질문 리스트 페이지 */
+div#admin_question_write_form {
+	margin-left: 17.5%;
+	padding: 0;
+	min-height: 520px;
+}
+
+div#admin_question_write_form h4 {
+	color: rgb(255, 200, 0);
+}
+
+div#admin_question_write_form form#admin_question_manage {
+	color: #212529;
+}
+
+div#admin_question_write_form form#admin_question_manage table#questionList {
+	border: none;
+	text-align: center;
+}
+
+div#admin_question_write_form form#admin_question_manage table#questionList th {
+	border: none;
+	border-bottom: 1px solid #212529;
+}
+
+div#admin_question_write_form form#admin_question_manage table#questionList td {
+	border: none;
+}
+
+div#admin_question_write_form form#admin_question_manage table#questionList td a {
+	text-decoration: none;
+}
+
+div#admin_question_write_form form#admin_question_manage div input {
+	border-radius: 10px;
+	color: white;
+	background-color: #212529;
+	padding: 1px 7px;
+}
+
+div#admin_question_write_form form#admin_question_manage div input:hover {
+	background-color: #464f57;
+}
+
+/* 관리자 자주 묻는 질문 등록 페이지 */
+div#admin_question_write_form {
+	margin-left: 17.5%;
+	padding: 0;
+	min-height: 520px;
+}
+
+div#admin_question_write_form article h4 {
+	margin: 2% auto;
+	color: rgb(255, 200, 0);
+}
+
+div#admin_question_write_form article form[name=formm] {
+	margin: 20px auto;
+}
+
+div#admin_question_write_form article form[name=formm] label {
+	color: #464f57;
+	margin-bottom: 10px;
+}
+
+div#admin_question_write_form article form[name=formm] label#reply_label {
+	position: relative;
+	top: -160px;
+}
+
+div#admin_question_write_form article form[name=formm] input[name=question] {
+	border-radius: 10px;
+	padding: 1px 5px;
+}
+
+div#admin_question_write_form article form[name=formm] textarea[name=reply] {
+	border-radius: 10px;
+	padding: 5px;	
+    resize: none;
+}
+
+div#admin_question_write_form article form[name=formm] input.btn {
+	background-color: #212529;
+	border-radius: 10px;
+	color: white;
+	padding: 1px 7px;	
+}
+
+div#admin_question_write_form article form[name=formm] input.btn:hover {
+	background-color: #464f57;
+}
+
+div#admin_question_write_form article form[name=formm] button {
+	background-color: #212529;
+	border-radius: 10px;
+	color: white;
+	padding: 1px 7px;	
+	position: relative;
+	top: 3px;
+}
+
+div#admin_question_write_form article form[name=formm] button:hover {
+	background-color: #464f57;
+}
+
+/* 관리자 자주 묻는 질문 상세보기 페이지 */
+div#admin_question_detail_form {
+	margin-left: 17.5%;
+	padding: 0;
+	min-height: 520px;
+}
+
+div#admin_question_detail_form h4 {
+	margin: 2% auto;
+	color: rgb(255, 200, 0);
+}
+
+div#admin_question_detail_form table {
+	border: none;
+}
+
+div#admin_question_detail_form table th {
+	width: 80px;
+	text-align: center;
+	border: none;
+	border-bottom: 1px solid #212529;
+	last-child: none;
+}
+
+div#admin_question_detail_form table td {
+	width: 300px;
+	text-align: left;
+	border: none;
+	border-bottom: 1px solid #212529;
+	last-child: none;
+}
+
+div#admin_question_detail_form input[type=button] {
+	background-color: #212529;
+	border-radius: 10px;
+	color: white;
+	padding: 1px 7px;
+}
+
+div#admin_question_detail_form input[type=button]:hover {
+	background-color: #464f57;
+}
+
+div#admin_question_detail_form input.btn {
+	position: relative;
+	top: -3px;
+}
+
+/* 관리자 자주묻는 질문 수정페이지 */
+div#admin_question_update_form {
+	margin-left: 17.5%;
+	padding: 0;
+	min-height: 520px;
+}
+
+div#admin_question_update_form article h4 {
+	margin: 2% auto;
+	color: rgb(255, 200, 0);
+}
+
+div#admin_question_update_form article form[name=formm] {
+	margin: 20px auto;
+}
+
+div#admin_question_update_form article form[name=formm] label {
+	color: #464f57;
+	margin-bottom: 10px;
+}
+
+div#admin_question_update_form article form[name=formm] label#reply_label {
+	position: relative;
+	top: -160px;
+}
+
+div#admin_question_update_form article form[name=formm] input[name=question] {
+	border-radius: 10px;
+	padding: 1px 5px;
+}
+
+div#admin_question_update_form article form[name=formm] textarea[name=reply] {
+	border-radius: 10px;
+	padding: 5px;	
+    resize: none;
+}
+
+div#admin_question_update_form article form[name=formm] input.submit {
+	background-color: #212529;
+	border-radius: 10px;
+	color: white;
+	padding: 1px 7px;	
+}
+
+div#admin_question_update_form article form[name=formm] input.submit:hover {
+	background-color: #464f57;
+}
+
+div#admin_question_update_form article form[name=formm] button {
+	background-color: #212529;
+	border-radius: 10px;
+	color: white;
+	padding: 1px 7px;	
+}
+
+div#admin_question_update_form article form[name=formm] button:hover {
+	background-color: #464f57;
+}
+
+
+
 /* 관리자 성별 통계 페이지  */
 div#gender_ratio {
-		margin-left: 17.5%;
-		padding: 0;
-		min-height: 520px;
-	}
+	margin-left: 17.5%;
+	padding: 0;
+	min-height: 520px;
+}
 
 div#gender_ratio h4 {
 	margin: 2% auto;

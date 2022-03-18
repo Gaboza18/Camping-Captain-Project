@@ -8,45 +8,43 @@ import utils.Criteria;
 
 public interface CampOrderService {
 	
-	// ¿¹¾àÁ¤º¸ µî·Ï
+	// ì˜ˆì•½ì •ë³´ ë“±ë¡
 	public void insertCampOrder(CampOrderVO vo);
 	
-	// ¿¹¾à¸¶°¨Ã³¸®¸¦ À§ÇØ Ã¼Å©ÀÎ ³¯Â¥ ±âÁØÀ¸·Î ¿¹¾àÁ¤º¸ Á¶È¸
+	// ì˜ˆì•½ë§ˆê°ì²˜ë¦¬ë¥¼ ìœ„í•´ ì²´í¬ì¸ ë‚ ì§œ ê¸°ì¤€ìœ¼ë¡œ ì˜ˆì•½ì •ë³´ ì¡°íšŒ
 	public List<CampOrderVO> getCampOrderList(String indate);
 
-	
-	// ¿¹¾à¹øÈ£¸¦ Á¶°ÇÀ¸·Î ¿¹¾à³»¿ª ÇÑ°Ç Á¶È¸
+	// ì˜ˆì•½ë²ˆí˜¸ë¥¼ ì¡°ê±´ìœ¼ë¡œ ì˜ˆì•½ë‚´ì—­ í•œê±´ ì¡°íšŒ
 	public CampOrderVO getMyCampOrder(int oseq);
 	
-	// È¸¿ø id¸¦ ±âÁØÀ¸·Î ÃÑ ¿¹¾à¸ñ·Ï °¹¼ö Á¶È¸
+	// íšŒì› idë¥¼ ê¸°ì¤€ìœ¼ë¡œ ì´ ì˜ˆì•½ëª©ë¡ ê°¯ìˆ˜ ì¡°íšŒ
 	public int countMyOrderList(String user_id);
 	
-	// ÆäÀÌÂ¡ Ã³¸®(1~10°³¾¿ Ãâ·Â) / ÁöÁ¡ ¼±ÅÃ ±â´É
+	// í˜ì´ì§• ì²˜ë¦¬(1~10ê°œì”© ì¶œë ¥) / ì§€ì  ì„ íƒ ê¸°ëŠ¥
 	public List<CampOrderVO> getMyListWithPaging(Criteria criteria, String user_id);
 
-
-
 	/*
-	 * °ü¸®ÀÚ ±â´É
+	 * ê´€ë¦¬ì ê¸°ëŠ¥
 	 */
-	// º»ÀÎ ÁöÁ¡ ÀüÃ¼ ¿¹¾à ÇöÈ² °¹¼ö Á¶È¸
+	// ë³¸ì¸ ì§€ì  ì „ì²´ ì˜ˆì•½ í˜„í™© ê°¯ìˆ˜ ì¡°íšŒ
 	public int countOrderList(String camp_name);
 	
-	// °øÁö»çÇ× ÆäÀÌÂ¡Ã³¸®
+	// ê³µì§€ì‚¬í•­ í˜ì´ì§•ì²˜ë¦¬
 	public List<CampOrderVO> getListWithPaging(Criteria criteria, String camp_name);
 	
-	// ÀüÃ¼ÁöÁ¡ ÃÑ ¿¹¾×ÇöÈ² °¹¼öÁ¶È¸
+	// ì „ì²´ì§€ì  ì´ ì˜ˆì•¡í˜„í™© ê°¯ìˆ˜ì¡°íšŒ
 	public int countAllOrderList();
 	
-	// ÀüÃ¼ ¿¹¾à³»¿ª ÆäÀÌÂ¡Ã³¸®
+	// ì „ì²´ ì˜ˆì•½ë‚´ì—­ í˜ì´ì§•ì²˜ë¦¬
 	public List<CampOrderVO> getAllListWithPaging(Criteria criteria);
 
-	// ¿¹¾à³»¿ª ÇÑ°Ç Á¶È¸
+	// ì˜ˆì•½ë‚´ì—­ í•œê±´ ì¡°íšŒ
 	public CampOrderVO getCampOrder(int oseq);
 	
-	// ¿¹¾à»óÅÂ º¯°æ
+	// ì˜ˆì•½ìƒíƒœ ë³€ê²½
 	public void updateOrderStatus(int oseq);
 	
-	// ¿¹¾à³»¿ª »èÁ¦
+	// ì˜ˆì•½ë‚´ì—­ ì‚­ì œ
 	public void deleteOrderByOseq(int oseq);
+	
 }

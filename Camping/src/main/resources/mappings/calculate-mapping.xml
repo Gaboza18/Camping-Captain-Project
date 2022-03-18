@@ -10,7 +10,7 @@
 	</resultMap>
 	
 	
-	<!-- 시작년도 - 끝나는 년도로 연간 정산 조회: 총관리자 -->
+	<!-- 시작년도 - 끝나는 년도로 연간 정산 조회: 총관리자 --> 
 	<select id="searchYearCalculate" parameterType="hashMap" resultMap="calculateMap">
 			select TO_CHAR(indate,'yyyy') as indate, camp_name, SUM(total_price) as total_price
     			from camp_order

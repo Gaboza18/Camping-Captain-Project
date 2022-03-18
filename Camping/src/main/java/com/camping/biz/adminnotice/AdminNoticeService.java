@@ -32,4 +32,5 @@ public interface AdminNoticeService {
 	
 	// 관리자 공지사항 삭제
 	public void deleteAdminNotice(int aseq);
+	
 }

@@ -15,7 +15,7 @@ import utils.Criteria;
 public class AdminNoticeServiceImpl implements AdminNoticeService {
 	
 	@Autowired
-	private AdminNoticeDAO adminNoticeDao;
+	private AdminNoticeDAO adminNoticeDao; 
 	
 	@Override
 	public List<AdminNoticeVO> listNotice() {

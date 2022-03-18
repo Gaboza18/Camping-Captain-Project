@@ -7,8 +7,8 @@
 <title>예약 확정</title>
 <script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
-function confirm_chk() {
-
+	function confirm_chk() {
+	
 		$.ajax({
 			type: "GET",
 			url: "confirm_order",
@@ -27,8 +27,8 @@ function confirm_chk() {
 		}).fail(function(error){
 			alert("에러");
 		});
-		
-}
+			
+	}
 </script>
 <style>
 

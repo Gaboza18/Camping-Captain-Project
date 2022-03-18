@@ -4,12 +4,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Random;
 
 import javax.inject.Inject;
 import javax.mail.Message.RecipientType;
-import javax.mail.MessagingException;
+
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletResponse;
@@ -18,23 +16,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.camping.biz.dao.UsersDAO;
 import com.camping.biz.dto.UsersAge;
 import com.camping.biz.dto.UsersRatio;
 import com.camping.biz.dto.UsersVO;
 
-import com.camping.biz.users.MailUtils;
 import com.camping.biz.users.UsersService;
 
-
 @Service("usersService")
-
 public class UsersServiceImpl implements UsersService {
 
 	@Inject
-	JavaMailSender mailSender; // ÀÌ¸ŞÀÏ ÀÇÁ¸¼º °´Ã¼ »ı¼º
+	JavaMailSender mailSender; // ì´ë©”ì¼ ì˜ì¡´ì„± ê°ì²´ ìƒì„±
 
 	@Autowired
 	private UsersDAO uDao;
@@ -58,14 +52,13 @@ public class UsersServiceImpl implements UsersService {
 	public void insertUsers(UsersVO vo) {
 		uDao.insertUsers(vo);
 	}
-	
+
 	@Override
 	public List<UsersVO> listUsers(String name) {
 		return uDao.listUsers(name);
 	}
-	
-	//È¸¿ø »èÁ¦
 
+	// íšŒì› ì‚­ì œ
 	@Override
 	public void deleteId(UsersVO vo) {
 		uDao.deleteId(vo);
@@ -90,29 +83,29 @@ public class UsersServiceImpl implements UsersService {
 	public void sendEmailPwd(UsersVO vo, String div) {
 
 		try {
-			MimeMessage msg = mailSender.createMimeMessage(); // ÀÌ¸ŞÀÏ °´Ã¼
-			msg.addRecipient(RecipientType.TO, new InternetAddress(vo.getEmail())); // ¹Ş´Â»ç¶÷ ¼³Á¤(¼ö½ÅÀÚ, È¸¿ø Å×ÀÌºí¿¡¼­ ¼ö½ÅÀÚ ÀÌ¸ŞÀÏ)
+			MimeMessage msg = mailSender.createMimeMessage(); // ì´ë©”ì¼ ê°ì²´
+			msg.addRecipient(RecipientType.TO, new InternetAddress(vo.getEmail())); // ë°›ëŠ”ì‚¬ëŒ ì„¤ì •(ìˆ˜ì‹ ì, íšŒì› í…Œì´ë¸”ì—ì„œ ìˆ˜ì‹ ì ì´ë©”ì¼)
 
 			/*
-			 * º¸³»´Â »ç¶÷(ÀÌ¸ŞÀÏ ÁÖ¼Ò+ÀÌ¸§) (¹ß½ÅÀÚ, º¸³»´Â »ç¶÷ÀÇ ÀÌ¸ŞÀÏ ÁÖ¼Ò¿Í ÀÌ¸§À» ´ãÀ½)
+			 * ë³´ë‚´ëŠ” ì‚¬ëŒ(ì´ë©”ì¼ ì£¼ì†Œ+ì´ë¦„) (ë°œì‹ ì, ë³´ë‚´ëŠ” ì‚¬ëŒì˜ ì´ë©”ì¼ ì£¼ì†Œì™€ ì´ë¦„ì„ ë‹´ìŒ)
 			 */
 
 			if (div.equals(div)) {
 
-				// ÀÌ¸ŞÀÏ ¹ß½ÅÀÚ(ÀÌ¸ŞÀÏ, ¹ß¼ÛÀÚ ÀÌ¸§¼³Á¤)
-				msg.addFrom(new InternetAddress[] { new InternetAddress("test0313a@gmail.com", "Ä·ÇÎÁ·Àå °ü¸®ÀÚ") });
+				// ì´ë©”ì¼ ë°œì‹ ì(ì´ë©”ì¼, ë°œì†¡ì ì´ë¦„ì„¤ì •)
+				msg.addFrom(new InternetAddress[] { new InternetAddress("test0313a@gmail.com", "ìº í•‘ì¡±ì¥ ê´€ë¦¬ì") });
 
-				// ÀÌ¸ŞÀÏ Á¦¸ñ
-				msg.setSubject("È¸¿ø´ÔÀÇ ÀÓ½Ãºñ¹Ğ¹øÈ£ ÀÔ´Ï´Ù.", "utf-8");
+				// ì´ë©”ì¼ ì œëª©
+				msg.setSubject("íšŒì›ë‹˜ì˜ ì„ì‹œë¹„ë°€ë²ˆí˜¸ ì…ë‹ˆë‹¤.", "utf-8");
 
-				// ÀÌ¸ŞÀÏ º»¹®
-				msg.setText("ÀÓ½Ã ºñ¹Ğ¹øÈ£: " + vo.getPassword(), "utf-8");
+				// ì´ë©”ì¼ ë³¸ë¬¸
+				msg.setText("ì„ì‹œ ë¹„ë°€ë²ˆí˜¸: " + vo.getPassword(), "utf-8");
 
 			}
-			mailSender.send(msg); // ÀÌ¸ŞÀÏ º¸³»±â
+			mailSender.send(msg); // ì´ë©”ì¼ ë³´ë‚´ê¸°
 
 		} catch (Exception e) {
-			System.out.println("¸ŞÀÏ¹ß¼Û ½ÇÆĞ : " + e);
+			System.out.println("ë©”ì¼ë°œì†¡ ì‹¤íŒ¨ : " + e);
 		}
 
 	}
@@ -124,18 +117,18 @@ public class UsersServiceImpl implements UsersService {
 		UsersVO ck = uDao.getUsers(vo.getId());
 		PrintWriter out = response.getWriter();
 
-		// °¡ÀÔµÈ ¾ÆÀÌµğ°¡ ¾øÀ¸¸é
+		// ê°€ì…ëœ ì•„ì´ë””ê°€ ì—†ìœ¼ë©´
 		if (uDao.getUsers(vo.getId()) == null) {
-			out.print("µî·ÏµÇÁö ¾ÊÀº ¾ÆÀÌµğ ÀÔ´Ï´Ù.");
+			out.print("ë“±ë¡ë˜ì§€ ì•Šì€ ì•„ì´ë”” ì…ë‹ˆë‹¤.");
 			out.close();
 		}
 
-		// °¡ÀÔµÈ ÀÌ¸ŞÀÏÀÌ ¾Æ´Ï¸é(»ç¿ëÀÚ°¡ ÀÔ·ÂÇÑ ÀÌ¸ŞÀÏ°ú »ç¿ëÀÚ Å×ÀÌºíÀ» ºñ±³ÇÑ´Ù)
+		// ê°€ì…ëœ ì´ë©”ì¼ì´ ì•„ë‹ˆë©´(ì‚¬ìš©ìê°€ ì…ë ¥í•œ ì´ë©”ì¼ê³¼ ì‚¬ìš©ì í…Œì´ë¸”ì„ ë¹„êµí•œë‹¤)
 		else if (!vo.getEmail().equals(ck.getEmail())) {
-			out.print("µî·ÏµÇÁö ¾ÊÀº ÀÌ¸ŞÀÏ ÀÔ´Ï´Ù.");
+			out.print("ë“±ë¡ë˜ì§€ ì•Šì€ ì´ë©”ì¼ ì…ë‹ˆë‹¤.");
 			out.close();
 		} else {
-			// ÀÓ½Ã ºñ¹Ğ¹øÈ£ »ı¼º
+			// ì„ì‹œ ë¹„ë°€ë²ˆí˜¸ ìƒì„±
 			String pwd = "";
 
 			for (int i = 0; i < 12; i++) {
@@ -143,13 +136,13 @@ public class UsersServiceImpl implements UsersService {
 			}
 			vo.setPassword(pwd);
 
-			// ºñ¹Ğ¹øÈ£ º¯°æ
+			// ë¹„ë°€ë²ˆí˜¸ ë³€ê²½
 			uDao.updatePwd(vo);
 
-			// ºñ¹Ğ¹øÈ£ º¯°æ ¸ŞÀÏ ¹ß¼Û
+			// ë¹„ë°€ë²ˆí˜¸ ë³€ê²½ ë©”ì¼ ë°œì†¡
 			sendEmailPwd(vo, "find_pwd");
 
-			out.print("ÀÌ¸ŞÀÏ·Î ÀÓ½Ã ºñ¹Ğ¹øÈ£¸¦ ¹ß¼ÛÇÏ¿´½À´Ï´Ù.");
+			out.print("ì´ë©”ì¼ë¡œ ì„ì‹œ ë¹„ë°€ë²ˆí˜¸ë¥¼ ë°œì†¡í•˜ì˜€ìŠµë‹ˆë‹¤.");
 			out.close();
 		}
 	}
@@ -164,36 +157,19 @@ public class UsersServiceImpl implements UsersService {
 		return uDao.getAge();
 	}
 
-
-		
-	
-
 	@Override
 	public void updateemailchk(UsersVO vo) {
 		uDao.updateemailchk(vo);
-		
 	}
 
 	@Override
 	public String emailchkok(String id, String email) {
-		
 		return uDao.emailchkok(id, email);
 	}
 
 	@Override
 	public void updateEmail(UsersVO vo) {
-
-	 uDao.updateEmail(vo);
+		uDao.updateEmail(vo);
 	}
-
-	
-
-	
-
-	
-
-
-
-	
 
 }

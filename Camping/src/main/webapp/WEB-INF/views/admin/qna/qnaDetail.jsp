@@ -18,7 +18,6 @@
 	}
 </script>
 
-
 <div id="qnadetail_form" align="center">
 	<article>
 		<h4>Q&amp;A 게시판</h4>
@@ -64,6 +63,5 @@
 		</form>
 	</article>
 </div>
+
 <%@ include file="../admin_footer.jsp"%>
-</body>
-</html>

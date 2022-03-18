@@ -7,8 +7,8 @@
 <title>취소 확정</title>
 <script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
-function cancel_chk() {
-
+	function cancel_chk() {
+	
 		$.ajax({
 			type: "GET",
 			url: "confirm_cancel_order",
@@ -17,7 +17,7 @@ function cancel_chk() {
 			data: $("#confirm_cancel_order").serialize()
 		}).done(function(){
 			alert("예약 취소가 확정되었습니다.");
-
+	
 			if($("#camp_Reid").val() == 0) {
 				opener.location.href="search_cancel";
 			} else {
@@ -28,8 +28,8 @@ function cancel_chk() {
 		}).fail(function(error){
 			alert("에러");
 		});
-		
-}
+			
+	}
 </script>
 <style>
 

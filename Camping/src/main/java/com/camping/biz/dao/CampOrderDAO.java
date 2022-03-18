@@ -13,32 +13,32 @@ import utils.Criteria;
 
 @Repository
 public class CampOrderDAO {
-	
+
 	@Autowired
 	private SqlSessionTemplate mybatis;
-	
-	// ¿¹¾à Á¤º¸ INSERT
+
+	// ì˜ˆì•½ ì •ë³´ INSERT
 	public void insertCampOrder(CampOrderVO vo) {
 		mybatis.insert("mappings.campOrder-mapping.insertCampOrder", vo);
 	}
-	
-	// ¿¹¾à¸¶°¨ Ã³¸®¸¦ À§ÇØ Ã¼Å©ÀÎ³¯Â¥¸¦ ±âÁØÀ¸·Î ¿¹¾à³»¿ª Á¶È¸
-	public List<CampOrderVO> getCampOrderList(String indate){
+
+	// ì˜ˆì•½ë§ˆê° ì²˜ë¦¬ë¥¼ ìœ„í•´ ì²´í¬ì¸ë‚ ì§œë¥¼ ê¸°ì¤€ìœ¼ë¡œ ì˜ˆì•½ë‚´ì—­ ì¡°íšŒ
+	public List<CampOrderVO> getCampOrderList(String indate) {
 		return mybatis.selectList("mappings.campOrder-mapping.getCampOrderList", indate);
 	}
-	
-	// ¿¹¾à¹øÈ£¸¦ Á¶°ÇÀ¸·Î ¿¹¾à³»¿ª ÇÑ°Ç Á¶È¸
-	public CampOrderVO getMyCampOrder(int oseq){
+
+	// ì˜ˆì•½ë²ˆí˜¸ë¥¼ ì¡°ê±´ìœ¼ë¡œ ì˜ˆì•½ë‚´ì—­ í•œê±´ ì¡°íšŒ
+	public CampOrderVO getMyCampOrder(int oseq) {
 		return mybatis.selectOne("mappings.campOrder-mapping.getMyCampOrder", oseq);
 	}
-	
-	// È¸¿ø id¸¦ ±âÁØÀ¸·Î ÃÑ ¿¹¾à¸ñ·Ï °¹¼ö Á¶È¸
+
+	// íšŒì› idë¥¼ ê¸°ì¤€ìœ¼ë¡œ ì´ ì˜ˆì•½ëª©ë¡ ê°¯ìˆ˜ ì¡°íšŒ
 	public int countMyOrderList(String user_id) {
 		return mybatis.selectOne("mappings.campOrder-mapping.countMyOrderList", user_id);
 	}
-	
-	// ÆäÀÌÂ¡ Ã³¸®(1~10°³¾¿ Ãâ·Â) / ÁöÁ¡ ¼±ÅÃ ±â´É
-	public List<CampOrderVO> getMyListWithPaging(Criteria criteria, String user_id){
+
+	// í˜ì´ì§• ì²˜ë¦¬(1~10ê°œì”© ì¶œë ¥) / ì§€ì  ì„ íƒ ê¸°ëŠ¥
+	public List<CampOrderVO> getMyListWithPaging(Criteria criteria, String user_id) {
 
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("criteria", criteria);
@@ -46,18 +46,17 @@ public class CampOrderDAO {
 
 		return mybatis.selectList("mappings.campOrder-mapping.MylistWithPaging", map);
 	}
-	
-	
-	
+
 	/*
-	 * °ü¸®ÀÚ ±â´É
+	 * ê´€ë¦¬ì ê¸°ëŠ¥
 	 */
-	// º»ÀÎ ÁöÁ¡ ÀüÃ¼ ¿¹¾à ÇöÈ² °¹¼ö Á¶È¸
+	
+	// ë³¸ì¸ ì§€ì  ì „ì²´ ì˜ˆì•½ í˜„í™© ê°¯ìˆ˜ ì¡°íšŒ
 	public int countOrderList(String camp_name) {
 		return mybatis.selectOne("mappings.campOrder-mapping.countOrderList", camp_name);
 	}
-	
-	// ¿¹¾à³»¿ª ÆäÀÌÂ¡Ã³¸®
+
+	// ì˜ˆì•½ë‚´ì—­ í˜ì´ì§•ì²˜ë¦¬
 	public List<CampOrderVO> getListWithPaging(Criteria criteria, String camp_name) {
 
 		HashMap<String, Object> map = new HashMap<>();
@@ -66,13 +65,13 @@ public class CampOrderDAO {
 
 		return mybatis.selectList("mappings.campOrder-mapping.listWithPaging", map);
 	}
-	
-	// ÀüÃ¼ÁöÁ¡ ÃÑ ¿¹¾×ÇöÈ² °¹¼öÁ¶È¸
+
+	// ì „ì²´ì§€ì  ì´ ì˜ˆì•¡í˜„í™© ê°¯ìˆ˜ì¡°íšŒ
 	public int countAllOrderList() {
 		return mybatis.selectOne("mappings.campOrder-mapping.countAllOrderList");
 	}
-	
-	// ÀüÃ¼ ¿¹¾à³»¿ª ÆäÀÌÂ¡Ã³¸®
+
+	// ì „ì²´ ì˜ˆì•½ë‚´ì—­ í˜ì´ì§•ì²˜ë¦¬
 	public List<CampOrderVO> getAllListWithPaging(Criteria criteria) {
 
 		HashMap<String, Object> map = new HashMap<>();
@@ -80,20 +79,20 @@ public class CampOrderDAO {
 
 		return mybatis.selectList("mappings.campOrder-mapping.AlllistWithPaging", map);
 	}
-	
-	// ¿¹¾à³»¿ª ÇÑ°Ç Á¶È¸
+
+	// ì˜ˆì•½ë‚´ì—­ í•œê±´ ì¡°íšŒ
 	public CampOrderVO getCampOrder(int oseq) {
 		return mybatis.selectOne("mappings.campOrder-mapping.getCampOrder", oseq);
 	}
-	
-	// ¿¹¾à»óÅÂ º¯°æ
+
+	// ì˜ˆì•½ìƒíƒœ ë³€ê²½
 	public void updateOrderStatus(int oseq) {
 		mybatis.update("mappings.campOrder-mapping.updateOrderStatus", oseq);
 	}
-	
-	// ¿¹¾à³»¿ª »èÁ¦
+
+	// ì˜ˆì•½ë‚´ì—­ ì‚­ì œ
 	public void deleteOrderByOseq(int oseq) {
 		mybatis.delete("mappings.campOrder-mapping.deleteOrderByOseq", oseq);
 	}
+	
 }
-

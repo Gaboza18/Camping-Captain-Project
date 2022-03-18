@@ -12,7 +12,7 @@ public class PayServiceImpl implements PayService {
 
 	@Autowired
 	private PayDAO pDao;
-	
+
 	@Override
 	public void insertPay(PayVO vo) {
 		pDao.insertPay(vo);
@@ -25,7 +25,7 @@ public class PayServiceImpl implements PayService {
 
 	@Override
 	public void deletePay(String tid) {
-			pDao.deletePay(tid);
+		pDao.deletePay(tid);
 	}
 
 }

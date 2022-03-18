@@ -7,28 +7,7 @@
 <title>WebStandard example</title> 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">              
 <script type="text/javascript" src="https://stdpay.inicis.com/stdjs/INIStdPay.js" charset="UTF-8"></script>      
-<!-- <script>
-	function fnGoInipay() {
-		if(!fnValidation()){
-			return;
-		}
-		
-		fnSetMerchanData();
-		
-		var frm = document.sendPayForm;
-		var radioVal = $("input[name='paymentType']:checked").val();
-		
-		if(radioVal == 'C') {
-			frm.gopaymethod.value = "Card";
-		} else if (radioVal == 'A') {
-			frm.gopaymethod.value = "DirectBank";
-		} else {
-			frm.gopaymethod.value = "";
-		}
-		
-		$("btnPay").click();
-	}
-</script> -->
+
 </head>
 
  <body onload="INIStdPay.pay('SendPayForm_id')">
@@ -55,10 +34,7 @@
         <input type="hidden"  name="timestamp" value="${timestamp}" >   <!-- 타임스템프 [TimeInMillis(Long형)] -->
         <input type="hidden"  name="signature" value="${signature}" > <!-- SHA256 Hash값 [대상: oid, price, timestamp -->
         <input type="hidden"  name="mKey" value="${mKey}" > <!-- SHA256 Hash값 [대상: mid 와 매칭되는 signkey] -->
-
    </form>
-
-	<!-- <button id="btnPay" onclick="INIStdPay.pay('SendPayForm_id')" style="padding:10px; margin-left:10%">결제요청</button> -->
-
+   
  </body>
 </html>

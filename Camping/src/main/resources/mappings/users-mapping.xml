@@ -2,114 +2,107 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mappings.users-mapping">
 
-<!-- 전체 회원 정보 조회 -->
-
-<select id="getUsers" resultType="users">
+	<!-- 전체 회원 정보 조회 -->
+	<select id="getUsers" resultType="users">
 		SELECT * FROM users where id=#{id}
-</select>
-
-<!--  users 존재여부 확인 -->
-<select id="confirmID" resultType="String">
-		SELECT password FROM users where id=#{id}
-</select>
-
-<!-- users등록  -->
-<insert id="insertUsers">
-INSERT INTO users(useq,id,password,name,birthday,phone)
-VALUES(users_useq.NEXTVAL,#{id}, #{password}, #{name},#{birthday},#{phone})
-</insert>
-
-
-
-<!-- users 전체 목록 조회 -->
-			<select id="listUsers" resultType="users">
-			SELECT * FROM users
-			WHERE name LIKE '%'||#{name}||'%'
-			ORDER BY name
-			</select>
-
-<!-- 회원탈퇴 -->
-<delete id="deleteId">
-	DELETE FROM users WHERE id= #{id} 
-
-</delete>  
-
-<select id="updateUser">
-		UPDATE users SET 
-		password = #{password}, name = #{name}, email = #{email}, phone = #{phone}
-		WHERE id= #{id} 
 	</select>
 	
+	<!--  users 존재여부 확인 -->
+	<select id="confirmID" resultType="String">
+		SELECT password FROM users where id=#{id}
+	</select>
 	
-
-<!-- 회원 ID 찾기 -->
-<select id="findId" resultType="users">
-	select * FROM users
-		WHERE name=#{name}
-</select>
-
-<!-- 회원 PWD 변경 -->
-<update id="updatePwd">
-	update users
-		set password=#{password} 
-			where id=#{id}
-</update>
-
-<!-- 회원 성별 조회를 위한 데이터 매핑 -->
-<resultMap type="com.camping.biz.dto.UsersRatio" id="genderMap">
-	<result column="gender" property="gender"/>
-	<result column="count" property="count"/>
-</resultMap>
-
-<!-- 회원별 성별 조회 -->
-<select id="getGenderRatio" resultMap="genderMap">
-SELECT gender, COUNT(gender) count
-	FROM
-		(SELECT SUBSTR(users.birthday, 7, 1),
-		    CASE 
-		        WHEN SUBSTR(users.birthday, 7, 1) IN ('1', '3', '5', '7', '9') THEN '남자'
-		        WHEN SUBSTR(users.birthday, 7, 1) IN ('2', '4', '6', '8', '0') THEN '여자'
-		        ELSE 'UNKNOWN'
-		    END gender
-		FROM users)
-		GROUP BY gender
-</select>
-
-<!-- 연령별 회원수 조회수를 위한 매핑 -->
-<resultMap type="com.camping.biz.dto.UsersAge" id="ageMap">
-	<result column="age" property="age"/>
-	<result column="count" property="count"/>
-</resultMap>
-
-<!-- 연령별 회원수 조회 -->
-<select id="getAge" resultMap="ageMap">
-select decode(floor(age/10), '1','10대', '2', '20대', '3', '30대', '4', '40대', 
-		'5', '50대', '6', '60대', '7', '70대', '8', '80대') as age, count(floor(age/10)) as count
-from
-	(select decode(SUBSTR(users.birthday,7,1),'1','19','2','19','20')||SUBSTR(users.birthday,1,6),
-     	ceil(MONTHS_BETWEEN(sysdate,to_date(decode(SUBSTR(users.birthday,7,1),'1','19','2','19','20')||SUBSTR(users.birthday,1,6))) / 12) as age
-			from users)
-group by floor(age/10)
-</select>
-
-
-
-<!-- 인증키 생성하여 이메일 보내기  -->
-<update id="updateEmailchk">
-	Update Users SET emailchk =#{emailchk} WHERE id=#{id}
-</update>
-
-<!-- 생성된 인증키,아이디 와 메일로 보낸 인증키 비교-->
-<select id = "emailchkOk" resultType="String">
-select emailchk FROM Users WHERE id=#{id}  
-</select>
-
-<update id="updateEmail">
-UPDATE USERS SET email= #{email}, status='y' WHERE id=#{id} AND emailchk=#{emailchk}
-
-</update>
-
-
-
+	<!-- users등록  -->
+	<insert id="insertUsers">
+		INSERT INTO users(useq,id,password,name,birthday,phone)
+			VALUES(users_useq.NEXTVAL,#{id}, #{password}, #{name},#{birthday},#{phone})
+	</insert>
+	
+	<!-- users 전체 목록 조회 -->
+	<select id="listUsers" resultType="users">
+		SELECT * FROM users
+			WHERE name LIKE '%'||#{name}||'%'
+				ORDER BY name
+	</select>
+	
+	<!-- 회원탈퇴 -->
+	<delete id="deleteId">
+		DELETE FROM users WHERE id= #{id} 
+	</delete>  
+	
+	<select id="updateUser">
+		UPDATE users 
+			SET password = #{password}, name = #{name}, email = #{email}, phone = #{phone}
+				WHERE id= #{id} 
+	</select>
+		
+	<!-- 회원 ID 찾기 -->
+	<select id="findId" resultType="users">
+		select * FROM users
+			WHERE name=#{name}
+	</select>
+	
+	<!-- 회원 PWD 변경 -->
+	<update id="updatePwd">
+		update users
+			set password=#{password} 
+				where id=#{id}
+	</update>
+	
+	<!-- 회원 성별 조회를 위한 데이터 매핑 -->
+	<resultMap type="com.camping.biz.dto.UsersRatio" id="genderMap">
+		<result column="gender" property="gender"/>
+		<result column="count" property="count"/>
+	</resultMap>
+	
+	<!-- 회원별 성별 조회 -->
+	<select id="getGenderRatio" resultMap="genderMap">
+	SELECT gender, COUNT(gender) count
+		FROM
+			(SELECT SUBSTR(users.birthday, 7, 1),
+			    CASE 
+			        WHEN SUBSTR(users.birthday, 7, 1) IN ('1', '3', '5', '7', '9') THEN '남자'
+			        WHEN SUBSTR(users.birthday, 7, 1) IN ('2', '4', '6', '8', '0') THEN '여자'
+			        ELSE 'UNKNOWN'
+			    END gender
+			FROM users)
+			GROUP BY gender
+	</select>
+	
+	<!-- 연령별 회원수 조회수를 위한 매핑 -->
+	<resultMap type="com.camping.biz.dto.UsersAge" id="ageMap">
+		<result column="age" property="age"/>
+		<result column="count" property="count"/>
+	</resultMap>
+	
+	<!-- 연령별 회원수 조회 -->
+	<select id="getAge" resultMap="ageMap">
+		select decode(floor(age/10), '1','10대', '2', '20대', '3', '30대', '4', '40대', 
+				'5', '50대', '6', '60대', '7', '70대', '8', '80대') as age, count(floor(age/10)) as count
+		from
+			(select decode(SUBSTR(users.birthday,7,1),'1','19','2','19','20')||SUBSTR(users.birthday,1,6),
+		     	ceil(MONTHS_BETWEEN(sysdate,to_date(decode(SUBSTR(users.birthday,7,1),'1','19','2','19','20')||SUBSTR(users.birthday,1,6))) / 12) as age
+					from users)
+		group by floor(age/10)
+	</select>
+	
+	<!-- 인증키 생성하여 이메일 보내기  -->
+	<update id="updateEmailchk">
+		Update Users 
+			SET emailchk =#{emailchk} 
+				WHERE id=#{id}
+	</update>
+	
+	<!-- 생성된 인증키,아이디 와 메일로 보낸 인증키 비교-->
+	<select id = "emailchkOk" resultType="String">
+		select emailchk FROM Users 
+			WHERE id=#{id}  
+	</select>
+	
+	<update id="updateEmail">
+		UPDATE USERS 
+			SET email= #{email}, status='y' 
+				WHERE id=#{id} AND emailchk=#{emailchk}
+	</update>
 
 </mapper>

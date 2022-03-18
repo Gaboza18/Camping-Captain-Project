@@ -104,10 +104,12 @@
 					</td>
 				</tr>
 			</c:forEach>
-			<!-- <tr><td colspan="6" style="text-align: center;"> ${paging} </td></tr> -->
 		</table>
 	</form>
+	
 	<%@ include file="order_page_area.jsp"%>
+	
 </article>
+
 <%@ include file="../admin_footer.jsp" %>
 

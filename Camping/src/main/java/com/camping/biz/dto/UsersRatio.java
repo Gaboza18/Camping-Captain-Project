@@ -7,8 +7,9 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class UsersRatio { // È¸¿ø ³²,³à ¼ºº° ºñÀ²
+public class UsersRatio { // íšŒì› ë‚¨,ë…€ ì„±ë³„ ë¹„ìœ¨
 	
-	private String gender; // È¸¿ø ¼ºº°
-	private int count; // È¸¿ø(³²,³à)È¸¿ø¼ö
+	private String gender; // íšŒì› ì„±ë³„
+	private int count; // íšŒì›(ë‚¨,ë…€)íšŒì›ìˆ˜
+	
 }

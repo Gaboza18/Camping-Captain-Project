@@ -8,6 +8,7 @@ import lombok.*;
 @Setter
 @ToString
 public class CampOrderVO {
+	
 	private int oseq;
 	private String camp_name;
 	private String camp_zone;
@@ -20,4 +21,5 @@ public class CampOrderVO {
 	private String order_phone;
 	private String order_email;
 	private String order_status;
+	
 }

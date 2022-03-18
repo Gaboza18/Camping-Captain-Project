@@ -34,7 +34,7 @@
 				<td>${adminnoticeVO.count}</td>
 			</tr>
 		</table><br>
-		<input class="btn"  type="button" value="목록" onclick="history.go(-1);">
+		<input class="btn" type="button" value="목록" onclick="history.go(-1);">
 	</form>
 </div>
 

@@ -6,6 +6,7 @@ import lombok.*;
 @Setter
 @ToString
 public class CampingVO {
+	
 	private int camp_id;
 	private String camp_name;
 	private String camp_addr;
@@ -16,4 +17,5 @@ public class CampingVO {
 	private int weekend_price;
 	private String car_camp;
 	private String image;
+	
 }

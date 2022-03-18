@@ -5,12 +5,13 @@ import com.camping.biz.dto.TempOrderVO;
 
 public interface TempOrderService {
 	
-	// ÀÓ½Ã ¿¹¾àÁ¤º¸ insert
+	// ì„ì‹œ ì˜ˆì•½ì •ë³´ insert
 	public void insertTempOrder(TempOrderVO vo);
 
-	// ÀÓ½Ã ¿¹¾à¹øÈ£¸¦ ±âÁØÀ¸·Î ÇÑ°Ç Á¶È¸
+	// ì„ì‹œ ì˜ˆì•½ë²ˆí˜¸ë¥¼ ê¸°ì¤€ìœ¼ë¡œ í•œê±´ ì¡°íšŒ
 	public TempOrderVO getTempOrder(String temp_id);
 	
-	// ½Ç°áÁ¦ ¼º°ø ½Ã ÀÓ½ÃÅ×ÀÌºí »èÁ¦
+	// ì‹¤ê²°ì œ ì„±ê³µ ì‹œ ì„ì‹œí…Œì´ë¸” ì‚­ì œ
 	public void deleteTempOrder(String temp_id);
+	
 }
