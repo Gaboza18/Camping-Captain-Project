@@ -12928,6 +12928,7 @@ div#myreview_list_form article form#review_list1 table td input.btn:hover {
 div#myreview_list_form article form[name=myreview] table#myreviewList {
 	margin: auto;
 	text-align: center;
+	background-color: #212529;
 }
 
 div#myreview_list_form article form[name=myreview] table#myreviewList td a {

@@ -94,9 +94,6 @@
 											onclick="javascript:location.href=('changestatus?useq=${UsersVO.useq}&id=${UsersVO.id}')">블랙리스트추가</button>--> 		
 										</tr>
 									</c:forEach>
-									<tr>
-										<td colspan="6" style="text-align: center;">${paging}</td>
-									</tr>
 								</c:otherwise>
 							</c:choose>
 						</table>
@@ -123,7 +120,7 @@
 							<c:choose>
 								<c:when test="${usersListSize<=0}">
 									<tr>
-										<td width="100%" colspan="7" align="center" height="23">등록된 블랙리스트가 없습니다.</td>
+										<td colspan="7" align="center" height="23">등록된 블랙리스트가 없습니다.</td>
 									</tr>
 								</c:when>
 								<c:otherwise>

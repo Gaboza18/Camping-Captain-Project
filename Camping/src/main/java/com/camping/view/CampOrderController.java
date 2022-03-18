@@ -65,6 +65,12 @@ public class CampOrderController {
 	private UsersService usersService;
 	@Autowired
 	private PayService payService;
+	
+	@RequestMapping(value = "/index_reload", method = RequestMethod.GET)
+	public String home(Model model) {
+		
+		return "NewFile"; // index.jsp 화면을 호출
+	}
 
 	/*
 	 * 캠핑장 예약하기
@@ -144,7 +150,7 @@ public class CampOrderController {
 		/*
 		 * 결제 후 처리
 		 */
-		String retUrl = "NewFile";
+		String retUrl = "redirect: index_reload";
 
 		HttpSession hSession = request.getSession();
 
