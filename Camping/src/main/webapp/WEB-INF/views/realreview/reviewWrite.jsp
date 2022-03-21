@@ -7,9 +7,9 @@
 <div id="review_write_form" align="center">
 	<h2> 리얼 리뷰 작성하기 </h2>
     <h5> 고객님의 소중한 후기에 부족들은 감사하고 있습니다.</h5>    
-	<form name="formm" method="post" action="insertReview">	
+	<form name="formm" method="post" id="review" action="insertReview">	
 	    <label>Title</label>
-	    <input type="text" name="title" value="${RealReviewVO.title}" size="45">
+	    <input type="text" name="title" id="title" value="${RealReviewVO.title}" size="45">
 		
 		<select name="campingname"id="campingname">
 			<c:forEach items="${conditionBranchMap}" var="option">
@@ -20,11 +20,12 @@
 	 	<br> 
 	 	<input type="text" class="class" name="id" id="id" value="${UsersVO.id}" style="display:none">
 		<label class="contentname">Content</label>
-	    <textarea rows="8" cols="65" name="content"></textarea>
+	    <textarea rows="8" cols="65" name="content" id="content"></textarea>
 		<div class="clear"></div>
 	 	<div id="buttons">
-			<input type="submit" value="글쓰기" class="submit"> 
+			<input type="button" value="글쓰기" class="submit" onclick="input_review()"> 
 			<input type="reset" value="취소" class="cancel">
+			<input type="button" value="목록" onclick="location.href='review_list'">
 		</div>
 	</form>
 </div>

@@ -13,8 +13,8 @@
 			<label class="contentname">내용</label>
 			<textarea rows="8" cols="65" name="content" id="content"></textarea><br>
 			<div id="buttons">
-				<input type="button" value="글쓰기" class="submit" onclick="qna_chk()">
-				<input type="reset" value="취소" class="cancel">
+				<input type="button" value="글쓰기" class="submit" onclick="location.href='review_list'">
+				<input type="reset" value="다시쓰기" class="cancel">
 			</div>
 		</form>	
 	</article>			
