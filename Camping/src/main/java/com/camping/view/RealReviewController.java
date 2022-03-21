@@ -399,6 +399,40 @@ public class RealReviewController {
 
 	}
 	
+	@RequestMapping(value = "/delete_myreview", method = RequestMethod.GET)
+	public String deleteMyreviews(@RequestParam(value = "rseq") int rseq, HttpSession session, Model model,
+			Criteria criteria, String title) throws Exception {
+
+		UsersVO loginUser = (UsersVO) session.getAttribute("loginUser");
+		
+		if (loginUser == null) {
+			return "Users/login";
+		} else {
+			reviewsService.deletereviews(rseq);
+
+			RealReviewVO rVo = new RealReviewVO();
+			rVo.setId(loginUser.getId());
+			rVo.setTitle(title);
+			
+
+			List<RealReviewVO> myreviewList = reviewsService.getListWithPaging2(criteria, loginUser.getId(), title);
+
+			// 화면에 표시할 페이지 버튼 정보 설정
+			PageMaker pageMaker = new PageMaker();
+			int totalCount = reviewsService.countReviewlist2(rVo);
+
+			pageMaker.setCriteria(criteria);
+			pageMaker.setTotalCount(totalCount);
+
+			model.addAttribute("myreviewListSize", myreviewList.size());
+			model.addAttribute("pageMaker", pageMaker);
+			model.addAttribute("myreviewList", myreviewList);
+
+			return "mypage/myreviewList";
+		}
+
+	}
+	
 	@ModelAttribute("conditionBranchMap")
 	public Map<String, String> searchConditionBranchMap() {
 		Map<String, String> conditionMap = new LinkedHashMap<>();

@@ -12992,6 +12992,10 @@ div#myreview_detail_form form#reviewdetail input.btn:hover {
 	background-color:  rgb(230, 177, 0);
 }
 
+div#myreview_detail_form form#reviewdetail input[type=submit] {
+	margin-left: 0;
+}
+
 /* 예약 정보 입력 페이지 인원선택 칸 */
 .form-control_people {
 	width: 89%;
