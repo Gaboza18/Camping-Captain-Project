@@ -34,8 +34,7 @@
 	    <form id="usermodify" action="usermodify" method="post" name="formm">
 			<h4>${sessionScope.loginUser.name}(${sessionScope.loginUser.id})부족님 반갑습니다.</h4><br>
 	        				
-          <input type="hidden" name="id" value="${users.id}">
-          <input type="hidden" name="email" id="id" value="${id}"> 
+          	<input type="hidden" name="id" value="${users.id}">
 	        
 	        <label>Password</label> 
 	        <input type="password"  name="password" id="password"><br>
