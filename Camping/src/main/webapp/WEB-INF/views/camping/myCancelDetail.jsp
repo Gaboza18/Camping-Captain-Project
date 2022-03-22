@@ -17,14 +17,15 @@
 	body {
 		background-color: #212529;
 		color: white;
+		text-align: center;
 	}
 	
 	body h4 {
-		text-align: center;
+		margin: 15px auto;
 	}
 
 	table {
-		margin-left: 12.5%;
+		margin: 2px auto;
 	}
 	
 	table th {
@@ -32,10 +33,25 @@
 		text-align: left;
 	}
 	
+	table td {
+		width: 200px;
+		text-align: left;
+	}
+	
 	table td input {
 		border-radius: 12px;
 		padding: 3px 8px;
 		text-align: center;
+	}
+	
+	table td textarea {
+		border-radius: 12px;
+		padding: 1px 8px;
+	}
+	
+	body span {
+		text-align: center;
+		margin: 10px auto;
 	}
 	
 	div#button button {
@@ -54,10 +70,10 @@
 </head>
 <body>
 	<c:if test="${myCancelDetail.status == 'y'}">
-		<h4><span style="color: blue;">취소 완료</span>입니다.</h4>
+		<h4><span style="color: rgb(148, 170, 255);">취소 완료</span>입니다.</h4>
 	</c:if>
 	<c:if test="${myCancelDetail.status == 'n'}">
-		<h4><span style="color: red;">취소 진행 중</span>입니다.</h4>
+		<h4><span style="color: rgb(255, 140, 140);">취소 진행 중</span>입니다.</h4>
 	</c:if>
 	
 	<table>
@@ -119,12 +135,13 @@
 		        <td><textarea name="reason" id="reason" rows="5" cols="30" style="resize: none;" readOnly="readonly">
 		        		${myCancelDetail.reason}
 		        	</textarea>
-		        	<br>
-		        	<span style="color: blue;">캠핑장 사정으로 인해 예약이 취소 된 점에 사과드립니다.</span>
 		        </td>
       		</tr>
       	</c:if>
 	</table>
+	<c:if test="${myCancelDetail.reason != null}">
+		 <span style="color: rgb(148, 170, 255);">캠핑장 사정으로 인해 예약이 취소 된 점에 사과드립니다.</span>
+    </c:if>
 	<div id="button" align="center">
 		<button type="button" onclick="btnClose()" style="text-align: center;">닫기</button>
 	</div>
