@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mappings.campOrderCancel-mapping">
+
+	<!-- 마이페이지에서 예약조회 후 취소 신청 시 취소테이블에 insert -->
+	<insert id="insertCancelMyOrder">
+		INSERT INTO campordercancel(cseq, oseq, usersid, camp_name, camp_zone, indate, outdate, order_name, 
+		       						order_people, order_phone, order_email, total_price, cancelprice, cancelnet) 
+		VALUES(camp_cancel_seq.NEXTVAL, #{oseq}, #{usersid}, #{camp_name}, #{camp_zone}, #{indate}, #{outdate}, #{order_name}, 
+		       #{order_people}, #{order_phone}, #{order_email}, #{total_price}, #{cancelprice}, #{cancelnet})
+	</insert>
+	
+	<!-- 회원이 본인의 취소내역 조회 -->
+	<!-- 대기중인 취소목록 갯수 조회 -->
+	<select id="countMyNonCancelList" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM campordercancel 
+		 WHERE usersid=#{usersid}
+		   AND status='n'
+	</select>
+	
+	<!-- 총 취소내역 현황 목록 갯수 조회 -->
+	<select id="countMyCancelList" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM campordercancel 
+		 WHERE usersid=#{usersid}
+	</select>
+	
+	<!-- 페이징 처리(1~10개씩 출력) -->
+	<select id="MylistWithPaging" parameterType="hashMap" resultType="cancel">
+		<![CDATA[
+		
+			SELECT cseq, oseq, camp_name, camp_zone, indate, outdate, order_name, order_people, order_phone, order_email, 
+					total_price, cancelprice, cancelnet, cancel_date, reason, status
+				FROM
+					(SELECT row_number() over(ORDER BY cancel_date DESC) rn, cseq, oseq, camp_name, camp_zone, indate, outdate, 
+											order_name, order_people, order_phone, order_email, total_price, cancelprice, cancelnet, cancel_date, reason, status
+						FROM campordercancel 
+							WHERE usersid=#{usersid}	
+					)
+					WHERE rn<=#{criteria.pageNum} * #{criteria.rowsPerPage}  
+						AND rn>=(#{criteria.pageNum}-1) * #{criteria.rowsPerPage}
+		]]>
+	</select>
+	
+	<!-- 관리자 기능 -->
+	<!-- 본인 지점 예약 취소현황 -->
+	<!-- 총 예약취소현황 목록 갯수 조회 -->
+	<select id="countOrderList" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM campordercancel 
+		 WHERE camp_name=#{camp_name}
+	</select>
+	
+	<!-- 페이징 처리(1~10개씩 출력) / 지점 선택 기능 -->
+	<select id="listWithPaging" parameterType="hashMap" resultType="cancel">
+		<![CDATA[
+		
+			SELECT cseq, oseq, usersid, camp_name, camp_zone, indate, outdate, order_name, order_people, order_phone, order_email, 
+					total_price, cancelprice, cancelnet, cancel_date, reason, status
+				FROM
+					(SELECT row_number() over(ORDER BY cancel_date DESC) rn, cseq, oseq, usersid, camp_name, camp_zone, indate, outdate, 
+											order_name, order_people, order_phone, order_email, total_price, cancelprice, cancelnet, cancel_date, reason, status
+						FROM campordercancel 
+							WHERE camp_name=#{camp_name}	
+					)
+					WHERE rn<=#{criteria.pageNum} * #{criteria.rowsPerPage}  
+						AND rn>=(#{criteria.pageNum}-1) * #{criteria.rowsPerPage}
+		]]>
+	</select>
+	
+	<!-- 전체 예약취소현황 목록 갯수 조회 -->
+	<select id="countAllOrderList" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM campordercancel 
+	</select>
+	
+	<!-- 페이징 처리(1~10개씩 출력) /-->
+	<select id="AlllistWithPaging" parameterType="hashMap" resultType="cancel">
+		<![CDATA[
+		
+			SELECT cseq, oseq, usersid, camp_name, camp_zone, indate, outdate, order_name, order_people, order_phone, order_email, 
+					total_price, cancelprice, cancelnet, cancel_date, reason, status
+				FROM
+					(SELECT row_number() over(ORDER BY cancel_date DESC) rn, cseq, oseq, usersid, camp_name, camp_zone, indate, outdate, 
+											order_name, order_people, order_phone, order_email, total_price, cancelprice, cancelnet, cancel_date, reason, status
+						FROM campordercancel 
+					)
+					WHERE rn<=#{criteria.pageNum} * #{criteria.rowsPerPage}  
+						AND rn>=(#{criteria.pageNum}-1) * #{criteria.rowsPerPage}
+		]]>
+	</select>
+	
+	<!-- 취소내역 한건 조회 -->
+	<select id="getCancelOrder" parameterType="int" resultType="cancel">
+		SELECT*FROM campordercancel WHERE cseq=#{cseq}
+	</select>
+	
+	<!-- 관리자가 예약 취소 시 취소 테이블에 insert -->
+	<insert id="insertOrderCancel">
+		INSERT INTO campordercancel(cseq, oseq, usersid, camp_name, camp_zone, indate, outdate, order_name, 
+		       						order_people, order_phone, order_email, total_price, cancelprice, reason, status) 
+		VALUES(camp_cancel_seq.NEXTVAL, #{oseq}, #{usersid}, #{camp_name}, #{camp_zone}, #{indate}, #{outdate}, #{order_name}, 
+		       #{order_people}, #{order_phone}, #{order_email}, #{total_price}, #{cancelprice}, #{reason}, 'y')
+	</insert>
+	
+	<!-- 취소신청 확정 시 취소진행상태 'y'로 변경 -->
+	<!-- 예약 확정 시 예약상태 변경 -->
+	<update id="updateCancelStatus">
+		UPDATE campordercancel SET status='y' WHERE cseq=#{cseq}
+	</update>
+	
+</mapper>  

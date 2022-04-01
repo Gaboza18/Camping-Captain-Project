@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mappings.tempOrder-mapping">
+
+	<!-- 예약정보 임시 insert -->
+	<insert id="insertTempOrder">
+		INSERT INTO temp_order(temp_id, camp_name, camp_zone, indate, outdate, user_id, order_name, order_people, order_phone, order_email, total_price)
+		VALUES(#{temp_id}, #{camp_name}, #{camp_zone}, #{indate}, #{outdate},
+		 		#{user_id}, #{order_name}, #{order_people}, #{order_phone}, #{order_email}, #{total_price})
+	</insert>
+	
+	<!-- 임시 예약번호를 기준으로 한건 조회 -->
+	<select id="getTempOrder" resultType="tempOrder">
+		SELECT * FROM temp_order WHERE temp_id=#{temp_id}
+	</select>
+	
+	<!-- 실결제 성공 시 임시테이블 삭제 -->
+	<delete id="deleteTempOrder">
+		DELETE FROM temp_order WHERE temp_id=#{temp_id}
+	</delete>
+	
+</mapper> 

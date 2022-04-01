@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mappings.question-mapping">
+	
+	<!-- 전체 자주묻는질문 조회 -->
+	<select id="listAllQuestion" resultType="question">
+		SELECT * FROM questions
+			ORDER BY qseq DESC
+	</select>
+	
+	<!-- 자주묻는질문 상세보기 -->
+	<select id="detailQuestion" resultType="question">
+		SELECT qseq,question,reply
+			FROM questions
+				WHERE qseq=#{qseq}
+	</select>
+	
+	<!-- 자주묻는 질문 등록하기: 총관리자 -->
+	<insert id="insertQuestion">
+		INSERT INTO questions(qseq, question, reply)
+			VALUES(questions_seq.nextval, #{question}, #{reply})
+	</insert>
+	
+	<!-- 자주묻는 질문 수정하기: 총관리자 -->
+	<update id="updateQuestion">
+		UPDATE questions 
+			set question=#{question},reply=#{reply} 
+				where qseq=#{qseq}
+	</update>
+	
+	<!-- 자주묻는 질문 삭제하기: 총관리자 -->
+	<delete id="deleteQuestion" parameterType="int">
+		DELETE FROM questions WHERE qseq=#{qseq}	
+	</delete>
+	 
+</mapper>

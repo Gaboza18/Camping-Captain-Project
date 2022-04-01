@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mappings.calculate-mapping">
+	
+	<!-- 정산 컬럼 데이터 매핑 -->
+	<resultMap type="com.camping.biz.dto.CalculateVO" id="calculateMap">
+		<result column="indate" property="indate"/>
+		<result column="camp_name" property="camp_name"/>
+		<result column="total_price" property="total_price"/>
+	</resultMap>
+	
+	
+	<!-- 시작년도 - 끝나는 년도로 연간 정산 조회: 총관리자 --> 
+	<select id="searchYearCalculate" parameterType="hashMap" resultMap="calculateMap">
+			select TO_CHAR(indate,'yyyy') as indate, camp_name, SUM(total_price) as total_price
+    			from camp_order
+        			where order_status='y' AND TO_CHAR(indate,'yyyy') between #{startYear} and #{endYear}
+            			group by TO_CHAR(indate,'yyyy'),camp_name
+	</select>
+	
+	<!-- 전체 지점 월 별 정산 조회: 총관리자 -->
+
+	<select id="searchYearMonthCalculate" parameterType="hashMap" resultMap="calculateMap">
+		select TO_CHAR(indate,'yyyymm') as indate,camp_name,SUM(total_price) as total_price
+			FROM camp_order
+				WHERE order_status='y' AND TO_CHAR(indate,'yyyymm') between #{startYearMonth} and #{endYearMonth}
+					group by TO_CHAR(indate,'yyyymm'),camp_name
+	</select>
+
+	<!-- 전체 지점 일일 별 정산 조회: 총관리자 -->
+	<select id="getAllpointCalculateDay" resultMap="calculateMap">
+		select TO_CHAR(indate,'yyyy-mm-dd') as indate,camp_name,SUM(total_price) as total_price
+			FROM camp_order
+				WHERE order_status='y'
+					group by TO_CHAR(indate,'yyyy-mm-dd'),camp_name
+	</select>
+	
+	<!-- 각 지점 연 도별 정산 조회: 지점관리자-->
+	<select id="branchCalculateYear" resultMap="calculateMap">
+		select TO_CHAR(indate,'yyyy') as indate,camp_name,SUM(total_price) as total_price
+			FROM camp_order
+				WHERE order_status='y' AND camp_name LIKE '%'||#{name}||'%'
+					group by TO_CHAR(indate,'yyyy'),camp_name
+	</select>
+	
+	<!-- 각 지점 월 별 정산 조회: 지점관리자 -->
+	<select id="branchCalculateMonth" resultMap="calculateMap">
+		select TO_CHAR(indate,'yyyy-mm') as indate,camp_name,SUM(total_price) as total_price
+			FROM camp_order
+				WHERE order_status='y' AND camp_name LIKE '%'||#{name}||'%'
+					group by TO_CHAR(indate,'yyyy-mm'),camp_name
+	</select>
+	
+	<!-- 각 지점 일일 정산 조회: 지점관리자 -->
+	<select id="branchCalculateDay" resultMap="calculateMap">
+		select TO_CHAR(indate,'yyyy-mm-dd') as indate,camp_name,SUM(total_price) as total_price
+			FROM camp_order
+				WHERE order_status='y' AND camp_name LIKE '%'||#{name}||'%'
+					group by TO_CHAR(indate,'yyyy-mm-dd'),camp_name
+	</select>
+	
+
+</mapper>

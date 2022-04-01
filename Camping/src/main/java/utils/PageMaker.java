@@ -4,53 +4,53 @@ import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 /*
- *  È­¸é¿¡ Ç¥½ÃÇÒ ÆäÀÌÁö ¹öÆ° Á¤º¸ ÀúÀå Å¬·¡½º
+ *  í™”ë©´ì— í‘œì‹œí•  í˜ì´ì§€ ë²„íŠ¼ ì •ë³´ ì €ì¥ í´ë˜ìŠ¤
  */
 
 public class PageMaker {
 
-	private Criteria criteria; // ÇöÀç ÆäÀÌÁö¹øÈ£, ÆäÀÌÁö ´ç Ç×¸ñ ¼ö
-	private int totalCount; // ÀüÃ¼ °Ô½Ã±ÛÀÇ ¼ö
-	private int startPage; // ½ÃÀÛ ÆäÀÌÁö ¹øÈ£
-	private int endPage; // ³¡ ÆäÀÌÁö ¹øÈ£
-	private boolean prev; // ÀÌÀü ÆäÀÌÁö ¹öÆ° À¯¹«
-	private boolean next; // ´ÙÀ½ ÆäÀÌÁö ¹öÆ° À¯¹«
-	private int cntPageNum = 10; // È­¸é ÇÏ´Ü¿¡ Ç¥½ÃÇÒ ÆäÀÌÁö ¹öÆ°ÀÇ ¼ö
-	private int realEndPage; // ÀüÃ¼ Ç×¸ñ¼ö¿¡ µû¸¥ ½ÇÁ¦ ³¡ÆäÀÌÁö ¹øÈ£
+	private Criteria criteria; // í˜„ì¬ í˜ì´ì§€ë²ˆí˜¸, í˜ì´ì§€ ë‹¹ í•­ëª© ìˆ˜
+	private int totalCount; // ì „ì²´ ê²Œì‹œê¸€ì˜ ìˆ˜
+	private int startPage; // ì‹œì‘ í˜ì´ì§€ ë²ˆí˜¸
+	private int endPage; // ë í˜ì´ì§€ ë²ˆí˜¸
+	private boolean prev; // ì´ì „ í˜ì´ì§€ ë²„íŠ¼ ìœ ë¬´
+	private boolean next; // ë‹¤ìŒ í˜ì´ì§€ ë²„íŠ¼ ìœ ë¬´
+	private int cntPageNum = 10; // í™”ë©´ í•˜ë‹¨ì— í‘œì‹œí•  í˜ì´ì§€ ë²„íŠ¼ì˜ ìˆ˜
+	private int realEndPage; // ì „ì²´ í•­ëª©ìˆ˜ì— ë”°ë¥¸ ì‹¤ì œ ëí˜ì´ì§€ ë²ˆí˜¸
 
-	// ÀüÃ¼ °Ô½Ã±ÛÀÇ ¼ö ÀúÀå ¹× ¸â¹öº¯¼ö ÃÊ±âÈ­ ¼öÇà
+	// ì „ì²´ ê²Œì‹œê¸€ì˜ ìˆ˜ ì €ì¥ ë° ë©¤ë²„ë³€ìˆ˜ ì´ˆê¸°í™” ìˆ˜í–‰
 	public void setTotalCount(int totalCount) {
 		this.totalCount = totalCount;
 
-		// °¢ ¸â¹öº¯¼ö ÃÊ±âÈ­ È£Ãâ
+		// ê° ë©¤ë²„ë³€ìˆ˜ ì´ˆê¸°í™” í˜¸ì¶œ
 		fieldInit();
 	}
 
-	// ¸â¹ö º¯¼ö ÃÊ±âÈ­
+	// ë©¤ë²„ ë³€ìˆ˜ ì´ˆê¸°í™”
 	public void fieldInit() {
 
-		// (1) Ç¥½ÃÇÒ ³¡ ÆäÀÌÁö¹øÈ£ °è»ê(Math.ceil = ¿Ã¸²Ã³¸®)
+		// (1) í‘œì‹œí•  ë í˜ì´ì§€ë²ˆí˜¸ ê³„ì‚°(Math.ceil = ì˜¬ë¦¼ì²˜ë¦¬)
 		endPage = (int) (Math.ceil(criteria.getPageNum() / (double) cntPageNum) * cntPageNum);
 
-		// (2) ½ÃÀÛ ÆäÀÌÁö¹øÈ£ °è»ê
+		// (2) ì‹œì‘ í˜ì´ì§€ë²ˆí˜¸ ê³„ì‚°
 		startPage = endPage - cntPageNum + 1;
 
-		// (3) ½ÇÁ¦ ³¡ ÆäÀÌÁö ¹øÈ£ °è»ê
-		// ½ÇÁ¦ ³¡ ÆäÀÌÁö ¹øÈ£ = Math.ceil(°Ô½Ã±ÛÀÇ ÃÑ Ç×¸ñ ¼ö / ÆäÀÌÁö´ç Ç×¸ñ ¼ö)
+		// (3) ì‹¤ì œ ë í˜ì´ì§€ ë²ˆí˜¸ ê³„ì‚°
+		// ì‹¤ì œ ë í˜ì´ì§€ ë²ˆí˜¸ = Math.ceil(ê²Œì‹œê¸€ì˜ ì´ í•­ëª© ìˆ˜ / í˜ì´ì§€ë‹¹ í•­ëª© ìˆ˜)
 		realEndPage = (int) (Math.ceil(totalCount / (double) criteria.getRowsPerPage()));
 
-		// ½ÇÁ¦ ³¡ ÆäÀÌÁöÀÇ ¹øÈ£·Î endPage ¼öÁ¤
+		// ì‹¤ì œ ë í˜ì´ì§€ì˜ ë²ˆí˜¸ë¡œ endPage ìˆ˜ì •
 		if (endPage > realEndPage) {
 			endPage = realEndPage;
 		}
 
-		// ÀÌÀü¹öÆ°, ´ÙÀ½¹öÆ° Ç¥½Ã ¿©ºÎ °áÁ¤
-		prev = startPage == 1 ? false : true; // ½ÃÀÛÆäÀÌÁö°¡ 1ÆäÀÌÁö ÀÏ °æ¿ì ÀÌÀü¹öÆ° ÇÊ¿ä ¾øÀ½
+		// ì´ì „ë²„íŠ¼, ë‹¤ìŒë²„íŠ¼ í‘œì‹œ ì—¬ë¶€ ê²°ì •
+		prev = startPage == 1 ? false : true; // ì‹œì‘í˜ì´ì§€ê°€ 1í˜ì´ì§€ ì¼ ê²½ìš° ì´ì „ë²„íŠ¼ í•„ìš” ì—†ìŒ
 		next = endPage * criteria.getRowsPerPage() < totalCount ? true : false;
 	}
 
 	/*
-	 * È­¸é¿¡¼­ ÆäÀÌÁö ¹øÈ£¸¦ Ãâ·ÂÇÏ¸é, ÆäÀÌÁö ¹øÈ£¿Í ÆäÀÌÁö´ç Ç×¸ñ ¼ö¸¦ ÀÌ¿ëÇÏ¿© URLÀÇ QueryStringÀ» ¸¸µé¾î ÁÖ´Â ¸Ş¼Òµå ex)
+	 * í™”ë©´ì—ì„œ í˜ì´ì§€ ë²ˆí˜¸ë¥¼ ì¶œë ¥í•˜ë©´, í˜ì´ì§€ ë²ˆí˜¸ì™€ í˜ì´ì§€ë‹¹ í•­ëª© ìˆ˜ë¥¼ ì´ìš©í•˜ì—¬ URLì˜ QueryStringì„ ë§Œë“¤ì–´ ì£¼ëŠ” ë©”ì†Œë“œ ex)
 	 * ?pageNum=3&rowPerPage=10
 	 */
 	public String makeQuery(int page) {
@@ -61,7 +61,7 @@ public class PageMaker {
 		return uriComp.toString();
 	}
 
-	// ¸â¹öº¯¼ö, Getter / Setter
+	// ë©¤ë²„ë³€ìˆ˜, Getter / Setter
 	public Criteria getCriteria() {
 		return criteria;
 	}
